@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Maria das Graças Volpe Nunes">
+<meta name="author" content="Tayane Arantes Soares">
+<meta name="author" content="Mariza Ferro">
+
+<title>20&nbsp; Questões éticas em IA e PLN – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" rel="next">
+<link href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html"><strong>Desafios e Perspectivas</strong></a></li><li class="breadcrumb-item"><a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#ética-em-ia" id="toc-ética-em-ia" class="nav-link active" data-scroll-target="#ética-em-ia"><span class="header-section-number">20.1</span> Ética em IA</a></li>
+  <li><a href="#sec-cap-etica-etica-pln" id="toc-sec-cap-etica-etica-pln" class="nav-link" data-scroll-target="#sec-cap-etica-etica-pln"><span class="header-section-number">20.2</span> Ética em PLN</a></li>
+  <li><a href="#modelos-de-língua-como-fonte-de-conhecimento" id="toc-modelos-de-língua-como-fonte-de-conhecimento" class="nav-link" data-scroll-target="#modelos-de-língua-como-fonte-de-conhecimento"><span class="header-section-number">20.3</span> Modelos de língua como fonte de conhecimento?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html"><strong>Desafios e Perspectivas</strong></a></li><li class="breadcrumb-item"><a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-etica" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Maria das Graças Volpe Nunes </p>
+             <p>Tayane Arantes Soares </p>
+             <p>Mariza Ferro </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Atualizado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">13/04/2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-etica.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-controls="callout-cite" aria-expanded="false" data-bs-target=".callout-cite-contents" aria-label="Toggle callout" data-bs-toggle="collapse">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div id="callout-cite" class="callout-cite-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-etica:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Nunes, Maria das Graças Volpe and Soares, Tayane Arantes and Ferro, Mariza},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Questões éticas em IA e PLN},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {20},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/desafios-e-perspectivas/cap-etica/cap-etica.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Mais recursos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://youtu.be/-Wxr1oKD4js?si=UAWf5_JHc0xooSvV">Vídeo</a> e <a href="1o_Ciclo_PLN_BPLN-EticaIA_09102024.pdf">Slides</a> deste capítulo, e <a href="https://www.youtube.com/watch?v=7SBH_LDY7ok&amp;ab_channel=BrasileirasemPLN">Vídeo relacionado</a></p>
+</div>
+</div>
+<!--
+
+-->
+<p>Toda civilização, coletividade ou sociedade surge a partir do compartilhamento de necessidades, bens e valores comuns. A sobrevivência e a prosperidade de uma sociedade dependem de algum tipo de mediação das diferenças e da regulação do comportamento de seus integrantes. A mediação das diferenças e a regulação da conduta de indivíduos partem de pressupostos. A ética refere-se ao comportamento de indivíduos na tomada de decisões e na sua responsabilização por elas, frente aos valores compartilhados pela sociedade em que vivem.</p>
+<p>A partir do momento em que os sistemas de inteligência artificial (IA) passam a fazer parte da sociedade, interagindo com humanos e mimetizando seus comportamentos, tomando decisões com certo grau de autonomia e eventualmente colocando pessoas ou sociedades em risco, problemas de natureza ética naturalmente emergem. Nesse contexto, tem havido uma preocupação crescente com as implicações éticas dos atuais sistemas inteligentes, e a sociedade acadêmica de IA tem se movimentado para alertar e promover mudanças para minimizá-los <span class="citation" data-cites="AIExplain:2020 AIEthics:2023">(<a href="../../shared/referencias/referencias.html#ref-AIEthics:2023" role="doc-biblioref"><span>“AI and Ethics”</span>, 2023</a>; <a href="../../shared/referencias/referencias.html#ref-AIExplain:2020" role="doc-biblioref">Coeckelbergh, 2020</a>)</span>.</p>
+<section id="ética-em-ia" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="ética-em-ia"><span class="header-section-number">20.1</span> Ética em IA</h2>
+<p>Atualmente (2026), a principal tecnologia de IA para dotar seus programas com inteligência caracteriza-se por fornecer, a algoritmos criados para aprender, grandes quantidades de dados sobre aquilo que deve ser aprendido, ou seja, sobre um conceito ou uma tarefa. E, conforme já discutido no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>, se esses dados não forem coletados de maneira criteriosa, podem conter vieses que acabam por provocar comportamentos indesejáveis, incorretos ou inadequados. Isso ocorre muitas vezes por terem sido treinados com dados desbalanceados e sem curadoria, ou por terem aprendido correlações entre os dados que ou são irrelevantes para o conceito que se quer ensinar, ou carregam algum viés indesejado.</p>
+<p>Um exemplo concreto de vieses algorítmicos é relatado no documentário “<em>Coded Bias</em>” <span class="citation" data-cites="Coded:2020">(<a href="../../shared/referencias/referencias.html#ref-Coded:2020" role="doc-biblioref">Kantayya, 2020</a>)</span>. A cientista da computação Joy Buolamwini, uma mulher negra, durante a sua pesquisa sobre softwares de visão computacional no MIT (<em>Massachusetts Institute of Technology</em>), não conseguia ter seu rosto reconhecido pelo software no qual estava trabalhando. Somente após colocar uma máscara facial branca que o sistema reconheceu a máscara como sendo um rosto. As pesquisadoras Joy Buolamwini e Timnit Gebru constataram que 79,6% dos dados de treinamento desse software eram compostos por pessoas de pele clara <span class="citation" data-cites="buolamwini:2018">(<a href="../../shared/referencias/referencias.html#ref-buolamwini:2018" role="doc-biblioref">Buolamwini; Gebru, 2018</a>)</span>.</p>
+<p>Esse fato evidencia o problema estrutural que permeia a criação de ferramentas de IA, tendo em vista a pouca ou nenhuma reflexão por parte de empresas e de pessoas que desenvolvem essas soluções sobre os impactos sociais que essas ferramentas podem causar, além de pouco envolvimento da sociedade no desenvolvimento dessas soluções tecnológicas <span class="citation" data-cites="Hora:2021">(<a href="../../shared/referencias/referencias.html#ref-Hora:2021" role="doc-biblioref">Hora, 2021</a>)</span>. <span class="citation" data-cites="ONEIL:2021">O’Neil (<a href="../../shared/referencias/referencias.html#ref-ONEIL:2021" role="doc-biblioref">2021</a>)</span> relata vários outros exemplos de consequências negativas de se utilizar algoritmos de aprendizado de máquina (AM) em tomada de decisões.</p>
+<p>Casos de discriminação de raça são frequentes. A ferramenta <em>Google Fotos</em> foi acusada de rotular a imagem de um casal negro como “gorilas”, e a do <em>Flickr</em> rotulou fotos de pessoas negras como “macaco” <span class="citation" data-cites="Racismo:2021">(<a href="../../shared/referencias/referencias.html#ref-Racismo:2021" role="doc-biblioref">Cruz, 2021</a>)</span>. A pesquisa de <span class="citation" data-cites="buolamwini:2018">Buolamwini; Gebru (<a href="../../shared/referencias/referencias.html#ref-buolamwini:2018" role="doc-biblioref">2018</a>)</span> também revelou vieses de raça e de gênero em serviços de IA de empresas como Microsoft, IBM e Amazon. O então Twitter, em 2020, foi denunciado por priorizar rostos de pessoas brancas na exibição de imagens publicadas pelos usuários <span class="citation" data-cites="INFOBASE:2021">(<a href="../../shared/referencias/referencias.html#ref-INFOBASE:2021" role="doc-biblioref">INFOBASE, 2021</a>)</span>.</p>
+<p>A IA também já foi acusada de impulsionar o ódio às minorias e influenciar os resultados de eleições <span class="citation" data-cites="cavaliere_romeo:2022">(<a href="../../shared/referencias/referencias.html#ref-cavaliere_romeo:2022" role="doc-biblioref">Cavaliere; Romeo, 2022</a>)</span>, explorar fraquezas psicológicas e orientar decisões <span class="citation" data-cites="Sartori:2022">(<a href="../../shared/referencias/referencias.html#ref-Sartori:2022" role="doc-biblioref">Sartori; Theodorou, 2022</a>)</span>, causando problemas como a intensa polarização social e ameaças aos princípios democráticos e aos direitos humanos <span class="citation" data-cites="Dykinson:2021 Empoli:2019">(<a href="../../shared/referencias/referencias.html#ref-Dykinson:2021" role="doc-biblioref">Artificial intelligence and human rights., 2021</a>; <a href="../../shared/referencias/referencias.html#ref-Empoli:2019" role="doc-biblioref">Empoli, 2019</a>)</span>.</p>
+<p>Outra característica importante desses algoritmos que aprendem (ao menos na abordagem mais utilizada no ano de 2026, que são as redes neurais artificiais) é que aquilo que aprendem não é recuperável de forma compreensível a nós, ou seja, é impossível recuperar exatamente qual conhecimento foi apreendido pela máquina. Aferimos seu conhecimento apenas pelo seu comportamento numa determinada tarefa. Nesse sentido, dizemos que são obscuros, verdadeiras caixas-pretas, ou seja, não explicáveis. Essa característica indesejável deriva da tecnologia chamada <em>Deep Learning</em> <span class="citation" data-cites="Goodfellow-et-al-2016">(<a href="../../shared/referencias/referencias.html#ref-Goodfellow-et-al-2016" role="doc-biblioref">Goodfellow et al., 2016</a>)</span>, que nada mais é do que um modelo especial de redes neurais. Tais modelos desempenham muito bem, é verdade, mas não conseguimos entender como o fazem. Desse modo, a impossibilidade de se justificar suas decisões, aliada à presença cada vez mais constante desses sistemas no nosso cotidiano, tem gerado um sentimento de insegurança e desconfiança.</p>
+<p>O ChatGPT, da OpenAI <span class="citation" data-cites="OpenAI:2022">(<a href="../../shared/referencias/referencias.html#ref-OpenAI:2022" role="doc-biblioref">OpenAI, 2022</a>)</span>, de enorme repercussão no final de 2022, rapidamente teve sua reputação abalada devido à incapacidade de referenciar com exatidão a fonte de suas respostas (até porque, como foi mencionado anteriormente, é extremamente complicado recuperar com precisão o conhecimento apreendido pelo modelo a partir dos dados de treinamento <span class="citation" data-cites="MITReview:2021">(<a href="../../shared/referencias/referencias.html#ref-MITReview:2021" role="doc-biblioref">Heikkilä, 2021</a>)</span>). Consequentemente, torna-se desafiador determinar a fonte exata das respostas geradas, uma vez que o modelo atua essencialmente como um gerador de palavras prováveis ​​com base em uma entrada inicial. Para algumas situações em que essas respostas determinariam decisões ou teriam consequências importantes, a falta de confiança no sistema pode ter afastado alguns usuários. A despeito disso, no entanto, este e outros <em>chatbots</em> do mesmo tipo têm sido rapidamente adotados por usuários em suas tarefas de trabalho, seja como uma ferramenta poderosa de criação e edição de textos, seja como uma perigosa fonte de informações muitas vezes incorretas. Para saber mais sobre a tecnologia do ChatGPT, sugerimos a leitura de <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-agentes-conversacionais/cap-agentes-conversacionais.html#sec-cap-agentes-conversacionais" target="_blank" title="Volume 2">ChatGPT, MariTalk e outros agentes de conversação</a></span>.</p>
+<p>A IA remete a problemas éticos na medida em que são construídos artefatos (sistemas, robôs) que interagem com humanos (de forma direta ou indireta, visível ou ubíqua) e que o resultado dessas interações podem afetar, com algum risco, esses usuários ou a sociedade como um todo. Considerando-se que sistemas inteligentes tendem a ultrapassar barreiras físicas, sociais, temporais e culturais (tendo em vista que são usados em vários lugares do mundo), devemos nos lembrar que seus desenvolvedores sempre estarão inseridos num contexto cultural e moral específicos, o que pode entrar em conflito com os valores éticos de sociedades usuárias distintas.</p>
+<p>A fim de evitar problemas dessa natureza, em uma sociedade cada vez mais interativa com máquinas de IA, é fundamental investigar maneiras de construir esses artefatos de maneira responsável <span class="citation" data-cites="RUSSEL:2019">(<a href="../../shared/referencias/referencias.html#ref-RUSSEL:2019" role="doc-biblioref">Russel, 2019</a>)</span>. Caso contrário, essas novas tecnologias continuarão a perpetuar pontos de vista hegemônicos, reforçando e codificando preconceitos e vieses humanos que ainda lutamos para combater <span class="citation" data-cites="Gebru:2021rohtua">(<a href="../../shared/referencias/referencias.html#ref-Gebru:2021rohtua" role="doc-biblioref">Bender et al., 2021</a>)</span>. Nina da Hora, cientista da computação brasileira e pesquisadora na área de Pensamento Computacional, ressalta que, muitas vezes, a busca global pela ética em IA, por ser baseada na tentativa de manter as tecnologias que estão causando problemas, não aprofunda o entendimento e a investigação dos problemas enfrentados pelas pessoas afetadas por essas tecnologias. Segundo a pesquisadora, é necessário ir além dos aspectos técnicos ao buscar um desenvolvimento ético de sistemas de IA, e investigar também o impacto dessas novas tecnologias na vida das pessoas envolvidas <span class="citation" data-cites="MIT-Review:2022b">(<a href="../../shared/referencias/referencias.html#ref-MIT-Review:2022b" role="doc-biblioref">Hora, 2022</a>)</span>.</p>
+<!--
+Existem diversas recomendações e tentativas de regulação dos sistemas de IA ao redor do mundo, sendo que os modelos regulatórios de EUA, China e União Europeia destacam-se como as três principais propostas, apesar de haver outros modelos competitivos, como o do Canadá, por exemplo. Nos EUA o foco tem sido evitar excessos regulatórios, caminhando para cultura da autorregulação, em que princípios são declarados e segui-los é responsabilidade das empresas. Porém,  para isso há medidas concretas e rígidas sendo estabelecidas e se caminha para impor restrições e exigência de deveres para as grandes empresas. A China mantém um modelo de regulação mais impositivo com maior controle estatal, concentrado em um subconjunto de aplicações de IA, mas que trabalha para atualizar a sua regulação para uma nova lei mais abrangente. Entre os dois extremos, a União Europeia, pioneira na discussão sobre IA  [@EU:2021] aprovou em maio de 2024 a primeira Lei da Inteligência Artificial codificada (*Artificial Intelligence  Act*), uma lei baseada no risco, ou seja, quanto maior o risco de danos à sociedade, mais rigorosa será a lei. Embora prevista para entrar em vigor apenas em 2026, algumas proibições se anteciparão: fica proibido usar sistemas para pontuação social, policiamento preditivo e coleta indiscriminada de imagens faciais disponíveis na internet ou capturadas por câmeras de circuito interno. Por exemplo, o uso de vigilância biométrica pelo governo se restringirá a casos que envolvam crimes, terrorismo e busca de suspeitos de crimes graves[^cap-etica-1]. 
+-->
+<p>Existem diversas recomendações e tentativas de regulação dos sistemas de IA ao redor do mundo, sendo que os modelos regulatórios de EUA, China e União Europeia destacam-se como as três principais propostas, apesar de haver outros modelos competitivos, como o do Canadá, por exemplo. Nos EUA, com base nas análises da White &amp; Case<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> sobre o cenário regulatório em 2026, o país consolidou uma abordagem que prioriza a liderança tecnológica e a desregulamentação federal, buscando neutralizar o que o governo atual classifica como “excessos regulatórios estaduais”. Diferente do modelo europeu, os EUA não adotaram uma lei nacional abrangente, mas sim uma série de Ordens Executivas que visam remover barreiras à inovação, proteger a segurança nacional e garantir a dominância global do país no setor. A China mantém um modelo de regulação mais impositivo com maior controle estatal, concentrado em um subconjunto de aplicações de IA, mas que trabalha para atualizar a sua regulação para uma nova lei mais abrangente. Entre os dois extremos, a União Europeia, pioneira na discussão sobre IA <span class="citation" data-cites="EU:2021">(<a href="../../shared/referencias/referencias.html#ref-EU:2021" role="doc-biblioref">Commission, 2021</a>)</span> aprovou em maio de 2024 a a Lei da Inteligência Artificial (<em>Artificial Intelligence Act</em> - Regulamento UE 2024/1689 ), que estabelece regras harmonizadas em matéria de inteligência artificial, sendo o primeiro quadro jurídico abrangente sobre IA a nível mundial. O AI Act é uma lei baseada no risco, ou seja, quanto maior o risco de danos à sociedade, mais rigorosa será a lei. As proibições para aplicações de risco inaceitável, tais como sistemas para pontuação social, policiamento preditivo e reconhecimento de emoções em ambientes de trabalho e instituições de ensino, entraram em vigor em fevereiro de 2025. Já as regras para IA de alto risco tem previsão para entrarem em vigor em agosto de 2026 e agosto de 2027<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<!--
+No Brasil, o mais recente projeto de lei (PL 2338/2023) encontra-se, em 2024, em tramitação na Câmara dos Deputados e no Senado Federal. O projeto estabelece "normas gerais de caráter nacional para o desenvolvimento, implementação e uso responsável de sistemas de inteligência artificial (IA) no Brasil, com o objetivo de proteger os direitos fundamentais e garantir a implementação de sistemas seguros e confiáveis, em benefício da pessoa humana, do regime democrático e do desenvolvimento científico e tecnológico"[^cap-etica-2]. Pode-se dizer que todas as questões aqui levantadas são, na letra da lei, contempladas por esse projeto. No entanto, considerando-se o domínio absoluto de poucas e grandes *Big Techs* americanas e a complexidade e subjetividade envolvidas, o grande desafio será fiscalizar o cumprimento da lei. 
+-->
+<p>No Brasil, o projeto de lei (PL 2338/2023) estabelece o marco regulatório da IA no Brasil e o texto original teve sua aprovação no Plenário do Senado Federal em dezembro de 2024 e, no início de 2025, foi encaminhado à Câmara dos Deputadosl. O projeto estabelece “normas gerais de caráter nacional para o desenvolvimento, implementação e uso responsável de sistemas de IA no Brasil, com o objetivo de proteger os direitos fundamentais e garantir a implementação de sistemas seguros e confiáveis, em benefício da pessoa humana, do regime democrático e do desenvolvimento científico e tecnológico”<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. A proposta cria um arcabouço regulatório baseado em risco, inspirado no modelo europeu, mas com um perfil misto de regulação setorial, a chamada autorregulação regulada, onde as próprias empresas do setor definem normas de conduta, mas sob a supervisão e os limites estabelecidos pelo Estado. Pode-se dizer que todas as questões aqui levantadas são, na letra da lei, contempladas por esse projeto. No entanto, considerando-se o domínio absoluto de poucas e grandes <em>Big Techs</em> americanas e a complexidade e subjetividade envolvidas, o grande desafio será fiscalizar o cumprimento da lei. Em termos de regulações setoriais no Brasil, o Conselho Federal de Medicina (CFM) foi pioneiro e publicou em fevereiro de 2026, a Resolução CFM nº 2.454<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, que estabelece o novo marco regulatório para o uso de IA na medicina. A norma entrará em vigor em agosto de 2026 e traz obrigações relevantes para médicos e instituições de saúde.</p>
+<p>Até 2023 existiam pelo menos 200 documentos com princípios destinados a fornecer orientações normativas em relação aos sistemas baseados em IA em vários países <span class="citation" data-cites="CORREA2023100857">(<a href="../../shared/referencias/referencias.html#ref-CORREA2023100857" role="doc-biblioref">Corrêa et al., 2023</a>)</span>, nos quais destacam-se os princípios promovidos pela OCDE (Organização para a Cooperação e Desenvolvimento Econômico) para classificação e avaliação de sistemas de IA, que fomenta a universalização de critérios para políticas de IA <span class="citation" data-cites="OECD:2022">(<a href="../../shared/referencias/referencias.html#ref-OECD:2022" role="doc-biblioref">OECD, 2022</a>)</span>. Vale ainda destacar o documento da UNESCO, aprovado em novembro de 2021, reconhecendo os impactos positivos e negativos da IA nas sociedades e recomendando que os Estados-membros tomem providência quanto à violação de direitos <span class="citation" data-cites="Unesco:2022">(<a href="../../shared/referencias/referencias.html#ref-Unesco:2022" role="doc-biblioref">UNESCO, 2022</a>)</span>. O objetivo é sempre recomendar princípios para que os sistemas de IA sejam confiáveis, desenvolvidos e utilizados para o bem da humanidade e do planeta e para preservar os valores por meio da proteção, promoção e respeito aos direitos humanos fundamentais, à liberdade e à igualdade.</p>
+<p>A utilização de sistemas de IA pode afetar negativamente vários direitos fundamentais estabelecidos pela Declaração Universal dos Direitos Humanos, adotada e proclamada pela Assembleia Geral das Nações Unidas <span class="citation" data-cites="Unicef:1948">(<a href="../../shared/referencias/referencias.html#ref-Unicef:1948" role="doc-biblioref">UNICEF, 1948</a>)</span> ou por instrumentos particulares de cada país, como a Constituição Brasileira ou a Carta dos Direitos Fundamentais da União Europeia. Os direitos fundamentais são inerentes a todos os seres humanos, independentemente da sua raça, sexo, nacionalidade, etnia, idioma, religião ou qualquer outra condição. Os direitos humanos incluem o direito à vida e à liberdade, liberdade de opinião e expressão, o direito ao trabalho e à educação, entre outros.</p>
+<p>Entre os princípios mais comuns que norteiam as regulações e as recomendações para o desenvolvimento e o uso da IA ética e confiável estão a (1) justiça, diversidade e não discriminação, (2) transparência e explicabilidade, (3) robustez técnica e segurança, (4) privacidade e proteção de dados, (5) responsabilidade e prestação de contas<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<ol type="1">
+<li><p>Os princípios da justiça, diversidade e não discriminação estão intimamente ligados à promoção da justiça social e a salvaguardar a equidade e a não discriminação de qualquer tipo (gênero, raça, cor, nacionalidade, religião, língua, idade, opinião política etc.), em conformidade com o direito internacional. O objetivo é garantir a distribuição igual e justa de benefícios e custos e garantir que indivíduos e grupos estejam livres de preconceitos, injustiças, discriminação e estigmatização. Ainda, minimizar e evitar reforçar ou perpetuar resultados discriminatórios ou tendenciosos (enviesados), ao longo do ciclo de vida dos sistemas de IA <span class="citation" data-cites="Playbook:2020">(<a href="../../shared/referencias/referencias.html#ref-Playbook:2020" role="doc-biblioref">Smith; Rustagi, 2020</a>)</span>. Se preconceitos e injustiças não puderem ser evitados, os sistemas de IA podem aumentar a desigualdade social. Além disso, o uso de sistemas de IA nunca deve induzir as pessoas a serem enganadas ou prejudicar sua liberdade de escolha.</p>
+<p>Dependendo da forma como é criada e utilizada, a IA tem potencial para criar e/ou reforçar vieses humanos. O viés pode entrar no desenvolvimento e uso de um sistema de IA, especialmente por meio do uso dos algoritmos de aprendizado de máquina durante a geração, a coleta, a rotulagem e o gerenciamento dos dados com os quais o algoritmo aprende; mas também pode ser introduzido durante o design e a avaliação dos algoritmos <span class="citation" data-cites="Playbook:2020">(<a href="../../shared/referencias/referencias.html#ref-Playbook:2020" role="doc-biblioref">Smith; Rustagi, 2020</a>)</span>. Já existem muitos exemplos do uso de sistemas que utilizam AM, os quais, com base nos dados que recebem, têm apresentado resultados tendenciosos, imprecisos e injustos, os quais representam riscos imensos para indivíduos e empresas.</p>
+<p>São diversas as situações de discriminação de raça e de vieses e discriminação aos grupos minoritários ou culturas, principalmente com o uso de algoritmos de reconhecimento facial ou manipulação de imagens. Por exemplo, a dificuldade em reconhecer rostos de pessoas negras, como os exemplos mencionados no início deste capítulo, com a classificação automática de fotos de pessoas negras como “gorilas”; aplicativo que “desnudava” mulheres mostrando como as <em>deepfakes</em> prejudicam os mais vulneráveis <span class="citation" data-cites="MIT-Review:2022">(<a href="../../shared/referencias/referencias.html#ref-MIT-Review:2022" role="doc-biblioref">REVIEW, 2022</a>)</span>; aplicativos que transformam fotos em caricaturas onde os avatares das mulheres, especialmente orientais, são “pornificadas”, enquanto o dos homens são astronautas, exploradores e inventores <span class="citation" data-cites="MIT-Review:2022a">(<a href="../../shared/referencias/referencias.html#ref-MIT-Review:2022a" role="doc-biblioref">Heikkilä, 2022</a>)</span>. Além dos casos das mídias sociais, o Brasil vem sofrendo uma profusão de denúncias com o uso de sistemas de reconhecimento facial que levaram a abordagens policiais e até prisões. A Rede de Observatórios da Segurança monitorou, entre março e outubro de 2019, os casos de prisões e abordagens com o uso de reconhecimento facial em cinco estados brasileiros e revelou que 90,5% dos presos por monitoramento facial no Brasil são negros <span class="citation" data-cites="Intercept:2019">(<a href="../../shared/referencias/referencias.html#ref-Intercept:2019" role="doc-biblioref">Nunes, 2019</a>)</span>.</p>
+<p>Há duas formas para minimizar esses vieses: fazer com que os dados de treinamento reflitam fielmente o universo de situações a que o sistema final será exposto, e detectar, ainda em período de testes, os desvios prováveis e eliminá-los antes de colocar o sistema em uso. Considerando a natureza da tecnologia mais comum hoje em IA – o treinamento de redes neurais – as duas formas são de difícil execução. Quer seja porque nem sempre todos os dados são acessíveis, quer seja porque os testes são incapazes de prever todas as possibilidades, dada a complexidade da tarefa a ser realizada pelo sistema.</p></li>
+<li><p>Os princípios da transparência e explicabilidade são fundamentais para desenvolver e manter a confiança dos usuários nos sistemas de IA. Isso significa que os processos precisam ser transparentes, ou seja, o objetivo dos sistemas de IA deve ser comunicado abertamente e o usuário deve saber que está em contato com um produto ou serviço fornecido diretamente ou com o auxílio de sistemas de IA. Além disso, as decisões tomadas pelo sistema – na medida do possível – devem ser explicáveis aos afetados direta ou indiretamente. Nem sempre é possível explicar por que um modelo gerou uma determinada saída ou decisão (e qual combinação de fatores de entrada contribuiu para isso). Esses casos são chamados de algoritmos “caixa-preta” como os já mencionados algoritmos de redes neurais e suas redes neurais profundas. A comunidade de IA já se mobiliza em direção a tornar seus sistemas mais compreensíveis para seus usuários. A IA explicável (<em>Explainable AI</em>, <em>XAI</em>) é uma recente área de pesquisa que tem como objetivo propor processos e métodos para tornar os recentes sistemas de aprendizado de máquina mais compreensíveis e confiáveis. Não é tarefa fácil, mas, juntamente com esforços para combinar aprendizado de máquina com métodos simbólicos de representação de conhecimento, é esperado que testemunharemos avanços nessa área.</p></li>
+<li><p>Um componente crucial para alcançar uma IA confiável é a robustez técnica, que está intimamente ligada ao princípio da prevenção de danos. A robustez exige que os sistemas de IA se comportem conforme o planejado, sejam desenvolvidos com uma abordagem preventiva aos riscos, minimizando danos não intencionais e inesperados e evitando danos inaceitáveis. Além disso, vulnerabilidades a ataques (riscos de segurança) devem ser evitadas e eliminadas durante o ciclo de vida dos sistemas de IA para garantir proteção e segurança humana e ambiental.</p></li>
+<li><p>A privacidade e a proteção de dados devem ser respeitadas, protegidas e promovidas ao longo do ciclo de vida dos sistemas de IA. É importante que os dados destinados aos sistemas de IA sejam coletados, utilizados, compartilhados, arquivados e apagados de modo compatível com os marcos jurídicos nacionais, regionais e internacionais relevantes. Por exemplo, na legislação brasileira, a LGPD (Lei Geral de Proteção aos Dados) estabelece diretrizes para o uso dos dados pessoais <span class="citation" data-cites="LGPD:2018">(<a href="../../shared/referencias/referencias.html#ref-LGPD:2018" role="doc-biblioref">LGPD, 2018</a>)</span>. A lei similar europeia, GDPR, vai além e trata também do direito de que dados pessoais sejam apagados das bases de dados a qualquer momento, tratado como o direito ao esquecimento pelos modelos de IA.</p>
+<p>O uso de dados pessoais ocorre em diferentes contextos. Exemplos incluem o uso de dados para a identificação de supostas emoções para análise do comportamento do usuário. No caso de um cliente, por exemplo, para criar publicidade direcionada durante as compras com foco nos produtos ou em sua disposição na loja virtual, sem a transparência desejada. A ViaQuatro, empresa que tem a concessão da linha 4-amarela do metrô de São Paulo, foi processada pelo Instituto Brasileiro de Defesa do Consumidor por usar câmeras que coletavam dados referentes às “emoções” dos passageiros, e que seriam usados pela companhia, sem o consentimento dos passageiros. “O sistema inteligente conseguiria identificar se o passageiro está feliz, insatisfeito, surpreso e neutro. Além disso, detectaria o gênero e a faixa etária das pessoas. Os dados capturados seriam usados para a empresa fazer a gestão de seu conteúdo institucional e até de anúncios publicitários” <span class="citation" data-cites="Metro:2018">(<a href="../../shared/referencias/referencias.html#ref-Metro:2018" role="doc-biblioref">Cruz, 2018</a>)</span>. Mais um exemplo de uso sem transparência e desrespeito à privacidade e a proteção dos dados pessoais.</p></li>
+<li><p>A responsabilização e a prestação de contas complementam os princípios acima e estão intimamente ligadas ao princípio da justiça ao tentar garantir mecanismos que determinem as responsabilidades éticas e jurídicas pelas decisões e ações de alguma forma baseadas em um sistema de IA e seus resultados, antes e depois do seu desenvolvimento, implantação e uso.</p>
+<p>Enquanto se aguarda uma regulamentação direcionada aos sistemas de IA no Brasil, a LGPD tem sido usada para responsabilizar alguns abusos, como no caso citado, da ViaQuatro. A lei diz que a captação de dados sensíveis, como os biométricos, precisa de consentimento do usuário, e a finalidade da coleta também deve ter propósitos legítimos e comunicados aos titulares dos dados. Além disso, o direito à informação dos consumidores está consagrado como um princípio fundamental ao abrigo do Código do Consumidor.</p>
+<p>Porém, em casos não cobertos por outras leis, a responsabilização por danos causados por sistemas de IA ainda carece de lei própria. O problema é que o avanço tecnológico ocorre em ritmo muito mais rápido do que aquele da política e da justiça. Enquanto se discutem as leis para regular esta IA de hoje, ela continua avançando e modificando nossa forma de interagir com ela e por meio dela, e antes que seja regulamentada por leis, ela pode ter se tornado outra.</p></li>
+</ol>
+<p>A grande questão é se, um dia, um sistema de inteligência artificial estará programado para avaliar adequadamente as informações recebidas e as possíveis consequências que suas ações são capazes de causar ao ambiente e aos seres à sua volta. Será possível programá-lo para embasar suas decisões à luz de valores humanos a fim de exibir um comportamento ético?</p>
+<p>Essa possibilidade esbarra em várias dificuldades, como a definição dos valores responsáveis por um comportamento ético, sua representação (seja de forma explícita ou por meio de exemplos), seu processamento por um algoritmo e sua incorporação por um sistema de inteligência artificial.</p>
+</section>
+<section id="sec-cap-etica-etica-pln" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="sec-cap-etica-etica-pln"><span class="header-section-number">20.2</span> Ética em PLN</h2>
+<p>Não é coincidência que as discussões sobre a regulação de IA se intensificaram após o lançamento do ChatGPT. Os sistemas de PLN, ou seja, aqueles em que a língua tem protagonismo, estão entre aqueles que mais expõem suas semelhanças conosco, suas fragilidades na compreensão da língua humana, seus perigos quando interagem conosco em cenários sensíveis – como para fazer diagnósticos ou pretensas terapias, por exemplo –, os vieses culturais e morais de seus dados, entre outras coisas. O PLN assume, assim, um papel importante no âmbito das questões éticas relacionadas aos sistemas de IA. A fim de evitar vários problemas, é necessário tratar a língua de forma ampla, considerar suas variações, suas mudanças, seu papel na comunicação humana e na sociedade; tudo isso pode nos auxiliar a construir tecnologias melhores e mais inclusivas <span class="citation" data-cites="Bender:2020">(<a href="../../shared/referencias/referencias.html#ref-Bender:2020" role="doc-biblioref">Bender, 2020</a>)</span>.</p>
+<p>Muitas línguas até então desfavorecidas de recursos tecnológicos, como o português, e também línguas minoritárias, têm se beneficiado com sua inserção no mundo digital. No entanto, ainda temos um longo caminho a percorrer. Segundo Emily Bender, 90% das línguas do mundo e suas variedades usadas por mais de um bilhão de pessoas têm pouco ou nenhum suporte em termos de tecnologia linguística, reforçando a ideia de que essas novas tecnologias apresentam um potencial excludente <span class="citation" data-cites="Bender:2020">(<a href="../../shared/referencias/referencias.html#ref-Bender:2020" role="doc-biblioref">Bender, 2020</a>)</span>.</p>
+<p>Nesse sentido, a comunidade de PLN deve ter em mente que vivemos em um mundo linguisticamente diverso e que não é razoável aceitar o inglês, idioma dos dados de treinamento da maioria dos modelos de língua, como representativo de toda variedade linguística e cultural existente. Ao trabalharmos com PLN, não podemos esquecer que linguagem e poder estão atrelados, que a linguagem cria o nosso mundo e molda nossa realidade <span class="citation" data-cites="Halliday:1999">(<a href="../../shared/referencias/referencias.html#ref-Halliday:1999" role="doc-biblioref">Halliday; Matthiessen, 1999</a>)</span>. Portanto, temos o desafio de romper com esse monopólio linguístico e desenvolver modelos a partir de dados coletados de forma responsável, validados, balanceados e livres de vieses.</p>
+<p>É fato que o PLN tem se beneficiado muito com o uso de aprendizado de máquina. Muitas barreiras foram transpostas ao representar alguns fenômenos linguísticos por meio de exemplos. Para as tarefas clássicas de PLN – <em>taggers</em>, <em>parsers</em>, reconhecedores de entidades nomeadas, entre outras – os sistemas construídos por AM parecem cada vez melhores à luz de avaliações padronizadas. O problema que se coloca é o uso futuro desses sistemas, suas combinações e suas aplicações fora de qualquer controle <span class="citation" data-cites="Chandran:2023">(<a href="../../shared/referencias/referencias.html#ref-Chandran:2023" role="doc-biblioref">Chandran, 2023</a>)</span>.</p>
+<p>Nos sistemas de IA mais recentes, a competência linguística é adquirida por meio de treinamento com <em>corpora</em> muito grandes, gerando um modelo de língua, ou seja, um sistema capaz de prever qual(is) palavra(s) deve(m) seguir a última palavra vista. São os chamados LLM (<em>Large Language Models</em>), apresentados no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-modelos-linguagem/cap-modelos-linguagem.html#sec-cap-modelos-linguagem" target="_blank" title="Volume 2">Modelos de linguagem</a></span>. O ChatGPT é um exemplo muito conhecido dessa tecnologia.</p>
+<p>Se considerarmos que os <em>corpora</em> de treinamento de grandes modelos de língua tendem a ser compostos por uma quantidade massiva de dados linguísticos coletados na internet, e que o acesso à internet é desigual, os dados de treinamento têm grandes chances de não serem representativos e não levarem em conta a diversidade cultural e linguística existentes – desconsiderando aqui o uso não autorizado de dados pessoais. Conforme discutido no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-redes-sociais/cap-redes-sociais.html#sec-cap-redes-sociais" target="_blank" title="Volume 3">PLN em Redes Sociais</a></span>, manifestações carregadas de ofensas, preconceitos, discriminação, posturas antiéticas em geral são eventualmente reproduzidas nos textos gerados por esses modelos <span class="citation" data-cites="Perrigo:2023">(<a href="../../shared/referencias/referencias.html#ref-Perrigo:2023" role="doc-biblioref">Perrigo, 2023</a>)</span>, e acabam se perpetuando no modelo gerado.</p>
+<p>Além disso, a popularização de modelos de língua, como o ChatGPT, tem suscitado questões importantes no âmbito da ética em PLN, especialmente no que diz respeito à propriedade intelectual e aos direitos autorais. Embora esses dados estejam disponíveis publicamente, uma preocupação fundamental está relacionada à forma como os dados são coletados para o treinamento desses modelos, considerando se as pessoas que produziram esses dados tinham ciência de que suas postagens textuais poderiam ser utilizadas como insumos para modelos de linguagem <span class="citation" data-cites="Allison:2023">(<a href="../../shared/referencias/referencias.html#ref-Allison:2023" role="doc-biblioref">Alisson, 2023</a>)</span>. Ilustra esse ponto a localização labiríntica, nos produtos da Meta, do formulário que permite ao usuário coibir o uso de seus dados no treinamento de algoritmos<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. A pergunta que emerge é: como podemos garantir que princípios éticos de transparência, proteção de dados e consentimento serão respeitados nesse processo de coleta?</p>
+</section>
+<section id="modelos-de-língua-como-fonte-de-conhecimento" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="modelos-de-língua-como-fonte-de-conhecimento"><span class="header-section-number">20.3</span> Modelos de língua como fonte de conhecimento?</h2>
+<p>Modelos de língua nos surpreendem ao possibilitarem a geração de textos coerentes, muitas vezes indistinguíveis de textos produzidos por seres humanos. No entanto, esses textos não passam de sequências de palavras prováveis estatisticamente em um dado idioma que foram “cuspidas” pelo modelo a partir de alguma entrada textual. Os modelos em si não entendem os textos gerados. Os modelos apenas apreendem, a partir do <em>corpus</em> de treinamento, os padrões (combinações frequentes) linguísticos derivados dos dados, e reproduzem, como bons papagaios estocásticos, esses padrões em novas saídas <span class="citation" data-cites="Bender:2023">(<a href="../../shared/referencias/referencias.html#ref-Bender:2023" role="doc-biblioref">Bender, 2023</a>)</span>.</p>
+<p>Nesse sentido, se a língua é apreendida a partir de um <em>corpus</em>, nos modelos de línguas, as características desse <em>corpus</em> são determinantes para a qualidade linguística do que será gerado pelo sistema (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>). Isso soa óbvio, mas, em se tratando de língua, há uma outra consequência. Em sistemas conversacionais, como os <em>chatbots</em>, a linguagem produzida por um sistema tem um efeito: ela atenderá a alguma expectativa do usuário, que pediu uma informação, ou uma sugestão, ou se queixou de algo, ou quer simplesmente dialogar. Não basta, portanto, que a expressão linguística cumpra todos os requisitos de ortografia, gramática, coesão e coerência. É preciso atender a outros critérios. Não é rara a geração de uma expressão linguística correta e elegante, com um conteúdo ou uma informação incorreta ou enviesada pelos dados. Detectar essa imprecisão, no entanto, pode não ser tão fácil. Um interlocutor do <em>chat</em>, impressionado pela boa forma do texto, pode aceitar como verdade, sem questionar, o conteúdo expresso por ela. Acontece que um modelo de língua não é capaz de preencher os requisitos relativos à autenticidade e veracidade das expressões que gera. De fato, trata-se de uma ferramenta incrível de geração de texto sendo usada para um fim para o qual não foi projetada. Como são capazes de gerar uma infinidade de expressões linguísticas, tem-se a impressão de que, de fato, têm domínio em várias áreas de conhecimento e tarefas. A consequência é que suas “alucinações” podem ser confundidas com novas “verdades”, oferecendo um risco enorme à sociedade, na medida em que a crença nessas verdades pode levar a comportamentos imprevisíveis. Percebe-se aí o perigo de se utilizar um sistema impróprio como se fosse um “gerador de conhecimento”.</p>
+<p>Tão logo foi disponibilizado o ChatGPT, em 2022, as consequências desse cenário têm sido discutidas por vários setores das sociedades em todo o mundo, incluindo o Brasil. Já se prevê mudanças no trabalho em toda sorte de setores que usam informações para tomada de decisão, bem como aqueles que têm a redação de textos como atividade relevante. Incluem-se, portanto, o jornalismo, a educação formal, a pesquisa, o direito, apenas para citar alguns.</p>
+<p>Se mal gerenciadas, essas transformações do mercado de trabalho podem ter custos econômicos e sociais significativos. Segundo a <span class="citation" data-cites="OCDE:2023">OECD (<a href="../../shared/referencias/referencias.html#ref-OCDE:2023" role="doc-biblioref">2023</a>)</span>, 27% dos empregos podem ser impactados por automação com tecnologias de IA, e com o advento dos modelos generativos, certamente esses impactos aumentarão, para uma ampla gama de categorias de empregos. Para melhor proteção dos trabalhadores nos próximos anos, a <span class="citation" data-cites="OCDE:2023">OECD (<a href="../../shared/referencias/referencias.html#ref-OCDE:2023" role="doc-biblioref">2023</a>)</span> recomenda, entre outras medidas, que os governos garantam treinamento para lidar com a IA. A UNESCO <span class="citation" data-cites="Unesco-Beijing:2019">(<a href="../../shared/referencias/referencias.html#ref-Unesco-Beijing:2019" role="doc-biblioref">UNESCO, 2019</a>)</span> também enfatiza a necessidade de desenvolvimento de valores e habilidades para a vida e para o trabalho na era da IA e recomenda medidas para melhorar a literacia em IA em todas as camadas da sociedade. Capacitar a população com habilidades relacionadas à IA pode melhorar sua empregabilidade e prepará-los para as demandas deste mercado de trabalho em constante evolução. Além disso, compreendemos ser muito importante iniciativas para ampliar a educação em IA para públicos sub-representados em um esforço para aumentar a diversidade da força de trabalho.</p>
+<p>Temos testemunhado que sociedades cada vez mais tecnológicas suscitam muitas questões de natureza ética. A velocidade com que os sistemas computacionais evoluem – em especial, os ditos inteligentes – tem nos mostrado que precisamos nos antecipar, de alguma forma, aos riscos que eles podem representar. Para alcançarmos desenvolvimento e utilização ética e responsável de sistemas de IA, precisamos contar com esforços coletivos e transdisciplinares, além de um diálogo constante entre governo, empresas, cientistas, especialistas e sociedade em geral. Nesse sentido, é fundamental promover debates mais amplos e plurais sobre os impactos dessas novas tecnologias, a fim de pensarmos de forma conjunta aplicações positivas dessas ferramentas em nossa sociedade.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-AIEthics:2023" class="csl-entry" role="listitem">
+<strong>AI and Ethics</strong>. Springer, 2023. Disponível em: &lt;<a href="https://link.springer.com/journal/43681/volumes-and-issues">https://link.springer.com/journal/43681/volumes-and-issues</a>&gt;. Acesso em: 7 abr. 2023
+</div>
+<div id="ref-Allison:2023" class="csl-entry" role="listitem">
+ALISSON, S. <strong>Their god is not our god</strong>. Disponível em: &lt;<a href="https://www.thecontinent.org/_files/ugd/287178_73f3d2af22614e678f277b631a62e491.pdf">https://www.thecontinent.org/_files/ugd/287178_73f3d2af22614e678f277b631a62e491.pdf</a>&gt;. Acesso em: 11 jun. 2023.
+</div>
+<div id="ref-Dykinson:2021" class="csl-entry" role="listitem">
+<strong><a href="http://www.jstor.org/stable/j.ctv282jgff">Artificial intelligence and human rights.</a></strong> 1. ed. [s.l.] Dykinson, S.L., 2021.
+</div>
+<div id="ref-Bender:2020" class="csl-entry" role="listitem">
+BENDER, E. M. <strong>The Power of Linguistics - Unpacking Natural Language Processing Ethics with Emily M. Bender. [Podcast]</strong>. Disponível em: &lt;<a href="https://www.radicalai.org/e16-emily-bender">https://www.radicalai.org/e16-emily-bender</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-Gebru:2021rohtua" class="csl-entry" role="listitem">
+BENDER, E. M. et al. <strong>On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? 🦜</strong>. Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency. <strong>Anais</strong>...: FAccT ’21.New York, NY, USA: Association for Computing Machinery, 2021. Disponível em: &lt;<a href="https://doi.org/10.1145/3442188.3445922">https://doi.org/10.1145/3442188.3445922</a>&gt;
+</div>
+<div id="ref-Bender:2023" class="csl-entry" role="listitem">
+BENDER, E. M. <strong>You Are Not a Parrot And a chatbot is not a human. And a linguist named Emily M. Bender is very worried what will happen when we forget this</strong>. Disponível em: &lt;<a href="https://nymag.com/intelligencer/article/ai-artificial-intelligence-chatbots-emily-m-bender.html">https://nymag.com/intelligencer/article/ai-artificial-intelligence-chatbots-emily-m-bender.html</a>&gt;. Acesso em: 9 abr. 2023.
+</div>
+<div id="ref-buolamwini:2018" class="csl-entry" role="listitem">
+BUOLAMWINI, J.; GEBRU, T. <strong>Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification</strong>. (S. A. Friedler, C. Wilson, Eds.)Proceedings of the 1st Conference on Fairness, Accountability and Transparency. <strong>Anais</strong>...: Proceedings of Machine Learning Research.PMLR, 2018. Disponível em: &lt;<a href="https://proceedings.mlr.press/v81/buolamwini18a.html">https://proceedings.mlr.press/v81/buolamwini18a.html</a>&gt;
+</div>
+<div id="ref-cavaliere_romeo:2022" class="csl-entry" role="listitem">
+CAVALIERE, P.; ROMEO, G. <a href="https://doi.org/10.1017/err.2021.57">From Poisons to Antidotes: Algorithms as Democracy Boosters</a>. <strong>European Journal of Risk Regulation</strong>, v. 13, n. 3, p. 421–442, 2022.
+</div>
+<div id="ref-Chandran:2023" class="csl-entry" role="listitem">
+CHANDRAN, R. <strong>Indigenous groups in NZ, US fear colonisation as AI learns their languages</strong>. Disponível em: &lt;<a href="https://www.context.news/ai/nz-us-indigenous-fear-colonisation-as-bots-learn-their-languages">https://www.context.news/ai/nz-us-indigenous-fear-colonisation-as-bots-learn-their-languages</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-AIExplain:2020" class="csl-entry" role="listitem">
+COECKELBERGH, M. <a href="https://doi.org/10.1007/s11948-019-00146-8">Artificial Intelligence, Responsibility Attribution, and a Relational Justification of Explainability</a>. <strong>Science and Engineering Ethics</strong>, v. 26, p. 2051–2068, 2020.
+</div>
+<div id="ref-EU:2021" class="csl-entry" role="listitem">
+COMMISSION, E. <strong>Proposal for a Regulation laying down harmonised rules on artificial intelligence</strong>. Disponível em: &lt;<a href=" https://digital-strategy.ec.europa.eu/en/library/proposal-regulation-laying-down-harmonised-rules-artificial-intelligence "> https://digital-strategy.ec.europa.eu/en/library/proposal-regulation-laying-down-harmonised-rules-artificial-intelligence </a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-CORREA2023100857" class="csl-entry" role="listitem">
+CORRÊA, N. K. et al. <a href="https://doi.org/10.1016/j.patter.2023.100857">Worldwide AI ethics: A review of 200 guidelines and recommendations for AI governance</a>. <strong>Patterns</strong>, v. 4, n. 10, p. 100857, 2023.
+</div>
+<div id="ref-Metro:2018" class="csl-entry" role="listitem">
+CRUZ, B. S. <strong>Concessionária do Metrô de SP é processada por ter câmeras que leem nossas emoções</strong>. Disponível em: &lt;<a href=" https://www.uol.com.br/tilt/noticias/redacao/2018/08/31/concessionaria-do-metro-de-sp-e-processada-por-ter-cameras-que-leem-emocoes.htm "> https://www.uol.com.br/tilt/noticias/redacao/2018/08/31/concessionaria-do-metro-de-sp-e-processada-por-ter-cameras-que-leem-emocoes.htm </a>&gt;. Acesso em: 29 ago. 2023.
+</div>
+<div id="ref-Racismo:2021" class="csl-entry" role="listitem">
+CRUZ, B. S. <strong>Racismo Calculado</strong>. Disponível em: &lt;<a href=" https://www.uol.com.br/tilt/reportagens-especiais/como-os-algoritmos-espalham-racismo/#cover "> https://www.uol.com.br/tilt/reportagens-especiais/como-os-algoritmos-espalham-racismo/#cover </a>&gt;. Acesso em: 29 ago. 2023.
+</div>
+<div id="ref-Empoli:2019" class="csl-entry" role="listitem">
+EMPOLI, G. DA. <strong>Os engenheiros do caos: Como as fake news, as teorias da conspiração e os algoritmos estão sendo utilizados para disseminar ódio, medo e influenciar eleições</strong>. [s.l.] Vestígio Editora, 2019.
+</div>
+<div id="ref-Goodfellow-et-al-2016" class="csl-entry" role="listitem">
+GOODFELLOW, I.; BENGIO, Y.; COURVILLE, A. <strong>Deep Learning</strong>. [s.l.] MIT Press, 2016. v. 1
+</div>
+<div id="ref-Halliday:1999" class="csl-entry" role="listitem">
+HALLIDAY, M. A. K.; MATTHIESSEN, C. M. I. M. <strong>Construing Experience Through Meaning: A Language Based Approach to Cognition</strong>. [s.l.] Continuum, 1999.
+</div>
+<div id="ref-MITReview:2021" class="csl-entry" role="listitem">
+HEIKKILÄ, M. <strong>Why you shouldn’t trust AI search engines</strong>. Disponível em: &lt;<a href="https://www.technologyreview.com/2023/02/14/1068498/why-you-shouldnt-trust-ai-search-engines/">https://www.technologyreview.com/2023/02/14/1068498/why-you-shouldnt-trust-ai-search-engines/</a>&gt;. Acesso em: 9 abr. 2023.
+</div>
+<div id="ref-MIT-Review:2022a" class="csl-entry" role="listitem">
+HEIKKILÄ, M. <strong>The viral AI avatar app Lensa undressed me—without my consent</strong>. Disponível em: &lt;<a href=" https://www.technologyreview.com/2022/12/12/1064751/the-viral-ai-avatar-app-lensa-undressed-me-without-my-consent/"> https://www.technologyreview.com/2022/12/12/1064751/the-viral-ai-avatar-app-lensa-undressed-me-without-my-consent/</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-Hora:2021" class="csl-entry" role="listitem">
+HORA, N. DA. <strong>Coded Bias: linguagem acessível para entender vieses em algoritmos</strong>. Disponível em: &lt;<a href=" https://mittechreview.com.br/coded-bias-linguagem-acessivel-para-entender-vieses-em-algoritmos/"> https://mittechreview.com.br/coded-bias-linguagem-acessivel-para-entender-vieses-em-algoritmos/</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-MIT-Review:2022b" class="csl-entry" role="listitem">
+HORA, N. DA. <strong>Ética em IA: a pergunta que não estamos fazendo</strong>. Disponível em: &lt;<a href="https://mittechreview.com.br/etica-em-ia-a-pergunta-que-nao-estamos-fazendo/">https://mittechreview.com.br/etica-em-ia-a-pergunta-que-nao-estamos-fazendo/</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-INFOBASE:2021" class="csl-entry" role="listitem">
+INFOBASE. <strong>Inteligência Artificial e a perpetuação do racismo</strong>. Disponível em: &lt;<a href="https://infobase.com.br/inteligencia-artificial-e-a-perpetuacao-do-racismo/">https://infobase.com.br/inteligencia-artificial-e-a-perpetuacao-do-racismo/</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-Coded:2020" class="csl-entry" role="listitem">
+KANTAYYA, S. <strong>Coded Bias</strong>. Disponível em: &lt;<a href=" https://www.codedbias.com"> https://www.codedbias.com</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-LGPD:2018" class="csl-entry" role="listitem">
+LGPD. <strong>Lei Geral de Proteção de Dados Pessoais (LGPD)</strong>. Disponível em: &lt;<a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm</a>&gt;. Acesso em: 9 abr. 2023.
+</div>
+<div id="ref-Intercept:2019" class="csl-entry" role="listitem">
+NUNES, P. <strong>LEVANTAMENTO REVELA QUE 90,5% DOS PRESOS POR MONITORAMENTO FACIAL NO BRASIL SÃO NEGROS</strong>. Disponível em: &lt;<a href=" https://www.intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/"> https://www.intercept.com.br/2019/11/21/presos-monitoramento-facial-brasil-negros/</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-ONEIL:2021" class="csl-entry" role="listitem">
+O’NEIL, C. <strong>Algoritmos de Destruição em Massa</strong>. [s.l.] Editora Rua do Sabão, 2021.
+</div>
+<div id="ref-OECD:2022" class="csl-entry" role="listitem">
+OECD. <strong>The OECD Framework for the Classification of AI systems</strong>. Disponível em: &lt;<a href=" https://wp.oecd.ai/app/uploads/2022/02/Classification-2-pager-1.pdf"> https://wp.oecd.ai/app/uploads/2022/02/Classification-2-pager-1.pdf</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-OCDE:2023" class="csl-entry" role="listitem">
+OECD. <strong><a href="https://doi.org/https://doi.org/10.1787/08785bba-en">OECD Employment Outlook 2023</a></strong>. [s.l: s.n.]. p. 267
+</div>
+<div id="ref-OpenAI:2022" class="csl-entry" role="listitem">
+OPENAI. <strong>ChatGPT: OpenA’s conversational AI model</strong>. Disponível em: &lt;<a href="https://openai.com/blog/chatgpt/">https://openai.com/blog/chatgpt/</a>&gt;. Acesso em: 7 abr. 2023.
+</div>
+<div id="ref-Perrigo:2023" class="csl-entry" role="listitem">
+PERRIGO, B. Disponível em: &lt;<a href="https://time.com/6247678/openai-chatgpt-kenya-workers/">https://time.com/6247678/openai-chatgpt-kenya-workers/</a>&gt;. Acesso em: 9 abr. 2023.
+</div>
+<div id="ref-MIT-Review:2022" class="csl-entry" role="listitem">
+REVIEW, M. T. <strong>Um aplicativo de Inteligência Artificial que <span>“desnudava”</span> mulheres mostra como as deepfakes prejudicam os mais vulneráveis</strong>. Disponível em: &lt;<a href=" https://mittechreview.com.br/um-aplicativo-de-inteligencia-artificial-que-desnudava-mulheres-mostra-como-as-deepfakes-prejudicam-os-mais-vulneraveis/"> https://mittechreview.com.br/um-aplicativo-de-inteligencia-artificial-que-desnudava-mulheres-mostra-como-as-deepfakes-prejudicam-os-mais-vulneraveis/</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-RUSSEL:2019" class="csl-entry" role="listitem">
+RUSSEL, S. <strong>Human Compatible Artificial Intelligence and the Problem of Control</strong>. [s.l.] Penguin Books, 2019.
+</div>
+<div id="ref-Sartori:2022" class="csl-entry" role="listitem">
+SARTORI, L.; THEODOROU, A. <a href="https://doi.org/10.1007/s10676-022-09624-3">A Sociotechnical Perspective for the Future of AI: Narratives, Inequalities, and Human Control</a>. <strong>Ethics and Inf. Technol.</strong>, v. 24, n. 1, mar. 2022.
+</div>
+<div id="ref-Playbook:2020" class="csl-entry" role="listitem">
+SMITH, G.; RUSTAGI, I. <strong>Mitigating Bias in Artificial Intelligence: An Equity Fluent Leadership Playbook</strong>. [s.l.] Berkeley Haas Center for Equity, Gender; Leadership, 2020.
+</div>
+<div id="ref-Unesco-Beijing:2019" class="csl-entry" role="listitem">
+UNESCO. <strong>Beijing consensus on artificial intelligence and education</strong>. UNESCO Paris, 2019.
+</div>
+<div id="ref-Unesco:2022" class="csl-entry" role="listitem">
+UNESCO, D. G. <strong>Recomendação sobre a Ética da Inteligência Artificial</strong>. Disponível em: &lt;<a href=" https://unesdoc.unesco.org/ark:/48223/pf0000381137_por "> https://unesdoc.unesco.org/ark:/48223/pf0000381137_por </a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+<div id="ref-Unicef:1948" class="csl-entry" role="listitem">
+UNICEF. <strong>Declaração Universal dos Direitos Humanos</strong>. Disponível em: &lt;<a href=" https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos"> https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos</a>&gt;. Acesso em: 28 ago. 2023.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://www.whitecase.com/insight-our-thinking/ai-watch-global-regulatory-tracker-united-states" class="uri">https://www.whitecase.com/insight-our-thinking/ai-watch-global-regulatory-tracker-united-states</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://artificialintelligenceact.eu/ai-act-explorer/" class="uri">https://artificialintelligenceact.eu/ai-act-explorer/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://legis.senado.leg.br/sdleg-getter/documento?dm=9347622&amp;ts=1720062232582&amp;disposition=inline" class="uri">https://legis.senado.leg.br/sdleg-getter/documento?dm=9347622&amp;ts=1720062232582&amp;disposition=inline</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.454-de-11-de-fevereiro-de-2026-689247948" class="uri">https://www.in.gov.br/web/dou/-/resolucao-cfm-n-2.454-de-11-de-fevereiro-de-2026-689247948</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Baseando-se em pontos comuns encontrados nos documentos supracitados da OCDE, UNESCO e regulamentação da UE.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://www.facebook.com/help/contact/510058597920541" class="uri">https://www.facebook.com/help/contact/510058597920541</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="pagination-link" aria-label="Avaliação conjunta em português">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="pagination-link" aria-label="E agora, PLN?">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduardo G. Cortes">
+<meta name="author" content="Renata Vieira">
+<meta name="author" content="Dante A. C. Barone">
+
+<title>14&nbsp; Perguntas e Respostas – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" rel="next">
+<link href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html"><strong>Geração e Interação</strong></a></li><li class="breadcrumb-item"><a href="../../geracao-e-interacao/cap-qa/cap-qa.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">14.1</span> Introdução</a></li>
+  <li><a href="#sec-cap-qa-classificacao" id="toc-sec-cap-qa-classificacao" class="nav-link" data-scroll-target="#sec-cap-qa-classificacao"><span class="header-section-number">14.2</span> Classificação de Sistemas de Perguntas e Respostas</a>
+  <ul class="collapse">
+  <li><a href="#tipo-de-pergunta" id="toc-tipo-de-pergunta" class="nav-link" data-scroll-target="#tipo-de-pergunta"><span class="header-section-number">14.2.1</span> Tipo de pergunta</a></li>
+  <li><a href="#tipo-de-fonte-de-conhecimento" id="toc-tipo-de-fonte-de-conhecimento" class="nav-link" data-scroll-target="#tipo-de-fonte-de-conhecimento"><span class="header-section-number">14.2.2</span> Tipo de Fonte de Conhecimento</a></li>
+  <li><a href="#domínio-de-conhecimento" id="toc-domínio-de-conhecimento" class="nav-link" data-scroll-target="#domínio-de-conhecimento"><span class="header-section-number">14.2.3</span> Domínio de conhecimento</a></li>
+  </ul></li>
+  <li><a href="#abordagens" id="toc-abordagens" class="nav-link" data-scroll-target="#abordagens"><span class="header-section-number">14.3</span> Abordagens</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-qa-assistida_doc" id="toc-sec-cap-qa-assistida_doc" class="nav-link" data-scroll-target="#sec-cap-qa-assistida_doc"><span class="header-section-number">14.3.1</span> Abordagem modular com documentos</a></li>
+  <li><a href="#abordagem-modular-com-grafo-de-conhecimento" id="toc-abordagem-modular-com-grafo-de-conhecimento" class="nav-link" data-scroll-target="#abordagem-modular-com-grafo-de-conhecimento"><span class="header-section-number">14.3.2</span> Abordagem modular com grafo de conhecimento</a></li>
+  <li><a href="#abordagem-end-to-end" id="toc-abordagem-end-to-end" class="nav-link" data-scroll-target="#abordagem-end-to-end"><span class="header-section-number">14.3.3</span> Abordagem <em>end-to-end</em></a></li>
+  </ul></li>
+  <li><a href="#sec-cap-qa-avaliacao" id="toc-sec-cap-qa-avaliacao" class="nav-link" data-scroll-target="#sec-cap-qa-avaliacao"><span class="header-section-number">14.4</span> Métodos de avaliação</a></li>
+  <li><a href="#outras-tarefas-relacionadas-a-pr" id="toc-outras-tarefas-relacionadas-a-pr" class="nav-link" data-scroll-target="#outras-tarefas-relacionadas-a-pr"><span class="header-section-number">14.5</span> Outras tarefas relacionadas a PR</a>
+  <ul class="collapse">
+  <li><a href="#comunidades-de-perguntas-e-respostas---community-qa" id="toc-comunidades-de-perguntas-e-respostas---community-qa" class="nav-link" data-scroll-target="#comunidades-de-perguntas-e-respostas---community-qa"><span class="header-section-number">14.5.1</span> Comunidades de Perguntas e Respostas - <em>Community</em> QA</a></li>
+  <li><a href="#pr-de-múltiplas-etapas-multihopping-qa" id="toc-pr-de-múltiplas-etapas-multihopping-qa" class="nav-link" data-scroll-target="#pr-de-múltiplas-etapas-multihopping-qa"><span class="header-section-number">14.5.2</span> PR de múltiplas etapas <em>Multihopping</em> QA</a></li>
+  <li><a href="#pr-com-dados-visuais" id="toc-pr-com-dados-visuais" class="nav-link" data-scroll-target="#pr-com-dados-visuais"><span class="header-section-number">14.5.3</span> PR com dados visuais</a></li>
+  </ul></li>
+  <li><a href="#sistemas-de-pr-para-o-português" id="toc-sistemas-de-pr-para-o-português" class="nav-link" data-scroll-target="#sistemas-de-pr-para-o-português"><span class="header-section-number">14.6</span> Sistemas de PR para o Português</a></li>
+  <li><a href="#considerações-finais" id="toc-considerações-finais" class="nav-link" data-scroll-target="#considerações-finais"><span class="header-section-number">14.7</span> Considerações finais</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html"><strong>Geração e Interação</strong></a></li><li class="breadcrumb-item"><a href="../../geracao-e-interacao/cap-qa/cap-qa.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-qa" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo G. Cortes </p>
+             <p>Renata Vieira </p>
+             <p>Dante A. C. Barone </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">13/03/2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-qa.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-expanded="false" aria-controls="callout-cite" data-bs-toggle="collapse" data-bs-target=".callout-cite-contents" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div id="callout-cite" class="callout-cite-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-qa:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Cortes, Eduardo G. and Vieira, Renata and Barone, Dante A. C.},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Perguntas e Respostas},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {14},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/geracao-e-interacao/cap-qa/cap-qa.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Mais recursos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://www.youtube.com/watch?v=g5tvl0_tq0g&amp;ab_channel=BrasileirasemPLN">Vídeo</a></p>
+</div>
+</div>
+<section id="introdução" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">14.1</span> Introdução</h2>
+<p>A área de Resposta Automática a Perguntas, em inglês <em>Question Answering</em> (QA), estuda como criar sistemas capazes de responder de forma automática a perguntas em linguagem natural. Esses sistemas buscam a capacidade de compreender a pergunta, recuperar informações relevantes e fornecer respostas precisas e úteis. Se compararmos com um sistema convencional de Recuperação de Informação (RI), que tem o objetivo de fornecer documentos relevantes a partir de uma consulta de entrada (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-ir/cap-ir.html#sec-cap-ir" target="_blank" title="Volume 3">Recuperação de Informação</a></span>), os sistemas de PR diferem-se principalmente pela sua precisão em fornecer apenas aquilo que lhe foi solicitado. Enquanto os sistemas de RI retornam listas ranqueadas de documentos, cabendo ao usuário/a explorar estes documentos em busca de informações mais específicas, os sistemas de PR irão fornecer apenas a resposta ao usuário/a, conforme o exemplo da <a href="#fig-cap-qa-ex_qa" class="quarto-xref">Figura&nbsp;<span>14.1</span></a>.</p>
+<div id="fig-cap-qa-ex_qa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-ex_qa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.1: Exemplo de entrada e saída de um sistema de PR.
+</figcaption>
+<div aria-describedby="fig-cap-qa-ex_qa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/ex_qa.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+<p>Neste capítulo, abordamos a área de PR no contexto de sistemas especialistas focados em entregar informações diretas sobre o que foi perguntado. Por outro lado, existem os sistemas <em>chatbots</em>, conhecidos também como agentes de conversação, que visam manter um diálogo contínuo e engajante com o usuário/a. A principal diferença desses sistemas é a sua capacidade de adaptar suas respostas considerando o contexto mais amplo da conversa. Estes sistemas de conversação não serão o foco deste capítulo (veja <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-agentes-conversacionais/cap-agentes-conversacionais.html#sec-cap-agentes-conversacionais" target="_blank" title="Volume 2">ChatGPT, MariTalk e outros agentes de conversação</a></span>); ao invés disso, abordaremos os sistemas de PR projetados para responder a perguntas de forma isolada, ignorando o contexto mais amplo da conversa, mas focados na eficiência e precisão em fornecer respostas informativas.</p>
+<p>A área de PR se relaciona diretamente com duas grandes subáreas do Processamento de Linguagem Natural (PLN), que são a compreensão da linguagem natural e a geração de linguagem natural, uma vez que sistemas de PR são desenvolvidos para processar a pergunta de entrada e, muitas vezes, a geração de linguagem natural para a resposta de saída. Além disso, PR também se relaciona com a área de RI, uma vez que estes sistemas utilizam algum tipo de base de conhecimento; é necessário recuperar as informações relevantes para o desenvolvimento da resposta. A <a href="#fig-cap-qa-arquitetura_geral" class="quarto-xref">Figura&nbsp;<span>14.2</span></a> apresenta a arquitetura geral de um sistema de PR, contendo três passos convencionais, que consistem em: 1) processar a pergunta de entrada buscando sua compreensão, 2) buscar por informações relevantes em alguma base de conhecimento; e 3) definir a resposta de saída.</p>
+<div id="fig-cap-qa-arquitetura_geral" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-arquitetura_geral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.2: Arquitetura geral de um sistema de QA.
+</figcaption>
+<div aria-describedby="fig-cap-qa-arquitetura_geral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/arquitetura_geral.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Os sistemas de PR utilizam diferentes etapas de processamento que envolvem diversas tarefas. Por exemplo, a compreensão da pergunta pode envolver diversas etapas, desde classificação de texto, extração de tópicos e Reconhecimento de Entidades Nomeadas (REN). Cada uma destas etapas podem ser aprofundadas e contém seus próprios desafios e problemas de pesquisa. Por outro lado, existem também soluções com menos etapas explícitas, como os modelos <em>end-to-end</em>, nos quais o modelo de PR pode ser entendido como uma caixa preta, onde a entrada é uma pergunta (podendo conter informações de contexto) e a saída é uma resposta. Estes modelos são redes neurais profundas, treinadas especificamente para a tarefa de PR. Assim, podemos considerar que estas etapas estariam de alguma forma implícita absorvida nas suas diversas camadas de neurônios artificias (apesar de não se poder assumir de fato uma hierarquia de representações desse tipo). Atualmente, estes modelos estão atingindo quantidades consideráveis de parâmetros neurais, que estão saindo de milhões para bilhões e até trilhões de parâmetros (o que pode exigir capacidades disponíveis para muitos poucos). O aumento na quantidade de parâmetros destes modelos está relacionado ao aumento da sua capacidade de entendimento da linguagem natural, armazenamento de informação e geração de linguagem natural.</p>
+<p>Existem diversas maneiras de classificar um sistema de PR, com base em características que influenciam significativamente seu funcionamento e complexidade. Estas classificações incluem:</p>
+<ul>
+<li><p><strong>Tipo de pergunta:</strong> Os sistemas podem ser especializados em responder a perguntas factuais (ex.: “Quem escreveu Dom Casmurro?”) ou perguntas que requerem instruções detalhadas (ex.: “Como fazer um bolo de chocolate?”).</p></li>
+<li><p><strong>Fonte de conhecimento:</strong> Os sistemas podem utilizar documentos (com etapas de processamento de IR) ou dados estruturados (como grafos de conhecimento), onde as perguntas são transformadas em consultas (<em>queries</em>) que buscam informações relevantes.</p></li>
+<li><p><strong>Domínio de conhecimento:</strong> Existem sistemas de amplo domínio, que cobrem uma variedade de assuntos, e sistemas de domínio restrito, focados em áreas específicas como saúde&nbsp;<span class="citation" data-cites="oliveira2021experiments">(<a href="../../shared/referencias/referencias.html#ref-oliveira2021experiments" role="doc-biblioref">Oliveira et al., 2021</a>)</span>, mudanças climáticas&nbsp;<span class="citation" data-cites="jose2021deepage">(<a href="../../shared/referencias/referencias.html#ref-jose2021deepage" role="doc-biblioref">Cação et al., 2021</a>)</span>, ou direito&nbsp;<span class="citation" data-cites="quaresma2005aquestion">(<a href="../../shared/referencias/referencias.html#ref-quaresma2005aquestion" role="doc-biblioref">Quaresma; Rodrigues, 2005</a>)</span>.</p></li>
+</ul>
+<p>Cada um desses eixos representa uma dimensão independente, permitindo que os sistemas de PR sejam classificados e desenvolvidos combinando essas características de qualquer maneira, para atender a necessidades específicas de informação.</p>
+<p>Além das tarefas convencionais de PR, existem diferentes tarefas com peculiaridades e desafios únicos, como ranquear uma lista de respostas fornecida para uma pergunta, correlacionar informações de múltiplas fontes de dados para fornecer uma resposta correta que requer múltiplos passos de raciocínio, e responder a perguntas com base em informações visuais (sistemas multi modais), o que requer que o sistema entenda a pergunta textual, correlacionando-a com a informação visual para gerar uma resposta apropriada.</p>
+<p>Este capítulo explora os conceitos previamente introduzidos, categorizando os diferentes tipos de sistemas e apresentando as abordagens e técnicas comumente empregadas em cada um. São discutidos os diferentes tipos de tarefas de PR, destacando também os métodos de avaliação e outras categorias de tarefas relacionadas à PR. O capítulo é concluído com considerações finais que sintetizam as principais ideias e direcionamentos futuros.</p>
+</section>
+<section id="sec-cap-qa-classificacao" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-cap-qa-classificacao"><span class="header-section-number">14.2</span> Classificação de Sistemas de Perguntas e Respostas</h2>
+<p>Existem diferentes tipos de sistemas de PR que se diferenciam por diferentes critérios. Estas diferenças estão principalmente relacionadas à riqueza de possibilidades da linguagem natural, à grande amplitude de áreas de conhecimento e profundidade de detalhes que cada uma apresenta, como também às diferentes formas de recursos de informação. Portanto, o desenvolvimento de um sistema que domine toda a complexidade da linguagem natural, capaz de lidar com todos os tipos de estruturas de dados, e com conhecimento aprofundado em todas as áreas, é desafiador. Assim, é comum que existam diferentes tipos de sistemas de PR adequados para aspectos particulares. Esta seção busca organizar as diferentes categorias de sistemas de PR através de três formas de categorização baseadas no tipo da pergunta de entrada do sistema, no tipo de fonte de conhecimento e no domínio de conhecimento dos sistemas.</p>
+<section id="tipo-de-pergunta" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="tipo-de-pergunta"><span class="header-section-number">14.2.1</span> Tipo de pergunta</h3>
+<p>As perguntas em linguagem natural são uma forma de discurso que busca obter informações. Cada tipo de pergunta serve a um propósito específico e requer um tipo de resposta diferente. Existem diversos tipos de perguntas, cada uma servindo a um propósito diferente. Podem existir perguntas que requerem uma informação factual e curta, como por exemplo “Qual é a capital do Brasil?”, que requer apenas o nome de uma cidade como resposta. Outras perguntas podem requerer um texto mais longo, como por exemplo “Por que o céu é azul?”, que requer uma explicação. O tipo de pergunta pode variar não apenas no tamanho da resposta, mas também na necessidade de etapas de raciocínio para fornecer a resposta. Por exemplo, a pergunta “Quantos gols marcou o time campeão da <em>Champions League</em> de futebol de 2020?”, requer primeiro identificar o time campeão da <em>Champions League</em> de 2020 e depois contabilizar quantos gols este time fez durante o campeonato.</p>
+<p>Dependendo do tipo de pergunta, a funcionalidade e complexidade do sistema de PR pode mudar consideravelmente. Por exemplo, perguntas que requerem informações factuais e curtas podem apenas extrair a informação solicitada de um documento de texto, enquanto uma pergunta que busca a comparação de duas obras literárias requer que o sistema analise dois livros diferentes para gerar uma resposta. Sendo assim, o tipo de pergunta que o sistema busca responder tem um papel significativo em seu desenvolvimento.</p>
+<p>Diferentes estudos apresentam taxonomias que tentam organizar perguntas em diferentes categorias. Uma das principais é o trabalho de <span class="citation" data-cites="li2002learning">(<a href="../../shared/referencias/referencias.html#ref-li2002learning" role="doc-biblioref">Li; Roth, 2002</a>)</span> que apresenta uma taxonomia em dois níveis de granularidade com várias categorias em cada nível, conforme a <a href="#fig-cap-qa-tax_le_roth" class="quarto-xref">Figura&nbsp;<span>14.3</span></a>. O primeiro nível apresenta uma categorização mais abstrata, como “ENTIDADE”, enquanto o segundo nível apresenta suas subcategorias mais detalhadas, como “Animal”. Por exemplo, uma pergunta como “Quem é o atual presidente de Portugal?” pode ser classificada como “HUMANO” e “Indivíduo”, já que a resposta esperada é o nome de uma pessoa, enquanto que a pergunta “O que é um prisma?”, pode ser classificada como “DESCRIÇÃO” e “Definição”, já que a resposta esperada é um texto definindo o que é um prisma.</p>
+<div id="fig-cap-qa-tax_le_roth" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-tax_le_roth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.3: Taxonomia de tipo de perguntas de <span class="citation" data-cites="li2002learning">(<a href="../../shared/referencias/referencias.html#ref-li2002learning" role="doc-biblioref">Li; Roth, 2002</a>)</span>.
+</figcaption>
+<div aria-describedby="fig-cap-qa-tax_le_roth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/tax_le_roth.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p>Uma maneira mais geral de dividir as perguntas é em dois grandes grupos: perguntas factuais e não factuais.</p>
+<ul>
+<li><p><strong>Factuais</strong>: São perguntas que exigem essencialmente que um único fato ou um pequeno trecho de texto seja retornado como resposta. Por exemplo, “Quando começou a Segunda Guerra Mundial?” ou “Qual é a capital da Espanha?”. A maioria das categorias da taxonomia de <span class="citation" data-cites="li2002learning">(<a href="../../shared/referencias/referencias.html#ref-li2002learning" role="doc-biblioref">Li; Roth, 2002</a>)</span> podem ser consideradas tipos de perguntas factuais, exceto a categoria “DESCRIÇÃO”;</p></li>
+<li><p><strong>Não factuais</strong>: São perguntas que normalmente requerem respostas longas, como uma descrição, opinião ou explicação. Por exemplo, “Por que o céu é azul?” ou “Quais os passos para obter um título de mestre?”.</p></li>
+</ul>
+<p>O tipo de pergunta tem um papel significativo no funcionamento de um sistema de PR. Perguntas factuais normalmente são mais simples e requerem uma abordagem extrativa, onde a resposta final é diretamente extraída da base de conhecimento e retornada. Já o tipo não factual tipicamente contém perguntas mais complexas e desafiadoras para os sistemas, que podem requerer etapas de processamento especializadas em gerar linguagem natural, em caso de respostas longas. A <a href="#tbl-cap-qa-non_facticas" class="quarto-xref">Tabela&nbsp;<span>14.1</span></a> apresenta diferentes tipos de perguntas não factuais. Percebe-se que algumas dessas categorias têm desafios distintos para o sistema de PR, como por exemplo, perguntas de confirmação podem requerer etapas de checagem de fatos, enquanto que perguntas comparativas podem requerer a análise de múltiplas informações. Além destas categorias, podem existir diversos outros tipos de perguntas nos grupos de factuais e não factuais, como perguntas que requerem listas (“Quais são as maiores cidades do mundo?”), outras hipotéticas (“O que aconteceria se a lua desaparecesse?”), ou perguntas que precisam de exemplos como resposta (“De que maneira a arte influencia a sociedade?”).</p>
+<p>A definição de categorias de perguntas pode ser ajustada e ampliada conforme as necessidades e capacidades evoluem nos sistemas de PR. É fundamental considerar a flexibilidade contextual das perguntas, onde até questões aparentemente diretas podem variar em sua classificação conforme o contexto. Por exemplo, a pergunta “Quem é o líder?” pode ser classificada de forma diferente dependendo do contexto em que é feita. Se estiver relacionada a uma discussão sobre uma empresa, pode referir-se a uma “Organização”; se o contexto for um evento esportivo individual, pode ser classificado como “Indivíduo”. À medida que os sistemas de PR se tornam mais sofisticados, eles também devem ser adaptáveis e flexíveis para acomodar novos tipos de perguntas e mudanças nas expectativas dos usuários, enfatizando a importância de interpretar corretamente o contexto para fornecer respostas precisas.</p>
+<div id="tbl-cap-qa-non_facticas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cap-qa-non_facticas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;14.1: Alguns tipos de perguntas não factuais com exemplos.
+</figcaption>
+<div aria-describedby="tbl-cap-qa-non_facticas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 55%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Tipo</strong></th>
+<th style="text-align: left;"><strong>Descrição</strong></th>
+<th style="text-align: left;"><strong>Exemplo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Definição</td>
+<td style="text-align: left;">Perguntas que requerem a definição de alguma coisa. Normalmente iniciam com “O que é ...”<br>
+</td>
+<td style="text-align: left;">“O que é um prisma?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Explicativas</td>
+<td style="text-align: left;">Perguntas que requerem uma explicação ou contextualização. Normalmente iniciam com “Por que ...”<br>
+</td>
+<td style="text-align: left;">“Por que o céu é azul?”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Procedimentais</td>
+<td style="text-align: left;">Perguntas que requerem um conjunto de passos ou instruções para realizar alguma coisa. Normalmente iniciam com “Como ...”<br>
+</td>
+<td style="text-align: left;">“Como fazer um bolo de chocolate?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Comparativa</td>
+<td style="text-align: left;">Perguntas que requerem uma comparação entre dois ou mais assuntos.<br>
+</td>
+<td style="text-align: left;">“Quais são as diferenças entre SSD e HDD?”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Opinião</td>
+<td style="text-align: left;">Perguntas que requerem uma perspectiva pessoal ou avaliação.<br>
+</td>
+<td style="text-align: left;">“O que você acha de arte moderna?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Confirmação</td>
+<td style="text-align: left;">Perguntas que requerem “Sim” ou “Não” como resposta.</td>
+<td style="text-align: left;">“Atenas é a capital da Grécia?”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="tipo-de-fonte-de-conhecimento" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="tipo-de-fonte-de-conhecimento"><span class="header-section-number">14.2.2</span> Tipo de Fonte de Conhecimento</h3>
+<p>Um dos principais componentes de um sistema de PR é a fonte de conhecimento, que é utilizada para extrair as informações necessárias para responder à pergunta de entrada. Existem diferentes tipos de componentes que representam a fonte de conhecimento, os quais se diferenciam na maneira como o conhecimento é criado, armazenado, modificado e consultado.</p>
+<section id="dados-não-estruturados" class="level4" data-number="14.2.2.1">
+<h4 data-number="14.2.2.1" class="anchored" data-anchor-id="dados-não-estruturados"><span class="header-section-number">14.2.2.1</span> Dados Não Estruturados</h4>
+<p>Os dados não estruturados não seguem uma estrutura padrão e têm como vantagem a facilidade na criação do conjunto de dados que será a fonte de conhecimento do sistema. Deste modo, é possível utilizar qualquer conteúdo textual, sem a necessidade de estruturar o conteúdo em algum modelo pré-definido (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>). Porém, a desvantagem desta abordagem é o maior desafio de processar e analisar estes dados pelos sistemas, que terão que extrair as informações relevantes da coleção que são necessárias para a resposta. Isto requerer uma capacidade maior de compreensão da linguagem natural. Nesta categoria se encaixam principalmente os documentos brutos de texto, que normalmente são uma coleção de documentos textuais sem uma estrutura que represente a informação em detalhes.</p>
+<p>Para entendermos um sistema de PR com documentos textuais, podemos imaginar um sistema que utilize uma coleção de artigos jornalísticos como fonte de conhecimento e que responda perguntas sobre estes artigos. Este sistema pode ser classificado como um sistema de PR com dados não estruturados, uma vez que os dados estão em arquivos de texto sem nenhuma estrutura aprofundada para representar as informações. Além disso, o sistema utiliza alguma solução de RI para encontrar artigos relevantes em sua coleção para a pergunta de entrada. Depois de encontrar os documentos relevantes, é necessário extrair a informação específica solicitada destes documentos através de algum mecanismo que consiga associar a informação com a pergunta de entrada, como técnicas envolvendo REN ou modelos de compreensão de leitura.</p>
+<p>Da mesma forma, um sistema de PR pode utilizar a <em>web</em> como fonte de informação, extraindo páginas HTML com algum mecanismo de busca, como o Google. Embora as páginas <strong>web</strong> contenham o seu conteúdo estruturado com tags HTML, estas tags não seguem um mesmo padrão entre páginas de diferentes sites. Além disso, a principal dificuldade é que a estruturação do texto com <strong>tags</strong> não é profunda o suficiente para representar cada informação da página de forma individual. Normalmente, o conteúdo textual é dividido em parágrafos com uma <strong>tag</strong> “&lt;p&gt;”, como é mostrado na <a href="#fig-cap-qa-ex_html" class="quarto-xref">Figura&nbsp;<span>14.4</span></a>. Porém, outras <em>tags</em> não são utilizadas para informações mais detalhadas, como por exemplo, que os componentes absorvidos pelas plantas são o carbono e a água. Esta informação está entre outras diversas informações de um único parágrafo textual. Assim, podemos classificar o conteúdo de páginas <em>web</em> como dados não estruturados.</p>
+<div id="fig-cap-qa-ex_html" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-ex_html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.4: Exemplo de dados não estruturados com uma página HTML.
+</figcaption>
+<div aria-describedby="fig-cap-qa-ex_html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/ex_html.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-cap-qa-dadest" class="level4" data-number="14.2.2.2">
+<h4 data-number="14.2.2.2" class="anchored" data-anchor-id="sec-cap-qa-dadest"><span class="header-section-number">14.2.2.2</span> Dados estruturados</h4>
+<p>Diferentemente dos dados não estruturados, fontes de informações com dados estruturados apresentam uma estrutura padrão que representa e organiza a informação, facilitando o acesso e a interpretação dos dados pelo sistema. A informação estruturada segue um esquema rígido, como tabelas em um banco de dados relacional, onde cada tipo de dado é armazenado em uma coluna específica e cada registro ou linha representa uma entidade completa. Assim, todos os dados seguem um mesmo formato, reduzindo a necessidade do sistema em interpretar textos brutos para extrair as informações.</p>
+<p>Como exemplo, podemos imaginar um sistema de PR que fornece informações sobre médicos de um hospital. As informações destes profissionais estão armazenadas em tabelas de um banco de dados relacional, onde cada uma contém colunas para detalhes específicos como nome, área de especialização e horário de trabalho. Assim, para a pergunta “Qual a área de especialização da Dra. Maria da Silva?”, o sistema poderia simplesmente retornar o valor da coluna “especialização” da linha do registro de Dra. Maria da Silva. Para encontrar este valor, o sistema precisaria transformar a pergunta de entrada em uma consulta SQL. SQL, que significa Linguagem de Consulta Estruturada (do inglês, “<em>Structured Query Language</em>”), é uma linguagem de programação usada para gerenciar e manipular bancos de dados relacionais. A consulta SQL equivalente à pergunta poderia ser algo como:</p>
+<p></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> especializacao <span class="kw">FROM</span> medicos <span class="kw">WHERE</span> nome <span class="op">=</span> <span class="st">'Maria da Silva'</span>;</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p></p>
+<p>Esta consulta instrui o banco de dados a selecionar o valor da coluna “especialização” na tabela “medicos” onde a coluna “nome” é igual a “Maria da Silva”. A execução dessa consulta resultaria na resposta desejada pelo sistema.</p>
+<p>No grupo de dados estruturados, além de tabelas e bancos de dados relacionais, se encaixam principalmente os dados linkados, como ontologias e grafos de conhecimento, que são comuns de serem utilizados como fonte de conhecimento de sistemas de PR. Estas estruturas oferecem uma maneira rica e flexível de representar e organizar informações através de entidades e relacioná-las. Elas ajudam na compreensão semântica, que é crucial para responder perguntas de maneira eficaz e natural. Como mostrado na <a href="#fig-cap-qa-ex_grafo" class="quarto-xref">Figura&nbsp;<span>14.5</span></a>, a entidade “Marcelo Rebelo de Sousa” contém diferentes relações, e entre estas entidades existe a relação de “atual presidente” com “Portugal”. Este tipo de estrutura facilita a busca por informações relevantes. Por exemplo, dada a pergunta “Quem é o presidente de Portugal?”, com o grafo de conhecimento é possível verificar todas as relações da entidade “Portugal” e verificar qual está mais próxima, que neste caso é “atual presidente”, e retornar a entidade relacionada.</p>
+<div id="fig-cap-qa-ex_grafo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-ex_grafo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.5: Exemplo de dados estruturados com grafo de conhecimento.
+</figcaption>
+<div aria-describedby="fig-cap-qa-ex_grafo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/ex_grafo.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>Podem existir sistemas que utilizem ambas as formas de fonte de conhecimento. Por exemplo, dada a pergunta “Como o atual presidente de Portugal entrou na política?”, o sistema de PR pode utilizar o grafo de conhecimento para extrair a entidade “Marcelo Rebelo de Sousa” como atual presidente de “Portugal” e depois extrair as informações de como ele entrou na política, consultando documentos não estruturados que ajudarão a formular a resposta de saída.</p>
+</section>
+<section id="memória-paramétrica" class="level4" data-number="14.2.2.3">
+<h4 data-number="14.2.2.3" class="anchored" data-anchor-id="memória-paramétrica"><span class="header-section-number">14.2.2.3</span> Memória paramétrica</h4>
+<p>A transição dos sistemas de PR baseados em dados estruturados e não estruturados para os que utilizam memória paramétrica marca uma evolução significativa. Enquanto as abordagens tradicionais dependem de fontes de conhecimento externas, claramente definidas e acessíveis, a memória paramétrica introduz um paradigma onde o conhecimento é embutido diretamente na arquitetura e nos parâmetros de modelos de aprendizado profundo.</p>
+<p>Com o advento das redes neurais profundas, os modelos de linguagem foram equipados com a capacidade de armazenar informações em seu elevado número de parâmetros ajustáveis (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-modelos-linguagem/cap-modelos-linguagem.html#sec-cap-modelos-linguagem" target="_blank" title="Volume 2">Modelos de linguagem</a></span>). Estes parâmetros podem ser entendidos como pesos de conexões entre neurônios artificiais que são ajustados durante a fase de treinamento. Esses modelos são treinados em grandes conjuntos de dados para aprender uma variedade de padrões e fatos, e são capazes de aplicar esse aprendizado para responder perguntas e realizar outras tarefas de PLN.</p>
+<p>No entanto, com redes neurais, ainda não temos garantias de um processo perfeito de armazenamento, e não sabemos se as informações estão realmente sendo representadas de forma fiel aos dados originais. Além disso, apesar de serem capazes de aplicar esse aprendizado para responder perguntas e realizar outras tarefas de PLN, as informações contidas nesses modelos não são facilmente acessadas da mesma forma que um grafo de conhecimento ou documentos textuais, e também não são interpretáveis para os humanos até o momento. A informação está contida em diversos valores numéricos e que são utilizados exclusivamente pelos modelos de redes neurais profundas quando uma determinada entrada de dados é passada ao modelo.</p>
+<p>Os modelos de aprendizado profundo, particularmente aqueles baseados em <em>transformers</em>&nbsp;<span class="citation" data-cites="aVaswani17">(<a href="../../shared/referencias/referencias.html#ref-aVaswani17" role="doc-biblioref">Vaswani et al., 2017</a>)</span>, como o BERT&nbsp;<span class="citation" data-cites="Devlin19">(<a href="../../shared/referencias/referencias.html#ref-Devlin19" role="doc-biblioref">Devlin et al., 2019</a>)</span> e GPT&nbsp;<span class="citation" data-cites="gpt3 achiam2023gpt">(<a href="../../shared/referencias/referencias.html#ref-achiam2023gpt" role="doc-biblioref">Achiam et al., 2023</a>; <a href="../../shared/referencias/referencias.html#ref-gpt3" role="doc-biblioref">Brown et al., 2020</a>)</span>, contêm um mecanismo chamado de atenção, que permite ao modelo dar pesos diferentes para partes de uma entrada de texto de maneira mais dinâmica e contextual. A memória paramétrica é profundamente influenciada pelo processo de treinamento. O pré-treinamento em grandes corpora de texto é uma técnica comum para estabelecer uma base sólida de conhecimento geral, além de aprender a linguagem, estrutura, e relações contextuais. O <em>fine-tuning</em> é o próximo passo, onde o modelo pré-treinado é ajustado para tarefas específicas de PR. Nesta etapa, o modelo aprende especificidades do domínio em questão, adaptando sua memória paramétrica para ser mais eficaz na resposta a perguntas relevantes.</p>
+<p>Um sistema de PR que utiliza um grande modelo de <em>transformers</em> como memória paramétrica é um exemplo clássico de uma abordagem <em>end-to-end</em>. Nesse sistema, um único modelo normalmente executa todas as etapas desde o processamento da pergunta textual até a resposta de saída. As etapas de processamento são realizadas de forma implícita nas inúmeras camadas do modelo. Durante a fase de treinamento, os parâmetros neurais do modelo são ajustados para mapear perguntas a respostas corretas, com base em um grande volume de pares de pergunta-resposta. Este processo, após extensivo desenvolvimento, ajustes e comparações entre diversas versões, possibilita que o modelo não apenas memorize respostas específicas, mas também aprenda padrões e relações que o capacitam a generalizar e responder a perguntas novas e não vistas durante o treinamento, embora esse resultado seja o fruto de um esforço significativo de otimização e refinamento.</p>
+<p>É importante notar que a geração de respostas por modelos <em>transformers end-to-end</em> é resultado do entendimento contextual e da aplicação de padrões aprendidos, e não do acesso direto a respostas predefinidas. Além disso, a natureza “caixa-preta” desses modelos pode tornar desafiador entender exatamente como uma resposta é formada, levantando questões de interpretabilidade e confiabilidade. Portanto, enquanto sistemas de PR baseados em <em>transformers end-to-end</em> oferecem eficiência para processar e responder perguntas, eles também vêm com desafios importantes que precisam ser considerados.</p>
+<p>Modelos <em>end-to-end</em> podem ser efetivamente combinados com outras abordagens para enriquecer suas capacidades. Especificamente, é possível fornecer não apenas a pergunta, mas também um contexto relevante como entrada para esses modelos. Para isso, o modelo precisa ser treinado com pares de pergunta+contexto e resposta, permitindo que ele aprenda a extrair e utilizar informações pertinentes do texto fornecido. Essa abordagem pode ser complementada com etapas de RI para identificar e fornecer o contexto mais relevante para cada pergunta. Ao integrar fontes de informação confiáveis e específicas, essa estratégia aumenta a confiabilidade e precisão do modelo, ajudando a reduzir o problema de delírio ou alucinação comum em modelos de linguagem gerativos, onde podem gerar respostas plausíveis, porém incorretas ou sem fundamento.</p>
+</section>
+</section>
+<section id="domínio-de-conhecimento" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="domínio-de-conhecimento"><span class="header-section-number">14.2.3</span> Domínio de conhecimento</h3>
+<p>Sistemas de PR podem ser categorizados com base no domínio de conhecimento ao qual se dedicam. Alguns são desenvolvidos para responder perguntas específicas de campos como biomedicina ou mercado financeiro, enquanto outros são projetados para abranger uma gama mais ampla de assuntos. Essencialmente, podemos dividir os sistemas em dois grupos principais: de amplo domínio e de domínio restrito.</p>
+<section id="domínio-amplo" class="level4" data-number="14.2.3.1">
+<h4 data-number="14.2.3.1" class="anchored" data-anchor-id="domínio-amplo"><span class="header-section-number">14.2.3.1</span> Domínio Amplo</h4>
+<p>Os sistemas de amplo domínio visam responder perguntas sobre uma vasta gama de tópicos. Dado que o escopo do conhecimento é mais amplo, as fontes de informação utilizadas precisam ser extensivas e diversificadas para cobrir o máximo possível de áreas. Comumente, esses sistemas optam por fontes de conhecimento não estruturadas devido à sua ampla disponibilidade e variedade. Documentos de texto brutos e mecanismos de busca de páginas web são frequentemente empregados como fontes de informação, pois oferecem uma quantidade massiva de dados. No entanto, a vastidão de informações em domínios amplos implica em desafios relacionados à precisão e relevância das respostas geradas, demandando etapas de processamento específicas para recuperação e interpretação de dados.</p>
+</section>
+<section id="domínio-restrito" class="level4" data-number="14.2.3.2">
+<h4 data-number="14.2.3.2" class="anchored" data-anchor-id="domínio-restrito"><span class="header-section-number">14.2.3.2</span> Domínio Restrito</h4>
+<p>Os sistemas de domínio restrito concentram-se em responder perguntas dentro de um tópico específico ou conjunto limitado de tópicos. Devido à característica focada desses sistemas, a amplitude de informações necessárias é relativamente menor, permitindo uma exploração mais profunda e detalhada do assunto em questão. É comum a utilização de fontes de dados estruturados, pois estes podem oferecer informações específicas e detalhadas, essenciais para fornecer respostas precisas. Os sistemas de domínio restrito geralmente se beneficiam de um entendimento mais profundo e especializado do tópico, resultando em respostas mais confiáveis e acuradas. No entanto, eles enfrentam o desafio de manter-se atualizados e abrangentes dentro do seu campo específico, o que pode exigir atualizações regulares e monitoramento contínuo. Tornar-se assim uma tarefa custosa, já que os dados precisam ser constantemente estruturados e atualizados na fonte de informação, o que demanda esforços consideráveis em termos de tempo e recursos, tanto para a coleta quanto para a manutenção desses dados, garantindo que o sistema permaneça relevante e preciso ao longo do tempo.</p>
+</section>
+</section>
+</section>
+<section id="abordagens" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="abordagens"><span class="header-section-number">14.3</span> Abordagens</h2>
+<p>Uma vez que a tarefa de PR busca compreender a pergunta de entrada, recuperar informações relevantes em sua base de conhecimento, e muitas vezes, gerar linguagem natural para a resposta de saída, um sistema de PR pode conter diversas etapas de processamento. Além disso, essas etapas não são necessariamente as mesmas entre diferentes sistemas. As etapas podem depender principalmente das diferentes categorias de sistemas de PR apresentados na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/geracao-e-interacao/cap-qa/cap-qa.html#sec-cap-qa-classificacao" target="_blank" title="Volume 1">Classificação de Sistemas de Perguntas e Respostas</a></span>.</p>
+<p>Considerando as diferentes arquiteturas e abordagens de sistemas de PR, podemos separar as abordagens apresentadas nesta seção em duas categorias: as de sistemas que utilizam etapas explícitas de processamento, que chamamos de <strong>abordagem modular</strong>; e as de sistemas que abstraem todas as etapas da abordagem modular em um modelo de redes neurais profundas, que chamamos de <strong>abordagem <em>end-to-end</em></strong>. Assim, nesta seção serão vistas três possibilidades de arquiteturas de sistemas de PR, variando as abordagens e principalmente a fonte de conhecimento do sistema, que impacta as demais etapas de processamento. A primeira é uma abordagem modular que utiliza dados não estruturados como fonte de conhecimento. A segunda é novamente uma abordagem modular mas que utiliza grafos de conhecimento como fonte de conhecimento. Para finalizar, a terceira é uma abordagem <em>end-to-end</em> utilizando documentos não estruturados e memória paramétrica. Para cada possibilidade, são descritas a lógica da arquitetura do sistema e suas etapas.</p>
+<p>É importante mencionar que as abordagens discutidas são baseadas em estudos da literatura que apresentam arquiteturas similares entre sistemas do mesmo tipo. Portanto, um sistema de PR não precisa necessariamente seguir exatamente estas etapas e pode utilizar diferentes etapas. Em resumo, a escolha da abordagem para o sistema de PR deve ser guiada por uma análise do contexto no qual será aplicado, dos recursos atuais e da viabilidade de desenvolver novos recursos, como conjuntos de dados para treinamento e bases de conhecimento do sistema. Além disso, é importante considerar as vantagens e desvantagens das abordagens modular e <em>end-to-end</em>, considerando suas implicações em termos de flexibilidade, complexidade de implementação e capacidade de atender às necessidades específicas do projeto.</p>
+<section id="sec-cap-qa-assistida_doc" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="sec-cap-qa-assistida_doc"><span class="header-section-number">14.3.1</span> Abordagem modular com documentos</h3>
+<p>Nesta abordagem, vamos considerar um sistema de PR que busca responder a perguntas factuais de domínio amplo. A fonte de conhecimento será composta por documentos de texto bruto. A <a href="#fig-cap-qa-arq_abord_1" class="quarto-xref">Figura&nbsp;<span>14.6</span></a> apresenta a arquitetura deste sistema e seus diferentes passos. Basicamente, o sistema é dividido em três grandes etapas, conhecidas como:</p>
+<ol type="1">
+<li><p>Processamento da Pergunta, responsável por realizar processamentos na pergunta de entrada, buscando “compreender” o que está sendo solicitado;</p></li>
+<li><p>Com as informações do primeiro passo, é realizada a Recuperação de Informações relevantes da base de documentos do sistema para serem utilizadas na criação da resposta final;</p></li>
+<li><p>Por fim, utilizando as informações dos dois primeiros passos, a última etapa é responsável por determinar a resposta final do sistema. Cada uma destas etapas contém fases específicas de processamento que serão discutidas nas próximas subseções.</p></li>
+</ol>
+<div id="fig-cap-qa-arq_abord_1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-arq_abord_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.6: Exemplo de uma arquitetura de um sistema de PR para perguntas factuais utilizando documentos como base de conhecimento.
+</figcaption>
+<div aria-describedby="fig-cap-qa-arq_abord_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/arq_abord_1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<section id="processamento-da-pergunta" class="level4" data-number="14.3.1.1">
+<h4 data-number="14.3.1.1" class="anchored" data-anchor-id="processamento-da-pergunta"><span class="header-section-number">14.3.1.1</span> Processamento da Pergunta</h4>
+<p>Neste primeiro passo, busca-se determinar o que está sendo solicitado na pergunta de entrada. Nesta abordagem, vamos utilizar duas etapas: uma para extrair palavras-chave que serão utilizadas pela etapa de recuperação de documentos e outra para classificar o tipo da pergunta, que será utilizada para extrair respostas candidatas no passo de Processamento da Resposta.</p>
+<p><strong>Extração de palavras-chave</strong>: Sistemas de RI normalmente utilizam palavras-chave para buscar documentos relevantes. Assim, são extraídas palavras-chave contidas na pergunta de entrada. Nesta etapa, pode-se utilizar técnicas baseadas em REN, como no estudo do sistema RAPPORT <span class="citation" data-cites="rodrigues2015rapport">(<a href="../../shared/referencias/referencias.html#ref-rodrigues2015rapport" role="doc-biblioref">Rodrigues; Gomes, 2015</a>)</span>, ou também como a remoção de <em>stop-words</em>, que são palavras menos significativas para a busca, mantendo somente as palavras mais significativas. Por exemplo, na pergunta “Qual a capital da Grécia?”, podemos dividí-la em palavras, através de alguma ferramenta de tokenização, e desconsiderar as <em>stop-words</em> “Qual”, “a” e “da”. Para isso, é possível usar alguma lista de <em>stop-words</em> pré-definida, como a utilizada no código abaixo que emprega a lista de <em>stop-words</em> em português da biblioteca NLTK para Python.</p>
+<p></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'stopwords'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pt_stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'portuguese'</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p></p>
+<p><strong>Classificação da pergunta</strong>: Uma das primeiras etapas de processamento de um sistema de PR é a classificação da pergunta, que também pode ser chamada de classificação do tipo de resposta. Esta é uma tarefa de classificação de texto, onde um modelo recebe o texto da pergunta de entrada e deve determinar a sua classe. Por exemplo, se a pergunta for “Quando Pedro Álvares Cabral descobriu o Brasil?”, a classe será “Data”, já que a resposta é uma data. Já a pergunta “Onde nasceu Pedro Álvares Cabral?” é classificada como “Local”, já que a resposta será um local. Pode-se utilizar diferentes taxonomias de classes dependendo do tipo de perguntas com que o sistema irá trabalhar. Normalmente, esta classe será cruzada com as classes de entidades dos modelos de REN.</p>
+<p>Uma abordagem comum para a classificação da pergunta é o treinamento de modelos supervisionados. Estudos da literatura mostram que os modelos propostos para a tarefa de classificação de perguntas para o português superam os 90% de F1-score <span class="citation" data-cites="cortes2020empirical cortes2018when">(<a href="../../shared/referencias/referencias.html#ref-cortes2020empirical" role="doc-biblioref">Cortes et al., 2020</a>; <a href="../../shared/referencias/referencias.html#ref-cortes2018when" role="doc-biblioref">Cortes et al., 2018</a>)</span>. Além disso, abordagens atuais com <em>transformers</em> vêm apresentando modelos cada vez mais eficientes para tarefas de classificação de texto <span class="citation" data-cites="zhou2024adversarial">(<a href="../../shared/referencias/referencias.html#ref-zhou2024adversarial" role="doc-biblioref">Zhou et al., 2024</a>)</span>. Outra abordagem possível é através de regras manuais, que no caso da classificação da pergunta, podem considerar palavras-chave como “Quem”, “Quando” e “Onde” para determinar a classe, que poderiam ser respectivamente “Pessoa”, “Data” e “Local”. Porém, este tipo de abordagem tem problemas com entradas não previstas e pode requerer grandes esforços na criação de regras para cobrir o máximo possível de possibilidades. Além disso, a linguagem natural apresenta desafios de ambiguidade, que podem ser desafiadores, principalmente para abordagens manuais. Assim, é mais comum a utilização de modelos supervisionados quando um conjunto de dados anotados para o treinamento está disponível.</p>
+<p>A classe predita pelo modelo de classificação da pergunta pode ajudar nas demais etapas do sistema. Uma das principais utilizações desta classe é ajudar a filtrar documentos, sentenças e respostas candidatas. Por exemplo, se a classe da pergunta é “Pessoa”, as etapas dos passos de Recuperação de Informações podem considerar apenas informações que contenham entidades do tipo “Pessoa”, já que a resposta deve ser uma pessoa que será extraída dessas informações. Como no exemplo da <a href="#fig-cap-qa-ex_classe_pergunta" class="quarto-xref">Figura&nbsp;<span>14.7</span></a>, o sistema pode focar apenas em sentenças que contenham este tipo de entidade, reduzindo consideravelmente o escopo de busca. No caso do nosso sistema de exemplo, a classe da pergunta será utilizada na etapa de extração de respostas candidatas, considerando apenas as sentenças que contêm uma entidade da mesma classe.</p>
+<div id="fig-cap-qa-ex_classe_pergunta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-ex_classe_pergunta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.7: Exemplo ilustrativo de sentenças com suas entidades identificadas, onde somente as sentenças com entidades do tipo “Pessoa” são selecionadas.
+</figcaption>
+<div aria-describedby="fig-cap-qa-ex_classe_pergunta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/ex_classe_pergunta.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="recuperação-de-informação" class="level4" data-number="14.3.1.2">
+<h4 data-number="14.3.1.2" class="anchored" data-anchor-id="recuperação-de-informação"><span class="header-section-number">14.3.1.2</span> Recuperação de Informação</h4>
+<p>Este passo é responsável por buscar as informações relevantes da base de conhecimento que são determinantes para a resposta final do sistema. Podem haver diferentes etapas que filtram cada vez mais a informação em unidades cada vez menores. Por exemplo, pode haver uma etapa que começa filtrando quais documentos textuais são relevantes para a pergunta, em seguida outra etapa que extrai parágrafos relevantes destes documentos, e por fim, uma etapa que extrai sentenças relevantes destes parágrafos, como é feito no sistema IdSay <span class="citation" data-cites="carvalho2009idsay">(<a href="../../shared/referencias/referencias.html#ref-carvalho2009idsay" role="doc-biblioref">Carvalho et al., 2009</a>)</span>. No caso do sistema de exemplo desta seção, será utilizada uma etapa para recuperação de documentos e outra na sequência para recuperar sentenças.</p>
+<p><strong>Recuperação de documentos</strong>: Normalmente, esta etapa utiliza abordagens de RI (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-ir/cap-ir.html#sec-cap-ir" target="_blank" title="Volume 3">Recuperação de Informação</a></span>) para encontrar documentos relevantes do conjunto da base de conhecimento do sistema utilizando os termos da pergunta de entrada para a consulta <span class="citation" data-cites="goncalo2019using">(<a href="../../shared/referencias/referencias.html#ref-goncalo2019using" role="doc-biblioref">Gonçalo Oliveira et al., 2019</a>)</span>. É possível também utilizar outras etapas do passo de Processamento da Pergunta que otimizem os termos da pergunta de entrada, como extração de palavras-chave. Em <span class="citation" data-cites="costa2008answering">(<a href="../../shared/referencias/referencias.html#ref-costa2008answering" role="doc-biblioref">Costa; Cabral, 2008</a>)</span>, é utilizada uma etapa de reformulação da pergunta para padrões de perguntas do português já definidos, facilitando a busca por informações para a resposta.</p>
+<p><strong>Recuperação de sentenças</strong>: Mesmo que poucos documentos sejam selecionados como relevantes, estes normalmente apresentam diversas informações textuais, onde muitas podem ser irrelevantes para a pergunta. Assim, novas etapas que buscam filtrar ainda mais as informações relevantes trazem mais precisão ao modelo, uma vez que o conjunto de respostas candidatas derivadas das informações relevantes selecionadas deve ser reduzido. Uma possibilidade é buscar apenas as sentenças relevantes destes documentos, descartando as demais. Para isso, é necessário primeiro dividir o documento textual em sentenças.</p>
+<p>A divisão do documento em sentenças não é uma tarefa trivial através da divisão pelos caracteres de pontuação, que normalmente dividem o texto em sentenças, pois estes caracteres podem ser ambíguos, e dependendo do contexto, não significam uma divisão por sentenças. Por exemplo, o ponto final ‘.’, pode ser utilizado dentro de números, como neste exemplo “Foram gastos R$ 3.500.000,00 no investimento”. De qualquer forma, existem bibliotecas especializadas na divisão de textos em sentenças para o português, como o <em>SpaCy</em>, conforme o exemplo de código abaixo.</p>
+<p></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Baixar modelo: python -m spacy download pt_core_news_sm</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"pt_core_news_sm"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">"Hoje, o preço do petróleo subiu 5.7%. Amanhã haverá uma reunião importante sobre economia global."</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(texto)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sentencas <span class="op">=</span> [sent.text <span class="cf">for</span> sent <span class="kw">in</span> doc.sents]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p></p>
+<p>Após a divisão das sentenças, é preciso determinar quais delas são relevantes ou não para a pergunta. Para isso, existem diferentes estratégias, como, por exemplo, verificar se existem termos da pergunta presentes na sentença. Outra forma é verificar se a sentença contém alguma entidade do mesmo tipo da pergunta. Neste caso, é necessário uma etapa de classificação da pergunta e também a utilização de modelos de REN para identificar as entidades nas sentenças (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-ie/cap-ie.html#sec-cap-ie" target="_blank" title="Volume 3">Extração de Informação</a></span>). Por fim, é possível também calcular um valor de similaridade entre a pergunta de entrada e a sentença através de métodos que verifiquem a similaridade entre textos. Existem diferentes métricas e modelos que buscam um valor que represente esta similaridade. Esta abordagem tem a vantagem de considerar aspectos semânticos, como sinônimos.</p>
+</section>
+<section id="processamento-da-resposta" class="level4" data-number="14.3.1.3">
+<h4 data-number="14.3.1.3" class="anchored" data-anchor-id="processamento-da-resposta"><span class="header-section-number">14.3.1.3</span> Processamento da Resposta</h4>
+<p>O último passo do sistema de PR é o Processamento da Resposta, que realiza as etapas de processamento para determinar qual será a resposta de saída. Neste passo, são utilizadas as informações dos passos anteriores, principalmente as informações do passo de Recuperação de Informação. As etapas deste passo podem mudar significativamente com o tipo de pergunta que o sistema está trabalhando. Sistemas para perguntas que requerem respostas longas podem utilizar abordagens de geração de texto para a resposta de saída. No caso do nosso sistema de exemplo, estamos trabalhando com perguntas factuais que requerem uma entidade como resposta. Assim, optamos por utilizar etapas de extração de respostas candidatas e ranqueamento de respostas candidatas.</p>
+<p><strong>Extração de respostas candidatas</strong>: Uma vez que o passo de Recuperação de Informação encontrou as informações relevantes, é comum que a próxima etapa seja a definição de respostas candidatas. A abordagem desta etapa deve mudar conforme o tipo de pergunta. Podem existir abordagens que extraem respostas baseadas em padrões, como a do sistema Esfinge&nbsp;<span class="citation" data-cites="costa2009using">(<a href="../../shared/referencias/referencias.html#ref-costa2009using" role="doc-biblioref">Costa, 2009</a>)</span>. No caso de respostas longas, podem ser utilizados: modelos de sumarização capazes de sumarizar as informações dos documentos relevantes em respostas; modelos de geração de texto, que receberiam a pergunta e informações de contexto para gerar o texto da resposta; existe também a possibilidade de extrair diretamente pedaços de texto, como um parágrafo ou conjunto de frases, como a resposta candidata do sistema; por fim, o uso de templates pode ser uma possibilidade, onde um esqueleto de resposta pré-definido é preenchido com informações extraídas dos documentos, permitindo a geração de respostas mais estruturadas e controladas.</p>
+<p>No caso do nosso sistema de exemplo, focado em perguntas factuais, a etapa de extração de respostas candidatas pode utilizar um modelo de REN para extrair as entidades de cada sentença relevante e considerar apenas as entidades do mesmo tipo da classe como resposta candidata. Podemos considerar o exemplo da <a href="#fig-cap-qa-ex_classe_pergunta" class="quarto-xref">Figura&nbsp;<span>14.7</span></a>, onde a classe da pergunta é “Pessoa”. Logo, podemos utilizar apenas os nomes de pessoas como resposta candidata.</p>
+<p>Outra maneira de extração de respostas candidatas é através de modelos para a tarefa de compreensão de leitura (<em>reading comprehension</em>). Esses modelos são treinados em grandes conjuntos de dados que contêm perguntas com trechos de texto correspondentes e as respostas corretas. Eles aprendem a processar o contexto e a extrair a informação relevante que responde à pergunta. Para perguntas factuais, esses modelos podem ser especialmente eficazes, pois são capazes de identificar e extrair a entidade exata que responde à pergunta a partir do texto fornecido.</p>
+<p><strong>Ranqueamento de respostas candidatas</strong>: Após criar uma lista das respostas candidatas, a próxima etapa é ranquear essa lista, onde as respostas mais prováveis ficarão no topo deste ranque. Para criar este ranque, é necessário atribuir um valor de pontuação para cada resposta candidata. Existem diferentes estratégias para determinar este valor de pontuação. Uma abordagem possível é verificar quais as respostas mais comuns na lista de candidatas. Por exemplo, se a lista de respostas candidatas permite repetições, uma pontuação possível seria determinar quantas vezes a resposta ocorre nesta lista. Assim, as respostas mais repetidas ficariam no topo do ranque. Outra possibilidade é verificar a semelhança da resposta candidata com a pergunta de entrada. Neste caso, pode-se utilizar técnicas para determinar semelhança de texto, como a similaridade por cosseno&nbsp;<span class="citation" data-cites="Si_2019">(<a href="../../shared/referencias/referencias.html#ref-Si_2019" role="doc-biblioref">Si et al., 2019</a>)</span>, onde é necessário mapear tanto a resposta como a pergunta em vetores utilizando um mesmo espaço semântico multidimensional. Depois, verificar a proximidade entre eles comparando o cosseno do ângulo entre os dois vetores. Quanto menor o ângulo, maior a similaridade, com um ângulo de 0 graus indicando máxima similaridade ou vetores idênticos.</p>
+<p>Uma possibilidade de método para ranquear respostas candidatas é usar modelos de aprendizado de máquina que foram treinados para avaliar a relevância de uma resposta candidata dada a pergunta e o contexto. Esses modelos podem levar em consideração diversos fatores, como a similaridade semântica, a presença de palavras-chave, a confiabilidade da fonte de onde a resposta foi extraída, e até feedback de usuário/as anteriores. Para perguntas factuais, o ranqueamento também pode envolver a verificação da precisão factual das respostas candidatas. Isso pode ser feito através de consulta a bases de dados confiáveis ou utilizando modelos que foram treinados para validar a veracidade das informações.</p>
+<p>Ao final deste processo de ranqueamento, a resposta candidata que recebe a pontuação mais alta é selecionada como a resposta final do sistema. Esta resposta é então entregue ao usuário/a, completando o ciclo do sistema de PR. É importante notar que os usuários podem ter a opção de visualizarem várias respostas top ranqueadas, permitindo-lhes escolher a que acham mais satisfatória ou explorar diferentes perspectivas sobre o tema questionado.</p>
+</section>
+</section>
+<section id="abordagem-modular-com-grafo-de-conhecimento" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="abordagem-modular-com-grafo-de-conhecimento"><span class="header-section-number">14.3.2</span> Abordagem modular com grafo de conhecimento</h3>
+<p>Nesta abordagem, consideramos um sistema de PR que utiliza grafos de conhecimento como fonte principal para recuperar respostas de perguntas factuais sobre um domínio restrito. Grafos de conhecimento são estruturas que armazenam informações de forma semântica, representando entidades como nós e relações entre elas como arestas, como mostrado no exemplo da <a href="#fig-cap-qa-ex_grafo" class="quarto-xref">Figura&nbsp;<span>14.5</span></a>, apresentada na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/geracao-e-interacao/cap-qa/cap-qa.html#sec-cap-qa-dadest" target="_blank" title="Volume 1">Dados estruturados</a></span>. Esta abordagem permite a recuperação precisa de informações, pois o sistema pode navegar pelo grafo para encontrar respostas específicas. Além disso, esta abordagem é particularmente útil para perguntas que exigem compreensão e inferência complexas, além de oferecer uma maneira mais estruturada de representar e acessar dados em comparação com os dados não estruturados. Como exemplo, temos o sistema apresentado em <span class="citation" data-cites="de2020using">(<a href="../../shared/referencias/referencias.html#ref-de2020using" role="doc-biblioref">Sousa et al., 2020</a>)</span> para o português, que propôs uma abordagem baseada em ontologias sobre fatos.</p>
+<p>A <a href="#fig-cap-qa-arq_abord_2" class="quarto-xref">Figura&nbsp;<span>14.8</span></a> apresenta a arquitetura geral deste tipo de sistema, destacando suas principais etapas e fluxo de processamento. As etapas escolhidas foram a identificação de entidades, vinculação de entidades, geração de consultas e geração de respostas. Existem diferentes abordagens de arquitetura e processamento com grafos de conhecimento para sistemas de PR. Neste caso, foram escolhidas etapas baseadas em <em>parsing</em> semântico. Porém, existem outras abordagens como baseadas em <em>template</em> e modelos <em>end-to-end</em>, conforme o estudo de revisão de <span class="citation" data-cites="pereira2022systematic">(<a href="../../shared/referencias/referencias.html#ref-pereira2022systematic" role="doc-biblioref">Pereira et al., 2022</a>)</span>.</p>
+<div id="fig-cap-qa-arq_abord_2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-arq_abord_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.8: Exemplo de uma arquitetura de um sistema de PR utilizando um grafo de conhecimento como base de conhecimento.
+</figcaption>
+<div aria-describedby="fig-cap-qa-arq_abord_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/arq_abord_2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p><strong>Identificação de Entidade</strong>: Assim como na abordagem modular com documentos, a primeira etapa envolve o processamento da pergunta do usuário/a. No entanto, nesta abordagem, o foco está em entender quais entidades estão sendo referenciadas na pergunta. Isso pode envolver modelos de REN para identificar entidades e desambiguação. Esta etapa é crucial, pois a identificação correta de entidades influenciará todas as etapas subsequentes. Por exemplo, na pergunta “Quem é o presidente do Brasil?”, a entidade de interesse é “Brasil”.</p>
+<p><strong>Vinculação de Entidade</strong>: Após identificar as entidades, o sistema tenta mapear a entidade identificada a um nó correspondente no grafo de conhecimento. Este processo é desafiador, pois uma única entidade pode ter múltiplas representações. Isso é similar à etapa de Recuperação de Informação na abordagem não estruturada, mas em vez de procurar documentos ou trechos, o sistema busca nós específicos dentro do grafo. No exemplo anterior, o sistema vincularia “Brasil” ao nó correspondente no grafo de conhecimento que representa o país.</p>
+<p><strong>Geração de Consulta</strong>: Uma vez que as entidades são vinculadas corretamente aos seus nós correspondentes, a próxima etapa é a geração de consultas. Esta etapa envolve a construção de uma consulta estruturada (geralmente uma consulta SPARQL se estiver usando um grafo como Freebase ou DBpedia) que será usada para extrair informações do grafo de conhecimento. A geração de consultas depende do entendimento do sistema sobre a pergunta do usuário/a e das entidades vinculadas. Seguindo nosso exemplo, uma consulta SPARQL poderia ser gerada para buscar a pessoa que tem a relação “presidente de” com o nó “Brasil”.</p>
+<p>Da mesma forma que existem abordagens que utilizam modelos de <em>transformers</em> para transformar uma entrada textual em uma consulta SQL, como a utilizada no sistema de <span class="citation" data-cites="jose2022integrating">(<a href="../../shared/referencias/referencias.html#ref-jose2022integrating" role="doc-biblioref">José et al., 2022</a>)</span>, é possível também treinar um modelo para transformar a pergunta de entrada em linguagem natural em uma consulta SPARQL para um grafo de conhecimento.</p>
+<p><strong>Geração de Resposta</strong>: Finalmente, uma vez que a consulta é executada e os dados relevantes são recuperados do grafo, o sistema precisa gerar uma resposta compreensível para o usuário/a. A complexidade desta etapa pode variar dependendo da natureza da pergunta e da estrutura do grafo de conhecimento. Isso pode envolver simplesmente retornar o nome de uma entidade ou uma lista de entidades, ou pode envolver mais processamento para gerar uma resposta longa em linguagem natural, como utilizar modelos de geração de linguagem natural.</p>
+<p>A abordagem com grafos de conhecimento tem a vantagem de utilizar uma base de conhecimento estruturada e semântica, o que pode melhorar a precisão e a relevância das respostas, especialmente para perguntas que requerem compreensão e inferência complexas. No entanto, também apresenta desafios, como a necessidade de manter e atualizar constantemente o grafo de conhecimento para refletir informações precisas e atuais. Enquanto a abordagem modular com documentos pode ser mais flexível e capaz de lidar com uma gama mais ampla de perguntas, a abordagem modular com grafo de conhecimento oferece maior precisão e eficiência para perguntas específicas onde a vinculação direta a entidades conhecidas é possível. A escolha entre as duas abordagens dependerá das necessidades específicas do sistema de PR, como tipo de perguntas que ele visa responder e o tipo de informação disponível para consulta.</p>
+</section>
+<section id="abordagem-end-to-end" class="level3" data-number="14.3.3">
+<h3 data-number="14.3.3" class="anchored" data-anchor-id="abordagem-end-to-end"><span class="header-section-number">14.3.3</span> Abordagem <em>end-to-end</em></h3>
+<p>A abordagem <em>end-to-end</em> representa um design de sistemas de PR onde o objetivo é criar um modelo que possa lidar com todas as etapas do processo de PR, desde a compreensão da pergunta até a geração da resposta, sem intervenção ou etapas de processamento intermediárias. Ao invés de separar as tarefas em diferentes passos (como Processamento da Pergunta, Recuperação de Informações e Processamento da Resposta), a abordagem <em>end-to-end</em> busca unificar todas essas operações em um único modelo.</p>
+<p>Neste caso, estamos considerando como exemplo um sistema de PR de amplo domínio para perguntas factuais e não factuais. Ao invés de utilizar somente a pergunta como entrada do modelo, incluímos também um contexto, que é um texto com informações relevantes e confiáveis, que normalmente tem tamanho de um grande parágrafo de texto. Assim, o modelo utiliza memória paramétrica junto com o contexto textual extraído de alguma fonte de conhecimento externa confiável. Essa estratégia traz mais confiabilidade ao sistema, já que confiar unicamente na memória paramétrica do modelo pode trazer problemas de imprecisão e delírio ao gerar a resposta.</p>
+<p>Diferente das figuras de arquiteturas dos modelos modulares, a <a href="#fig-cap-qa-arq_abord_3" class="quarto-xref">Figura&nbsp;<span>14.9</span></a> ilustra as etapas de desenvolvimento deste modelo, destacando que, no contexto de um modelo <em>end-to-end</em>, as etapas de processamento convencionais não são explicitamente definidas, mas sim integradas de forma implícita. Porém, é importante ressaltar que não podemos afirmar com certeza que o modelo adota uma hierarquia ou sequência de etapas conhecidas de forma modular. Na verdade, o modelo gera uma série de representações que, combinadas, podem incorporar certas subtarefas de maneira codificada. Por fim, antes de encaminhar uma pergunta ao modelo <em>end-to-end</em>, torna-se necessário contextualizá-la com informações de alguma fonte de conhecimento externa. Portanto, adicionamos essa etapa única de processamento, análoga ao passo de Recuperação de Informação descrito na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/geracao-e-interacao/cap-qa/cap-qa.html#sec-cap-qa-assistida_doc" target="_blank" title="Volume 1">Abordagem modular com documentos</a></span>.</p>
+<div id="fig-cap-qa-arq_abord_3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-qa-arq_abord_3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.9: Exemplo de passos para criação de um modelo <em>end-to-end</em> para PR.
+</figcaption>
+<div aria-describedby="fig-cap-qa-arq_abord_3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/arq_abord_3.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+<p>Ao invés de focarmos unicamente na descrição, funcionalidades e aplicabilidades das etapas do sistema, nosso foco aqui se voltará, principalmente, para as etapas empregadas no desenvolvimento do modelo.</p>
+<section id="pré-processamento-dos-dados" class="level4" data-number="14.3.3.1">
+<h4 data-number="14.3.3.1" class="anchored" data-anchor-id="pré-processamento-dos-dados"><span class="header-section-number">14.3.3.1</span> Pré-processamento dos Dados</h4>
+<p>Antes de qualquer treinamento, é fundamental preparar um conjunto de dados para treinamento dos modelos de linguagem. O primeiro treinamento destes modelos (pré-treinamento) utilizam grandes corpora de texto que não precisam ser anotados e servem para o modelo aprender os padrões fundamentais da linguagem natural, que formarão a base para tarefas mais específicas de PLN. O segundo treinamento deve utilizar dados específicos para a tarefa de PR. Assim, é necessário um conjunto de pares de perguntas e resposta junto com o contexto relevante. Este conjunto pode ser consideravelmente menor do que o conjunto de dados utilizado na fase de pré-treinamento. Além das instâncias para treinamento, podem ser usadas instâncias para testar o modelo.</p>
+</section>
+<section id="pré-treinamento" class="level4" data-number="14.3.3.2">
+<h4 data-number="14.3.3.2" class="anchored" data-anchor-id="pré-treinamento"><span class="header-section-number">14.3.3.2</span> Pré-treinamento</h4>
+<p>Esta etapa envolve o treinamento do modelo em uma grande quantidade de dados de texto não anotados. Aqui, modelos de <em>transformers</em> que já foram pré-treinados em tarefas gerais de processamento de linguagem natural podem ser utilizados como ponto de partida, o que pode economizar tempo e recursos. Modelos como BART&nbsp;<span class="citation" data-cites="DBLP:conf/acl/LewisLGGMLSZ20">(<a href="../../shared/referencias/referencias.html#ref-DBLP:conf/acl/LewisLGGMLSZ20" role="doc-biblioref">Lewis et al., 2020</a>)</span>, GPTs&nbsp;<span class="citation" data-cites="gpt3 achiam2023gpt">(<a href="../../shared/referencias/referencias.html#ref-achiam2023gpt" role="doc-biblioref">Achiam et al., 2023</a>; <a href="../../shared/referencias/referencias.html#ref-gpt3" role="doc-biblioref">Brown et al., 2020</a>)</span>, ou T5&nbsp;<span class="citation" data-cites="roberts2019t5">(<a href="../../shared/referencias/referencias.html#ref-roberts2019t5" role="doc-biblioref">Roberts et al., 2019</a>)</span> são exemplos comuns que podem ser adaptados para a tarefa de PR. O pré-treinamento serve para que o modelo adquira um entendimento básico da linguagem. Esta etapa normalmente requer elevado recurso de tempo e computacional para o treinamento utilizando o grande volume de dados de corpus.</p>
+<p>É possível aproveitar modelos pré-treinados, como Sabiá&nbsp;<span class="citation" data-cites="pires2023sabia">(<a href="../../shared/referencias/referencias.html#ref-pires2023sabia" role="doc-biblioref">Pires et al., 2023</a>)</span> e BERTIMBAU&nbsp;<span class="citation" data-cites="Souza2020">(<a href="../../shared/referencias/referencias.html#ref-Souza2020" role="doc-biblioref">Souza et al., 2020</a>)</span>, que são específicos para o português e já foram treinados em extensos conjuntos de dados. Esses modelos podem ser refinados para tarefas específicas de PLN, como PR&nbsp;<span class="citation" data-cites="oliveira2021experiments">(<a href="../../shared/referencias/referencias.html#ref-oliveira2021experiments" role="doc-biblioref">Oliveira et al., 2021</a>)</span>. Para a geração de respostas longas, especialmente para perguntas não factuais, recomenda-se o uso de arquiteturas <em>full-transformers</em>, que são compostas por <em>encoders</em> e <em>decoders</em>, ou arquiteturas <em>decoder only</em>. Essas arquiteturas são apropriadas para gerar texto e com capacidade de gerar saídas textuais mais extensas. Por outro lado, arquiteturas <em>encoder only</em>, como a do modelo BERT, consistem apenas de módulos de codificação da linguagem e são mais adequadas para tarefas como classificação de texto.</p>
+</section>
+<section id="treinamento-específico" class="level4" data-number="14.3.3.3">
+<h4 data-number="14.3.3.3" class="anchored" data-anchor-id="treinamento-específico"><span class="header-section-number">14.3.3.3</span> Treinamento específico</h4>
+<p>Após o pré-treinamento, a próxima etapa é o ajuste fino, onde o modelo é treinado novamente em um conjunto de dados específico para a tarefa de PR. Este conjunto de dados consiste em pares de perguntas e respostas, junto com o contexto relevante. É nesta etapa que o modelo realmente aprende a função de PR, ajustando-se para compreender como as perguntas se relacionam com os contextos e quais respostas são as mais adequadas.</p>
+</section>
+<section id="teste-e-validação" class="level4" data-number="14.3.3.4">
+<h4 data-number="14.3.3.4" class="anchored" data-anchor-id="teste-e-validação"><span class="header-section-number">14.3.3.4</span> Teste e validação</h4>
+<p>Uma vez treinado, é recomendado que o modelo seja rigorosamente testado e validado para garantir que está produzindo respostas corretas e relevantes. Isto é feito usando um conjunto de dados separado que não foi visto pelo modelo durante o treinamento. As métricas de desempenho, como precisão, revocação, BLEU (ver <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-direito-ementas/cap-direito-ementas.html#sec-cap-direito-ementas-bleu" target="_blank" title="Volume 3"><em>Bilingual Evaluation Under-study</em> (BLEU)</a></span>) e BERTScore, são comumente utilizadas para avaliar a qualidade das respostas do modelo. Os métodos de avaliação serão vistos em mais detalhes na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/geracao-e-interacao/cap-qa/cap-qa.html#sec-cap-qa-avaliacao" target="_blank" title="Volume 1">Métodos de avaliação</a></span>.</p>
+<p>Em comparação com as abordagens modulares, o modelo <em>end-to-end</em> abstrai muitos dos processos intermediários. No entanto, a etapa de Recuperação de Informação para a obtenção do contexto é um ponto em comum entre as abordagens. A principal vantagem de um sistema <em>end-to-end</em> é sua capacidade de aprender representações internas e relacionamentos complexos nos dados, o que pode levar a um melhor desempenho, maior generalização, e a respostas mais precisas. No entanto, sistemas <em>end-to-end</em> também podem ser mais difíceis de interpretar e requerem conjuntos de dados substanciais e poder computacional significativo para o treinamento. Além disso, a abordagem <em>end-to-end</em> representa o estado da arte em sistemas de PR, aproveitando as recentes inovações em modelos de aprendizado profundo, grandes conjuntos de dados e poder computacional.</p>
+<p>Esta abordagem oferece uma integração mais fluída e direta entre as etapas do processo de PR, potencialmente reduzindo os erros que podem ocorrer em sistemas com múltiplas etapas independentes. Além disso, ao aprender diretamente de exemplos de pares de pergunta-resposta com contexto, os modelos <em>end-to-end</em> podem desenvolver uma compreensão mais refinada das sutilezas e variações da linguagem natural, o que é crucial para responder perguntas não factuais e complexas.</p>
+<p>Contudo, é importante ressaltar que, apesar da eficiência e sofisticação, a abordagem <em>end-to-end</em> ainda enfrenta desafios, especialmente relacionados à qualidade e diversidade do conjunto de dados utilizado&nbsp;<span class="citation" data-cites="gururangan-etal-2020-dont">(<a href="../../shared/referencias/referencias.html#ref-gururangan-etal-2020-dont" role="doc-biblioref">Gururangan et al., 2020</a>)</span>, bem como à necessidade de interpretabilidade e explicabilidade dos resultados produzidos pelo modelo&nbsp;<span class="citation" data-cites="e23010018 tjoa2021asurvey">(<a href="../../shared/referencias/referencias.html#ref-e23010018" role="doc-biblioref">Linardatos et al., 2021</a>; <a href="../../shared/referencias/referencias.html#ref-tjoa2021asurvey" role="doc-biblioref">Tjoa; Guan, 2021</a>)</span>. A constante evolução dos modelos de linguagem e o avanço das técnicas de aprendizado de máquina continuam a impulsionar o desenvolvimento de sistemas de PR mais robustos e precisos.</p>
+</section>
+</section>
+</section>
+<section id="sec-cap-qa-avaliacao" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="sec-cap-qa-avaliacao"><span class="header-section-number">14.4</span> Métodos de avaliação</h2>
+<p>O <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao/cap-avaliacao.html#sec-cap-avaliacao" target="_blank" title="Volume 1">Avaliação de tecnologias de linguagem</a></span> apresenta de forma geral as questões de avaliação de tecnologias de linguagem, aqui vamos situar o uso de algumas métricas para o contexto de PR. Existem diferentes métodos de avaliação de sistemas de PR que podem ser mais adequados para as diferentes tarefas computacionais envolvidas nas etapas de processamento do sistema. Por exemplo, para a etapa de classificação de perguntas, é adequado empregar métodos de avaliação utilizados em problemas de classificação. Já para a etapa de recuperação de documentos, é adequado métodos de avaliação utilizados para RI. Em relação à avaliação direta das respostas de saída do sistema, existem métodos adequados para respostas curtas, como as perguntas factuais, e outros mais adequados para respostas longas.</p>
+<p>Um dos principais recursos de avaliação de sistema de PR é conjunto de dados (<em>dataset</em>), que normalmente contém perguntas de entrada e respostas consideradas corretas para estas perguntas. Além disso, os conjuntos de dados podem oferecer outros recursos adicionais, como a base de conhecimento que o sistema deve utilizar para consulta, informações adicionais sobre a pergunta, como o seu tipo, entidades no texto, entre outros. Assim, os sistemas testados recebem como entradas as mesmas perguntas do conjunto de dados, podendo assim comparar as respostas geradas pelos diferentes sistemas de PR, como também as saídas das etapas de processamento de cada sistema, e compará-los a fim de verificar qual apresenta o melhor desempenho.</p>
+<p>Para a comparação entre sistemas, são utilizadas métricas de avaliação que fornecem uma base quantitativa para medir o desempenho, através da comparação da resposta de saída do sistema com respostas de referencias encontradas do conjunto de dados. Estas métricas variam de acordo com o tipo de resposta que o sistema de PR está projetado para gerar. Para respostas curtas e precisas, como um nome, uma data ou um fato específico, as métricas são normalmente usadas para avaliar a capacidade do sistema de identificar corretamente a resposta exata dentro de um conjunto de respostas candidatas. As principais métricas são:</p>
+<ul>
+<li><strong>Precisão</strong>: mede a proporção de respostas corretas entre todas as respostas fornecidas. Por exemplo, um sistema que responde a 100 perguntas, mas apenas 80 respostas são corretas, a precisão será de 80%.</li>
+</ul>
+<div style="transform-origin:left; scale:0.8;">
+<p> <span id="eq-cap-qa-precisao"><span class="math display">\[
+Precis\tilde{a}o = \frac{\text{Número de Respostas Corretas}}{\text{Número Total de Respostas Fornecidas}}
+\tag{14.1}\]</span></span> </p>
+</div>
+<ul>
+<li><strong>Revocação</strong>: avalia a proporção de respostas corretas identificadas pelo sistema em relação ao total de respostas corretas possíveis. Por exemplo, se para 100 perguntas, o sistema identifica corretamente 80 respostas de um total de 120 respostas corretas possíveis, a revocação é de 66.67%.</li>
+</ul>
+<div style="transform-origin:left; scale:0.8;">
+<p> <span id="eq-cap-qa-revocacao"><span class="math display">\[
+Revoca\text{ç}\tilde{a}o = \frac{\text{Número de Respostas Corretas}}{\text{Número Total de Respostas Corretas Possíveis}}
+\tag{14.2}\]</span></span> </p>
+</div>
+<ul>
+<li><strong>F1-Score</strong>: considera a precisão e a revocação juntas, através de sua média harmônica.</li>
+</ul>
+<div style="transform-origin:left; scale:0.8;">
+<p> <span id="eq-cap-qa-f1"><span class="math display">\[
+F1\text{-}Score = 2 \times \frac{\text{Precisão} \times \text{Revocação}}{\text{Precisão} + \text{Revocação}}
+\tag{14.3}\]</span></span> </p>
+</div>
+<ul>
+<li><strong>Acurácia</strong>: simplesmente mede a porcentagem de respostas corretas fornecidas pelo sistema. Por exemplo, se o sistema responde corretamente a 85 de 100 perguntas, a acurácia é de 85%.</li>
+</ul>
+<div style="transform-origin:left; scale:0.8;">
+<p> <span id="eq-cap-qa-acuracia"><span class="math display">\[
+Acur\acute{a}cia = \frac{\text{Número de Respostas Corretas}}{\text{Número Total de Respostas}}
+\tag{14.4}\]</span></span> </p>
+</div>
+<p>Para respostas longas, podem ser utilizadas métricas que determinam a similaridade entre textos, que incluem:</p>
+<ul>
+<li><p><strong>BLEU (<em>Bilingual Evaluation Understudy</em>)</strong>: Originalmente desenvolvida para avaliação de tradução automática, compara a resposta do sistema com uma ou mais respostas de referência. Essa comparação é feita com base na sobreposição de n-gramas (sequências de palavras) entre a resposta gerada e as respostas de referência <span class="citation" data-cites="Papineni2002">(<a href="../../shared/referencias/referencias.html#ref-Papineni2002" role="doc-biblioref">Papineni et al., 2002</a>)</span>.</p></li>
+<li><p><strong>ROUGE (<em>Recall-Oriented Understudy for Gisting Evaluation</em>)</strong>: Foca mais na capacidade do sistema de reproduzir o conteúdo das respostas de referência. Utiliza sobreposição de n-gramas, subsequências mais longas e co-ocorrências de palavras para avaliar resumos automáticos, por exemplo <span class="citation" data-cites="lin-2004-rouge">(<a href="../../shared/referencias/referencias.html#ref-lin-2004-rouge" role="doc-biblioref">Lin, 2004</a>)</span>.</p></li>
+<li><p><strong>METEOR (<em>Metric for Evaluation of Translation with Explicit ORdering</em>)</strong>: É similar ao BLEU, mas mais sofisticado, pois também considera sinônimos e a estrutura gramatical das respostas. METEOR tenta alinhar melhor com a avaliação humana do que o BLEU <span class="citation" data-cites="banerjee-meteor-2005">(<a href="../../shared/referencias/referencias.html#ref-banerjee-meteor-2005" role="doc-biblioref">Banerjee; Lavie, 2005</a>)</span>.</p></li>
+</ul>
+<p>As respostas longas são mais desafiadoras de serem comparadas e avaliadas, principalmente para as métricas baseadas em sobreposição de palavras. Uma vez que a linguagem natural permite diversas maneiras de expressar uma informação, muitas vezes respostas que representam a mesma ideia mas com palavras diferentes podem receber uma pontuação menor. Existem métricas que utilizam modelos de redes neurais profundas para predizer o valor da métrica, buscando superar este problema de sobreposição através da análise semântica e da contextualização das palavras dentro das respostas. Neste caso, temos como exemplo o modelo BERTScore.</p>
+<p><strong>BERTScore</strong>: alinha as palavras entre as respostas do sistema e de referência com base em seus <em>embeddings</em>, levando em conta o contexto em que as palavras são usadas. Isso permite que a métrica avalie não apenas a sobreposição exata de palavras, mas também a semelhança semântica e contextual. Assim, mesmo que as palavras usadas sejam diferentes, se elas compartilharem significados semelhantes no contexto dado, a resposta pode ser avaliada positivamente <span class="citation" data-cites="Zhang2020">(<a href="../../shared/referencias/referencias.html#ref-Zhang2020" role="doc-biblioref">Zhang et al., 2020</a>)</span>.</p>
+<p>Um dos maiores desafios na avaliação de sistemas de PR é lidar com a subjetividade, especialmente em respostas longas, onde a “correção” pode ser aberta a interpretação. Assim, muitas vezes métricas automáticas não conseguem lidar com tais sutilezas. Neste caso, podem ser empregadas métricas qualitativas, que envolvem a avaliação manual humana das respostas fornecida pelo sistema. Isso pode incluir:</p>
+<ul>
+<li><p><strong>Avaliação por Juízes Humanos</strong>: Avaliadores humanos analisam as respostas geradas pelo sistema para julgar critérios específicos, como relevância, precisão e naturalidade.</p></li>
+<li><p><strong>Testes de Usabilidade</strong>: Observação de como os usuário/as finais interagem com o sistema e coletar seus feedbacks sobre a eficácia e utilidade das respostas.</p></li>
+</ul>
+<p>Finalmente, a avaliação de sistemas de PR contém múltiplas abordagens e pode levar em conta tanto métricas quantitativas quanto qualitativas para obter uma compreensão completa do desempenho do sistema. É importante escolher as métricas adequadas com base no tipo de pergunta, na natureza das respostas esperadas e nas etapas específicas do processo de PR envolvidas.</p>
+</section>
+<section id="outras-tarefas-relacionadas-a-pr" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="outras-tarefas-relacionadas-a-pr"><span class="header-section-number">14.5</span> Outras tarefas relacionadas a PR</h2>
+<p>Esta seção aborda tarefas adicionais e específicas no campo de PR, que se destacam por suas peculiaridades e desafios únicos. Essas tarefas ampliam o escopo convencional de PR, integrando aspectos como comunidades online, processamento de múltiplos passos e dados visuais.</p>
+<section id="comunidades-de-perguntas-e-respostas---community-qa" class="level3" data-number="14.5.1">
+<h3 data-number="14.5.1" class="anchored" data-anchor-id="comunidades-de-perguntas-e-respostas---community-qa"><span class="header-section-number">14.5.1</span> Comunidades de Perguntas e Respostas - <em>Community</em> QA</h3>
+<p><em>Community QA</em> refere-se a sistemas onde as perguntas e respostas são geradas pela comunidade, como em fóruns online ou plataformas de perguntas e respostas. Um desafio chave aqui é o ranqueamento das respostas. Em um <em>Community QA</em>, uma pergunta pode receber várias respostas de diferentes usuário/as. O objetivo é então classificar estas respostas com base na sua relevância e utilidade para a pergunta feita.</p>
+<p>Por exemplo, em um fórum sobre programação, uma pergunta sobre um problema específico em Python pode receber diversas soluções propostas por outros usuário/as. O sistema de <em>Community QA</em> analisará estas respostas levando em consideração fatores como clareza, exatidão técnica, votos dos usuários e talvez até a reputação do respondente no fórum. Em seguida, ele classificará as respostas para que a mais útil apareça no topo.</p>
+<p>O estudo de <span class="citation" data-cites="castro2021evaluating">(<a href="../../shared/referencias/referencias.html#ref-castro2021evaluating" role="doc-biblioref">Castro Ferreira et al., 2021</a>)</span> buscou desenvolver um <em>benchmark</em> para o português de <em>Community</em> QA no domínio da diabetes. Neste caso, a tarefa consiste em: dada uma pergunta de entrada, é necessário recuperar perguntas armazenadas em uma base de perguntas e respostas, que sejam semanticamente semelhantes e já respondidas. Assim, um sistema com estas características não precisa necessariamente gerar um resposta para uma pergunta, já que a resposta estaria pronta e armazenada em uma base de perguntas e respostas.</p>
+</section>
+<section id="pr-de-múltiplas-etapas-multihopping-qa" class="level3" data-number="14.5.2">
+<h3 data-number="14.5.2" class="anchored" data-anchor-id="pr-de-múltiplas-etapas-multihopping-qa"><span class="header-section-number">14.5.2</span> PR de múltiplas etapas <em>Multihopping</em> QA</h3>
+<p>A tarefa de <em>Multihopping</em> QA aborda perguntas que requerem múltiplos passos de raciocínio para encontrar a resposta. Diferente de perguntas diretas, onde a resposta pode ser encontrada em um único local, o <em>Multihopping</em> QA exige que o sistema combine informações de múltiplas fontes de dados.</p>
+<p>Por exemplo, considere a pergunta: “Qual o autor do livro favorito do presidente dos Estados Unidos”. Para responder, o sistema primeiro precisa identificar quem é o presidente atual, depois encontrar qual é o seu livro favorito, e finalmente, descobrir o autor desse livro. Cada um desses passos é um “salto” no processo de raciocínio, tornando a tarefa complexa e desafiadora.</p>
+</section>
+<section id="pr-com-dados-visuais" class="level3" data-number="14.5.3">
+<h3 data-number="14.5.3" class="anchored" data-anchor-id="pr-com-dados-visuais"><span class="header-section-number">14.5.3</span> PR com dados visuais</h3>
+<p>PR com dados visuais combina elementos de visão computacional com PR, onde as perguntas estão relacionadas a conteúdos visuais, como imagens ou vídeos. O desafio aqui é entender a pergunta e correlacioná-la com a informação visual para gerar uma resposta apropriada.</p>
+<p>Um exemplo clássico é o de perguntas sobre o conteúdo de uma imagem. Suponha que temos uma foto de uma rua movimentada, e a pergunta é: “Quantos carros azuis estão na imagem”. O sistema de PR precisa processar a imagem para identificar e contar os carros azuis. Este tipo de tarefa requer habilidades de processamento de imagem além do entendimento da linguagem natural.</p>
+</section>
+</section>
+<section id="sistemas-de-pr-para-o-português" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="sistemas-de-pr-para-o-português"><span class="header-section-number">14.6</span> Sistemas de PR para o Português</h2>
+<p>Os sistemas de PR para o idioma português têm registrado um avanço notável, com progressos tanto na análise linguística quanto na aplicação de tecnologias de inteligência artificial. A revisão de trabalhos na área mostra uma evolução que abrange diversas metodologias e áreas de aplicação, como sistemas focados em textos jurídicos, que se baseiam em bases de dados estruturados, ou com corpora especializados para treinamento de modelos de aprendizado de máquina.</p>
+<p>Inicialmente, sistemas como o do estudo de&nbsp;<span class="citation" data-cites="quaresma2005aquestion">(<a href="../../shared/referencias/referencias.html#ref-quaresma2005aquestion" role="doc-biblioref">Quaresma; Rodrigues, 2005</a>)</span> evidenciaram os desafios no desenvolvimento de PR em domínio específico, como o jurídico, onde se buscam respostas exatas diante da dificuldade de compreender a linguagem natural. Também, notou-se desafios similares com os sistemas de domínio amplo, como o sistema Esfinge&nbsp;<span class="citation" data-cites="costa2009using">(<a href="../../shared/referencias/referencias.html#ref-costa2009using" role="doc-biblioref">Costa, 2009</a>)</span>, onde se encontram desafios relacionados com a análise semântica. Esses trabalhos, junto a outras iniciativas que buscavam respostas na web e em fontes externas, marcaram esforços para aprimorar etapas de processamento do sistema de PR para o português em busca da acurácia das respostas.</p>
+<p>Outros sistemas se destacaram, como o IdSay&nbsp;<span class="citation" data-cites="carvalho2009idsay">(<a href="../../shared/referencias/referencias.html#ref-carvalho2009idsay" role="doc-biblioref">Carvalho et al., 2009</a>)</span> e Priberam&nbsp;<span class="citation" data-cites="amaral2008priberam">(<a href="../../shared/referencias/referencias.html#ref-amaral2008priberam" role="doc-biblioref">Amaral et al., 2008</a>)</span>, que representaram um avanço nas abordagens de PR, aplicando técnicas mais avançadas de PLN e RI. Tais sistemas demonstraram melhorias significativas na precisão das respostas e na capacidade de processar um espectro mais amplo de tipos de perguntas. Além destes, houveram trabalhos focados em avaliação de sistemas, como Págico, destacado no LREC 2012 por <span class="citation" data-cites="Motaetal2012">(<a href="../../shared/referencias/referencias.html#ref-Motaetal2012" role="doc-biblioref">Mota et al., 2012</a>)</span>. Este trabalho focou na melhoria de PR ao utilizar a Wikipedia em português, criando dados para avaliações futuras.</p>
+<p>Com a maior disponibilidade de grandes volumes de dados e o avanço das técnicas de aprendizado, trabalhos mais recentes como o sistema de&nbsp;<span class="citation" data-cites="goncalo2019using">(<a href="../../shared/referencias/referencias.html#ref-goncalo2019using" role="doc-biblioref">Gonçalo Oliveira et al., 2019</a>)</span>, DEEPAGÉ&nbsp;<span class="citation" data-cites="jose2021deepage">(<a href="../../shared/referencias/referencias.html#ref-jose2021deepage" role="doc-biblioref">Cação et al., 2021</a>)</span>, e ClinicalQA&nbsp;<span class="citation" data-cites="oliveira2021experiments">(<a href="../../shared/referencias/referencias.html#ref-oliveira2021experiments" role="doc-biblioref">Oliveira et al., 2021</a>)</span> exploraram o uso de modelos pré-treinados e algoritmos avançados para melhorar ainda mais a eficácia dos sistemas de PR. O uso do modelo BERTimbau&nbsp;<span class="citation" data-cites="Souza2020">(<a href="../../shared/referencias/referencias.html#ref-Souza2020" role="doc-biblioref">Souza et al., 2020</a>)</span> e a aplicação de fine-tuning específico para domínios restritos, como visto no estudo sobre <em>Blue Amazon</em>&nbsp;<span class="citation" data-cites="eniac2021">(<a href="../../shared/referencias/referencias.html#ref-eniac2021" role="doc-biblioref">Spindola et al., 2021</a>)</span> e no trabalho de <span class="citation" data-cites="kdmile2022">(<a href="../../shared/referencias/referencias.html#ref-kdmile2022" role="doc-biblioref">Silva et al., 2022</a>)</span>, destacam a importância da personalização dos modelos para contextos específicos e a capacidade de superar resultados.</p>
+<p>Adicionalmente, a utilização de novas estratégias, como a integração de PR com a geração de consultas SQL a partir de perguntas em linguagem natural <span class="citation" data-cites="jose2022integrating">(<a href="../../shared/referencias/referencias.html#ref-jose2022integrating" role="doc-biblioref">José et al., 2022</a>)</span>, mostra uma diversificação de técnicas de PR. Essas inovações mostram uma tendência de sistemas de PR cada vez mais versáteis, capazes de oferecer respostas precisas e relevantes em variados domínios e condições.</p>
+<p>Em resumo, a evolução dos sistemas de PR para o português é caracterizada por um desenvolvimento em direção à melhorias de precisão, abrangência e flexibilidade. Através da aplicação de métodos de PLN, RI e aprendizado de máquina cada vez mais sofisticados, esses sistemas estão se consolidando como ferramentas fundamentais para acesso à informação e apoio à decisão baseada em dados em diversas áreas de conhecimento e atividades.</p>
+</section>
+<section id="considerações-finais" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="considerações-finais"><span class="header-section-number">14.7</span> Considerações finais</h2>
+<p>Neste capítulo, exploramos a área de PR, oferecendo uma visão abrangente de suas diversas características, desde a classificação de sistemas até as metodologias e desafios associados. A área de PR, como visto, lida com vários desafios e envolve a interseção de várias subáreas do PLN, bem como desafios únicos em termos de compreensão e geração de linguagem natural.</p>
+<p>Abordamos sistemas de PR sob diferentes perspectivas, incluindo a natureza das perguntas (factuais vs.&nbsp;não factuais), o tipo de fonte de conhecimento (documentos não estruturados, dados estruturados, e memória paramétrica), e o domínio de conhecimento (amplo vs.&nbsp;restrito). Cada uma dessas classificações apresenta desafios e abordagens distintas, demonstrando a necessidade de estratégias adaptativas e soluções no design de sistemas de PR.</p>
+<p>As metodologias discutidas refletem a evolução contínua da área, desde abordagens modulares que separam explicitamente as etapas de processamento, até modelos <em>end-to-end</em> que integram todas as operações em um único sistema. O desenvolvimento de modelos <em>end-to-end</em>, em particular, destaca-se como um avanço significativo, trazendo eficiência ao processamento de PR, embora ainda apresente desafios em termos de interpretabilidade e necessidade de grandes conjuntos de dados para treinamento.</p>
+<p>A avaliação de sistemas de PR foi discutida, mostrando abordagens de avaliação para diferentes características. Também, foram exploradas tarefas adicionais e específicas no campo de PR, como <em>Community QA</em>, <em>Multihopping</em> QA e PR com dados visuais. Essas tarefas expandem o escopo de PR, integrando desafios de comunidades online, raciocínio de múltiplos passos e processamento de dados visuais.</p>
+<p>É importante destacar os avanços com sistemas baseados em <em>Large Language Models</em> (LLMs), como o ChatGPT, que representam uma inovação significativa na capacidade de sistemas de PR de responder perguntas de maneira eficaz. Esses modelos têm demonstrado habilidades impressionantes em compreender e gerar linguagem natural, oferecendo respostas contextualizadas e conversacionais que podem abranger uma vasta gama de tópicos e domínios. Porém, os LLMs ainda enfrentam limitações significativas, como a ocorrência de alucinações. Isso destaca a necessidade de mecanismos de verificação de fatos e integração com fontes de conhecimento confiáveis para garantir a precisão das respostas fornecidas.</p>
+<p>Além das questões de confiabilidade, os sistemas baseados em LLMs apresentam desafios significativos relacionados ao custo e aos requisitos de recursos computacionais para sua utilização. O treinamento e a execução destes modelos exigem uma quantidade substancial de poder computacional. Esses requisitos podem resultar em custos proibitivos para pesquisa e desenvolvimento, especialmente para organizações menores ou pesquisadores independentes. Neste contexto, os sistemas de PR convencionais continuam a desempenhar um papel importante. Estes sistemas, que muitas vezes utilizam abordagens mais tradicionais como abordagem modular, podem ser significativamente menos custosos em termos de recursos computacionais e financeiros.</p>
+<p>Olhando para o futuro, espera-se que os sistemas de PR continuem a evoluir, integrando avanços em áreas como aprendizado profundo, compreensão de linguagem natural e processamento de dados multimídia. Além disso, a crescente importância da ética e da privacidade na IA sugere um futuro onde os sistemas de PR devem ser cada vez mais transparentes, justos e seguros. Em termos de aplicação prática, espera-se uma expansão contínua dos sistemas de PR em vários setores, como saúde, educação, assistência jurídica e atendimento ao cliente. A integração de sistemas de PR em interfaces conversacionais e assistentes virtuais promete uma interação mais natural e intuitiva entre humanos e máquinas.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-achiam2023gpt" class="csl-entry" role="listitem">
+ACHIAM, J. et al. Gpt-4 technical report. <strong>arXiv preprint arXiv:2303.08774</strong>, 2023.
+</div>
+<div id="ref-amaral2008priberam" class="csl-entry" role="listitem">
+AMARAL, C. et al. <strong>Priberam’s question answering system in qa@ clef 2008</strong>. Workshop of the Cross-Language Evaluation Forum for European Languages. <strong>Anais</strong>...Springer, 2008.
+</div>
+<div id="ref-banerjee-meteor-2005" class="csl-entry" role="listitem">
+BANERJEE, S.; LAVIE, A. <strong><span>METEOR</span>: An Automatic Metric for <span>MT</span> Evaluation with Improved Correlation with Human Judgments</strong>. (J. Goldstein et al., Eds.)Proceedings of the <span>ACL</span> Workshop on Intrinsic and Extrinsic Evaluation Measures for Machine Translation and/or Summarization. <strong>Anais</strong>...Ann Arbor, Michigan: Association for Computational Linguistics, jun. 2005. Disponível em: &lt;<a href="https://aclanthology.org/W05-0909">https://aclanthology.org/W05-0909</a>&gt;
+</div>
+<div id="ref-gpt3" class="csl-entry" role="listitem">
+BROWN, T. B. et al. <strong>Language Models are Few-Shot Learners</strong>. (H. Larochelle et al., Eds.)Advances in Neural Information Processing Systems. <strong>Anais</strong>...Curran Associates, Inc., 2020. Disponível em: &lt;<a href="https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html">https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html</a>&gt;
+</div>
+<div id="ref-jose2021deepage" class="csl-entry" role="listitem">
+CAÇÃO, F. N. et al. <strong>DEEPAG<span>É</span>: Answering Questions in Portuguese About the Brazilian Environment</strong>. (A. Britto, K. Valdivia Delgado, Eds.)Intelligent Systems. <strong>Anais</strong>...Cham: Springer International Publishing, 2021.
+</div>
+<div id="ref-carvalho2009idsay" class="csl-entry" role="listitem">
+CARVALHO, G.; MATOS, D. M. DE; ROCIO, V. <strong>IdSay: Question Answering for Portuguese</strong>. (C. Peters et al., Eds.)Evaluating Systems for Multilingual and Multimodal Information Access. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2009.
+</div>
+<div id="ref-castro2021evaluating" class="csl-entry" role="listitem">
+CASTRO FERREIRA, T. et al. <strong>Evaluating Recognizing Question Entailment Methods for a <span>P</span>ortuguese Community Question-Answering System about Diabetes Mellitus</strong>. (R. Mitkov, G. Angelova, Eds.)Proceedings of the International Conference on Recent Advances in Natural Language Processing (RANLP 2021). <strong>Anais</strong>...Held Online: INCOMA Ltd., set. 2021. Disponível em: &lt;<a href="https://aclanthology.org/2021.ranlp-1.28">https://aclanthology.org/2021.ranlp-1.28</a>&gt;
+</div>
+<div id="ref-cortes2020empirical" class="csl-entry" role="listitem">
+CORTES, E. et al. <strong>An Empirical Comparison of Question Classification Methods for Question Answering Systems</strong>. (N. Calzolari et al., Eds.)Proceedings of the Twelfth Language Resources and Evaluation Conference. <strong>Anais</strong>...Marseille, France: European Language Resources Association, 2020. Disponível em: &lt;<a href="https://aclanthology.org/2020.lrec-1.665">https://aclanthology.org/2020.lrec-1.665</a>&gt;
+</div>
+<div id="ref-cortes2018when" class="csl-entry" role="listitem">
+CORTES, E. G.; WOLOSZYN, V.; BARONE, D. A. C. <strong>When, Where, Who, What or Why? A Hybrid Model to Question Answering Systems</strong>. (A. Villavicencio et al., Eds.)Computational Processing of the Portuguese Language. <strong>Anais</strong>...Cham: Springer International Publishing, 2018.
+</div>
+<div id="ref-costa2009using" class="csl-entry" role="listitem">
+COSTA, L. F. <strong>Using Answer Retrieval Patterns to Answer Portuguese Questions</strong>. (C. Peters et al., Eds.)Evaluating Systems for Multilingual and Multimodal Information Access. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2009.
+</div>
+<div id="ref-costa2008answering" class="csl-entry" role="listitem">
+COSTA, L. F.; CABRAL, L. M. <strong>Answering Portuguese Questions</strong>. (A. Teixeira et al., Eds.)Computational Processing of the Portuguese Language. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2008.
+</div>
+<div id="ref-Devlin19" class="csl-entry" role="listitem">
+DEVLIN, J. et al. <strong><span>BERT:</span> Pre-training of Deep Bidirectional Transformers for Language Understanding</strong>. (J. Burstein, C. Doran, T. Solorio, Eds.)Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, <span>NAACL-HLT</span> 2019. <strong>Anais</strong>...Minneapolis, MN, USA: Association for Computational Linguistics, 2019. Disponível em: &lt;<a href="https://doi.org/10.18653/v1/n19-1423">https://doi.org/10.18653/v1/n19-1423</a>&gt;
+</div>
+<div id="ref-goncalo2019using" class="csl-entry" role="listitem">
+GONÇALO OLIVEIRA, H. et al. <strong><span>Using Lucene for Developing a Question-Answering Agent in Portuguese</span></strong>. (R. Rodrigues et al., Eds.)8th Symposium on Languages, Applications and Technologies (SLATE 2019). <strong>Anais</strong>...: Open Access Series em Informatics (OASIcs).Dagstuhl, Germany: Schloss Dagstuhl – Leibniz-Zentrum f<span>ü</span>r Informatik, 2019. Disponível em: &lt;<a href="https://drops.dagstuhl.de/entities/document/10.4230/OASIcs.SLATE.2019.2">https://drops.dagstuhl.de/entities/document/10.4230/OASIcs.SLATE.2019.2</a>&gt;
+</div>
+<div id="ref-gururangan-etal-2020-dont" class="csl-entry" role="listitem">
+GURURANGAN, S. et al. <strong>Don’t Stop Pretraining: Adapt Language Models to Domains and Tasks</strong>. Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics. <strong>Anais</strong>...Online: Association for Computational Linguistics, jul. 2020. Disponível em: &lt;<a href="https://aclanthology.org/2020.acl-main.740">https://aclanthology.org/2020.acl-main.740</a>&gt;
+</div>
+<div id="ref-jose2022integrating" class="csl-entry" role="listitem">
+JOSÉ, M. M. et al. <strong>Integrating Question Answering and Text-to-SQL in Portuguese</strong>. (V. Pinheiro et al., Eds.)Computational Processing of the Portuguese Language. <strong>Anais</strong>...Cham: Springer International Publishing, 2022.
+</div>
+<div id="ref-DBLP:conf/acl/LewisLGGMLSZ20" class="csl-entry" role="listitem">
+LEWIS, M. et al. <strong><span>BART:</span> Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension</strong>. (D. Jurafsky et al., Eds.)Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, <span>ACL</span> 2020, Online, July 5-10, 2020. <strong>Anais</strong>...Association for Computational Linguistics, 2020. Disponível em: &lt;<a href="https://doi.org/10.18653/v1/2020.acl-main.703">https://doi.org/10.18653/v1/2020.acl-main.703</a>&gt;
+</div>
+<div id="ref-li2002learning" class="csl-entry" role="listitem">
+LI, X.; ROTH, D. <strong>Learning question classifiers</strong>. COLING 2002: The 19th International Conference on Computational Linguistics. <strong>Anais</strong>...2002.
+</div>
+<div id="ref-lin-2004-rouge" class="csl-entry" role="listitem">
+LIN, C.-Y. <strong><span>ROUGE</span>: A Package for Automatic Evaluation of Summaries</strong>. Text Summarization Branches Out. <strong>Anais</strong>...Barcelona, Spain: Association for Computational Linguistics, jul. 2004. Disponível em: &lt;<a href="https://aclanthology.org/W04-1013">https://aclanthology.org/W04-1013</a>&gt;
+</div>
+<div id="ref-e23010018" class="csl-entry" role="listitem">
+LINARDATOS, P.; PAPASTEFANOPOULOS, V.; KOTSIANTIS, S. <a href="https://doi.org/10.3390/e23010018">Explainable AI: A Review of Machine Learning Interpretability Methods</a>. <strong>Entropy</strong>, v. 23, n. 1, 2021.
+</div>
+<div id="ref-Motaetal2012" class="csl-entry" role="listitem">
+MOTA, C. et al. <strong><span>P</span>ágico: <span>E</span>valuating <span>W</span>ikipedia-based information retrieval in <span>P</span>ortuguese</strong>. (N. Calzolari et al., Eds.)<span>P</span>roceedings of the <span>E</span>igth <span>I</span>nternational <span>C</span>onference on <span>L</span>anguage <span>R</span>esources and <span>E</span>valuation (<span>LREC</span>’12). <strong>Anais</strong>...Istambul: 2012. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2012/pdf/590_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2012/pdf/590_Paper.pdf</a>&gt;
+</div>
+<div id="ref-oliveira2021experiments" class="csl-entry" role="listitem">
+OLIVEIRA, L. E. S. E. et al. <strong>Experiments on Portuguese Clinical Question Answering</strong>. (A. Britto, K. Valdivia Delgado, Eds.)Intelligent Systems. <strong>Anais</strong>...Cham: Springer International Publishing, 2021.
+</div>
+<div id="ref-Papineni2002" class="csl-entry" role="listitem">
+PAPINENI, K. et al. <strong><span>BLEU: A Method for Automatic Evaluation of Machine Translation</span></strong>. Proceedings of the 40th Annual Meeting on Association for Computational Linguistics. <strong>Anais</strong>...: ACL ’02.USA: Association for Computational Linguistics, 2002. Disponível em: &lt;<a href="https://doi.org/10.3115/1073083.1073135">https://doi.org/10.3115/1073083.1073135</a>&gt;
+</div>
+<div id="ref-pereira2022systematic" class="csl-entry" role="listitem">
+PEREIRA, A. et al. Systematic review of question answering over knowledge bases. <strong>IET Software</strong>, v. 16, n. 1, p. 1–13, 2022.
+</div>
+<div id="ref-pires2023sabia" class="csl-entry" role="listitem">
+PIRES, R. et al. <strong>Sabiá: Portuguese Large Language Models</strong>. (M. C. Naldi, R. A. C. Bianchi, Eds.)Intelligent Systems. <strong>Anais</strong>...Cham: Springer Nature Switzerland, 2023.
+</div>
+<div id="ref-quaresma2005aquestion" class="csl-entry" role="listitem">
+QUARESMA, P.; RODRIGUES, I. <strong>A Question-Answering System for Portuguese Juridical Documents</strong>. Proceedings of the 10th International Conference on Artificial Intelligence and Law. <strong>Anais</strong>...: ICAIL ’05.New York, NY, USA: Association for Computing Machinery, 2005. Disponível em: &lt;<a href="https://doi.org/10.1145/1165485.1165536">https://doi.org/10.1145/1165485.1165536</a>&gt;
+</div>
+<div id="ref-roberts2019t5" class="csl-entry" role="listitem">
+ROBERTS, A. et al. <strong>Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer</strong>. [s.l.] Google, 2019.
+</div>
+<div id="ref-rodrigues2015rapport" class="csl-entry" role="listitem">
+RODRIGUES, R.; GOMES, P. <strong>RAPPORT — A Portuguese Question-Answering System</strong>. (F. Pereira et al., Eds.)Progress in Artificial Intelligence. <strong>Anais</strong>...Cham: Springer International Publishing, 2015.
+</div>
+<div id="ref-Si_2019" class="csl-entry" role="listitem">
+SI, S. et al. <a href="https://doi.org/10.1088/1742-6596/1237/2/022093">Sentence Similarity Computation in Question Answering Robot</a>. <strong>Journal of Physics: Conference Series</strong>, v. 1237, n. 2, p. 022093, jun. 2019.
+</div>
+<div id="ref-kdmile2022" class="csl-entry" role="listitem">
+SILVA, E. DA; LATERZA, J.; FALEIROS, T. <strong>New State-of-the-Art for Question Answering on Portuguese SQuAD v1.1</strong>. Anais do X Symposium on Knowledge Discovery, Mining and Learning. <strong>Anais</strong>...Porto Alegre, RS, Brasil: SBC, 2022. Disponível em: &lt;<a href="https://sol.sbc.org.br/index.php/kdmile/article/view/24974">https://sol.sbc.org.br/index.php/kdmile/article/view/24974</a>&gt;
+</div>
+<div id="ref-de2020using" class="csl-entry" role="listitem">
+SOUSA, A. G. DE et al. <strong>Using a Domain Ontology to Bridge the Gap between User Intention and Expression in Natural Language Queries.</strong> ICEIS (1). <strong>Anais</strong>...2020.
+</div>
+<div id="ref-Souza2020" class="csl-entry" role="listitem">
+SOUZA, F.; NOGUEIRA, R.; LOTUFO, R. <strong>BERTimbau: pretrained BERT models for Brazilian Portuguese</strong>. (R. Cerri, R. C. Prati, Eds.)Proceedings of the 2020 Brazilian Conference on Intelligent Systems. <strong>Anais</strong>...Springer International Publishing, 2020.
+</div>
+<div id="ref-eniac2021" class="csl-entry" role="listitem">
+SPINDOLA, S. et al. <strong>Interpretability of Attention Mechanisms in a Portuguese-Based Question Answering System about the Blue Amazon</strong>. Anais do XVIII Encontro Nacional de Inteligência Artificial e Computacional. <strong>Anais</strong>...Porto Alegre, RS, Brasil: SBC, 2021. Disponível em: &lt;<a href="https://sol.sbc.org.br/index.php/eniac/article/view/18302">https://sol.sbc.org.br/index.php/eniac/article/view/18302</a>&gt;
+</div>
+<div id="ref-tjoa2021asurvey" class="csl-entry" role="listitem">
+TJOA, E.; GUAN, C. <a href="https://doi.org/10.1109/TNNLS.2020.3027314">A Survey on Explainable Artificial Intelligence (XAI): Toward Medical XAI</a>. <strong>IEEE Transactions on Neural Networks and Learning Systems</strong>, v. 32, n. 11, p. 4793–4813, 2021.
+</div>
+<div id="ref-aVaswani17" class="csl-entry" role="listitem">
+VASWANI, A. et al. <strong>Attention is All you Need</strong>. (I. Guyon et al., Eds.)Advances in Neural Information Processing Systems. <strong>Anais</strong>...Curran Associates, Inc., 2017. Disponível em: &lt;<a href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html">https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html</a>&gt;
+</div>
+<div id="ref-Zhang2020" class="csl-entry" role="listitem">
+ZHANG, T. et al. <strong>BERTScore: Evaluating Text Generation with <span>BERT</span></strong>. 8th International Conference on Learning Representations, <span>ICLR</span> 2020, Addis Ababa, Ethiopia, April 26-30, 2020. <strong>Anais</strong>...OpenReview.net, 2020. Disponível em: &lt;<a href="https://openreview.net/forum?id=SkeHuCVFDr">https://openreview.net/forum?id=SkeHuCVFDr</a>&gt;
+</div>
+<div id="ref-zhou2024adversarial" class="csl-entry" role="listitem">
+ZHOU, N. et al. <a href="https://doi.org/10.1016/j.knosys.2023.111291">CDGAN-BERT: Adversarial constraint and diversity discriminator for semi-supervised text classification</a>. <strong>Knowledge-Based Systems</strong>, v. 284, p. 111291, 2024.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="pagination-link" aria-label="Geração de linguagem natural">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="pagination-link" aria-label="Diálogo e Interatividade">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

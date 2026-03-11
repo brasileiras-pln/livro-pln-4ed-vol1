@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Diana Santos">
+<meta name="author" content="Cláudia Freitas">
+
+<title>19&nbsp; Avaliação conjunta em português – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" rel="next">
+<link href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html"><strong>Avaliação</strong></a></li><li class="breadcrumb-item"><a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#apresentação" id="toc-apresentação" class="nav-link active" data-scroll-target="#apresentação"><span class="header-section-number">19.1</span> Apresentação</a></li>
+  <li><a href="#avaliação-conjunta-o-que-é-e-para-que-serve" id="toc-avaliação-conjunta-o-que-é-e-para-que-serve" class="nav-link" data-scroll-target="#avaliação-conjunta-o-que-é-e-para-que-serve"><span class="header-section-number">19.2</span> Avaliação conjunta: o que é e para que serve</a>
+  <ul class="collapse">
+  <li><a href="#características-e-ingredientes-de-uma-avaliação-conjunta" id="toc-características-e-ingredientes-de-uma-avaliação-conjunta" class="nav-link" data-scroll-target="#características-e-ingredientes-de-uma-avaliação-conjunta"><span class="header-section-number">19.2.1</span> Características e ingredientes de uma avaliação conjunta</a></li>
+  </ul></li>
+  <li><a href="#por-que-participar-de-uma-avaliação-conjunta" id="toc-por-que-participar-de-uma-avaliação-conjunta" class="nav-link" data-scroll-target="#por-que-participar-de-uma-avaliação-conjunta"><span class="header-section-number">19.3</span> Por que participar de uma avaliação conjunta</a></li>
+  <li><a href="#como-implementar-uma-avaliação-conjunta" id="toc-como-implementar-uma-avaliação-conjunta" class="nav-link" data-scroll-target="#como-implementar-uma-avaliação-conjunta"><span class="header-section-number">19.4</span> Como implementar uma avaliação conjunta</a>
+  <ul class="collapse">
+  <li><a href="#cartografia-do-problema-e-da-tarefa" id="toc-cartografia-do-problema-e-da-tarefa" class="nav-link" data-scroll-target="#cartografia-do-problema-e-da-tarefa"><span class="header-section-number">19.4.1</span> Cartografia do problema e da tarefa</a></li>
+  <li><a href="#criação-dos-recursos" id="toc-criação-dos-recursos" class="nav-link" data-scroll-target="#criação-dos-recursos"><span class="header-section-number">19.4.2</span> Criação dos recursos</a></li>
+  <li><a href="#medidas-de-avaliação" id="toc-medidas-de-avaliação" class="nav-link" data-scroll-target="#medidas-de-avaliação"><span class="header-section-number">19.4.3</span> Medidas de avaliação</a></li>
+  </ul></li>
+  <li><a href="#como-avaliar-uma-avaliação-conjunta" id="toc-como-avaliar-uma-avaliação-conjunta" class="nav-link" data-scroll-target="#como-avaliar-uma-avaliação-conjunta"><span class="header-section-number">19.5</span> Como avaliar uma avaliação conjunta<span id="avalaval" data-label="avalaval"></span></a>
+  <ul class="collapse">
+  <li><a href="#críticas-e-limitações" id="toc-críticas-e-limitações" class="nav-link" data-scroll-target="#críticas-e-limitações"><span class="header-section-number">19.5.1</span> Críticas e limitações</a></li>
+  </ul></li>
+  <li><a href="#morfolimpíadas-análise-morfológica-2003-2004" id="toc-morfolimpíadas-análise-morfológica-2003-2004" class="nav-link" data-scroll-target="#morfolimpíadas-análise-morfológica-2003-2004"><span class="header-section-number">19.6</span> Morfolimpíadas: análise morfológica (2003-2004)</a></li>
+  <li><a href="#sec-cap-avaliacao-conjunta-HAREM" id="toc-sec-cap-avaliacao-conjunta-HAREM" class="nav-link" data-scroll-target="#sec-cap-avaliacao-conjunta-HAREM"><span class="header-section-number">19.7</span> Primeiro e Segundo HAREM: avaliação de entidades, relações e expressões temporais (2005 e 2007-2008)</a>
+  <ul class="collapse">
+  <li><a href="#reconhecimento-de-entidades-mencionadas" id="toc-reconhecimento-de-entidades-mencionadas" class="nav-link" data-scroll-target="#reconhecimento-de-entidades-mencionadas"><span class="header-section-number">19.7.1</span> Reconhecimento de entidades mencionadas</a></li>
+  <li><a href="#identificação-classificação-e-normalização-de-expressões-temporais" id="toc-identificação-classificação-e-normalização-de-expressões-temporais" class="nav-link" data-scroll-target="#identificação-classificação-e-normalização-de-expressões-temporais"><span class="header-section-number">19.7.2</span> Identificação, classificação e normalização de expressões temporais</a></li>
+  <li><a href="#rerelem---relações-entre-entidades" id="toc-rerelem---relações-entre-entidades" class="nav-link" data-scroll-target="#rerelem---relações-entre-entidades"><span class="header-section-number">19.7.3</span> ReRelEM - relações entre entidades</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-avaliacao-conjunta-clef" id="toc-sec-cap-avaliacao-conjunta-clef" class="nav-link" data-scroll-target="#sec-cap-avaliacao-conjunta-clef"><span class="header-section-number">19.8</span> CLEF: Recuperação de Informação e QA (2003-2009)</a>
+  <ul class="collapse">
+  <li><a href="#CLEF" id="toc-CLEF" class="nav-link" data-scroll-target="#CLEF"><span class="header-section-number">19.8.1</span> CLEF clássico</a></li>
+  <li><a href="#resposta-automática-a-perguntas-qaclef" id="toc-resposta-automática-a-perguntas-qaclef" class="nav-link" data-scroll-target="#resposta-automática-a-perguntas-qaclef"><span class="header-section-number">19.8.2</span> Resposta automática a perguntas (QA@CLEF)</a></li>
+  <li><a href="#geoclef" id="toc-geoclef" class="nav-link" data-scroll-target="#geoclef"><span class="header-section-number">19.8.3</span> GeoCLEF</a></li>
+  <li><a href="#gikip-informação-geográfica-2008" id="toc-gikip-informação-geográfica-2008" class="nav-link" data-scroll-target="#gikip-informação-geográfica-2008"><span class="header-section-number">19.8.4</span> GikiP: Informação geográfica (2008)</a></li>
+  <li><a href="#gikiclef" id="toc-gikiclef" class="nav-link" data-scroll-target="#gikiclef"><span class="header-section-number">19.8.5</span> GikiCLEF</a></li>
+  </ul></li>
+  <li><a href="#págico-ri-complexa-sobre-culturas-de-língua-portuguesa-2012" id="toc-págico-ri-complexa-sobre-culturas-de-língua-portuguesa-2012" class="nav-link" data-scroll-target="#págico-ri-complexa-sobre-culturas-de-língua-portuguesa-2012"><span class="header-section-number">19.9</span> Págico: RI complexa sobre culturas de língua portuguesa (2012)</a></li>
+  <li><a href="#sec-cap-avaliacao-conjunta-assin" id="toc-sec-cap-avaliacao-conjunta-assin" class="nav-link" data-scroll-target="#sec-cap-avaliacao-conjunta-assin"><span class="header-section-number">19.10</span> ASSIN e ASSIN 2: similaridade semântica e inferência (2016 e 2019)</a></li>
+  <li><a href="#sec-cap-avaliacao-conjunta-iberlef" id="toc-sec-cap-avaliacao-conjunta-iberlef" class="nav-link" data-scroll-target="#sec-cap-avaliacao-conjunta-iberlef"><span class="header-section-number">19.11</span> IberLEF 2019: reconhecimento de entidades e de relações</a></li>
+  <li><a href="#idpt-identificação-de-ironia-2021" id="toc-idpt-identificação-de-ironia-2021" class="nav-link" data-scroll-target="#idpt-identificação-de-ironia-2021"><span class="header-section-number">19.12</span> IDPT: Identificação de ironia (2021)</a></li>
+  <li><a href="#absapt-avaliação-de-mineração-de-opiniões-por-aspecto-2022" id="toc-absapt-avaliação-de-mineração-de-opiniões-por-aspecto-2022" class="nav-link" data-scroll-target="#absapt-avaliação-de-mineração-de-opiniões-por-aspecto-2022"><span class="header-section-number">19.13</span> ABSAPT: Avaliação de mineração de opiniões por aspecto (2022)</a></li>
+  <li><a href="#dip-desafio-de-identificação-de-personagens-2022-2023" id="toc-dip-desafio-de-identificação-de-personagens-2022-2023" class="nav-link" data-scroll-target="#dip-desafio-de-identificação-de-personagens-2022-2023"><span class="header-section-number">19.14</span> DIP: Desafio de Identificação de Personagens (2022-2023)</a></li>
+  <li><a href="#sec-cap-avaliacao-conjunta-resumo" id="toc-sec-cap-avaliacao-conjunta-resumo" class="nav-link" data-scroll-target="#sec-cap-avaliacao-conjunta-resumo"><span class="header-section-number">19.15</span> Resumo das avaliações conjuntas</a></li>
+  <li><a href="#ConsidFinais" id="toc-ConsidFinais" class="nav-link" data-scroll-target="#ConsidFinais"><span class="header-section-number">19.16</span> Considerações finais e lições aprendidas</a></li>
+  <li><a href="#agradecimentos" id="toc-agradecimentos" class="nav-link" data-scroll-target="#agradecimentos">Agradecimentos</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html"><strong>Avaliação</strong></a></li><li class="breadcrumb-item"><a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-avaliacao-conjunta" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Diana Santos </p>
+             <p>Cláudia Freitas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">20/11/2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-avaliacao-conjunta.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-target=".callout-cite-contents" aria-controls="callout-cite" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-avaliacao-conjunta:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Santos, Diana and Freitas, Cláudia},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Avaliação conjunta em português},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {19},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="apresentação" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="apresentação"><span class="header-section-number">19.1</span> Apresentação</h2>
+<p><strong>Avaliação conjunta</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> foi a forma como, na década de 2000, batizamos, em português, o que em inglês estava sendo chamado de <em>evaluation contest</em>, <em>evaluation campaign</em> ou <em>joint evaluation</em> – e, mais tarde, <strong><em>shared task</em></strong> – uma atividade que reúne vários participantes cujos sistemas ou modelos são comparados ao executar uma tarefa comum.</p>
+<p>Ao usar a primeira pessoa, “nós”, fazemos referência ao esforço feito pela equipe da Linguateca na época<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. A Linguateca<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, projeto iniciado em 2000 pelo governo de Portugal com o objetivo de dar força e visibilidade ao processamento computacional da língua portuguesa (entendida como língua internacional), desde seu surgimento teve como uma de suas missões organizar avaliações conjuntas com o objetivo de avançar a área e avaliar seu progresso. Daí as primeiras avaliações conjuntas feitas em/para a língua portuguesa terem sido organizadas pela Linguateca, que também lançou o livro <em>Avaliação Conjunta: um novo paradigma no processamento computacional da língua portuguesa</em> <span class="citation" data-cites="Santos2007avalconj">(<a href="../../shared/referencias/referencias.html#ref-Santos2007avalconj" role="doc-biblioref">Santos, 2007b</a>)</span> com contribuições da maior parte dos pesquisadores de PLN brasileiros e portugueses da época.</p>
+<p>Vejamos um exemplo muito simplificado de uma avaliação conjunta:</p>
+<blockquote class="blockquote">
+<p>Reunimos todos os interessados na área da resposta automática a perguntas. Combinamos em conjunto – organização e participantes – que tipo de perguntas usar, que tipo de respostas avaliar, e como, qual o conjunto de fontes (ou dados) em que os sistemas vão se basear, e qual o tempo entre a disponibilização das perguntas e o recebimento das respostas. A organização se responsabiliza por criar as perguntas e as (várias) respostas certas, e programas que contabilizam o desempenho dos sistemas. As respostas dos sistemas são processadas por esses programas, produzindo uma ordenação dos sistemas participantes.</p>
+</blockquote>
+<p>Uma característica do modelo de <strong>avaliação conjunta</strong> é o enorme esforço organizacional – como veremos ao longo do capítulo – que nem sempre é possível despender, sobretudo se não houver instituições com esta função e com pessoal dedicado a estas atividades. A Linguateca tentou desempenhar esse papel, embora tivesse um pessoal e um horizonte temporal reduzidos, não comparáveis aos do NIST (agência americana para a definição e manutenção de padrões) ou da DARPA (agência americana de financiamento de investigação ligada à defesa nacional)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>As datas mencionadas nos parágrafos anteriores podem surpreender leitoras/es mais jovens devido à antiguidade. Ao longo do capítulo, utilizamos várias referências que remontam ao século passado. Esta foi uma escolha consciente, motivada, por um lado, pela necessidade de sinalizar que boa parte dos pontos levantados já estão (ou estiveram) no radar do PLN há tempos. Por outro lado, porque, levando em conta os movimentos de idas e vindas do PLN (e da IA), é possível que o tipo de preocupação de uma época venha a ser retomado, ainda que com uma nova e mais moderna roupagem, como diria Karen Sparck-Jones em sua retrospectiva do PLN <span class="citation" data-cites="SparckJones2001">(<a href="../../shared/referencias/referencias.html#ref-SparckJones2001" role="doc-biblioref">Sparck Jones, 2001</a>)</span>.</p>
+<blockquote class="blockquote">
+<p>Às vezes, inovação nada mais é do que antigas ideias que reaparecem com novos figurinos (...). Mas os novos trajes são mais bem feitos, com materiais melhores, e também mais modernos: assim, a pesquisa não está tanto girando em círculos, mas subindo em espiral.</p>
+</blockquote>
+<p>Por fim, ao retomar as avaliações conjuntas realizadas há tempos, bem como avaliações realizadas mais recentemente, buscamos também mostrar a quem chega no PLN de língua portuguesa que nossa língua dispõe de muitos recursos públicos e disponíveis para avaliação. Com este capítulo tentamos trazer mais visibilidade a – e fomentar a utilização de – tanto material e conhecimento já produzido na e para a nossa língua, mas que se encontra disperso por várias publicações.</p>
+</section>
+<section id="avaliação-conjunta-o-que-é-e-para-que-serve" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="avaliação-conjunta-o-que-é-e-para-que-serve"><span class="header-section-number">19.2</span> Avaliação conjunta: o que é e para que serve</h2>
+<p>Em uma <strong>avaliação conjunta</strong> pretende-se, acima de tudo, duas coisas:</p>
+<ol type="1">
+<li><p>Estabelecer <strong>em conjunto</strong> os objetivos e os fatores de sucesso de uma dada atividade;</p></li>
+<li><p>Fomentar o <strong>diálogo</strong> entre os diversos atores da área.</p></li>
+</ol>
+<p>Além disso, é também possível e desejável que uma avaliação conjunta deixe como legado, como uma espécie de efeito colateral, recursos (dados, métricas, formas de avaliação etc.) que permitam a novos grupos de PLN não precisar começar do zero nessa área e que possibilitem a todos os membros da comunidade a utilização e melhoria do trabalho já feito.</p>
+<p>Assim, uma avaliação conjunta difere de uma avaliação “não-conjunta” na dimensão colaborativa/compartilhada que pressupõe. O que se pretende é melhorar em conjunto o estado de uma determinada área, evitando reinventar a roda, aumentando o número de trocas científicas entre grupos distintos, e produzindo padrões de funcionamento que evitem, a partir dali, que grupos novos tenham que começar de novo o processo de pensar a avaliação. O objetivo final é incentivar a investigação a respeito de uma dada área ou tarefa, através da comparação de vários sistemas/modelos e com base em recursos e tarefas comuns.</p>
+<p>Como explicam <span class="citation" data-cites="VoorheesTice2000b">Voorhees; Tice (<a href="../../shared/referencias/referencias.html#ref-VoorheesTice2000b" role="doc-biblioref">2000</a>)</span>, o <strong>primeiro objetivo</strong> de uma avaliação conjunta é promover a investigação numa dada tarefa. Um <strong>segundo objetivo</strong> é investigar se a metodologia de avaliação é adequada, e se através dela é possível definir recursos de avaliação reutilizáveis, visto que “coleções de teste reutilizáveis, que permitem que os pesquisadores experimentem com ela e recebam uma resposta rápida sobre a qualidade de métodos alternativos, são fundamentais para avançar o estado da arte.” <span class="citation" data-cites="VoorheesTice2000b">(<a href="../../shared/referencias/referencias.html#ref-VoorheesTice2000b" role="doc-biblioref">Voorhees; Tice, 2000, p. 207</a>)</span>. É neste sentido que podemos reconhecer o próprio <em>design</em> da avaliação como pesquisa.</p>
+<p>Finalmente, é preciso notar que só se pode começar a aplicar o modelo de uma avaliação conjunta quando há mais de um grupo interessado, e mais de um sistema numa dada área. Antes disso, a única forma de avaliação possível é a autoavaliação. Esta observação espelha sobretudo uma questão de prioridades: é compreensível que não haja recursos humanos para organizar tal tarefa, se ainda há tanto que fazer em outras áreas já com sistemas a funcionar.</p>
+<p>Anterior à popularização das avaliações conjuntas, o PLN contava com as seguintes formas de avaliação (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao/cap-avaliacao.html#sec-cap-avaliacao" target="_blank" title="Volume 1">Avaliação de tecnologias de linguagem</a></span>):</p>
+<ul>
+<li><p><strong>autoavaliação</strong>: algum ator (pessoa ou grupo reduzido) criava um sistema para ilustrar um método ou uma teoria e, quando muito, publicava resultados de avaliação segundo as suas próprias premissas, sem garantia de replicabilidade ou de verificação por outros grupos;</p></li>
+<li><p><strong>modelo empresarial</strong>: uma empresa desenvolvia um sistema para um dado negócio, provavelmente com base numa autoavaliação, e a verdadeira avaliação era feita pelos utilizadores na forma de retorno (feedback) a ser incorporada em novas e melhores versões do sistema, caso a empresa decidisse continuar o desenvolvimento.</p></li>
+<li><p>avaliação baseada em <strong>quadros de classificação</strong> (<strong><em>workbenchs</em></strong>): apesar de estar muito em voga por causa dos grandes modelos de linguagem, é um tipo de avaliação que existe desde antes das avaliações conjuntas. No entanto, diferentemente das avaliações conjuntas, não há controle sobre o que os sistemas já sabem e/ou já treinaram, sendo relativamente fácil melhorar resultados depois de já ter visto os dados. Ou seja, diferentemente das avaliações conjuntas, não há como garantir que todos sistemas/modelos que se utilizam do <em>workbench</em> para avaliar estão em igualdade de condições, e que estão vendo o material pela primeira vez, o que torna os resultados artificialmente bons, sem que esse bom desempenho se reflita em outros conjuntos de dados ou em aplicações reais.</p></li>
+<li><p>avaliação baseada em <strong>painel de especialistas</strong>: reunia-se um conjunto de especialistas que se pronunciavam individualmente sobre a qualidade de um resultado, como feito nos primórdios da tradução automática&nbsp;<span class="citation" data-cites="king1996">(<a href="../../shared/referencias/referencias.html#ref-king1996" role="doc-biblioref">King, 1996</a>)</span></p></li>
+</ul>
+<p>Uma limitação das duas primeiras maneiras de avaliar é que o conhecimento obtido não é reutilizável por uma comunidade científica (no sentido lato, incorporando também desenvolvedores e testadores, e não apenas pesquisadores). Muitas vezes, esse conhecimento morre nas organizações (universidades ou empresas), devido à mobilidade dos investigadores ou ao encerramento dos projetos. No melhor dos casos, mantém-se a propriedade e o conhecimento (por alguns chamada “vantagem competitiva”) no seio de um único grupo. Já na <strong>avaliação conjunta</strong>, como indicamos, é a comunidade como um todo que se beneficia e evolui, somando os esforços.</p>
+<section id="características-e-ingredientes-de-uma-avaliação-conjunta" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="características-e-ingredientes-de-uma-avaliação-conjunta"><span class="header-section-number">19.2.1</span> Características e ingredientes de uma avaliação conjunta</h3>
+<p>A seguir listamos as <strong>características</strong> principais de uma avaliação conjunta:</p>
+<ul>
+<li><p>existência de um <strong>debate</strong> inevitável entre os participantes, buscando um consenso e levando ao conhecimento mútuo de diferentes pontos de vista e de diferentes atores com preocupações distintas;</p></li>
+<li><p>identificação de <strong>problemas</strong> a resolver e de problemas já resolvidos;</p></li>
+<li><p>definição de um conjunto de <strong>tarefas</strong> objetivas que os sistemas devem efetuar;</p></li>
+<li><p>identificação de <strong>diferenças</strong> irredutíveis, e de zonas cinzentas, ambas importantes para a documentação da área e do seu progresso.</p></li>
+</ul>
+<p>De maneira complementar, acreditamos que uma avaliação conjunta tem normalmente os seguintes <strong>ingredientes</strong>:</p>
+<ul>
+<li><p>vários <strong>sistemas</strong> participantes;</p></li>
+<li><p>uma <strong>organização</strong> com conhecimento do assunto e reconhecida idoneidade, a fim de garantir que todos os participantes se encontrem em igualdade de condições;</p></li>
+<li><p>uma forma prática de produzir <strong>resultados</strong> e de compartilhá-los com os participantes e com a comunidade;</p></li>
+<li><p>a possibilidade prática de <strong>comparar</strong> esses resultados (por outras palavras, os resultados produzidos pelos vários sistemas/modelos têm de ser minimamente comensuráveis).</p></li>
+</ul>
+<p>Quanto ao último ponto, é importante lembrar que uma avaliação conjunta pressupõe uma aplicação num dado contexto. Considerando, por exemplo, uma avaliação de “sistemas de compreensão de texto”, estão envolvidos vários tipos de textos, um ou vários domínios fixos. Por isso, sistemas/modelos diferentes, mas igualmente “bons”, podem ser incomensuráveis, se acontecer de um deles trabalhar sobre acórdãos da Procuradoria da República, outro sobre resumos de revistas médicas e outro ainda sobre anúncios. Ou seja, pode não ser possível uma tarefa igualmente “neutra” para todos os sistemas/modelos e, ao mesmo tempo, justa para os avaliar. Há, no entanto, a possibilidade de fazer a união dos tipos de texto e problemas relevantes para cada grupo, e medir numa avaliação conjunta quanto os sistemas pioram quando aplicados a outros ambientes. A prática das avaliações conjuntas provou que a especificação, em comum, de um subconjunto de questões e respostas sobre uma mesma base permite uma reflexão sobre os problemas concretos, a forma de avaliação, e as vantagens e desvantagens de diferentes opções, sendo incomparavelmente mais rica do que uma argumentação teórica sobre um conjunto de princípios independentes da aplicação.</p>
+<p>Por fim, as seguintes condições são altamente desejáveis:</p>
+<ul>
+<li>os participantes se reúnam em um ou vários <strong>encontros</strong>, presenciais ou virtuais, para que a troca de ideias e a consequente fertilização cruzada possa acontecer da melhor maneira.</li>
+</ul>
+<!-- -->
+<ul>
+<li>as <strong>agências de financiamento</strong> considerem os resultados e a participação nestas avaliações não apenas como índice do grau de maturidade da área, mas também (e principalmente?) como uma atividade que devem absolutamente financiar.</li>
+</ul>
+<p>O primeiro item é importante porque a documentação publicada online nem sempre é submetida a um escrutínio cuidadoso por parte dos participantes, e é preferível uma exposição oral que permita esclarecer dúvidas imediatamente. O debate entre os participantes e a organização é uma etapa essencial da preparação das avaliações conjuntas, que garante que todas as opções sejam entendidas e aceitas e evita que os sistemas participem com outro modelo conceitual que não o subjacente à própria avaliação conjunta em questão. No entanto, vemos que isso nem sempre é possível, sobretudo quando as avaliações já estão incorporadas em uma infraestrutura maior, como foi o caso do CLEF (<span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html#sec-cap-avaliacao-conjunta-clef" target="_blank" title="Volume 1">CLEF: Recuperação de Informação e QA (2003-2009)</a></span>) ou do IberlEF (<span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html#sec-cap-avaliacao-conjunta-iberlef" target="_blank" title="Volume 1">IberLEF 2019: reconhecimento de entidades e de relações</a></span>).</p>
+<p>Do mesmo modo, também é útil estabelecer uma discussão após a própria participação, para reconhecer o que correu bem e o que poderia ser melhorado, e para reforçar a ideia de que uma avaliação conjunta não deve ser considerada como um acontecimento isolado, mas sim como um elo na cadeia de progresso de uma área, muito provavelmente levando a outras edições com um aumento gradual dos desafios oferecidos aos sistemas participantes.</p>
+<p>Quanto ao segundo item, reconhecemos que se trata sobretudo de um desejo, e que em geral temos pouca influência sobre isso.</p>
+<p>Idealmente, uma avaliação conjunta tem várias edições, como ilustrado na <a href="#fig-cap-avaliacao-conjunta-desenrolar" class="quarto-xref">Figura&nbsp;<span>19.1</span></a>. Além disso, para ajudar a fixar os parâmetros, pelo menos nas edições iniciais, costuma-se usar um ensaio (<em>trial</em> ou <em>dry-run</em>, em inglês). Isto significa que uma avaliação conjunta é sempre um acontecimento que decorre num período de tempo alargado.</p>
+<!--
+![O desenrolar de cada edição de uma avaliação conjunta. Adaptada de @Santos2007introavalconj [Fig 1-1]](figures/FasesAvalConjnova.png){#desenrolar width="\\textwidth"} -->
+<div id="fig-cap-avaliacao-conjunta-desenrolar" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-avaliacao-conjunta-desenrolar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.1: O desenrolar de cada edição de uma avaliação conjunta.
+</figcaption>
+<div aria-describedby="fig-cap-avaliacao-conjunta-desenrolar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: center;">
+<p><img src="media/FasesAvalConjnova.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p> Fonte: Adaptada de <span class="citation" data-cites="Santos2007introavalconj">Santos (<a href="../../shared/referencias/referencias.html#ref-Santos2007introavalconj" role="doc-biblioref">2007a</a>, Fig 1-1)</span></p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="por-que-participar-de-uma-avaliação-conjunta" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="por-que-participar-de-uma-avaliação-conjunta"><span class="header-section-number">19.3</span> Por que participar de uma avaliação conjunta</h2>
+<p>Ao participar da delimitação de um problema e da discussão relativa às melhores maneiras de aferição desse problema, passa-se, mais tarde, a ter um ambiente que permite separar o desenvolvimento de um sistema (a cargo do grupo) do teste de hipóteses (que é fornecido e gerido por uma organização externa).</p>
+<p>Além disso, a existência de prazos externos, o <strong>conhecimento</strong> dos resultados de outros sistemas, e a facilidade de <strong>comparação</strong> e acesso ao estado da arte e ao resultado mínimo garantido (<em>baseline</em>)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, são outros motivos que tornam a participação em avaliações conjuntas uma experiência valiosa.</p>
+<p>É também preciso sublinhar que a existência de uma comunidade de pessoas que se reconhecem num mesmo objetivo e com as quais é possível discutir ideias e observar as consequências de opções diferentes, levando a uma fertilização cruzada e a um reconhecimento público, é extremamente importante para transformar uma atividade (neste caso, o processamento computacional da língua portuguesa) numa área científica respeitada e com visibilidade.</p>
+<p>Para que uma avaliação conjunta possa conseguir isto, é no entanto preciso que se baseie em procedimentos rigorosos e consensuais, que abordaremos na próxima seção.</p>
+</section>
+<section id="como-implementar-uma-avaliação-conjunta" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="como-implementar-uma-avaliação-conjunta"><span class="header-section-number">19.4</span> Como implementar uma avaliação conjunta</h2>
+<section id="cartografia-do-problema-e-da-tarefa" class="level3" data-number="19.4.1">
+<h3 data-number="19.4.1" class="anchored" data-anchor-id="cartografia-do-problema-e-da-tarefa"><span class="header-section-number">19.4.1</span> Cartografia do problema e da tarefa</h3>
+<p>Uma questão pertinente, mas que frequentemente passa despercebida, é a própria <strong>possibilidade de medir o problema</strong>, antes mesmo de avaliar o desempenho na solução.</p>
+<p>Sem sabermos a dificuldade (ou entropia, ou perplexidade) de uma dada tarefa, uma avaliação não pode ser útil, e os números são não-interpretáveis. Outra observação extremamente relevante diz respeito à <strong>língua</strong> e à possibilidade de <strong>comparação com outras línguas</strong>. Uma tarefa resolvida para uma língua pode ainda não estar resolvida para o português. Ou, ainda, nem todas as tarefas precisam ser relevantes para todas as línguas. A explicitação de sujeitos omitidos (sujeitos ocultos), pode ser um desafio para a língua portuguesa, mas certamente não o é para a língua inglesa, por exemplo.</p>
+<p>A comparação com outras línguas é muitas vezes uma preocupação de pesquisadores e proponentes de avaliações<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, mas pode ter como consequência a desvalorização da originalidade na elaboração dos recursos ou de medidas de avaliação. Na nossa opinião, o importante é tentar medir o problema e a solução na língua portuguesa, em primeiro lugar. <!--(ver @sec-cap-avaliacao-conjunta-assin) estava depois do avaliação e antes do "."--></p>
+<p>É fundamental, ao organizar uma avaliação conjunta, definir uma tarefa o mais possível neutra e compreensível por pessoas, mesmo que não seja necessariamente de utilidade para o utilizador final. Ou seja, tem de estar <strong>clara</strong> e <strong>bem definida</strong>, e poder ser <strong>compreendida (e repetida)</strong> por um conjunto de pessoas diferentes.</p>
+<p>Por outro lado, a avaliação de uma tarefa bem definida não tem de ser unívoca, no sentido de comparar cegamente com um conjunto de soluções únicas. Na criação de resumos ou na avaliação de tradução, por exemplo, se, por um lado, é possível avaliar, por outro lado, não é possível definir uma solução única.</p>
+</section>
+<section id="criação-dos-recursos" class="level3" data-number="19.4.2">
+<h3 data-number="19.4.2" class="anchored" data-anchor-id="criação-dos-recursos"><span class="header-section-number">19.4.2</span> Criação dos recursos</h3>
+<p>Na prática, há duas formas de organizar uma avaliação conjunta:</p>
+<ul>
+<li><p>criar um <strong>recurso padrão-ouro</strong>, feito total ou parcialmente (por meio da revisão de algum resultado automático) por pessoas desempenhando a tarefa que será feita pelo sistema ao longo da avaliação; ou usar para tal um recurso já criado anteriormente.</p></li>
+<li><p>confiar de algum modo na qualidade dos sistemas participantes, cuja soma de resultados, ordenados, leva a um conjunto de respostas (chamado monte ou “pool”), que serão posteriormente “apenas” avaliadas pela organização, de modo a constituir um <strong>recurso de avaliação criado a posteriori</strong> <a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. (Para discussão das formas e consequências desta forma de criação de recursos, ver <span class="citation" data-cites="zobel1998reliable">Zobel (<a href="../../shared/referencias/referencias.html#ref-zobel1998reliable" role="doc-biblioref">1998</a>)</span> e <span class="citation" data-cites="BraschlerPeters2003">Braschler; Peters (<a href="../../shared/referencias/referencias.html#ref-BraschlerPeters2003" role="doc-biblioref">2003</a>)</span>.)</p></li>
+</ul>
+<section id="possibilidade-de-reuso" class="level4" data-number="19.4.2.1">
+<h4 data-number="19.4.2.1" class="anchored" data-anchor-id="possibilidade-de-reuso"><span class="header-section-number">19.4.2.1</span> Possibilidade de reuso</h4>
+<p>Uma questão associada à criação de recursos é a possibilidade de reutilização destes. Este é um ponto delicado, relacionado aos pressupostos teóricos de uma avaliação (conjunta ou não), mas, como também se aplica a avaliações conjuntas (que implicam em geral mais trabalho na criação dos recursos), merece ser discutido aqui: recursos criados com uma dada abordagem teórica não podem ser simplesmente transpostos para outra abordagem, sob perigo de prejudicar gravemente os sistemas avaliados.</p>
+<p>Para dar um exemplo concreto: os lugares no HAREM (<span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html#sec-cap-avaliacao-conjunta-HAREM" target="_blank" title="Volume 1">Primeiro e Segundo HAREM: avaliação de entidades, relações e expressões temporais (2005 e 2007-2008)</a></span>) eram apenas aqueles que seriam interpretados como lugares por um leitor, não entidades que representassem um país ou uma cidade como organizações ou grupos de pessoas. Se se transferissem os recursos do HAREM para uma avaliação como foi feita no CoNLL&nbsp;<span class="citation" data-cites="Sang2002">(<a href="../../shared/referencias/referencias.html#ref-Sang2002" role="doc-biblioref">Sang, 2002</a>)</span> ou no ACE&nbsp;<span class="citation" data-cites="Doddingtonetal2004">(<a href="../../shared/referencias/referencias.html#ref-Doddingtonetal2004" role="doc-biblioref">Doddington et al., 2004</a>)</span> para o inglês, em que entidades geopolíticas deveriam ser classificadas como lugares, ter-se-ia de reclassificar todos esses casos, sob pena de prejudicar os sistemas que concorriam com esses pressupostos. Veja-se <span class="citation" data-cites="Santos2007ESSLLI">Santos (<a href="../../shared/referencias/referencias.html#ref-Santos2007ESSLLI" role="doc-biblioref">2007c</a>)</span> para uma discussão detalhada das diferentes filosofias de avaliação de reconhecimento de entidades mencionadas.</p>
+<p>Concluindo, <strong>não há recursos neutros</strong> e, portanto, embora indiquemos a reutilização sempre que possível do muito trabalho que já foi feito, resumido na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html#sec-cap-avaliacao-conjunta-resumo" target="_blank" title="Volume 1">Resumo das avaliações conjuntas</a></span>, é preciso sempre compreender o contexto e a definição da tarefa subjacente.</p>
+<p>Para isso, nunca é demais insistir numa documentação detalhadas das opções tomadas, para que o reuso possa ser feito de maneira informada e consciente.</p>
+</section>
+</section>
+<section id="medidas-de-avaliação" class="level3" data-number="19.4.3">
+<h3 data-number="19.4.3" class="anchored" data-anchor-id="medidas-de-avaliação"><span class="header-section-number">19.4.3</span> Medidas de avaliação</h3>
+<p>As medidas por que se pauta uma avaliação conjunta são a sua pedra de toque. Ver também a <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao/cap-avaliacao.html#sec-cap-avaliacao-metricas" target="_blank" title="Volume 1">Métricas: Medindo a performance</a></span>.</p>
+<p>Conforme já referido, medir só faz sentido se a medida for adequada, isto é, se os valores numéricos apresentarem uma relação forte com as qualidades que se pretende aferir. A relação entre as diferenças nas medidas e a importância ou interesse dos casos resolvidos, ou não resolvidos, pelos sistemas é também pertinente: <span class="citation" data-cites="VoorheesTice2000b">Voorhees; Tice (<a href="../../shared/referencias/referencias.html#ref-VoorheesTice2000b" role="doc-biblioref">2000</a>)</span> notam que <strong>nem todos os casos são iguais</strong>, e que não se faz justiça a um sistema se o mesmo peso é dado às respostas fáceis e às difíceis. Assim, os casos de discordância entre os juízes humanos e o “gabarito” automático que implementaram acabam por ser, precisamente, aqueles em que a resposta é mais complicada, e portanto quando é mais necessário ter um julgamento humano.</p>
+<p>Destacamos, todavia, que as questões aqui referidas, embora extremamente pertinentes, só podem ser colocadas – e discutidas – depois de, idealmente, pelo menos uma avaliação conjunta ter ocorrido, para que os dados possam ser trabalhados e as condições da avaliação conjunta avaliadas e melhoradas. Antes disso, contudo, é preciso definir que problema(s) atacar, e como caracterizá-lo(s).</p>
+</section>
+</section>
+<section id="como-avaliar-uma-avaliação-conjunta" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="como-avaliar-uma-avaliação-conjunta"><span class="header-section-number">19.5</span> Como avaliar uma avaliação conjunta<span id="avalaval" data-label="avalaval"></span></h2>
+<p>Sugerimos que, de um modo geral, uma avaliação conjunta poderá ser avaliada</p>
+<ul>
+<li><p>através da <strong>participação</strong> que suscitou e da adesão que teve;</p></li>
+<li><p>através do <strong>material</strong> (ferramentas, recursos e publicações) a que deu origem;</p></li>
+<li><p>através do <strong>impacto</strong> que teve nos grupos participantes e na área em geral;</p></li>
+<li><p>através da <strong>reutilização</strong> (ou não) dos recursos nela ou por ela criados;</p></li>
+<li><p>através do <strong>impacto</strong> que esse acontecimento teve no panorama científico nacional ou internacional.</p></li>
+</ul>
+<p>Em uma escala de tempo mais alargada, o <strong>verdadeiro impacto</strong> irá se refletir na constatação de que dali por diante as pessoas passaram a usar os recursos e os conhecimentos produzidos na avaliação conjunta para identificarem os problemas que os seus sistemas/modelos vão ter que resolver, medirem o desempenho dos ditos, e melhorarem o estado global da área em causa.</p>
+<section id="críticas-e-limitações" class="level3" data-number="19.5.1">
+<h3 data-number="19.5.1" class="anchored" data-anchor-id="críticas-e-limitações"><span class="header-section-number">19.5.1</span> Críticas e limitações</h3>
+<p>É preciso, no entanto, esclarecer que há críticas válidas a esta forma de avaliação, ou que o seu abuso pode levar a alguns inconvenientes.</p>
+<p>Por um lado, há o perigo de os participantes desenvolverem os seus <strong>sistemas para participar nas competições e não para funcionar na vida real</strong>. Isto tanto pode acontecer pela concentração numa área específica, como considerando cuidadosamente as questões medidas por uma dada avaliação conjunta e desprezando as que não são objeto de comparação.</p>
+<p>Por outro lado, a existência dos chamados “cotovelos”, que indicam que se chegou a uma fase em que a maior parte dos sistemas já têm um desempenho aceitável, sinaliza que pode ser hora de mudar radicalmente o cenário da avaliação. <span class="citation" data-cites="Hirschman98Evol">Hirschman (<a href="../../shared/referencias/referencias.html#ref-Hirschman98Evol" role="doc-biblioref">1998</a>)</span>, ao descrever o MUC<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, comenta que, de fato, de uma edição para a próxima, deve-se sempre aumentar os desafios e evoluir na avaliação; <span class="citation" data-cites="Gaizauskas2003">Gaizauskas (<a href="../../shared/referencias/referencias.html#ref-Gaizauskas2003" role="doc-biblioref">2003</a>)</span> sugere que o estudo de avaliações anteriores sugere novas métricas que, em si, sugerem novos tipos de avaliação... ou seja, uma atividade de avaliação conjunta deve <strong>progredir ao longo das várias edições</strong>, aprendendo com o passado e com os erros e sucessos dos sistemas/modelos participantes.</p>
+<p>Hirschman também chama nossa atenção para quais <strong>partes interessadas</strong> estão envolvidas em uma avaliação específica: o setor, os usuários, os pesquisadores ou os financiadores? As avaliações até agora organizadas para o português privilegiaram a qualidade e os métodos, mas não a eficiência ou o preço, e muito menos a sustentabilidade do ponto de vista de uma agência de financiamento.</p>
+<p>O principal perigo de uma avaliação conjunta talvez seja, contudo, que as <strong>medidas ou o cenário não sejam adequadas ao problema</strong> ou privilegiem um certo tipo de funcionamento. Um exemplo seria limitar a priori, em uma tarefa de resposta automática a perguntas (RAP, QA), o tamanho da resposta em <em>bytes</em> ou <em>tokens</em><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>. Afinal, que significado pode ter o tamanho de uma resposta?</p>
+<p>De modo análogo, é importante verificar a <strong>relação (e relevância) da tarefa para a aplicação</strong> a que está subjacente, sob pena de a avaliação não ser válida. Por exemplo, é justificável definir desambiguação de sentidos como uma tarefa separada do processamento computacional de uma língua? <span class="citation" data-cites="Wilks2000">Wilks (<a href="../../shared/referencias/referencias.html#ref-Wilks2000" role="doc-biblioref">2000</a>)</span> critica a própria pertinência de avaliar separadamente esta tarefa, como foi feito no Senseval<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>, na esteira do que já <span class="citation" data-cites="Kilgarriff97">Kilgarriff (<a href="../../shared/referencias/referencias.html#ref-Kilgarriff97" role="doc-biblioref">1997</a>)</span> tinha argumentado.</p>
+<p>Outra objeção é a de que as <strong>avaliações conjuntas reduzem o valor de um sistema/modelo a um número</strong>, ou a uma série de números, não necessariamente facilmente interpretáveis, compreensíveis ou mesmo intuitivamente adequados.</p>
+<p>As medidas têm de ser intuitivamente interpretáveis para todo o processo fazer sentido. Contudo, nem sempre é fácil eleger uma medida quando há muitas variáveis que é preciso considerar. A este respeito, mencione-se que avaliações conjuntas (canônicas) como o TREC<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> e o CLEF (descrito na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html#sec-cap-avaliacao-conjunta-clef" target="_blank" title="Volume 1">CLEF: Recuperação de Informação e QA (2003-2009)</a></span>) usam mais de uma dezena de medidas, e em avaliações para o português como o HAREM e o Págico, usamos também mais do que uma.</p>
+<p>Do mesmo modo, é muito importante <strong>compreender a junção dos resultados</strong>, quase nunca simples. Tome-se o seguinte exemplo: num campeonato por equipes, temos um conjunto de cinco alunos com nota 1 em uma dada disciplina, e uma outra equipe com uma aluna com nota de 5 mais quatro alunos com nota 0. Embora cumulativamente ambas as equipes atinjam o mesmo valor se a medida for “soma das notas” (5) ou “média das notas” (1), as duas equipes – ou os dois sistemas – estão longe de ser semelhantes.</p>
+<p>Nas avaliações conjuntas é importante que a tarefa escolhida – o conjunto de tópicos, o conjunto de perguntas – seja suficientemente <strong>variada</strong> e <strong>representativa</strong> para que possam de fato avaliar um sistema. A questão de garantir um número suficiente de perguntas e de confirmar se as diferenças entre sistemas são estatisticamente significativas foram tratadas por exemplo por <span class="citation" data-cites="BuckleyVoorhees2000">Buckley; Voorhees (<a href="../../shared/referencias/referencias.html#ref-BuckleyVoorhees2000" role="doc-biblioref">2000</a>)</span> para o TREC, por <span class="citation" data-cites="Chinchor92">Chinchor (<a href="../../shared/referencias/referencias.html#ref-Chinchor92" role="doc-biblioref">1992</a>)</span> para o MUC e por <span class="citation" data-cites="VoorheesTice2000b">Voorhees; Tice (<a href="../../shared/referencias/referencias.html#ref-VoorheesTice2000b" role="doc-biblioref">2000</a>)</span> para respostas a perguntas no TREC. Para o português e para o HAREM, ver <span class="citation" data-cites="Cardoso2006">Cardoso (<a href="../../shared/referencias/referencias.html#ref-Cardoso2006" role="doc-biblioref">2006</a>)</span>. Ver também a <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao/cap-avaliacao.html#sec-cap-avaliacao-signest" target="_blank" title="Volume 1">Testes de Significância Estatística</a></span>.</p>
+<p>Ainda uma última crítica – que embora pertinente, não invalida o modelo de avaliação conjunta –, é que as avaliações conjuntas em geral não consideram a “experiência do utilizador”, nem outras qualidades “periféricas” (ou mais dificilmente mensuráveis), tais como qualidade científica, qualidade da documentação, forma de apoio ao utilizador ou maneira como recuperam de erros, inovação, consistência, facilidade de manutenção, legibilidade do código etc.</p>
+<p>Esta observação só indica que a aferição do <strong>valor</strong> e da <strong>utilidade de um sistema/modelo não se esgota com uma avaliação conjunta</strong>: outros tipos de avaliação podem também ser necessários. Contudo, em alguns casos, pode se juntar a uma avaliação conjunta um painel de especialistas que pontuam algumas destas propriedades (como nas Morpholympics&nbsp;<span class="citation" data-cites="Hausser1996">(<a href="../../shared/referencias/referencias.html#ref-Hausser1996" role="doc-biblioref">Hausser, 1996</a>)</span> organizadas por Hausser em 1994), assim como se podem idealizar avaliações conjuntas com um perfil claro de utilizadores em mente.</p>
+<p>Passamos agora à apresentação das avaliações conjuntas para a língua portuguesa que organizamos ou conhecemos, utilizando um recorte estritamente temporal.</p>
+</section>
+</section>
+<section id="morfolimpíadas-análise-morfológica-2003-2004" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="morfolimpíadas-análise-morfológica-2003-2004"><span class="header-section-number">19.6</span> Morfolimpíadas: análise morfológica (2003-2004)</h2>
+<p>A primeira tarefa para a qual organizamos uma avaliação conjunta foi a <strong>análise morfológica</strong>. As Morfolimpíadas foram motivadas pelo fato de a língua portuguesa ter um paradigma flexional rico, ao mesmo tempo que, na época, havia um número razoável de grupos que tinham algum tipo de processamento morfológico em seus sistemas.</p>
+<p>Os participantes receberam os materiais de teste (613 textos) em três formatos: texto corrido, uma unidade (“<em>token</em>”) por linha, e lista de tipos. Incluímos, nesses textos ou listas, os itens de nossa lista padrão-ouro<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>: 200 formas que, por sua vez, correspondiam a 345 análises diferentes. Os sistemas participantes deveriam então retornar todos os três materiais de teste morfologicamente analisados, sem saber quais palavras seriam avaliadas.</p>
+<p>Embora a análise morfológica pareça uma tarefa simples, para produzir uma comparação justa de sistemas com objetivos muito diferentes foi preciso elaborar resultados de acordo com três eixos:</p>
+<ol type="1">
+<li><p>análise morfológica propriamente dita</p></li>
+<li><p>verificação ortográfica</p></li>
+<li><p>radicalização<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p></li>
+</ol>
+<p>Além disso, talvez o resultado mais interessante das Morfolimpíadas tenha sido a constatação de que havia – e pensamos que ainda há – uma considerável discordância teórica sobre a forma adequada de fazer a análise morfológica do português, conforme descrito em <span class="citation" data-cites="Santosetal2003">Santos et al. (<a href="../../shared/referencias/referencias.html#ref-Santosetal2003" role="doc-biblioref">2003</a>)</span>.</p>
+<p>E, de maneira complementar, podemos dizer que as Morfolimpíadas levaram a um grande aprendizado sobre como avaliar, cooperativamente, uma determinada aplicação.</p>
+<p>Todos os resultados, dados e programas (em Perl) usados para organizar as Morfolimpíadas foram divulgados na página da Linguateca dedicada a esta avaliação - onde ainda podem ser encontrados<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>.</p>
+</section>
+<section id="sec-cap-avaliacao-conjunta-HAREM" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="sec-cap-avaliacao-conjunta-HAREM"><span class="header-section-number">19.7</span> Primeiro e Segundo HAREM: avaliação de entidades, relações e expressões temporais (2005 e 2007-2008)</h2>
+<p>O HAREM é um exemplo paradigmático de uma avaliação conjunta que condiz com a maior parte das afirmações genéricas feitas no presente capítulo.</p>
+<section id="reconhecimento-de-entidades-mencionadas" class="level3" data-number="19.7.1">
+<h3 data-number="19.7.1" class="anchored" data-anchor-id="reconhecimento-de-entidades-mencionadas"><span class="header-section-number">19.7.1</span> Reconhecimento de entidades mencionadas</h3>
+<p>HAREM é a sigla (recursiva) de “HAREM - Avaliação de Reconhecimento de Entidades Mencionadas”. A tarefa ainda não havia sido tentada por nenhum sistema para a língua portuguesa, portanto, esse foi um caso claro de tentativa de alavancar uma área desconhecida para o português. Conforme indicado na página de motivação do Primeiro HAREM, o reconhecimento de entidades mencionadas (REM, ou NER, em inglês)<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> era uma tarefa “leve” em termos de carga teórica (com isso queremos dizer que não havia campos diferentes com posições irredutíveis entre os interessados, diferentemente do que pode ser dito sobre a análise sintática, por exemplo)<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>.</p>
+<p>Após um debate extenso e uma experiência de anotação preliminar de textos, que levou à fixação da terminologia e à escolha de quais problemas resolver, resultando em extensas diretivas de anotação, foi criada a Coleção Dourada (recurso padrão-ouro) do Primeiro HAREM, tomando especial cuidado na formalização de várias alternativas possíveis e na definição das tarefas que seriam comparadas entre os sistemas.</p>
+<p>Após a avaliação propriamente dita, que incluiu a criação de uma arquitetura de avaliação, os recursos coleção dourada e programas de processamento dos resultados foram tornados públicos.</p>
+<p>Todo o processo permitiu medir o estado do reconhecimento de entidades para o português, ao mesmo tempo que se identificaram questões ainda não resolvidas e se produziram estudos e observações – a nível da arquitetura, das métricas, e da influência do gênero textual– cujo interesse extravasa o simples processamento computacional da nossa língua.</p>
+<p>Diferentemente de outras avaliações de NER internacionais, como o MUC e o ACE, no HAREM (i) utilizamos um conjunto de classes variado, derivado de uma leitura preliminar de textos de gêneros variados (e que, portanto, continham entidades de natureza semântica variada), e (ii) oferecemos às equipes participantes a possibilidade de escolher em quais classes de entidades gostariam de competir. Ou seja, os sistemas poderiam escolher em quais classificações gostariam de ser avaliados, por exemplo, apenas LOCAL ou PESSOAS, ou TEMPO – o que obrigou a organização a desenvolver medidas de avaliação específicas, ver <span class="citation" data-cites="Secoetal2006">Seco et al. (<a href="../../shared/referencias/referencias.html#ref-Secoetal2006" role="doc-biblioref">2006</a>)</span>.</p>
+<p>Além disso, uma característica importante de ambas as edições do HAREM (e que também difere do MUC e do ACE), é a possibilidade de <strong>uma mesma entidade seja classificada, em contexto, de mais de uma maneira</strong>. Assim, em uma frase como</p>
+<blockquote class="blockquote">
+<p>Eu gosto muito do Brasil</p>
+</blockquote>
+<p>“Brasil” pode estar fazendo referência a um LOCAL; ou aos moradores do local ou à equipa braileira (classe PESSOA), ou, ainda, à organização política/Estado (classe ORGANIZAÇÂO). Se mais do que uma interpretação fosse válida no contexto em que ocorre, todas deveriam estar marcadas.</p>
+<p>Essas escolhas, por sua vez, se permitiram uma fotografia rica do que era possível em REM em português, tiveram como consequência a impossibilidade de comparação direta com os resultados de avaliações para outras línguas.</p>
+<p>O <strong>Segundo HAREM</strong> (2006-2008) teve como principal diferença com relação ao primeiro a existência de três subtarefas, propostas pela comunidade (duas tarefas novas, além do HAREM “clássico”):</p>
+<ul>
+<li><p>tarefa de <strong>identificação temporal</strong>&nbsp;<span class="citation" data-cites="Baptistaetal2008 Hagegeetal2009">(<a href="../../shared/referencias/referencias.html#ref-Baptistaetal2008" role="doc-biblioref">Baptista et al., 2008</a>; <a href="../../shared/referencias/referencias.html#ref-Hagegeetal2009" role="doc-biblioref">Hagège et al., 2009</a>)</span>, organizada pelo grupo proponente, ficando a equipe da Linguateca a cargo da anotação e criação do recurso padrão-ouro e da avaliação.</p></li>
+<li><p>ReRelEM, tarefa de <strong>identificação de relações semânticas entre as entidades</strong> do HAREM&nbsp;<span class="citation" data-cites="Freitasetal2008 FreitasetalReReLEM">(<a href="../../shared/referencias/referencias.html#ref-Freitasetal2008" role="doc-biblioref">Freitas et al., 2008</a>, <a href="../../shared/referencias/referencias.html#ref-FreitasetalReReLEM" role="doc-biblioref">2009</a>)</span>, completamente a cargo da equipe da Linguateca.</p></li>
+</ul>
+<p>A <a href="#fig-cap-avaliacao-conjunta-HAREM" class="quarto-xref">Figura&nbsp;<span>19.2</span></a> apresenta as classes e subclasses utilizadas no Segundo HAREM, na tarefa “clássica”.</p>
+<div id="fig-cap-avaliacao-conjunta-HAREM" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-avaliacao-conjunta-HAREM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19.2: Categorias, tipos e subtipos utilizados no Segundo HAREM.
+</figcaption>
+<div aria-describedby="fig-cap-avaliacao-conjunta-HAREM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/fig HAREM.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="identificação-classificação-e-normalização-de-expressões-temporais" class="level3" data-number="19.7.2">
+<h3 data-number="19.7.2" class="anchored" data-anchor-id="identificação-classificação-e-normalização-de-expressões-temporais"><span class="header-section-number">19.7.2</span> Identificação, classificação e normalização de expressões temporais</h3>
+<p>Esta tarefa, chamada informalmente do TEMPO, ou de reconhecimento de entidades temporais, foi idealizada por um grupo participante&nbsp;<span class="citation" data-cites="Baptistaetal2008">(<a href="../../shared/referencias/referencias.html#ref-Baptistaetal2008" role="doc-biblioref">Baptista et al., 2008</a>)</span> inspirada em avaliações de referência temporal para o inglês, nomeadamente o TempEval&nbsp;<span class="citation" data-cites="Verhagen2010">(<a href="../../shared/referencias/referencias.html#ref-Verhagen2010" role="doc-biblioref">Verhagen et al., 2010</a>)</span>, e a proposta de anotação TimeML&nbsp;<span class="citation" data-cites="Saurietal2006">(<a href="../../shared/referencias/referencias.html#ref-Saurietal2006" role="doc-biblioref">Saurı́ et al., 2006</a>)</span>.</p>
+<p>É preciso explicar que a tarefa expandia a anotação já existente no Primeiro HAREM (e que tinha tipo e subtipo), definindo mais atributos, que foram chamados atributos estendidos, a saber: sentido, tempo-ref, val-delta e val-norm.</p>
+<p>Como relatado em <span class="citation" data-cites="Motaetal2008">Mota et al. (<a href="../../shared/referencias/referencias.html#ref-Motaetal2008" role="doc-biblioref">2008</a>)</span>, um subconjunto da coleção dourada do HAREM foi anotado com esta referência temporal mais fina, assim como programas específicos para a avaliar foram desenvolvidos e depois disponibilizados.</p>
+<p>Esta tarefa teve sete participantes, embora nem todos tentassem resolver os mesmos problemas (apenas dois tentaram obter a referência temporal e um o sentido e a normalização).</p>
+</section>
+<section id="rerelem---relações-entre-entidades" class="level3" data-number="19.7.3">
+<h3 data-number="19.7.3" class="anchored" data-anchor-id="rerelem---relações-entre-entidades"><span class="header-section-number">19.7.3</span> ReRelEM - relações entre entidades</h3>
+<p>O objetivo do ReReLEM era identificar um conjunto de relações entre as entidades do HAREM. A organização escolheu – após uma análise minuciosa do material textual – as quatro relações a seguir: IDENTIDADE, INCLUSÃO, LOCALIZAÇÃO e OUTRO.</p>
+<p>Uma entidade específica pode obviamente estar relacionada a várias outras, como no <a href="#exm-cap-avaliacao-conjunta-campeonato" class="quarto-xref">Exemplo&nbsp;<span>19.1</span></a>, que representa a informação de que a EM b13 está relacionada a b3 e b5 pela relação de <code>identidade</code>, e a b11 pela relação de <code>ocorrência</code>.</p>
+<div id="exm-cap-avaliacao-conjunta-campeonato" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 19.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>depois de partir em vantagem pontual no <code>&lt;EM ID="b13" CATEG="ACONTECIMENTO" TIPO="ORGANIZADO" COREL="b3 b5 b11" TIPOREL="ident ident ocorre_em"&gt;</code><strong>Campeonato do Mundo</strong><code>&lt;/EM&gt;</code></p>
+</blockquote>
+</div>
+<p>Como é exatamente a mesma coisa dizer que A ocorre em B, ou que B é a localização de A, e se A é idêntico a B e B inclui C, então A também inclui C, e assim por diante, desenvolvemos um conjunto de regras para que todas as relações logicamente válidas possíveis fossem preenchidas automaticamente, inspiradas em <span class="citation" data-cites="Vilainetal1995">Vilain et al. (<a href="../../shared/referencias/referencias.html#ref-Vilainetal1995" role="doc-biblioref">1995</a>)</span> no MUC.</p>
+<p>A coleção padrão-ouro do ReRelEM (um subconjunto da coleção padrão-ouro do HAREM), continha 12 textos e 573 entidades mencionadas. Após a expansão automática, a coleção continha 6.477 relações.</p>
+<p>Todo o material das duas edições do HAREM, incluindo programas de avaliação e corpora anotados, estão disponíveis<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>.</p>
+</section>
+</section>
+<section id="sec-cap-avaliacao-conjunta-clef" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="sec-cap-avaliacao-conjunta-clef"><span class="header-section-number">19.8</span> CLEF: Recuperação de Informação e QA (2003-2009)</h2>
+<p>Em 2003, a Linguateca começou a colaborar com o CLEF (acrônimo de <em>Cross-lingual Evaluation Forum</em>), um fórum de avaliação multilíngue. Do ponto de vista da língua portuguesa, tomar parte em uma avaliação conjunta com um grande público e muita experiência parecia uma boa ideia, especialmente em tarefas nas quais a Linguateca não tinha nenhuma experiência, como recuperação de informações (RI) e resposta automática a perguntas (RAP, QA). Além disso, o bônus adicional de conseguir participantes não lusófonos para tarefas multilíngues parecia uma maneira de colocar o português no mapa.</p>
+<p>Por isso, a Linguateca fez parte da organização do CLEF de 2003 a 2009, e gradualmente, passou para a organização de tarefas mais inovadoras, como o GeoCLEF, o GikiP e o GikiCLEF, além de ajudar no ImageCLEF, no WebCLEF, no ResPubliQA e no LogCLEF.</p>
+<p>Ao contrário do que se poderia esperar, contudo, sempre houve menos participantes de processamento em português no CLEF do que no HAREM.</p>
+<section id="CLEF" class="level3" data-number="19.8.1">
+<h3 data-number="19.8.1" class="anchored" data-anchor-id="CLEF"><span class="header-section-number">19.8.1</span> CLEF clássico</h3>
+<p>A tarefa mais clássica do CLEF é uma tarefa padrão de recuperação de informações em um ambiente multilíngue. Dada uma coleção de documentos e um conjunto de tópicos, os sistemas participantes devem fornecer um conjunto classificado de documentos sobre o tópico. Seja de forma monolíngue (pesquisando tópicos expressos em português em uma coleção de documentos em português) ou multilíngue (por exemplo, pesquisando tópicos expressos em francês em uma coleção em português, ou vice-versa), ou de forma multilíngue em todas as coleções.</p>
+<p>Adicionar o português significou, na prática, três questões, discutidas detalhadamente em <span class="citation" data-cites="SantosRocha2003">Santos; Rocha (<a href="../../shared/referencias/referencias.html#ref-SantosRocha2003" role="doc-biblioref">2003</a>)</span>, <span class="citation" data-cites="RochaSantos2007">Rocha; Santos (<a href="../../shared/referencias/referencias.html#ref-RochaSantos2007" role="doc-biblioref">2007</a>)</span>:</p>
+<ul>
+<li><p>disponibilizar uma coleção de textos – a coleção CHAVE –, com textos completos de dois jornais principais, um de Portugal e outro do Brasil, de 1994 e 1995.</p></li>
+<li><p>criar tópicos apropriados para a coleção, bem como para consultas multilíngues. Por exemplo, nos esforçamos por obter tópicos sobre países lusófonos que também estivessem presentes em coleções de outros idiomas e para encontrar, por exemplo, temas finlandeses que ocorressem na coleção portuguesa e também na finlandesa. (Esses tópicos também precisaram ser traduzidos para o inglês, e nós precisamos traduzir os tópicos de outros idiomas para o português.)</p></li>
+<li><p>avaliar os resultados na coleção em português, pois vários documentos de cada tópico tiveram que ser marcados como relevantes ou irrelevantes. Para se ter uma ideia do tamanho, em 2004 foram avaliados 22.311 documentos, com uma média de 446 documentos por tópico.</p></li>
+</ul>
+<p>Após a realização da avaliação, tornamos públicos os tópicos e seus julgamentos binários na coleção CHAVE<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a>, para que os sistemas pudessem usá-los para treinamento.</p>
+</section>
+<section id="resposta-automática-a-perguntas-qaclef" class="level3" data-number="19.8.2">
+<h3 data-number="19.8.2" class="anchored" data-anchor-id="resposta-automática-a-perguntas-qaclef"><span class="header-section-number">19.8.2</span> Resposta automática a perguntas (QA@CLEF)</h3>
+<p>A tarefa de resposta a perguntas<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> seguiu uma configuração de avaliação semelhante na mesma coleção, mas <strong>em vez de tópicos</strong>, foram criadas <strong>perguntas</strong> (classificadas pelo tipo de resposta esperada) e, <strong>em vez de documentos relevantes</strong>, foram avaliadas <strong>respostas específicas</strong>. Antes de sugerir uma pergunta, tivemos que verificar se a resposta poderia ser encontrada na coleção, de preferência em mais de um documento, para que a pergunta pudesse ser usada no QA@CLEF. Todas as respostas a uma determinada pergunta foram agrupadas e disponibilizadas junto com a coleção CHAVE.</p>
+<p>Como resultado da organização da trilha<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a> QA de 2003 a 2008 (correspondente aos anos de 2004, 2005, 2006, 2007 e 2008), foram criadas e disponibilizadas 4380 perguntas em português, juntamente com suas respostas na coleção CHAVE. (Deve-se observar que as perguntas foram coletadas coletivamente por todos os organizadores, uma vez que QA era tanto monolíngue quanto multilíngue. Essa é a razão pela qual nem todas as perguntas têm respostas na coleção CHAVE, que é em português – elas têm respostas em outras coleções, por exemplo, na italiana.)</p>
+<p>É importante relatar que, embora essa tenha sido a configuração no início, a tarefa de QA foi aprimorada e enriquecida de uma edição para a outra, e quem se interessar por QA multilíngue no CLEF pode ler todos os documentos de visão geral, também porque havia várias subtarefas. Aqui, comentamos apenas algumas aspectos relevantes para a parte em português.</p>
+<p>Por exemplo, a partir de 2006, além de fornecer uma resposta, era necessário fornecer uma justificativa para ela usando a coleção, para evitar que os sistemas soubessem a resposta de outras fontes, como a Internet ou suas próprias bases de conhecimento. Isso levou a uma classificação quíntupla das respostas: corretas (e justificadas), inexatas, não justificadas, erradas e ausentes <span class="citation" data-cites="Magninietal2007">(<a href="../../shared/referencias/referencias.html#ref-Magninietal2007" role="doc-biblioref">Magnini et al., 2007</a>)</span>.</p>
+<p>Além disso, as perguntas foram criadas em grupos sobre um tópico, aceitando, por exemplo, correferência entre elas, em vez de apenas perguntas independentes <span class="citation" data-cites="Giampiccoloetal2008">(<a href="../../shared/referencias/referencias.html#ref-Giampiccoloetal2008" role="doc-biblioref">Giampiccolo et al., 2008</a>)</span>.</p>
+<p>Por fim, foram adicionadas perguntas de lista, ou seja, perguntas que exigiam uma lista fechada ou aberta como resposta, bem como perguntas temporalmente restritas.</p>
+<p>Os recursos para o português do QA@CLEF estão disponíveis na coleção CHAVE<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a>.</p>
+</section>
+<section id="geoclef" class="level3" data-number="19.8.3">
+<h3 data-number="19.8.3" class="anchored" data-anchor-id="geoclef"><span class="header-section-number">19.8.3</span> GeoCLEF</h3>
+<p>O principal objetivo do GeoCLEF&nbsp;<span class="citation" data-cites="Geyetal2007">(<a href="../../shared/referencias/referencias.html#ref-Geyetal2007" role="doc-biblioref">Gey et al., 2007</a>)</span> era desenvolver e avaliar a recuperação de informações geográficas. A ideia era criar tópicos que exigissem <strong>conhecimento geográfico e, portanto, raciocínio</strong>. Dois exemplos de tópicos são</p>
+<ul>
+<li><p>Cidades em um raio de 100 km de Frankfurt</p></li>
+<li><p>Malária nos trópicos</p></li>
+</ul>
+<p>que ilustram, respectivamente, regiões delimitadas com precisão e regiões vagas.</p>
+<p>Os recursos para o português do QA@CLEF estão também disponíveis na coleção CHAVE<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a>.</p>
+</section>
+<section id="gikip-informação-geográfica-2008" class="level3" data-number="19.8.4">
+<h3 data-number="19.8.4" class="anchored" data-anchor-id="gikip-informação-geográfica-2008"><span class="header-section-number">19.8.4</span> GikiP: Informação geográfica (2008)</h3>
+<p>O GikiP <span class="citation" data-cites="Santosetal2009GikiP">(<a href="../../shared/referencias/referencias.html#ref-Santosetal2009GikiP" role="doc-biblioref">Santos et al., 2009</a>)</span> foi uma tarefa piloto do GeoCLEF em 2008. O nome da tarefa inclui G para geográfico, iki para Wikipedia e P para piloto.</p>
+<p>Usando as coleções da Wikipédia já disponíveis para a trilha de QA (em português, alemão e inglês), a tarefa era responder a perguntas/solicitações de informações que exigissem algum tipo de raciocínio geográfico, fornecendo uma lista de páginas da Wikipédia como resposta. Isso significava uma espécie de híbrido entre RAP (QA) e IR.</p>
+<p>Uma das motivações para usar a Wikipédia em um contexto multilíngue foi o fato de a Wikipédia ser uma mistura interessante de corpora comparáveis e de tradução, considerando os vínculos linguísticos entre diferentes idiomas.</p>
+<p>Apenas três sistemas participaram, e todos os tópicos e respostas estão disponíveis na página do GikiP<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a>.</p>
+</section>
+<section id="gikiclef" class="level3" data-number="19.8.5">
+<h3 data-number="19.8.5" class="anchored" data-anchor-id="gikiclef"><span class="header-section-number">19.8.5</span> GikiCLEF</h3>
+<p>O GikiCLEF&nbsp;<span class="citation" data-cites="Santosetal2010GikiCLEF">(<a href="../../shared/referencias/referencias.html#ref-Santosetal2010GikiCLEF" role="doc-biblioref">Santos et al., 2010</a>)</span> englobou 9 línguas (e 10 wikipédias) e recebeu 17 corridas (<em>runs</em>) de 8 participantes, dos quais um do Brasil e outro de Portugal. Foram preparados 50 tópicos (em 10 “línguas”<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>), e os sistemas precisavam fornecer os IDs das páginas da Wikipédia, além de uma justificativa.</p>
+<p>Os tópicos foram escolhidos de modo a refletir aspectos culturais, para que não houvesse uma resposta semelhante em todos os idiomas. Mas, como discutido em <span class="citation" data-cites="SantosCabral2010">Santos; Cabral (<a href="../../shared/referencias/referencias.html#ref-SantosCabral2010" role="doc-biblioref">2010</a>)</span>, isso teve a consequência perversa de que, para qualquer tópico, havia mais respostas em inglês e, como os 50 tópicos cobriam culturas e temas muito diferentes, era difícil fazer generalizações estatísticas. De qualquer forma, o GikiCLEF produziu 1.009 respostas em um conjunto de 10 wikipédias, disponibilizadas no pacote GIRA<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>.</p>
+<p>Das avaliações organizadas pela Linguateca, esta foi sem dúvida a que exigiu mais esforço. Mas, no que diz respeito à língua portuguesa, ela quase não se materializou em progresso: conforme relatado em <span class="citation" data-cites="SantosCabral2010">Santos; Cabral (<a href="../../shared/referencias/referencias.html#ref-SantosCabral2010" role="doc-biblioref">2010, p. 219</a>)</span>, havia apenas um tópico com tema lusófono: “Estados litorâneos brasileiros”. No entanto, é possível rastrear sua influência na próxima avaliação conjunta organizada pela Linguateca, o Págico, em que voltamos a ter desafios somente em português e adicionamos os seres humanos ao circuito, ou melhor, desenvolvemos uma avaliação em que os humanos também podiam competir.</p>
+</section>
+</section>
+<section id="págico-ri-complexa-sobre-culturas-de-língua-portuguesa-2012" class="level2" data-number="19.9">
+<h2 data-number="19.9" class="anchored" data-anchor-id="págico-ri-complexa-sobre-culturas-de-língua-portuguesa-2012"><span class="header-section-number">19.9</span> Págico: RI complexa sobre culturas de língua portuguesa (2012)</h2>
+<p>O Págico <span class="citation" data-cites="Motaetal2012">(<a href="../../shared/referencias/referencias.html#ref-Motaetal2012" role="doc-biblioref">Mota et al., 2012</a>)</span> foi uma avaliação conjunta na área de recuperação de informação em português cujo objetivo era avaliar sistemas capazes de encontrar respostas não triviais a necessidades de informação complexas, em língua portuguesa. A ideia inicial, no Págico, era, usando <strong>perguntas relacionadas à cultura dos países lusófonos</strong>, tornar a avaliação também relevante para a participação humana - por exemplo, estudantes de português como língua estrangeira ou pesquisadores da cultura portuguesa e brasileira. Hoje, podemos pensar no Págico como um <strong>precursor de conjuntos de dados (<em>datasets</em>) que comparam desempenho humano e das máquinas</strong> ao responder a perguntas.</p>
+<p>O nome Págico é uma brincadeira com as palavras “página” e “mágico”, e o Págico teve sete participantes (apenas dois com sistemas automáticos). Foi a única avaliação conjunta organizada pela Linguateca em que nenhuma equipe ou pessoa brasileira participou (embora tenha sido co-organizado por uma universidade brasileira, a PUC-Rio, e ironicamente a maioria dos tópicos do Págico diziam respeito ao Brasil). Um dos motivos para a pouca participação talvez tenha sido a dificuldade da tarefa, ou o fato de a tarefa subjacente não ser uma prioridade para a maioria das pessoas que trabalhavam com PLN em português, ou, ainda, a impossibilidade de disponibilizar um conjunto de treino para que as equipes treinassem seus modelos, em um momento em que o aprendizado de máquina já tinha muitos adeptos no PLN.</p>
+<p>Especificamente, o objetivo do Págico era responder a 150 perguntas sobre cultura lusófona com base na Wikipédia em português, que tivessem respostas não triviais, no sentido de que não seriam cobertas por uma única página ou hub. Em outras palavras, estávamos visando respostas agregadas: obter uma lista justificada, dada uma necessidade de informação específica, recompensando não só a quantidade mas também a variedade das respostas.</p>
+<p>Os tópicos/questões tentaram abranger todos os lugares onde se fala português, e foram distribuídos entre Letras, Artes, Geografia, Cultura, Política, Esportes, Ciências e Economia. Alguns exemplos de perguntas/tópicos podem ser vistos na <a href="#def-cap-avaliacao-conjunta-quadro-exPagico" class="quarto-xref">Quadro&nbsp;<span>19.1</span></a>.</p>
+<div id="def-cap-avaliacao-conjunta-quadro-exPagico" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 19.1</strong></span> Exemplos de perguntas no Págico</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<p>Locais mencionados nos Lusíadas</p>
+<p>Museus em capitais de países lusófonos</p>
+<p>Políticos da África lusófona que estudaram na União Soviética</p>
+<p>Compositoras brasileiras de samba</p>
+<p>Filmes sobre o Cangaço</p>
+<p>Além do samba, que outros gêneros musicais são populares no Carnaval Brasileiro?</p>
+<p>Praias de Portugal boas para a prática de surf</p>
+<p>Movimentos culturais surgidos no Nordeste do Brasil</p>
+<p>Matemáticos de língua portuguesa que estudaram ou trabalharam em Itália</p>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<!-- `\addtocounter{table}{-1}`{=latex} -->
+<p>A criação dos tópicos foi concomitante à coleta de possíveis respostas, a fim de permitir, posteriormente, o cálculo de uma “pseudo-abrangência” (e correspondente pseudo-medida F)<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>.</p>
+<p>No Págico, propusemos várias medidas diferentes para avaliar a participação: além da precisão e da (pseudo)-abrangência habituais, usando todas as respostas corretas agrupadas e as respostas já coletadas pelos organizadores, acrescentamos uma precisão relaxada (sem avaliar a justificativa) e mais duas medidas novas: originalidade e criatividade.</p>
+<p>A originalidade, que é medida por corrida e por participante (caso um participante tenha enviado mais de uma participação), recompensa as respostas corretas que foram dadas somente naquela corrida/por aquele participante.</p>
+<p>A criatividade, por outro lado, é uma medida que pontua (uma corrida ou um participante) de forma inversamente proporcional ao número de corridas diferentes (ou participantes) que forneceram a mesma resposta.</p>
+<p>De forma não surpreendente, os participantes humanos foram mais criativos e originais, mas é também interessante constatar que os sistemas conseguiram encontrar algumas respostas que não foram encontradas pelos participantes humanos.</p>
+<p>Todos os dados (incluindo a coleção da Wikipédia de 25 de abril de 2011 em XML, composta por 681.058 documentos), o conjunto de respostas e os resultados foram disponibilizados no recurso que chamamos Cartola<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a>, e publicamos um volume especial da revista Linguamática com artigos descrevendo a avaliação e os resultados do Págico&nbsp;<span class="citation" data-cites="Santosetal2012revistaPagico">(<a href="../../shared/referencias/referencias.html#ref-Santosetal2012revistaPagico" role="doc-biblioref">Santos et al., 2012</a>)</span>.</p>
+</section>
+<section id="sec-cap-avaliacao-conjunta-assin" class="level2" data-number="19.10">
+<h2 data-number="19.10" class="anchored" data-anchor-id="sec-cap-avaliacao-conjunta-assin"><span class="header-section-number">19.10</span> ASSIN e ASSIN 2: similaridade semântica e inferência (2016 e 2019)</h2>
+<p>A primeira ASSIN, Avaliação de Similaridade Semântica e de INferência textual, foi organizada pelo NILC e a sua reunião final decorreu como um satélite do PROPOR 2016 <span class="citation" data-cites="assin">(<a href="../../shared/referencias/referencias.html#ref-assin" role="doc-biblioref">Fonseca et al., 2016</a>)</span>.</p>
+<p>Como o seu nome indica, tinha dois objetivos, nomeadamente avaliar a inferência textual, e a similaridade semântica. A organização propôs, portanto, duas tarefas separadas, ambas sobre pares de frases:</p>
+<ul>
+<li><p>dadas duas frases, avaliar qual a semelhança de sentido entre elas, numa escala de 1 a 5;</p></li>
+<li><p>dadas duas frases, avaliar se uma implica a outra, se é uma paráfrase da outra, ou nenhum destes casos.</p></li>
+</ul>
+<p>Ressalte-se que, embora inspirada por iniciativas relacionadas para o inglês, a ASSIN desenvolveu um método original para obter os pares de frases iniciais (que depois foram selecionados e eventualmente ligeiramente modificados pela organização), com base em notícias do <em>Google news</em> em português do Brasil e em português de Portugal (a ASSIN separou as duas variantes em dois recursos distintos). Ou seja, ao contrário do feito anteriormente, basearam-se em pares de frases reais e não em frases criadas por peritos.</p>
+<p>Seis sistemas diferentes participaram na tarefa de similaridade, e quatro na de inferência textual.</p>
+<p>A ASSIN propôs também sistemas de resultado mínimo garantido (<em>baselines</em>) que, inesperadamente, se mostraram bastante bons. Os recursos criados no âmbito da ASSIN, assim como os programas de avaliação, encontram-se acessíveis na página da ASSIN<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a>.</p>
+<p>Alguns anos depois, um conjunto mais alargado de pesquisadores (incluindo o primeiro autor da ASSIN 1) organizou a ASSIN 2&nbsp;<span class="citation" data-cites="Realetal2019 10.1007/978-3-030-41505-1_39">(<a href="../../shared/referencias/referencias.html#ref-Realetal2019" role="doc-biblioref">Real et al., 2019</a>, <a href="../../shared/referencias/referencias.html#ref-10.1007/978-3-030-41505-1_39" role="doc-biblioref">2020</a>)</span>, que se caracterizou por tornar a tarefa mais simples, de duas maneiras:</p>
+<ul>
+<li><p>Os pares de frases foram gerados por seres humanos em vez de serem encontrados através da tećnica inovadora da ASSIN 1: mais especificamente, foram gerados através da tradução de um recurso inglês para o português brasileiro seguida de adaptação manual, resultando em frases mais simples, sem referências temporais complexas e discurso indireto, típicas do discurso jornalístico<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a>.</p></li>
+<li><p>Em vez de três alternativas na tarefa de implicação textual, passaram a estar em jogo apenas duas: se havia uma implicação, ou se não havia qualquer relação, mais uma vez no seguimento da tradição internacional.</p></li>
+</ul>
+<p>Segundo a organização, estas duas modificações levaram os sistemas participantes (nove) a aumentar significativamente os números de desempenho, e permitiram que fosse mais simples comparar os resultados com o estado da arte para outras línguas.</p>
+<p>Mais uma vez, os recursos – 9.448 pares de frases, divididos em treino, validação e teste (6500/500/2448) – foram tornados públicos após a conferência final, e estão na página da ASSIN2<a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a>. Os programas de avaliação mantiveram-se inalterados.</p>
+<p>Este é um exemplo que vai na contramão da tradição/definição de usar avaliações conjuntas para avançar o estado de arte numa área, visto que a segunda edição da avaliação foi sobre uma tarefa mais fácil, e também mais reduzida. Para a organização, o esforço de simplificar a tarefa foi benéfico, não apenas porque os sistemas puderam ter um desempenho melhor nesta edição, mas também porque o corpus da ASSIN 2 foi feito com uma estratégia de anotação comparável a de outras avaliações conjuntas para o inglês&nbsp;<span class="citation" data-cites="Realetal2019 10.1007/978-3-030-41505-1_39">(<a href="../../shared/referencias/referencias.html#ref-Realetal2019" role="doc-biblioref">Real et al., 2019</a>, <a href="../../shared/referencias/referencias.html#ref-10.1007/978-3-030-41505-1_39" role="doc-biblioref">2020</a>)</span>.</p>
+</section>
+<section id="sec-cap-avaliacao-conjunta-iberlef" class="level2" data-number="19.11">
+<h2 data-number="19.11" class="anchored" data-anchor-id="sec-cap-avaliacao-conjunta-iberlef"><span class="header-section-number">19.11</span> IberLEF 2019: reconhecimento de entidades e de relações</h2>
+<p>No âmbito do IberLEF (<em>Iberian Languages Evaluation Forum</em>) em 2019 foram propostas três tarefas de avaliação para o português por um grupo de pesquisadores da PUCRS, da Universidade de Évora e da Universidade da Bahia&nbsp;<span class="citation" data-cites="Collovinietal2019">(<a href="../../shared/referencias/referencias.html#ref-Collovinietal2019" role="doc-biblioref">Collovini et al., 2019</a>)</span>, nas duas áreas de reconhecimento de entidades mencionadas e extração de relações.</p>
+<p>Em relação às entidades mencionadas, um dos objetivos era aumentar o tipo de dados sobre os quais esta tarefa se aplicava. Documentos clínicos e da polícia foram duas das inovações trazidas. Também foram distribuídos vários recursos já anotados (incluindo algumas das coleções do HAREM) para treinamento dos sistemas (que precisassem).</p>
+<p>Enquanto a tarefa do ReRelEM foi alargada para cobrir outros tipos de entidades mencionadas na segunda tarefa, a terceira tarefa, a tarefa de avaliação de extração de quaisquer relações entre entidades (não necessariamente nomes próprios) – chamada em inglês <em>open information extraction</em> – foi pioneira para o português.</p>
+<p>Mais especificamente, as três tarefas propostas foram:</p>
+<ul>
+<li><p>reconhecimento de entidades mencionadas (seis categorias: pessoas, organizações, locais, valores, tempos e miscelânea) em vários gêneros textuais, e reconhecimento de pessoas em texto clínico e em documentos da polícia. A avaliação foi feita usando os programas do CoNLL. Uma característica especial desta avaliação foi que os sistemas teriam de ser replicados pela organização (na fase de reprodução) para poderem participar.</p></li>
+<li><p>extração de relações entre pessoas, organizações e lugares (ORG-ORG, ORG-PLC, ORG-PER), ou (opção 1) já marcados como tal no texto (reanotando a coleção do ReRelEM), ou (opção 2) sem ter as entidades mencionadas marcadas.</p></li>
+<li><p>extração de relações em texto livre, sem que sejam necessariamente apenas entre entidades mencionadas.</p></li>
+</ul>
+<p>Houve cinco participantes na primeira tarefa (que enviaram seis corridas), um na segunda e três na terceira (enviando também seis corridas). Ao todo, participaram seis instituições nas três tarefas.</p>
+<p>As coleções douradas (ou padrão-ouro) – excetuando os textos clínicos e da polícia, para proteção de dados pessoais –, assim como os programas de avaliação, encontram-se públicos na página do IberLEF 2019<a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref"><sup>31</sup></a>.</p>
+</section>
+<section id="idpt-identificação-de-ironia-2021" class="level2" data-number="19.12">
+<h2 data-number="19.12" class="anchored" data-anchor-id="idpt-identificação-de-ironia-2021"><span class="header-section-number">19.12</span> IDPT: Identificação de ironia (2021)</h2>
+<p>No IberLEF 2021 houve uma nova tarefa para o português, denominada <em>Irony Detection in Portuguese</em> (IDPT), em que os organizadores&nbsp;<span class="citation" data-cites="Correaetal2021">(<a href="../../shared/referencias/referencias.html#ref-Correaetal2021" role="doc-biblioref">Corrêa et al., 2021</a>)</span> criaram dois recursos com tweets e notícias em português, anotados com essa informação (ironia, ou não), baseados em jornais e tweets brasileiros.</p>
+<p>Esta tarefa recebeu interesse internacional além do lusófono, tendo seis grupos participantes, um dos quais chinês e outro espanhol. Houve diferenças entre a detecção de ironia em notícias e tweets, com diferentes tecnologias obtendo o melhor desempenho em cada tipo de texto.</p>
+<p>Para treinamento foram usados corpora já públicos<a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref"><sup>32</sup></a>, contendo 15212 tweets, e os conjuntos de textos (<em>datasets</em>)<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a>, provindos de três jornais eletrônicos brasileiros: O Estadão, O sensacionalista e o The Piauí Herald. Os dados de teste encontram-se na página do IDPT2021<a href="#fn34" class="footnote-ref" id="fnref34" role="doc-noteref"><sup>34</sup></a>.</p>
+</section>
+<section id="absapt-avaliação-de-mineração-de-opiniões-por-aspecto-2022" class="level2" data-number="19.13">
+<h2 data-number="19.13" class="anchored" data-anchor-id="absapt-avaliação-de-mineração-de-opiniões-por-aspecto-2022"><span class="header-section-number">19.13</span> ABSAPT: Avaliação de mineração de opiniões por aspecto (2022)</h2>
+<p>No IberLEF 2022 aconteceu a tarefa <em>Aspect-Based Sentiment Analysis in Portuguese</em> (ABSAPT) <span class="citation" data-cites="Silva2022">(<a href="../../shared/referencias/referencias.html#ref-Silva2022" role="doc-biblioref">Silva et al., 2022</a>)</span>, que teve como objetivo identificar a opinião (positiva, neutra ou negativa) sobre aspectos (ou características) de produtos em resenhas para o <em>TripAdvisor</em> em português, portanto relativos a hotelaria e turismo. Essa tarefa, inspirada por tarefas congêneres no SemEval<a href="#fn35" class="footnote-ref" id="fnref35" role="doc-noteref"><sup>35</sup></a>, como a descrita em 2014 por <span class="citation" data-cites="semeval2014">Pontiki et al. (<a href="../../shared/referencias/referencias.html#ref-semeval2014" role="doc-biblioref">2014</a>)</span>, estava dividida em duas subtarefas: identificar primeiro o aspecto, e depois qual a opinião (em inglês, <em>sentiment</em>) sobre esse aspecto.</p>
+<p><span class="citation" data-cites="Silva2022">Silva et al. (<a href="../../shared/referencias/referencias.html#ref-Silva2022" role="doc-biblioref">2022</a>)</span> listam 40 aspectos diferentes, dos 77 presentes no material de treinamento.</p>
+<p>Houve cinco participantes, todos eles brasileiros. O conjunto de dados de treino e teste está disponível para uso acadêmico na página dedicada ao ABSAPT2022<a href="#fn36" class="footnote-ref" id="fnref36" role="doc-noteref"><sup>36</sup></a>.</p>
+</section>
+<section id="dip-desafio-de-identificação-de-personagens-2022-2023" class="level2" data-number="19.14">
+<h2 data-number="19.14" class="anchored" data-anchor-id="dip-desafio-de-identificação-de-personagens-2022-2023"><span class="header-section-number">19.14</span> DIP: Desafio de Identificação de Personagens (2022-2023)</h2>
+<p>No âmbito do recente interesse pelas Humanidades Digitais, e mais especificamente pela leitura distante<a href="#fn37" class="footnote-ref" id="fnref37" role="doc-noteref"><sup>37</sup></a>, a Linguateca, junto com o NuPILL (Universidade Federal de Santa Catarina e Universidade Estadual do Maranhão) organizou uma avaliação conjunta denominada DIP&nbsp;<span class="citation" data-cites="Santosetal2023">(<a href="../../shared/referencias/referencias.html#ref-Santosetal2023" role="doc-biblioref">Santos et al., 2023</a>)</span>, cujo objetivo era, para um conjunto de obras literárias em português, identificar as personagens, as relações familiares entre elas, e algumas suas características (como os vários nomes por que eram tratadas; a sua profissão; e o seu sexo).</p>
+<p>Era, portanto, uma tarefa agregadora de várias tarefas de PLN (reconhecimento de entidades mencionadas, reconhecimento de profissões, reconhecimento de relações familiares etc.), mas que se referia a uma obra na sua totalidade e não a partes do texto. Para isso, disponibilizamos 100 obras completas em formato de texto, e 100 obras em formato PDF. Para 20 de cada conjunto tínhamos laboriosamente criado o padrão-ouro.</p>
+<p>Embora tivéssemos vários interessados inicialmente, apenas um sistema participou.</p>
+<p>De qualquer maneira, criamos um conjunto de recursos interessantes sobre leitura distante em português, assim como propusemos métodos de avaliação inovadores&nbsp;<span class="citation" data-cites="WillrichSantos2023">(<a href="../../shared/referencias/referencias.html#ref-WillrichSantos2023" role="doc-biblioref">Willrich; Santos, 2023</a>)</span>.</p>
+<p>É possível que esses recursos mais tarde possam ser usados por equipes que desenvolvam novos sistemas baseados em treinamento, como foi a estratégia no caso do IberLEF 2019 em relação ao HAREM e ao ReReLEM.</p>
+<p>Os recursos criados, assim como os programas de avaliação, encontram-se disponíveis na página do DIP<a href="#fn38" class="footnote-ref" id="fnref38" role="doc-noteref"><sup>38</sup></a>.</p>
+</section>
+<section id="sec-cap-avaliacao-conjunta-resumo" class="level2" data-number="19.15">
+<h2 data-number="19.15" class="anchored" data-anchor-id="sec-cap-avaliacao-conjunta-resumo"><span class="header-section-number">19.15</span> Resumo das avaliações conjuntas</h2>
+<p>Na <a href="#tbl-cap-avaliacao-conjunta-panoramica" class="quarto-xref">Tabela&nbsp;<span>19.1</span></a> listamos as avaliações descritas neste capítulo e os recursos existentes.</p>
+<p></p>
+<div id="tbl-cap-avaliacao-conjunta-panoramica" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cap-avaliacao-conjunta-panoramica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;19.1: Panorâmica das avaliações conjuntas para o português: <em>num</em> indica o número de participantes. No caso do CLEF, QA@CLEF e GeoCLEF, o número de participantes é a soma dos participantes de todos os anos.
+</figcaption>
+<div aria-describedby="tbl-cap-avaliacao-conjunta-panoramica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>aval conj</strong></td>
+<td style="text-align: left;"><strong>ano</strong></td>
+<td style="text-align: center;"><strong>num</strong></td>
+<td style="text-align: left;"><strong>recursos</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Morfolimpíadas</td>
+<td style="text-align: left;">2003-4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/Morfolimpiadas/" class="uri">https://www.linguateca.pt/Morfolimpiadas/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Primeiro HAREM</td>
+<td style="text-align: left;">2004-6</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/primeiroHAREM/" class="uri">https://www.linguateca.pt/primeiroHAREM/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Segundo HAREM</td>
+<td style="text-align: left;">2007-8</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/HAREM/" class="uri">https://www.linguateca.pt/HAREM/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CLEF RI</td>
+<td style="text-align: left;">2003-7</td>
+<td style="text-align: center;">34</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/CHAVE" class="uri">https://www.linguateca.pt/CHAVE</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">QA@CLEF</td>
+<td style="text-align: left;">2003-9</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/CHAVE" class="uri">https://www.linguateca.pt/CHAVE</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GeoCLEF</td>
+<td style="text-align: left;">2005-8</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/CHAVE" class="uri">https://www.linguateca.pt/CHAVE</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GikiP</td>
+<td style="text-align: left;">2008</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/GikiP/" class="uri">https://www.linguateca.pt/GikiP/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GikiCLEF</td>
+<td style="text-align: left;">2009</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/GikiCLEF/" class="uri">https://www.linguateca.pt/GikiCLEF/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Págico</td>
+<td style="text-align: left;">2012</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><a href="https://www.linguateca.pt/Pagico/" class="uri">https://www.linguateca.pt/Pagico/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSIN 1</td>
+<td style="text-align: left;">2016</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><a href="http://nilc.icmc.usp.br/assin/" class="uri">http://nilc.icmc.usp.br/assin/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSIN 2</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;"><a href="https://sites.google.com/view/assin2/" class="uri">https://sites.google.com/view/assin2/</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IberlEF</td>
+<td style="text-align: left;">2019</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><a href="https://github.com/jneto04/iberlef-2019" class="uri">https://github.com/jneto04/iberlef-2019</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IDPT</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><a href="https://sites.google.com/inf.ufpel.edu.br/idpt2021/data" class="uri">https://sites.google.com/inf.ufpel.edu.br/idpt2021/data</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ABSAPT</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><a href="https://sites.google.com/inf.ufpel.edu.br/absapt2022/" class="uri">https://sites.google.com/inf.ufpel.edu.br/absapt2022/</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DIP</td>
+<td style="text-align: left;">2022-3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><a href="https:/www.linguateca.pt/DIP/" class="uri">https:/www.linguateca.pt/DIP/</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p></p>
+</section>
+<section id="ConsidFinais" class="level2" data-number="19.16">
+<h2 data-number="19.16" class="anchored" data-anchor-id="ConsidFinais"><span class="header-section-number">19.16</span> Considerações finais e lições aprendidas</h2>
+<p>Neste capítulo tentamos fazer uma panorâmica das avaliações conjuntas (e das “tarefas compartilhadas”) que têm havido para o português.</p>
+<p>É importante mencionar que existem artigos muito completos que documentam a história de avaliações conjuntas em outras línguas. Citamos apenas alguns aqui: <span class="citation" data-cites="Hirschman98Evol">Hirschman (<a href="../../shared/referencias/referencias.html#ref-Hirschman98Evol" role="doc-biblioref">1998</a>)</span> para o MUC, <span class="citation" data-cites="Harman98">Harman (<a href="../../shared/referencias/referencias.html#ref-Harman98" role="doc-biblioref">1998</a>)</span> para o TREC, <span class="citation" data-cites="BraschlerPeters2004">Braschler; Peters (<a href="../../shared/referencias/referencias.html#ref-BraschlerPeters2004" role="doc-biblioref">2004</a>)</span> para o CLEF, <span class="citation" data-cites="Kando2002">Kando (<a href="../../shared/referencias/referencias.html#ref-Kando2002" role="doc-biblioref">2002</a>)</span> para o NCTIR e <span class="citation" data-cites="EdmondsKilgarriff2002">Edmonds; Kilgarriff (<a href="../../shared/referencias/referencias.html#ref-EdmondsKilgarriff2002" role="doc-biblioref">2002</a>)</span> para o Senseval. Além disso, as avaliações mais atuais têm páginas eletrônicas que são referência fundamental, como as páginas do SemEval, de avaliação semântica e as avaliações associadas às conferências ConLL<a href="#fn39" class="footnote-ref" id="fnref39" role="doc-noteref"><sup>39</sup></a>.</p>
+<p>Por fim, gostaríamos de comentar algumas lições aprendidas (visto que participamos na organização da maioria das avaliações), assim como aprimorar a diferença entre avaliação conjunta e tarefa compartilhada, com base na panorâmica anterior. Deixamos aos leitores a tarefa de avaliar as avaliações existentes através dos parâmetros que indicamos neste capítulo, e de outros que pareçam relevantes.</p>
+<p>Refletindo sobre o papel que a avaliação conjunta tinha para a Linguateca (e que também é consequência de seus objetivos, como indicamos no início do capítulo), e a prática do IberLEF, ou, o que chamamos provisoriamente aqui de “tarefas compartilhadas”, parece haver duas diferenças sistemáticas:</p>
+<ol type="1">
+<li><p>Tentativa de definição de uma tarefa por um conjunto de pessoas antes da construção dos recursos de avaliação, vs.&nbsp;o compartilhamento (ou partilha) de uma tarefa já conhecida/desempenhada pelos proponentes da tarefa, geralmente com recursos já existentes;</p></li>
+<li><p>Separação estrita entre os organizadores da avaliação e os participantes (no caso de uma avaliação conjunta), e alguma sobreposição (no caso de uma tarefa compartilhada), em que muitas vezes são os próprios proponentes os principais interessados em participar.</p></li>
+</ol>
+<p>Em consequência destas duas diferenças, existe mais interesse em documentar o processo e os recursos quando existe uma instituição ou grupo que apenas organiza, o que é revelado pela quantidade de documentação produzida no âmbito das avaliações conjuntas organizadas pela Linguateca, nomeadamente três livros e dois volumes dedicados de uma revista. Além disso, algo que também percebemos é a inexistência de documentação em português nas tarefas compartilhadas (até agora).</p>
+<p>Seja como for, em vez de sugerir uma dicotomia, gostaríamos apenas de chamar a atenção para as opções envolvidas. Estamos na presença de um <strong>contínuo que tem como objetivo avaliar vários sistemas</strong> para a língua portuguesa e, mais do que isso, <strong>avançar o estado da arte e da técnica</strong> nessa área.</p>
+</section>
+<section id="agradecimentos" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="agradecimentos">Agradecimentos</h2>
+<p>Agradecemos sinceramente a todos os organizadores e participantes nas avaliações conjuntas que descrevemos, que contribuíram significativamente para o avanço do PLN em português.</p>
+<p>Agradecemos a Hugo Gonçalo Oliveira a ajuda no esclarecimento de algumas questões relacionadas com a ASSIN 2 e a IDPT.</p>
+<p>Finalmente, agradecemos a Graça Nunes e a Helena Caseli o convite para escrever este capítulo, e a Brielen Madureira e a Renata Vieira a sua revisão.</p>
+<!--[^cap-avaliacao-conjunta-39]: <https://semeval.github.io/>-->
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-Baptistaetal2008" class="csl-entry" role="listitem">
+BAPTISTA, J.; HAGÈGE, C.; MAMEDE, N. <a href="http://www.linguateca.pt/HAREM/actas/Capitulo_02-MotaSantos2008.pdf"><span>I</span>dentificação, classificação e normalização de expressões temporais do português: <span>A</span> experiência do <span>S</span>egundo <span>HAREM</span> e o futuro</a>. Em: MOTA, C.; SANTOS, D. (Eds.). <strong><span>D</span>esafios na avaliação conjunta do reconhecimento de entidades mencionadas</strong>. [s.l.] Linguateca, 2008. p. 33–54.
+</div>
+<div id="ref-BraschlerPeters2003" class="csl-entry" role="listitem">
+BRASCHLER, M.; PETERS, C. <span>CLEF 2002 Methodology and Metrics</span>. Em: PETERS, C. (Ed.). <strong><span>Advances in Cross-Language Information Retrieval: Results of the CLEF 2002 Evaluation Campaign</span></strong>. [s.l.] Springer, 2003. p. 512–525.
+</div>
+<div id="ref-BraschlerPeters2004" class="csl-entry" role="listitem">
+BRASCHLER, M.; PETERS, C. <span>Cross-Language Evaluation Forum: Objectives, Results, Achievements</span>. <strong>Information Retrieval</strong>, v. 7, n. 1-2, p. 7–31, 2004.
+</div>
+<div id="ref-BuckleyVoorhees2000" class="csl-entry" role="listitem">
+BUCKLEY, C.; VOORHEES, E. <strong>Evaluating Evaluation Measure Stability</strong>. <span>Proceedings of the 23rd Annual International ACM SIGIR Conference on Research and Development in Information Retrieval</span>. <strong>Anais</strong>...2000. Disponível em: &lt;<a href="https://sigir.org/wp-content/uploads/2017/06/p235.pdf">https://sigir.org/wp-content/uploads/2017/06/p235.pdf</a>&gt;
+</div>
+<div id="ref-Cardoso2006" class="csl-entry" role="listitem">
+CARDOSO, N. <strong><a href="https://repositorio-aberto.up.pt/bitstream/10216/11084/2/Texto%20integral.pdf"><span>A</span>valiação de <span>S</span>istemas de <span>R</span>econhecimento de <span>E</span>ntidades <span>M</span>encionadas</a></strong>. mathesis—[s.l.] Faculdade de Engenharia da Universidade do Porto, 2006.
+</div>
+<div id="ref-Chinchor92" class="csl-entry" role="listitem">
+CHINCHOR, N. <strong><span>The statistical significance of the MUC-4 results</span></strong>. <span>Proceedings of the Fourth Message Understanding Conference (MUC-4)</span>. <strong>Anais</strong>...Morgan Kaufmann Publ., 1992. Disponível em: &lt;<a href="https://dl.acm.org/doi/pdf/10.3115/1072064.1072068">https://dl.acm.org/doi/pdf/10.3115/1072064.1072068</a>&gt;
+</div>
+<div id="ref-Collovinietal2019" class="csl-entry" role="listitem">
+COLLOVINI, S. et al. <strong><span>IberLEF 2019 Portuguese Named Entity Recognition and Relation Extraction Tasks</span></strong>. <span>Proceedings of the Iberian Languages Evaluation Forum co-located with 35th Conference of the Spanish Society for Natural Language Processing</span>. <strong>Anais</strong>...2019. Disponível em: &lt;<a href="http://ceur-ws.org/Vol-2421/NER\_Portuguese\_overview.pdf">http://ceur-ws.org/Vol-2421/NER\_Portuguese\_overview.pdf</a>&gt;
+</div>
+<div id="ref-Correaetal2021" class="csl-entry" role="listitem">
+CORRÊA, U. B. et al. <a href="http://journal.sepln.org/sepln/ojs/ojs/index.php/pln/article/view/6395">Overview of the IDPT Task on Irony Detection in Portuguese at IberLEF 2021</a>. <strong>Procesamiento del Lenguaje Natural</strong>, v. 67, p. 269–276, 2021.
+</div>
+<div id="ref-Doddingtonetal2004" class="csl-entry" role="listitem">
+DODDINGTON, G. et al. <strong><span>The Automatic Content Extraction (ACE) Program: Tasks, Data, and Evaluation</span></strong>. (M. T. Lino et al., Eds.)<span>Proceedings of LREC’2004, Fourth International Conference on Language resources and Evaluation (Lisboa, 26-28 May 2004)</span>. <strong>Anais</strong>...2004. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2004/pdf/5.pdf">http://www.lrec-conf.org/proceedings/lrec2004/pdf/5.pdf</a>&gt;
+</div>
+<div id="ref-EdmondsKilgarriff2002" class="csl-entry" role="listitem">
+EDMONDS, P.; KILGARRIFF, A. Introduction to the special issue on evaluating word sense disambiguation systems. <strong>Natural Language Engineering</strong>, v. 8, n. 4, p. 279–291, 2002.
+</div>
+<div id="ref-assin" class="csl-entry" role="listitem">
+FONSECA, E. R. et al. <a href="https://linguamatica.com/index.php/linguamatica/article/view/v8n2-1">Visão geral da avaliação de similaridade semântica e inferência textual</a>. <strong>Linguamática</strong>, v. 8, n. 2, p. 3–13, 2016.
+</div>
+<div id="ref-Freitasetal2008" class="csl-entry" role="listitem">
+FREITAS, C. et al. <a href="http://www.linguateca.pt/HAREM/actas/Capitulo_04-MotaSantos2008.pdf"><span>R</span>elações semânticas do <span>R</span>e<span>R</span>el<span>EM</span>: além das entidades no <span>S</span>egundo <span>HAREM</span></a>. Em: MOTA, C.; SANTOS, D. (Eds.). <strong><span>D</span>esafios na avaliação conjunta do reconhecimento de entidades mencionadas</strong>. [s.l.] Linguateca, 2008. p. 77–96.
+</div>
+<div id="ref-FreitasetalReReLEM" class="csl-entry" role="listitem">
+FREITAS, C. et al. <strong><span>D</span>etection of relations between named entities: report of a shared task</strong>. <span>P</span>roceedings of the <span>NAACL</span> <span>HLT</span> <span>W</span>orkshop on <span>S</span>emantic <span>E</span>valuations: <span>R</span>ecent <span>A</span>chievements and <span>F</span>uture <span>D</span>irections, <span>SEW</span>-2009. <strong>Anais</strong>...Boulder, Colorado, USA: 2009. Disponível em: &lt;<a href="https://comum.rcaap.pt/bitstream/10400.26/20504/1/FreitasetalSEW2009.pdf">https://comum.rcaap.pt/bitstream/10400.26/20504/1/FreitasetalSEW2009.pdf</a>&gt;
+</div>
+<div id="ref-Gaizauskas2003" class="csl-entry" role="listitem">
+GAIZAUSKAS, R. <strong>Evaluating Language Processing Applications and Components</strong>., 2003. Disponível em: &lt;<a href="https://www.linguateca.pt/Repositorio/rgaizauskasPROPOR2003.pdf">https://www.linguateca.pt/Repositorio/rgaizauskasPROPOR2003.pdf</a>&gt;
+</div>
+<div id="ref-Geyetal2007" class="csl-entry" role="listitem">
+GEY, F. et al. <span>G</span>eo<span>CLEF</span> 2006: the <span>CLEF</span> 2006 <span>C</span>ross-<span>L</span>anguage <span>G</span>eographic <span>I</span>nformation <span>R</span>etrieval <span>T</span>rack <span>O</span>verview. Em: PETERS, C. et al. (Eds.). <strong><span>E</span>valuation of <span>M</span>ultilingual and <span>M</span>ulti-modal <span>I</span>nformation <span>R</span>etrieval - 7th <span>W</span>orkshop of the <span>C</span>ross-<span>L</span>anguage <span>E</span>valuation <span>F</span>orum, <span>CLEF</span> 2006. <span>A</span>licante, <span>S</span>pain, <span>S</span>eptember, 2006. <span>R</span>evised <span>S</span>elected papers</strong>. Lecture Notes em Computer Science. Berlin / Heidelberg: Springer, 2007. v. 4730p. 852–876.
+</div>
+<div id="ref-Giampiccoloetal2008" class="csl-entry" role="listitem">
+GIAMPICCOLO, D. et al. <span>O</span>verview of the <span>CLEF</span> 2007 <span>M</span>ultilingual <span>Q</span>uestion <span>A</span>nswering <span>T</span>rack. Em: PETERS, C. et al. (Eds.). <strong><span>A</span>dvances in <span>M</span>ultilingual and <span>M</span>ultimodal <span>I</span>nformation <span>R</span>etrieval: 8th <span>W</span>orkshop of the <span>C</span>ross-<span>L</span>anguage <span>E</span>valuation <span>F</span>orum, <span>CLEF</span> 2007, <span>B</span>udapest, <span>H</span>ungary, <span>S</span>eptember 19-21, 2007, <span>R</span>evised <span>S</span>elected <span>P</span>apers</strong>. Lecture Notes em Computer Science. Berlin: Springer, 2008. v. 5152p. 200–236.
+</div>
+<div id="ref-Hagegeetal2009" class="csl-entry" role="listitem">
+HAGÈGE, C.; BAPTISTA, J.; MAMEDE, N. <strong><span>P</span>ortuguese <span>T</span>emporal <span>E</span>xpressions <span>R</span>ecognition: from <span>TE</span> characterization to an effective <span>TER</span> module implementation</strong>. <span>T</span>he 7th <span>B</span>razilian <span>S</span>ymposium in <span>I</span>nformation and <span>H</span>uman <span>L</span>anguage <span>T</span>echnology (<span>STIL</span> 2009). <strong>Anais</strong>...São Carlos, Brasil: 2009. Disponível em: &lt;<a href="http://www.nilc.icmc.usp.br/til/stil2009_English/Proceedings/stil/Hagege-57697_1.pdf">http://www.nilc.icmc.usp.br/til/stil2009_English/Proceedings/stil/Hagege-57697_1.pdf</a>&gt;
+</div>
+<div id="ref-Harman98" class="csl-entry" role="listitem">
+HARMAN, D. <a href="https://asistdl.onlinelibrary.wiley.com/doi/epdf/10.1002/bult.90"><span>The Text Retrieval Conferences (TRECs): Providing a Test-Bed for Information Retrieval Systems</span></a>. <strong>Bulletin of the American Society for Information Science</strong>, v. 24, n. 4, p. 11–13, 1998.
+</div>
+<div id="ref-Hausser1996" class="csl-entry" role="listitem">
+HAUSSER, R. <span>The coordinator’s final report on the first Morpholympics</span>. Em: HAUSSER, R. (Ed.). <strong>Linguistische Verifikation: Dokumentation zur Ersten Morpholympics 1994</strong>. [s.l.] Max Niemeyer Verlag, 1996. p. 167–181.
+</div>
+<div id="ref-Hirschman98Evol" class="csl-entry" role="listitem">
+HIRSCHMAN, L. <span>The evolution of Evaluation: Lessons from the Message Understanding Conferences</span>. <strong>Computer Speech and Language</strong>, v. 12, n. 4, p. 281–305, 1998.
+</div>
+<div id="ref-Jiangetal2016" class="csl-entry" role="listitem">
+JIANG, R.; BANCHS, R. E.; LI, H. <strong><span>Evaluating and Combining Named Entity Recognition Systems</span></strong>. <span>Proceedings of the Sixth Named Entity Workshop, joint with 54th ACL</span>. <strong>Anais</strong>...2016. Disponível em: &lt;<a href="https://www.aclweb.org/anthology/W16-2703.pdf">https://www.aclweb.org/anthology/W16-2703.pdf</a>&gt;
+</div>
+<div id="ref-Kando2002" class="csl-entry" role="listitem">
+KANDO, N. <span>NTCIR and Its Background – Evaluation Workshop on Information Access Technologies and Test Collections</span>. <strong>Journal of the Japanese Society for Artificial Intelligence</strong>, v. 17, n. 3, p. 296–300, 2002.
+</div>
+<div id="ref-Kilgarriff97" class="csl-entry" role="listitem">
+KILGARRIFF, A. <a href="https://www.sketchengine.eu/wp-content/uploads/I_dont_believe_1997.pdf">I Don’t Believe in Word Senses</a>. <strong>Computers and the Humanities</strong>, 1997.
+</div>
+<div id="ref-king1996" class="csl-entry" role="listitem">
+KING, M. <a href="https://doi.org/10.1145/234173.234208">Evaluating Natural Language Processing Systems</a>. <strong>Communications of the ACM</strong>, v. 39, n. 1, p. 73–79, jan. 1996.
+</div>
+<div id="ref-Magninietal2007" class="csl-entry" role="listitem">
+MAGNINI, B. et al. <span>O</span>verview of the <span>CLEF</span> 2006 <span>M</span>ultilingual <span>Q</span>uestion <span>A</span>nswering <span>T</span>rack. Em: PETERS, C. et al. (Eds.). <strong><span>E</span>valuation of <span>M</span>ultilingual and <span>M</span>ulti-modal <span>I</span>nformation <span>R</span>etrieval - 7th <span>W</span>orkshop of the <span>C</span>ross-<span>L</span>anguage <span>E</span>valuation <span>F</span>orum, <span>CLEF</span> 2006. <span>A</span>licante, <span>S</span>pain, <span>S</span>eptember, 2006. <span>R</span>evised <span>S</span>elected papers</strong>. Lecture Notes em Computer Science. Berlin / Heidelberg: Springer, 2007. v. 4730p. 223–256.
+</div>
+<div id="ref-Moretti" class="csl-entry" role="listitem">
+MORETTI, F. <strong>Distant Reading</strong>. [s.l.] Verso, 2013.
+</div>
+<div id="ref-Motaetal2008" class="csl-entry" role="listitem">
+MOTA, C. et al. <a href="http://www.linguateca.pt/HAREM/actas/Capitulo_03-MotaSantos2008.pdf">É tempo de avaliar o tempo</a>. Em: MOTA, C.; SANTOS, D. (Eds.). <strong><span>D</span>esafios na avaliação conjunta do reconhecimento de entidades mencionadas</strong>. [s.l.] Linguateca, 2008. p. 55–75.
+</div>
+<div id="ref-Motaetal2012" class="csl-entry" role="listitem">
+MOTA, C. et al. <strong><span>P</span>ágico: <span>E</span>valuating <span>W</span>ikipedia-based information retrieval in <span>P</span>ortuguese</strong>. (N. Calzolari et al., Eds.)<span>P</span>roceedings of the <span>E</span>igth <span>I</span>nternational <span>C</span>onference on <span>L</span>anguage <span>R</span>esources and <span>E</span>valuation (<span>LREC</span>’12). <strong>Anais</strong>...Istambul: 2012. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2012/pdf/590_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2012/pdf/590_Paper.pdf</a>&gt;
+</div>
+<div id="ref-semeval2014" class="csl-entry" role="listitem">
+PONTIKI, M. et al. <strong><span>S</span>em<span>E</span>val-2014 Task 4: Aspect Based Sentiment Analysis</strong>. Proceedings of the 8th International Workshop on Semantic Evaluation (SemEval 2014). <strong>Anais</strong>...Association for Computational Linguistics, 2014. Disponível em: &lt;<a href="https://aclanthology.org/S14-2004/">https://aclanthology.org/S14-2004/</a>&gt;
+</div>
+<div id="ref-Realetal2019" class="csl-entry" role="listitem">
+REAL, L.; FONSECA, E.; GONÇALO OLIVEIRA, H. <strong><span>Organizing the ASSIN 2 Shared Task</span></strong>. <span>Proceedings of the ASSIN 2 Shared Task: Evaluating Semantic Textual Similarity and Textual Entailment in Portuguese: co-located with XII Symposium in Information and Human Language Technology (STIL 2019)</span>. <strong>Anais</strong>...2019. Disponível em: &lt;<a href="https://ceur-ws.org/Vol-2583/1_ASSIN-2.pdf">https://ceur-ws.org/Vol-2583/1_ASSIN-2.pdf</a>&gt;
+</div>
+<div id="ref-10.1007/978-3-030-41505-1_39" class="csl-entry" role="listitem">
+REAL, L.; FONSECA, E.; GONÇALO OLIVEIRA, H. <strong>The ASSIN 2 Shared Task: A Quick Overview</strong>. Computational Processing of the Portuguese Language: 14th International Conference, PROPOR 2020, Evora, Portugal, March 2–4, 2020, Proceedings. <strong>Anais</strong>...Berlin, Heidelberg: Springer-Verlag, 2020. Disponível em: &lt;<a href="https://doi.org/10.1007/978-3-030-41505-1_39">https://doi.org/10.1007/978-3-030-41505-1_39</a>&gt;
+</div>
+<div id="ref-RochaSantos2007" class="csl-entry" role="listitem">
+ROCHA, P.; SANTOS, D. <a href="https://www.linguateca.pt/Diana/download/LivroAvalon-RochaSantos.pdf"><span>CLEF</span>: <span>A</span>brindo a porta à participação internacional em avaliação de <span>RI</span> do português</a>. Em: SANTOS, D. (Ed.). <strong><span>A</span>valiação conjunta: um novo paradigma no processamento computacional da língua portuguesa</strong>. Lisboa, Portugal: IST Press, 2007. p. 143–158.
+</div>
+<div id="ref-Sang2002" class="csl-entry" role="listitem">
+SANG, E. F. T. K. <strong><span>Introduction to the CoNLL-2002 Shared Task: Language-Independent Named Entity Recognition</span></strong>. Proceedings of CoNLL-2002. <strong>Anais</strong>...Taipei, Taiwan: 2002. Disponível em: &lt;<a href="https://aclanthology.org/W02-2024/">https://aclanthology.org/W02-2024/</a>&gt;
+</div>
+<div id="ref-Santos2000PCP" class="csl-entry" role="listitem">
+SANTOS, D. <strong><span>O</span> projecto <span>P</span>rocessamento <span>C</span>omputacional do <span>P</span>ortuguês: <span>B</span>alanço e perspectivas</strong>. (M. das Graças Volpe Nunes, Ed.)<span>V</span> <span>E</span>ncontro para o processamento computacional da língua portuguesa escrita e falada (<span>PROPOR</span> 2000). <strong>Anais</strong>...São Paulo: ICMC/USP, 2000. Disponível em: &lt;<a href="https://www.linguateca.pt/Diana/download/SantosPROPOR2000.pdf">https://www.linguateca.pt/Diana/download/SantosPROPOR2000.pdf</a>&gt;
+</div>
+<div id="ref-Santos2007ESSLLI" class="csl-entry" role="listitem">
+SANTOS, D. <strong><span>E</span>valuation in natural language processing</strong>., c2007. Disponível em: &lt;<a href="http://www.linguateca.pt/Diana/download/EvaluationESSLLI07.pdf">http://www.linguateca.pt/Diana/download/EvaluationESSLLI07.pdf</a>&gt;
+</div>
+<div id="ref-Santos2007introavalconj" class="csl-entry" role="listitem">
+SANTOS, D. <a href="https://www.linguateca.pt/Diana/download/SantosCap1LivroAvalon.pdf">Avaliação conjunta</a>. Em: SANTOS, D. (Ed.). <strong><span>A</span>valiação conjunta: um novo paradigma no processamento computacional da língua portuguesa</strong>. Lisboa, Portugal: IST Press, 2007a. p. 1–12.
+</div>
+<div id="ref-Santos2007avalconj" class="csl-entry" role="listitem">
+SANTOS, D. (ED.). <strong><span>A</span>valiação conjunta: um novo paradigma no processamento computacional da língua portuguesa</strong>. Lisboa, Portugal: IST Press, 2007b.
+</div>
+<div id="ref-Santos2009Linguamatica" class="csl-entry" role="listitem">
+SANTOS, D. <a href="https://linguamatica.com/index.php/linguamatica/article/view/20/18"><span>C</span>aminhos percorridos no mapa da portuguesificação: <span>A</span> <span>L</span>inguateca em perspectiva</a>. <strong><span>L</span>inguamática</strong>, v. 1, n. 1, p. 25–59, 2009.
+</div>
+<div id="ref-Santosetal2009GikiP" class="csl-entry" role="listitem">
+SANTOS, D. et al. <span>G</span>iki<span>P</span> at <span>G</span>eo<span>CLEF</span> 2008: <span>J</span>oining <span>GIR</span> and <span>QA</span> forces for querying <span>W</span>ikipedia. Em: PETERS, C. et al. (Eds.). <strong><span>E</span>valuating <span>S</span>ystems for <span>M</span>ultilingual and <span>M</span>ultimodal <span>I</span>nformation <span>A</span>ccess 9th <span>W</span>orkshop of the <span>C</span>ross-<span>L</span>anguage <span>E</span>valuation <span>F</span>orum, <span>CLEF</span> 2008, <span>A</span>arhus, <span>D</span>enmark, <span>S</span>eptember 17-19, 2008, <span>R</span>evised <span>S</span>elected <span>P</span>apers</strong>. [s.l.] Springer, 2009. p. 894–905.
+</div>
+<div id="ref-Santosetal2010GikiCLEF" class="csl-entry" role="listitem">
+SANTOS, D. et al. <strong><span>G</span>iki<span>CLEF</span>: <span>C</span>rosscultural issues in multilingual information access</strong>. (N. Calzolari et al., Eds.)<span>P</span>roceedings of the <span>I</span>nternational <span>C</span>onference on <span>L</span>anguage <span>R</span>esources and <span>E</span>valuation (<span>LREC</span> 2010). <strong>Anais</strong>...Valletta, Malta: European Language Resources Association, 2010. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/272_Paper.pdf">http://www.lrec-conf.org/proceedings/lrec2010/pdf/272_Paper.pdf</a>&gt;
+</div>
+<div id="ref-Santosetal2012revistaPagico" class="csl-entry" role="listitem">
+SANTOS, D. et al. (EDS.). <strong><a href="https://www.linguamatica.com/index.php/linguamatica/issue/view/8">Edição especial Págico - português mágico</a></strong>. [s.l.] Linguamática, 2012. v. 4
+</div>
+<div id="ref-DianaSantos2021" class="csl-entry" role="listitem">
+SANTOS, D. <strong><span>Evaluation contests in Portuguese: Linguateca’s contribution</span></strong>., 2021. Disponível em: &lt;<a href="https://www.linguateca.pt/Diana/download/AvalConjLRE16May2021.pdf">https://www.linguateca.pt/Diana/download/AvalConjLRE16May2021.pdf</a>&gt;
+</div>
+<div id="ref-Santosetal2023" class="csl-entry" role="listitem">
+SANTOS, D. et al. <a href="https://linguamatica.com/index.php/linguamatica/article/view/399/492"><span>DIP</span> - <span>D</span>esafio de <span>I</span>dentificação de <span>P</span>ersonagens: objectivo, organização, recursos e resultados</a>. <strong><span>L</span>inguamática</strong>, v. 15, n. 1, p. 3–30, 2023.
+</div>
+<div id="ref-SantosCabral2010" class="csl-entry" role="listitem">
+SANTOS, D.; CABRAL, L. M. <span>G</span>iki<span>CLEF</span> : <span>E</span>xpectations and lessons learned. Em: PETERS, C. et al. (Eds.). <strong><span>M</span>ultilingual <span>I</span>nformation <span>A</span>ccess <span>E</span>valuation, <span>VOL</span> <span>I</span></strong>. [s.l.] Springer, 2010. p. 212–222.
+</div>
+<div id="ref-Santosetal2003" class="csl-entry" role="listitem">
+SANTOS, D.; COSTA, L.; ROCHA, P. <strong><span>C</span>ooperatively evaluating <span>P</span>ortuguese morphology</strong>. (J. Baptista et al., Eds.)<span>C</span>omputational <span>P</span>rocessing of the <span>P</span>ortuguese <span>L</span>anguage: 6th <span>I</span>nternational <span>W</span>orkshop, <span>PROPOR</span> 2003. <span>F</span>aro, <span>P</span>ortugal, <span>J</span>une 2003 (<span>PROPOR</span> 2003). <strong>Anais</strong>...Berlin/Heidelberg: Springer Verlag, 2003.
+</div>
+<div id="ref-SantosRocha2003" class="csl-entry" role="listitem">
+SANTOS, D.; ROCHA, P. <strong><span>A</span>val<span>ON</span>: uma iniciativa de avaliação conjunta para o português</strong>. (A. Mendes, T. Freitas, Eds.)<span>A</span>ctas do <span>XVIII</span> <span>E</span>ncontro <span>N</span>acional da <span>A</span>ssociação <span>P</span>ortuguesa de <span>L</span>inguística (<span>APL</span> 2002). <strong>Anais</strong>...Lisboa: APL, 2003. Disponível em: &lt;<a href="https://www.linguateca.pt/Diana/download/SantosRochaAPL2002.pdf">https://www.linguateca.pt/Diana/download/SantosRochaAPL2002.pdf</a>&gt;
+</div>
+<div id="ref-Saurietal2006" class="csl-entry" role="listitem">
+SAURÍ, R. et al. <strong><span>TimeML Annotation Guidelines, Version 1.2.1</span></strong>., 2006. Disponível em: &lt;<a href="https://nilsreiter.de/assets/2017-10-01-howto-annotation/timeml-1.2.1.pdf">https://nilsreiter.de/assets/2017-10-01-howto-annotation/timeml-1.2.1.pdf</a>&gt;
+</div>
+<div id="ref-Secoetal2006" class="csl-entry" role="listitem">
+SECO, N. et al. <strong><span>A</span> <span>C</span>omplex <span>E</span>valuation <span>A</span>rchitecture for <span>HAREM</span></strong>. (R. Vieira et al., Eds.)<span>C</span>omputational <span>P</span>rocessing of the <span>P</span>ortuguese <span>L</span>anguage: 7th <span>I</span>nternational <span>W</span>orkshop, <span>PROPOR</span> 2006. <strong>Anais</strong>...Springer, 2006.
+</div>
+<div id="ref-Silva2022" class="csl-entry" role="listitem">
+SILVA, F. L. V. DA et al. <a href="http://journal.sepln.org/sepln/ojs/ojs/index.php/pln/article/view/6440"><span>ABSAPT</span> 2022 at IberLEF: Overview of the Task on Aspect-Based Sentiment Analysis in Portuguese</a>. <strong>Procesamiento del Lenguaje Natural</strong>, v. 69, p. 199–205, 2022.
+</div>
+<div id="ref-SparckJones2001" class="csl-entry" role="listitem">
+SPARCK JONES, K. <a href="https://www.cl.cam.ac.uk/archive/ksj21/histdw4.pdf">Natural language processing: a historical review</a>. Em: <strong>Current issues in computational linguistics: in honour of Don Walker</strong>. [s.l.] Springer, 2001. p. 3–16.
+</div>
+<div id="ref-Verhagen2010" class="csl-entry" role="listitem">
+VERHAGEN, M. et al. <strong><span>SemEval-2010 Task 13: TempEval-2</span></strong>. <span>Proceedings of the 5th International Workshop on Semantic Evaluation, SemEval</span>. <strong>Anais</strong>...2010. Disponível em: &lt;<a href="https://www.aclweb.org/anthology/S10-1010.pdf">https://www.aclweb.org/anthology/S10-1010.pdf</a>&gt;
+</div>
+<div id="ref-Vilainetal1995" class="csl-entry" role="listitem">
+VILAIN, M. et al. <strong><span>A</span> model-theoretic coreference scoring scheme</strong>. <span>P</span>roceedings of the 6th <span>M</span>essage <span>U</span>nderstanding <span>C</span>onference (<span>MUC</span>-6). <strong>Anais</strong>...Los Altos, CA, EUA: Morgan Kaufmann, 1995. Disponível em: &lt;<a href="http://acl.ldc.upenn.edu/M/M95/M95-1005.pdf">http://acl.ldc.upenn.edu/M/M95/M95-1005.pdf</a>&gt;
+</div>
+<div id="ref-VoorheesTice2000b" class="csl-entry" role="listitem">
+VOORHEES, E. M.; TICE, D. M. <strong><span>Building a Question Answering Test Collection</span></strong>. <span>Proceedings of the 23rd Annual International ACM SIGIR Conference on Research and Development in Information Retrieval</span>. <strong>Anais</strong>...2000. Disponível em: &lt;<a href="https://dl.acm.org/doi/10.1145/345508.345577">https://dl.acm.org/doi/10.1145/345508.345577</a>&gt;
+</div>
+<div id="ref-Wilks2000" class="csl-entry" role="listitem">
+WILKS, Y. <span>Is Word Sense Disambiguation Just One More NLP Task?</span> <strong>Computers and the Humanities</strong>, v. 34, n. 1-2, p. 235–243, 2000.
+</div>
+<div id="ref-WillrichSantos2023" class="csl-entry" role="listitem">
+WILLRICH, R.; SANTOS, D. <a href="https://linguamatica.com/index.php/linguamatica/article/view/398/494"><span>A</span>valiação no <span>DIP</span></a>. <strong><span>L</span>inguamática</strong>, v. 15, n. 1, p. 69–87, 2023.
+</div>
+<div id="ref-zobel1998reliable" class="csl-entry" role="listitem">
+ZOBEL, J. <strong>How reliable are the results of large-scale information retrieval experiments?</strong> Proceedings of the 21st annual international ACM SIGIR conference on Research and development in information retrieval. <strong>Anais</strong>...ACM, 1998.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Este capítulo é fortemente inspirado em <span class="citation" data-cites="Santos2007introavalconj">Santos (<a href="../../shared/referencias/referencias.html#ref-Santos2007introavalconj" role="doc-biblioref">2007a</a>)</span> e <span class="citation" data-cites="DianaSantos2021">Santos (<a href="../../shared/referencias/referencias.html#ref-DianaSantos2021" role="doc-biblioref">2021</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Diana Santos é a coordenadora da Linguateca, e Cláudia Freitas integrou a equipe de 2007 a 2023.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="www.linguateca.pt" class="uri">www.linguateca.pt</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Para uma descrição da Linguateca em fases distintas da sua existência, ver <span class="citation" data-cites="Santos2000PCP">Santos (<a href="../../shared/referencias/referencias.html#ref-Santos2000PCP" role="doc-biblioref">2000</a>)</span> e <span class="citation" data-cites="Santos2009Linguamatica">Santos (<a href="../../shared/referencias/referencias.html#ref-Santos2009Linguamatica" role="doc-biblioref">2009</a>)</span>. Tendo o financiamento acabado em 2011, a Linguateca transformou-se num projeto voluntário.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>O resultado mínimo garantido é o resultado obtido com um algoritmo ingênuo, fácil de implementar e ao alcance de todos. Só resultados acima desse mínimo são relevantes, visto que, de contrário, o melhor seria usar o tal sistema básico. Ver também 14.4.8.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Como pode ser observado dada a proliferação de <em>shared tasks</em> multilíngues.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Esta estratégia pode ser usada em avaliações conjuntas para a tarefa de encontrar documentos e/ou respostas específicos (i) em coleções com milhões de documentos, o que é uma tarefa humanamente impossível, ou (ii) em grandes coleções de textos, mas com uma equipe limitada. <!-- dedicada à criação do recurso padrão-ouro. --><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>MUC, <em>Message Understanding Conference</em>, é uma avaliação conjunta para PLN em inglês, mais tarde expandida para mais línguas, e que foi fundamental para a definição de avaliação conjunta para o português.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Foi o que aconteceu no TREC QA, uma avaliação conjunta de respostas a perguntas, o que foi amargamente discutido na comunidade de PLN da altura.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>O Senseval (<a href="https://web.eecs.umich.edu/~mihalcea/senseval/overview.html" class="uri">https://web.eecs.umich.edu/~mihalcea/senseval/overview.html</a>) foi uma avaliação de sistemas dedicados à tarefa de desambiguação de sentidos, e que deu origem ao SemEval, avaliação dedicada a análises semânticas (<a href="https://en.wikipedia.org/wiki/SemEval" class="uri">https://en.wikipedia.org/wiki/SemEval</a>).<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>O TREC, <em>Text REtrieval Conference</em> (Conferência de Recuperação Textual), teve início em 1992 e, depois disso, passou a desempenhar anualmente o mesmo papel na recuperação de informações que o MUC desempenhou na extração de informação, consulte <span class="citation" data-cites="Harman98">Harman (<a href="../../shared/referencias/referencias.html#ref-Harman98" role="doc-biblioref">1998</a>)</span>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Na Linguateca usamos “lista dourada” (<em>golden list</em>) e “coleção dourada” (<em>golden collection</em>). É importante explicitar esta terminologia aqui para tornar compreensíveis os artigos anteriores e permitir a sua subsequente procura bibliográfica...<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Esta tarefa é chamada em inglês <em>stemming</em> e é usada em recuperação de informação; é parecida com lematização mas não pressupõe análise linguística.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><a href="https://www.linguateca.pt/Morfolimpiadas/" class="uri">https://www.linguateca.pt/Morfolimpiadas/</a><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>Notamos que o termo “entidades nomeadas” também tem sido utilizado em português.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>No entanto, embora o reconhecimento de entidades mencionadas pareça uma tarefa simples, a literatura apresenta uma grande quantidade de abordagens, definições e estruturas de avaliação diferentes, ver <span class="citation" data-cites="Jiangetal2016">Jiang et al. (<a href="../../shared/referencias/referencias.html#ref-Jiangetal2016" role="doc-biblioref">2016</a>)</span>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p><a href="https://www.linguateca.pt/aval_conjunta/HAREM/" class="uri">https://www.linguateca.pt/aval_conjunta/HAREM/</a><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p><a href="https://www.linguateca.pt/CHAVE/" class="uri">https://www.linguateca.pt/CHAVE/</a><a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>No CLEF, o nome em inglês é <em>question answering</em>, QA.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Uma trilha (<em>track</em>) é uma tarefa específica dentro de uma avaliação conjunta maior.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p><a href="https://www.linguateca.pt/CHAVE/" class="uri">https://www.linguateca.pt/CHAVE/</a><a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p><a href="https://www.linguateca.pt/CHAVE/" class="uri">https://www.linguateca.pt/CHAVE/</a><a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p><a href="https://www.linguateca.pt/GikiP/" class="uri">https://www.linguateca.pt/GikiP/</a><a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p>Há dois padrões de escrita da língua norueguesa, cada um com a sua wikipédia, e daí a disparidade entre 9 e 10.<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p><a href="https://www.linguateca.pt/GikiCLEF/GIRA/" class="uri">https://www.linguateca.pt/GikiCLEF/GIRA/</a><a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p>Pseudo, porque não sabemos todas as respostas que se encontram na Wikipédia. Só conhecemos as que são certas e forem encontradas pelo conjunto de sistemas.<a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p><a href="https://www.linguateca.pt/Cartola" class="uri">https://www.linguateca.pt/Cartola</a><a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn28"><p><a href="http://nilc.icmc.usp.br/assin/" class="uri">http://nilc.icmc.usp.br/assin/</a><a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn29"><p>Seria interessante avaliar se a causa da maior simplicidade vinha sobretudo da diferença entre as línguas, ou da diferença entre os gêneros.<a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn30"><p><a href="https://sites.google.com/view/assin2/" class="uri">https://sites.google.com/view/assin2/</a><a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn31"><p><a href="https://github.com/jneto04/iberlef-2019" class="uri">https://github.com/jneto04/iberlef-2019</a><a href="#fnref31" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn32"><p><a href="https://github.com/fabio-ricardo/deteccao-ironia/" class="uri">https://github.com/fabio-ricardo/deteccao-ironia/</a><a href="#fnref32" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn33"><p><a href="https://github.com/schuberty/PLNCrawler" class="uri">https://github.com/schuberty/PLNCrawler</a><a href="#fnref33" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn34"><p><a href="https://sites.google.com/inf.ufpel.edu.br/idpt2021/data" class="uri">https://sites.google.com/inf.ufpel.edu.br/idpt2021/data</a><a href="#fnref34" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn35"><p><a href="https://semeval.github.io/" class="uri">https://semeval.github.io/</a><a href="#fnref35" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn36"><p><a href="https://sites.google.com/inf.ufpel.edu.br/absapt2022/home" class="uri">https://sites.google.com/inf.ufpel.edu.br/absapt2022/home</a><a href="#fnref36" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn37"><p>Uma abordagem computacional dos estudos literários, iniciada por <span class="citation" data-cites="Moretti">Moretti (<a href="../../shared/referencias/referencias.html#ref-Moretti" role="doc-biblioref">2013</a>)</span> e chamada <em>distant reading</em> em inglês.<a href="#fnref37" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn38"><p><a href="https:/www.linguateca.pt/DIP/" class="uri">https:/www.linguateca.pt/DIP/</a><a href="#fnref38" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn39"><p><a href="https://www.conll.org/" class="uri">https://www.conll.org/</a><a href="#fnref39" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="pagination-link" aria-label="Avaliação de tecnologias de linguagem">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="pagination-link" aria-label="Questões éticas em IA e PLN">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

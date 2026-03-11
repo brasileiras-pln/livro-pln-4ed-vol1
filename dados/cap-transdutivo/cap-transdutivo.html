@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nataly Leopoldina Patti da Silva">
+<meta name="author" content="Norton Trevisan Roman">
+
+<title>17&nbsp; Aprendizado Transdutivo em PLN – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" rel="next">
+<link href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html"><strong>Dados</strong></a></li><li class="breadcrumb-item"><a href="../../dados/cap-transdutivo/cap-transdutivo.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">17.1</span> Introdução</a></li>
+  <li><a href="#sec-cap-transdutivo-introTransdutivo" id="toc-sec-cap-transdutivo-introTransdutivo" class="nav-link" data-scroll-target="#sec-cap-transdutivo-introTransdutivo"><span class="header-section-number">17.2</span> E o que seria esse tal de aprendizado transdutivo?</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-transdutivo-aprTransdutivo" id="toc-sec-cap-transdutivo-aprTransdutivo" class="nav-link" data-scroll-target="#sec-cap-transdutivo-aprTransdutivo"><span class="header-section-number">17.2.1</span> Transdução como forma de aprendizado</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-transdutivo-aplicacoes" id="toc-sec-cap-transdutivo-aplicacoes" class="nav-link" data-scroll-target="#sec-cap-transdutivo-aplicacoes"><span class="header-section-number">17.3</span> Aplicações do Aprendizado Transdutivo em PLN</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-transdutivo-propRotulo" id="toc-sec-cap-transdutivo-propRotulo" class="nav-link" data-scroll-target="#sec-cap-transdutivo-propRotulo"><span class="header-section-number">17.3.1</span> Métodos baseados em propagação de rótulos</a></li>
+  <li><a href="#sec-cap-transdutivo-adaptacao" id="toc-sec-cap-transdutivo-adaptacao" class="nav-link" data-scroll-target="#sec-cap-transdutivo-adaptacao"><span class="header-section-number">17.3.2</span> Adaptação de modelos supervisionados</a></li>
+  <li><a href="#avaliação-dos-dados-anotados" id="toc-avaliação-dos-dados-anotados" class="nav-link" data-scroll-target="#avaliação-dos-dados-anotados"><span class="header-section-number">17.3.3</span> Avaliação dos dados anotados</a></li>
+  </ul></li>
+  <li><a href="#benefícios-e-limitações" id="toc-benefícios-e-limitações" class="nav-link" data-scroll-target="#benefícios-e-limitações"><span class="header-section-number">17.4</span> Benefícios e Limitações</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html"><strong>Dados</strong></a></li><li class="breadcrumb-item"><a href="../../dados/cap-transdutivo/cap-transdutivo.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-transdutivo" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Nataly Leopoldina Patti da Silva </p>
+             <p>Norton Trevisan Roman </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">13/04/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-transdutivo.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-controls="callout-cite" data-bs-toggle="collapse" data-bs-target=".callout-cite-contents" aria-label="Toggle callout" aria-expanded="false">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div id="callout-cite" class="callout-cite-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-transdutivo:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Silva, Nataly Leopoldina Patti da and Roman, Norton Trevisan},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Aprendizado Transdutivo em PLN},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {17},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/dados/cap-transdutivo/cap-transdutivo.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="introdução" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">17.1</span> Introdução</h2>
+<p>Suponha que você deseja avaliar como um determinado comportamento linguístico influencia alguma tarefa. Tal avaliação pode ser, por exemplo, como o conteúdo de notícias influencia o resultado de determinada empresa, como comentários em uma rede social influenciam a popularidade de uma pessoa, ou mesmo como resenhas em um sítio de comércio eletrônico influenciam vendas futuras de um determinado produto.</p>
+<p>Nesse sentido, uma das primeiras decisões a serem tomadas é o que corresponde ao seu conjunto de dados, seu <em>corpus</em> (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>). Serão notícias? Textos de plataformas de <em>microblogging</em>? Textos científicos? Comentários feitos por usuários? Enfim, há uma infinidade de opções. Uma vez definido com o que se deseja trabalhar, há que se explicitar o que se deseja identificar nesses dados. A polaridade do texto como um todo? A estrutura sintática de cada sentença que compõe o texto (como exemplificado no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html#sec-cap-recursos-sintaxe" target="_blank" title="Volume 1">Ferramentas e recursos para o processamento sintático</a></span>)? Veja que, a depender do que se deseja identificar, a unidade básica de anotação, ou seja, a menor porção do texto à qual será atribuído um rótulo, é também definida.</p>
+<p>Sabendo já que fenômenos e quais tipos de dados são de interesse, resta definir sua fonte, ou seja, iniciar a busca de tais dados. Se você conseguir uma base de dados que seja grande o suficiente para seus propósitos, além de já estar anotada com o fenômeno de interesse, considere-se uma pessoa de extrema sorte. Infelizmente, como toda sorte extrema, ela também é rara. Então o mais comum é você se deparar com nada ou, na melhor das hipóteses, com um <em>corpus</em> já coletado, mas não anotado com o que interessa a você.</p>
+<p>Que fazer então? Se o <em>corpus</em> existir e for de uso público, simples... obtenha-o. Mas, e se não existir? Então você deve criá-lo, seja via <em>crawlers</em> de internet, seja por geração automática ou <em>crowdsourcing</em>. Veja que você já não tirou a sorte grande, ou seja, seu <em>corpus</em> não está perfeitamente ajustado aos seus interesses. Nesse caso, você se encontra em uma das seguintes situações, ilustradas na <a href="#fig-cap-transdutivo-types-corpus" class="quarto-xref">Figura&nbsp;<span>17.1</span></a>:</p>
+<ol type="1">
+<li><p>Você conseguiu um <em>corpus</em> anotado, mas de tamanho insuficiente ou parcialmente anotado;</p></li>
+<li><p>Você conseguiu um <em>corpus</em> de tamanho suficiente, mas não anotado; ou</p></li>
+<li><p>Você ficou sem nada nas mãos (seu pior pesadelo!).</p></li>
+</ol>
+<div id="fig-cap-transdutivo-types-corpus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-types-corpus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.1: Cenários de Disponibilidade de <em>Corpora</em>. Os desafios na busca por um conjunto de dados incluem: encontrar um conjunto de dados anotado, porém insuficiente (esquerda); encontrar um conjunto de dados não anotado (centro); e não encontrar nenhum conjunto de dados disponível (direita).
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-types-corpus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/types-of-corpus-available.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>Como exemplo, imagine que você se interessa por uma tarefa de classificação de <em>tweets</em>. Nesse caso, todas as situações acima são possíveis de acontecer, vista a popularidade desse tipo de dado. No primeiro caso, você pode ter tido sorte e encontrado uma base de dados anotada com os rótulos do seu interesse (por exemplo, a base de dados <strong>DANTEStocks</strong>, descrita em <span class="citation" data-cites="DiFelippo2024DANTEStocks">(<a href="../../shared/referencias/referencias.html#ref-DiFelippo2024DANTEStocks" role="doc-biblioref">Di Felippo et al., 2024</a>)</span>). No segundo caso, você pode ter encontrado a base de dados ou implementado um <em>crawler</em> pra coletar os <em>tweets</em> da sua preferência, mas os rótulos não existem. No pior cenário, você não possui nem mesmo os <em>tweets</em> de interesse.</p>
+<p>No caso de haver um <em>corpus</em> anotado disponível, mas pequeno, uma possibilidade é ampliá-lo, coletando mais dados de modo a formar assim um <em>corpus</em> grande o suficiente, mas parcialmente anotado (a parte correspondente ao <em>corpus</em> originalmente anotado). O segundo caso já exige que você anote os dados como um todo, o que pode ser uma tarefa extremamente custosa e demorada&nbsp;<span class="citation" data-cites="Zhu2009 datascarcity">(<a href="../../shared/referencias/referencias.html#ref-datascarcity" role="doc-biblioref">Alzubaidi et al., 2023</a>; <a href="../../shared/referencias/referencias.html#ref-Zhu2009" role="doc-biblioref">Zhu et al., 2009</a>)</span>. O terceiro caso une o pior dos mundos: você terá que construir o <em>corpus</em> do zero e então anotá-lo.</p>
+<p>Que fazer? Se sua sorte não estiver tão ruim, é possível que existam ferramentas para anotação automática do <em>corpus</em>, como as descritas no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html#sec-cap-recursos-sintaxe" target="_blank" title="Volume 1">Ferramentas e recursos para o processamento sintático</a></span>. Restaria então analisar uma amostra dessa anotação para se obter uma estimativa do desempenho da ferramenta em seu <em>corpus</em>. Agora, se você não tiver acesso a uma ferramenta, é possível anotar parte do <em>corpus</em>, de tamanho tal que a anotação possa ser feita dentro de um prazo e custo aceitáveis, e então apelar a métodos de aprendizado semi-supervisionado e, mais especificamente, ao aprendizado transdutivo, usando-os para incorporar os dados não rotulados ao processo de treinamento dos modelos supervisionados usados em seu projeto.</p>
+</section>
+<section id="sec-cap-transdutivo-introTransdutivo" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sec-cap-transdutivo-introTransdutivo"><span class="header-section-number">17.2</span> E o que seria esse tal de aprendizado transdutivo?</h2>
+<p>Para entender o aprendizado transdutivo, é necessário antes entender a diferença entre dedução e indução como formas de inferência, e como essas são usadas dentro do aprendizado supervisionado (ver <span class="citation" data-cites="russell">(<a href="../../shared/referencias/referencias.html#ref-russell" role="doc-biblioref">Russell; Norvig, 2009</a>)</span>). Na <strong>indução</strong>, uma relação (em geral, uma função) entre variáveis é derivada a partir dos próprios dados&nbsp;<span class="citation" data-cites="vapnik2000">(<a href="../../shared/referencias/referencias.html#ref-vapnik2000" role="doc-biblioref">Vapnik, 2000</a>)</span>. Assim, ao vermos, por exemplo, determinados valores para um conjunto de variáveis <span class="math inline">\(\{X_1, \ldots, X_n\}\)</span> em conjunção com determinados valores para uma variável <span class="math inline">\(Y\)</span>, induzimos uma relação <span class="math inline">\(\hat{Y} = f(X_1, \ldots, X_n)\)</span> entre elas<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, conforme ilustra a <a href="#fig-cap-transdutivo-inducao" class="quarto-xref">Figura&nbsp;<span>17.2</span></a>.</p>
+<div id="fig-cap-transdutivo-inducao" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-inducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.2: Processo de Indução. A partir de um conjunto de observações para um grupo de variáveis preditoras (<span class="math inline">\({X_1, \dots, X_n}\)</span>) em conjunção com a variável alvo (<span class="math inline">\(Y\)</span>), o modelo infere uma relação matemática (<span class="math inline">\(\hat{Y}\)</span>) entre elas.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-inducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/inducao.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>Na <strong>dedução</strong>, por sua vez, partimos de uma relação pré-definida entre as variáveis para, a partir do valor de uma ou mais variáveis, inferir o valor de alguma outra variável de interesse para um determinado ponto ou conjunto de pontos&nbsp;<span class="citation" data-cites="vapnik2000">(<a href="../../shared/referencias/referencias.html#ref-vapnik2000" role="doc-biblioref">Vapnik, 2000</a>)</span>. Ou seja, a partir da relação <span class="math inline">\(\hat{Y} = f(X_1, \ldots, X_n)\)</span>, e do conhecimento do valor de <span class="math inline">\(\{X_1, \ldots, X_n\}\)</span>, deduzimos o valor de <span class="math inline">\(Y\)</span> ou, no caso, apresentamos uma estimativa <span class="math inline">\(\hat{Y}\)</span> para <span class="math inline">\(Y\)</span> (<a href="#fig-cap-transdutivo-deducao" class="quarto-xref">Figura&nbsp;<span>17.3</span></a>).</p>
+<div id="fig-cap-transdutivo-deducao" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-deducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.3: Processo de Dedução. A partir de um conjunto de observações para um grupo de variáveis preditoras (<span class="math inline">\(X_1, \dots, X_n\)</span>), correspondentes a exemplos de dados não rotulados, em conjunção com uma relação matemática entre elas e a variável alvo desejada (<span class="math inline">\(\hat{Y} = f(X_1, \dots, X_n)\)</span>), o modelo gera estimativas <span class="math inline">\(\hat{Y}\)</span> para os rótulos reais (desconhecidos) <span class="math inline">\(Y\)</span> de cada exemplo não rotulado.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-deducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/deducao.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Em conjunto, indução e dedução formam a base do treinamento de modelos supervisionados. Ao treinarmos, olhamos os dados e induzimos uma relação <span class="math inline">\(\hat{Y} = f(X_1, \ldots, X_n)\)</span> entre eles. Para verificar a plausibilidade de nossa indução, aplicamos <span class="math inline">\(\hat{Y}\)</span> aos valores de <span class="math inline">\(\{X_1, \ldots, X_n\}\)</span> em pontos não vistos – o conjunto de teste (<a href="#fig-cap-transdutivo-inducao-deducao" class="quarto-xref">Figura&nbsp;<span>17.4</span></a>). Se a função induzida for uma estimativa boa, então seu resultado deve ficar próximo, dentro de uma segurança estatística, do valor de <span class="math inline">\(Y\)</span> nesses novos dados. Essa é a parte da dedução.</p>
+<div id="fig-cap-transdutivo-inducao-deducao" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-inducao-deducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.4: Indução e dedução no treinamento de modelos. A partir de um conjunto de exemplos rotulados (treino), uma relação entre as variáveis independentes e a variável dependente é induzida. A partir dessa função, valores da variável dependente são estimados para pontos de interesse não vistos pelo modelo (teste). Se os valores estimados ficarem próximos dos reais, então podemos deduzir que a função induzida é plausível diante desses dados.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-inducao-deducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<p><img src="media/ind-ded.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p> Fonte: Adaptada de&nbsp;<span class="citation" data-cites="vapnik2000">(<a href="../../shared/referencias/referencias.html#ref-vapnik2000" role="doc-biblioref">Vapnik, 2000, p. 293</a>)</span>.</p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p>Certo, mas e a transdução, onde ela entra nisso? A <strong>transdução</strong> é uma forma de inferência que, assim como a dedução, infere o valor de uma variável de interesse em um determinado conjunto de pontos. Diferentemente da dedução, contudo, ela não parte de uma relação entre variáveis, fazendo essa inferência diretamente a partir dos dados iniciais <span class="citation" data-cites="vapnik2000">(<a href="../../shared/referencias/referencias.html#ref-vapnik2000" role="doc-biblioref">Vapnik, 2000</a>)</span>. Assim, nenhuma relação geral é buscada, como na indução, mas apenas uma estimativa <span class="math inline">\(\hat{Y}\)</span> do valor da variável alvo <span class="math inline">\(Y\)</span> para os pontos específicos de interesse <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span>, conforme ilustra a <a href="#fig-cap-transdutivo-inducao-deducao-trans" class="quarto-xref">Figura&nbsp;<span>17.5</span></a>.</p>
+<div id="fig-cap-transdutivo-inducao-deducao-trans" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-inducao-deducao-trans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.5: A transdução trata de, a partir de uma amostra de dados rotulados e não rotulados, estimar diretamente os valores da variável dependente para os pontos não rotulados, sem a necessidade de indução de uma relação geral entre as variáveis independentes e a variável dependente a partir dos dados rotulados.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-inducao-deducao-trans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<p><img src="media/ind-ded-trans.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p> Fonte: Adaptada de&nbsp;<span class="citation" data-cites="vapnik2000">(<a href="../../shared/referencias/referencias.html#ref-vapnik2000" role="doc-biblioref">Vapnik, 2000, p. 293</a>)</span>.</p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<section id="sec-cap-transdutivo-aprTransdutivo" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="sec-cap-transdutivo-aprTransdutivo"><span class="header-section-number">17.2.1</span> Transdução como forma de aprendizado</h3>
+<p>No contexto apresentado, o <strong>aprendizado transdutivo</strong>, conforme proposto por Vapnik<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="citation" data-cites="Vapnik1998 learning-transdu-vapnik98">(<a href="../../shared/referencias/referencias.html#ref-learning-transdu-vapnik98" role="doc-biblioref">Gammerman et al., 1998</a>; <a href="../../shared/referencias/referencias.html#ref-Vapnik1998" role="doc-biblioref">Vapnik, 1998</a>)</span>, surge como uma alternativa ao aprendizado supervisionado, ao permitir que o modelo treinado utilize diretamente os dados não rotulados do conjunto de teste durante o processo de treinamento, com o objetivo de melhorar seu desempenho especificamente nesse conjunto <span class="citation" data-cites="Zhu2009">(<a href="../../shared/referencias/referencias.html#ref-Zhu2009" role="doc-biblioref">Zhu et al., 2009</a>)</span>. Dessa forma, enquanto o paradigma indutivo busca aprender uma função generalizável a partir dos dados de treinamento para ser aplicada a quaisquer novos exemplos, o aprendizado transdutivo se concentra em prever somente os rótulos dos exemplos específicos não rotulados disponíveis no momento do treinamento <span class="citation" data-cites="Chapelle2006 Zhu2009">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>; <a href="../../shared/referencias/referencias.html#ref-Zhu2009" role="doc-biblioref">Zhu et al., 2009</a>)</span>, construindo uma espécie de “atalho” entre os passos do aprendizado indutivo clássico, conforme ilustrado na <a href="#fig-cap-transdutivo-transxindu" class="quarto-xref">Figura&nbsp;<span>17.6</span></a>.</p>
+<div id="fig-cap-transdutivo-transxindu" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-transxindu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.6: No aprendizado indutivo, uma relação entre as variáveis preditoras e a variável alvo é inferida. Essa, então, é aplicada a dados não rotulados, gerando estimativas para seus rótulos. Em contraste, no aprendizado transdutivo, dados rotulados e não rotulados são apresentados ao modelo, desta vez com a intenção de produzir inferências apenas para este conjunto de dados não rotulados em específico.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-transxindu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/transxindu.png" class="img-fluid figure-img" style="width:65.0%">
+</div>
+</figure>
+</div>
+<p>Formalmente<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, o aprendizado transdutivo parte de um conjunto de <span class="math inline">\(m\)</span> instâncias:</p>
+<p><span class="math display">\[S = \{s_{1}, s_{2}, \ldots, s_{m}\}\]</span></p>
+<p>e de uma coleção de <span class="math inline">\(m\)</span> vetores de características <span class="math inline">\(X\)</span>, em que cada <span class="math inline">\(x_i \in X, 1 \leq i \leq m\)</span> é associado à sua instância correspondente <span class="math inline">\(s_i \in S\)</span>:</p>
+<p><span class="math display">\[X = (\mathbf{x}_{1}, \mathbf{x}_{2}, \ldots, \mathbf{x}_{m})\]</span></p>
+<p>A partir de <span class="math inline">\(X\)</span>, definem-se dois subconjuntos, <span class="math inline">\(X_{\text{treino}} = (\mathbf{x}_{tr_1}, \mathbf{x}_{tr_2}, \ldots, \mathbf{x}_{tr_r})\)</span> e <span class="math inline">\(X_{\text{teste}} = (\mathbf{x}_{ts_1}, \mathbf{x}_{ts_2}, \ldots, \mathbf{x}_{ts_n})\)</span>, em que <span class="math inline">\(X_{\text{treino}}\)</span> corresponde ao conjunto de <span class="math inline">\(r\)</span> instâncias cujos rótulos são conhecidos, e <span class="math inline">\(X_{\text{teste}}\)</span> corresponde ao conjunto de <span class="math inline">\(n=m-r\)</span> instâncias não rotuladas na base, de modo que <span class="math inline">\(X = X_{\text{treino}} \bigcup X_{\text{teste}}\)</span>.</p>
+<p>Ao conjunto de treino <span class="math inline">\(X_{\text{treino}}\)</span> associamos seus rótulos <span class="math inline">\(Y_{\text{treino}} = (y_{tr_1}, y_{tr_2}, \ldots, y_{tr_{r}})\)</span> correspondentes, tais que cada rótulo <span class="math inline">\(y_{tr_i} \in Y_{\text{treino}}\)</span>, onde <span class="math inline">\(1 \leq i \leq r\)</span> está associado a seu respectivo <span class="math inline">\(\mathbf{x}_{tr_i} \in X_{\text{treino}}, 1 \leq i \leq r\)</span>. Durante o processo de aprendizado, o método transdutivo utiliza esses conjuntos para inferir os rótulos <span class="math inline">\(\hat{Y}_{\text{teste}} = (\hat{y}_{ts1}, \hat{y}_{ts2}, \ldots, \hat{y}_{ts_{n}})\)</span> dos exemplos de teste.</p>
+<p>O aprendizado transdutivo é, de fato, um caso particular de aprendizado semi-supervisionado <span class="citation" data-cites="Chapelle2006 Zhu2009">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>; <a href="../../shared/referencias/referencias.html#ref-Zhu2009" role="doc-biblioref">Zhu et al., 2009</a>)</span> em que o foco é exclusivamente rotular corretamente os exemplos não rotulados conhecidos durante o treinamento, sem a preocupação de generalizar para dados futuros desconhecidos. Essa característica o torna especialmente atrativo em contextos de PLN nos quais temos uma base com poucos dados rotulados e muitos dados não rotulados, como em tarefas de anotação e construção de <em>corpora</em>. Essa abordagem pode então ser utilizada tanto para gerar uma base inteiramente rotulada quanto para incorporar exemplos não rotulados ao processo de treinamento supervisionado.</p>
+<p>Do ponto de vista de aplicação prática, o aprendizado transdutivo pode ser entendido como uma estratégia viável para situações em que:</p>
+<ul>
+<li><p>O conjunto de dados de teste é conhecido no momento do treinamento;</p></li>
+<li><p>Não há interesse em inferência fora desse conjunto específico;</p></li>
+<li><p>A rotulação manual do conjunto completo seria inviável ou muito custosa.</p></li>
+</ul>
+</section>
+</section>
+<section id="sec-cap-transdutivo-aplicacoes" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="sec-cap-transdutivo-aplicacoes"><span class="header-section-number">17.3</span> Aplicações do Aprendizado Transdutivo em PLN</h2>
+<p>A aplicação do aprendizado transdutivo em tarefas de PLN tem se mostrado promissora em diversos contextos. Entre as abordagens mais comuns estão o uso de modelos com a propagação de rótulos e a adaptação de modelos supervisionados tradicionais para permitir o aprendizado transdutivo.</p>
+<section id="sec-cap-transdutivo-propRotulo" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="sec-cap-transdutivo-propRotulo"><span class="header-section-number">17.3.1</span> Métodos baseados em propagação de rótulos</h3>
+<p>Métodos baseados em propagação de rótulos têm como objetivo utilizar os rótulos de exemplos previamente anotados para inferir pseudo-rótulos em exemplos não rotulados (a transdução). Essa inferência possibilita que os dados originalmente não rotulados possam ser incorporados ao treinamento de modelos supervisionados, tornando-se especialmente útil em cenários com baixa disponibilidade de dados anotados manualmente <span class="citation" data-cites="iscen2019labelpropagationdeepsemisupervised">(<a href="../../shared/referencias/referencias.html#ref-iscen2019labelpropagationdeepsemisupervised" role="doc-biblioref">Iscen et al., 2019</a>)</span>.</p>
+<p>Uma classe importante de métodos para propagação de rótulos são os baseados em grafos, como representado na <a href="#fig-cap-transdutivo-exe-grafo" class="quarto-xref">Figura&nbsp;<span>17.7</span></a>. Nessa abordagem, os dados (instâncias rotuladas e não rotuladas) são representados como nós de um grafo, enquanto as arestas indicam a similaridade entre pares de exemplos. Essa similaridade pode ser definida com base tanto em <em>embeddings</em>, quanto em medidas léxicas ou representações contextuais. A partir dessa estrutura, os pseudo-rótulos podem ser atribuídos aos nós não rotulados por meio de algoritmos que propagam a informação dos rótulos ao longo do grafo, respeitando a estrutura local de vizinhança.</p>
+<div id="fig-cap-transdutivo-exe-grafo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-exe-grafo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.7: Processo de propagação de rótulos em um grafo. Partindo de poucos exemplos rotulados (topo), o algoritmo propaga os rótulos aos nós vizinhos não rotulados, mudando esses rótulos até que um equilíbrio seja atingido (base).
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-exe-grafo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/exemplo_grafo.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+</figure>
+</div>
+<p>Entre os algoritmos mais utilizados para esse tipo de abordagem, destacam-se a propagação de rótulos (<em>label propagation</em>) propriamente dita e o espalhamento de rótulos (<em>label spreading</em>). A <strong>propagação de rótulos</strong> baseia-se em um processo iterativo de disseminação de rótulos ao longo da estrutura do grafo, até que a convergência seja atingida. Esse processo consiste dos seguintes passos <span class="citation" data-cites="needham2019graph">(<a href="../../shared/referencias/referencias.html#ref-needham2019graph" role="doc-biblioref">Needham; Hodler, 2019</a>)</span>, detalhados no <a href="../../dados/cap-transdutivo/cap-transdutivo.html#alg-cap-transdutivo-pseudocod-lprop">Algoritmo 17.1</a>:</p>
+<ol type="1">
+<li><p><strong>Inicialização</strong>: cada nó da rede recebe inicialmente um rótulo único. Alternativamente, podem ser usados rótulos iniciais (<em>seeds</em>) previamente definidos.</p></li>
+<li><p><strong>Propagação</strong>: os rótulos se propagam através das conexões da rede, passando de um nó para seus vizinhos.</p></li>
+<li><p><strong>Atualização</strong>: a cada iteração, cada nó atualiza seu rótulo com base nos rótulos dos vizinhos. O novo rótulo é então definido como sendo o rótulo apresentado pela maioria dos nós vizinhos (um voto de maioria). Alternativamente, pode-se dar pesos diferentes aos vizinhos, conforme sua similaridade no grafo.</p></li>
+<li><p><strong>Convergência</strong>: o processo se repete até que todos os nós adotem o rótulo mais comum entre seus vizinhos. Com isso, grupos de nós densamente conectados tendem a atingir rapidamente um consenso sobre um mesmo rótulo, formando comunidades distintas na rede.</p></li>
+</ol>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="alg-cap-transdutivo-pseudocod-lprop">
+<figcaption class="figure-caption">
+<p>Algoritmo 17.1: Técnica de Propagação de Rótulos <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span></p>
+</figcaption>
+<p><img src="../../algxpar/pseudocode.e6dfbfaa1d2ba38a7a5af9576d1272f529a219e0.svg" class="img-fluid" alt="Algoritmo 17.1: Técnica de Propagação de Rótulos [@Chapelle2006]" width="648"></p>
+</div>
+</div>
+</div>
+</div>
+<p>O <strong>espalhamento de rótulos</strong>, por sua vez, consiste de uma variante suavizada da propagação de rótulos, em que são introduzidas regularização e suavização nos rótulos atribuídos, permitindo uma propagação mais controlada e robusta, conforme detalhado no <a href="../../dados/cap-transdutivo/cap-transdutivo.html#alg-cap-transdutivo-pseudocod-lspread">Algoritmo 17.2</a>. Embora os algoritmos de propagação de rótulos e espalhamento de rótulos sejam similares na forma como propagam rótulos pelo grafo, a principal diferença está na regularização aplicada. No modelo do <a href="../../dados/cap-transdutivo/cap-transdutivo.html#alg-cap-transdutivo-pseudocod-lspread">Algoritmo 17.2</a>, é utilizada uma matriz Laplaciana normalizada e um parâmetro de controle <span class="math inline">\(\alpha\)</span> para suavizar a propagação, garantindo maior estabilidade e robustez contra rótulos ruidosos, enquanto que no <a href="../../dados/cap-transdutivo/cap-transdutivo.html#alg-cap-transdutivo-pseudocod-lprop">Algoritmo 17.1</a> é realizada uma atualização direta usando a matriz de graus sem esse mecanismo de suavização.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="alg-cap-transdutivo-pseudocod-lspread">
+<figcaption class="figure-caption">
+<p>Algoritmo 17.2: Técnica de Espalhamento de Rótulos <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span></p>
+</figcaption>
+<p><img src="../../algxpar/pseudocode.4c29f2637ac7b89d217dfae2af7cc3fb6f67376b.svg" class="img-fluid" alt="Algoritmo 17.2: Técnica de Espalhamento de Rótulos [@Chapelle2006]" width="648"></p>
+</div>
+</div>
+</div>
+</div>
+<p>Essas técnicas transdutivas baseadas em grafos são especialmente relevantes em tarefas como classificação de documentos, análise de sentimentos, categorização de tópicos ou outras em que há grande volume de dados não anotados e recursos limitados para anotação manual <span class="citation" data-cites="jafarlou2024reducinglabelingcostssentiment">(<a href="../../shared/referencias/referencias.html#ref-jafarlou2024reducinglabelingcostssentiment" role="doc-biblioref">Jafarlou; Kubek, 2025</a>)</span>. Um exemplo ilustrativo da utilidade do aprendizado transdutivo em PLN pode ser observado na tarefa de análise de sentimentos em resenhas de usuários <span class="citation" data-cites="review-sent-trans">(<a href="../../shared/referencias/referencias.html#ref-review-sent-trans" role="doc-biblioref">Marcacini et al., 2018</a>)</span>. Suponha que temos um pequeno conjunto de resenhas rotuladas e um grande volume de resenhas não rotuladas. Nesse cenário, é possível construir um grafo ou uma rede onde cada nó (rotulado ou não) representa uma resenha.</p>
+<p>Utilizando então algoritmos como <em>Label Propagation</em> ou <em>Label Spreading</em>, os rótulos das resenhas anotadas são propagados pelo grafo para os nós não rotulados. O resultado é a atribuição de pseudo-rótulos às resenhas originalmente sem anotação. Dessa forma, esses métodos demonstram como o aprendizado transdutivo pode ser uma solução eficaz e escalável para problemas do mundo real, onde a rotulação de dados em larga escala é um desafio constante.</p>
+</section>
+<section id="sec-cap-transdutivo-adaptacao" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="sec-cap-transdutivo-adaptacao"><span class="header-section-number">17.3.2</span> Adaptação de modelos supervisionados</h3>
+<p>Além das abordagens baseadas em grafos, outra estratégia para aplicar aprendizado transdutivo em PLN envolve a modificação do processo de treinamento de modelos supervisionados. Nessa seção, focaremos em uma modificação específica, feita na função de custo dos modelos, com base na proposta do método TransBoost <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span>. Embora originalmente desenvolvido para classificação de imagens, esse mesmo princípio pode ser aplicado ao ajuste fino de modelos de linguagem (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-modelos-linguagem/cap-modelos-linguagem.html#sec-cap-modelos-linguagem" target="_blank" title="Volume 2">Modelos de linguagem</a></span>), permitindo uma forma eficiente de aprendizado transdutivo com dados textuais.</p>
+<p>Imagine então um cenário como o descrito ao longo deste capítulo, em que você possui uma base de dados volumosa, mas cuja maior parte não está rotulada. Seu objetivo é treinar um modelo de aprendizado profundo para uma tarefa de classificação, porém o custo de rotular manualmente os dados inviabiliza a criação de um conjunto supervisionado de tamanho adequado.</p>
+<p>Inspirado no método TransBoost <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span>, é possível modificar a função de custo do processo de ajuste fino de um modelo pré-treinado para que ela leve em consideração não apenas os exemplos rotulados, mas também os não rotulados. Essa abordagem permite então ao modelo explorar a estrutura presente nos dados não rotulados durante o ajuste fino, fazendo com que ele aprenda também a partir de sua estrutura, conforme representado na <a href="#fig-cap-transdutivo-transdutivo" class="quarto-xref">Figura&nbsp;<span>17.8</span></a>.</p>
+<div id="fig-cap-transdutivo-transdutivo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-transdutivo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17.8: Transboot <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span> com um LLM. O Aprendizado Transdutivo neste caso é dividido em duas etapas: predição com o modelo pré-treinado <span class="math inline">\(f_{θ0}\)</span> e o ajuste fino transdutivo. O objetivo da primeira etapa é fornecer informações relevantes para o próximo passo do Aprendizado: os pseudo-rótulos preditos por <span class="math inline">\(f_{θ0}\)</span> para cada exemplo de <span class="math inline">\(X_{teste}\)</span>. Esses pseudo-rótulos serão utilizados pela função <span class="math inline">\(δ\)</span> para definir a probabilidade de dois exemplos serem ou não da mesma classe, e por <span class="math inline">\(k\)</span> para definir a confiabilidade de <span class="math inline">\(f_{θ0}\)</span> nessa probabilidade dada. Essas informações serão então utilizadas durante o ajuste fino transdutivo para adicionar maior penalidade ou não à função de custo.
+</figcaption>
+<div aria-describedby="fig-cap-transdutivo-transdutivo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/mestrado-explicando-trans-gen-model-v2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Dentro dessa abordagem, faz-se necessário inicialmente atribuir rótulos provisórios aos exemplos não rotulados. Isso pode ser feito por meio de um modelo pré-treinado (com ou sem ajuste fino) ou utilizando LLMs em configurações <em>few-shot</em> ou <em>zero-shot</em>. O modelo utilizado para esse fim será chamado de <span class="math inline">\(f_{\theta0}\)</span>, e o objetivo dessa etapa é gerar uma primeira estimativa razoável de rótulos, ainda que imperfeita.</p>
+<p>O passo seguinte consiste na modificação da função custo usada no ajuste fino do modelo <span class="math inline">\(f_{\theta}\)</span>, ou seja, durante o ajuste fino, a função de custo é adaptada para incluir um termo adicional correspondente aos exemplos não rotulados. Esse termo transdutivo leva em conta a similaridade <span class="math inline">\(S\)</span> entre exemplos, a confiança <span class="math inline">\(k\)</span> do modelo nas predições e a consistência <span class="math inline">\(\delta\)</span> entre os pseudo-rótulos gerados. Em geral, esse termo tem um peso menor em relação ao erro supervisionado, controlado por um hiperparâmetro de regularização <span class="math inline">\(\lambda\)</span>. Dessa forma, três pontos principais são considerados para o cálculo do termo transdutivo na função de custo:</p>
+<ul>
+<li><p>A probabilidade <span class="math inline">\(\delta\)</span> de dois exemplos não rotulados pertencerem a classes diferentes;</p></li>
+<li><p>A confiança <span class="math inline">\(k\)</span> do modelo na predição gerada; e</p></li>
+<li><p>A similaridade <span class="math inline">\(S\)</span> entre os vetores preditos para os exemplos não rotulados.</p></li>
+</ul>
+<p>Com isso, espera-se que uma penalidade maior, ponderada pela confiança do modelo na predição, seja dada ao aprendizado quando exemplos que provavelmente pertencem a classes diferentes possuírem probabilidades de classes empíricas similares. O <a href="../../dados/cap-transdutivo/cap-transdutivo.html#alg-cap-transdutivo-pseudocod-transboost">Algoritmo 17.3</a> detalha a aplicação desse processo, conforme descrito em <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="alg-cap-transdutivo-pseudocod-transboost">
+<figcaption class="figure-caption">
+<p>Algoritmo 17.3: Aplicação do Método Transdutivo por meio da alteração da função de custo (adaptado de <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span>)</p>
+</figcaption>
+<p><img src="../../algxpar/pseudocode.1c96d526ef89a03ae2a04f1439fe737b885aa6fa.svg" class="img-fluid" alt="Algoritmo 17.3: Aplicação do Método Transdutivo por meio da alteração da função de custo (adaptado de [@belhasin2023transboostimprovingbestimagenet])" width="648"></p>
+</div>
+</div>
+</div>
+</div>
+<p>Para tal aplicação, o objetivo do aprendizado é minimizar a função de custo <span class="math inline">\(L\)</span> durante o ajuste fino do modelo <span class="math inline">\(f_{\theta}\)</span>, a partir um conjunto de dados rotulados <span class="math inline">\(X_{treino} = \{(x_{1}, y_{1}), ..., (x_{r}, y_{r})\}\)</span> e de um conjunto finito de dados não rotulados <span class="math inline">\(X_{teste} = \{x_{r+1}, .., x_{r+n}\}\)</span>. Este objetivo é dado por:</p>
+<p><span class="math display">\[L(X_{treino}, Y_{treino}, X_{teste} | f_{\theta}, S, \delta, k ) = \frac{1}{R}\sum_{n=1}^{R} \underbrace{l(f_{\theta}(x_{i}), y_{i})}_\text{perda indutiva} + \lambda \cdot \underbrace{l_{Transdutivo}(X_{teste}|f_{\theta}, S, \delta, k)}_\text{perda\_transdutiva}\]</span></p>
+<p>onde o primeiro termo representa uma função de perda indutiva padrão, enquanto no segundo é introduzido o termo transdutivo junto com <span class="math inline">\(\lambda\)</span> representando um hiper-parâmetro de regularização.</p>
+<p>Para ajudar no entendimento dessa adaptação transdutiva, vamos analisar um exemplo simples, em que um conjunto de dados contendo dois pontos, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, possui rótulos <span class="math inline">\(y_1\)</span> e <span class="math inline">\(y_2\)</span>, respectivamente, pertencentes a duas classes <span class="math inline">\(C = \{0, 1\}\)</span>. A esse conjunto rotulado é adicionado um conjunto não rotulado, contendo também dois exemplos. Um modelo pré-treinado é então ajustado nesses dados, e sua predição durante o ajuste fino, para cada um deles é:</p>
+<ul>
+<li><p><span class="math inline">\(x_1\)</span>, com <span class="math inline">\(y_1 = 1\)</span> e predição do modelo <span class="math inline">\(f_{\theta}(x_1) = [0{,}2; 0{,}8]\)</span></p></li>
+<li><p><span class="math inline">\(x_2\)</span>, com <span class="math inline">\(y_2 = 0\)</span> e predição do modelo <span class="math inline">\(f_{\theta}(x_2) = [0{,}7; 0{,}3]\)</span></p></li>
+</ul>
+<p>Note que a predição indica que o modelo está relativamente confiante nos dois casos. Para <span class="math inline">\(x_1\)</span>, a confiança de que o primeiro exemplo pertence à classe correta <span class="math inline">\(y_1=1\)</span> é 0,8, enquanto que a confiança de que <span class="math inline">\(x_2\)</span> pertence à classe 0 é 0,7.</p>
+<p>O conjunto de dados não rotulados, por sua vez, teve os seguintes pseudo-rótulos gerados por <span class="math inline">\(f_{\theta0}\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(x_3\)</span>, com pseudo-rótulo <span class="math inline">\(f_{\theta0}(x_3) = [0{,}6; 0{,}4]\)</span>, ou seja, a classe 0 (com predição durante o ajuste fino <span class="math inline">\(f_{\theta}(x_3) = [0{,}6; 0{,}4]\)</span>);</p></li>
+<li><p><span class="math inline">\(x_4\)</span>, com pseudo-rótulo <span class="math inline">\(f_{\theta0}(x_4) =[0{,}3; 0{,}7]\)</span>, ou seja a classe 1 (com predição durante o ajuste fino <span class="math inline">\(f_{\theta}(x_4) = [0{,}7; 0{,}3]\)</span>)</p></li>
+</ul>
+<p>Note que os exemplos <span class="math inline">\(x_3\)</span> e <span class="math inline">\(x_4\)</span> têm pseudo-rótulos distintos, 0 e 1 respectivamente, conforme gerados por <span class="math inline">\(f_{\theta0}\)</span>, mas predições de <span class="math inline">\(f_{\theta}\)</span> similares, conforme apresentadas pelo modelo. Segundo o modelo, ambos deveriam ser associados ao rótulo 0, portanto. Essa discordância entre <span class="math inline">\(f_{\theta0}\)</span> e <span class="math inline">\(f_{\theta}\)</span> será importante nos próximos passos.</p>
+<p>Pensando no nosso exemplo ilustrativo, o termo indutivo da função de perda seria calculado da seguinte maneira, utilizando a entropia cruzada para os exemplos rotulados:</p>
+<p><span class="math display">\[L_{\text{indutiva}} = \frac{1}{2} \left[ -\log(0{,}8) - \log(0{,}7) \right] \approx \frac{1}{2}(0{,}223 + 0{,}357) = 0{,}29\]</span></p>
+<p>Esse valor representa o erro do modelo com base apenas nos dados rotulados, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, tratando o problema como um aprendizado puramente supervisionado. Já o termo transdutivo apresentado é responsável por calcular a perda do modelo considerando <span class="math inline">\(X_{teste}\)</span>. Seu funcionamento é dado por:</p>
+<p><span class="math display">\[l_{Transdutivo}(X_{teste}|f_{\theta}, S, \delta, k) = \frac{1}{N_{\delta}} \sum_{1 \leq  i \leq  N} k(x_{i})k(x_{j})\delta(x_{i}, x_{j})S(x_{i}, x_{j})\]</span></p>
+<p>Notam-se aqui três termos principais, <span class="math inline">\(k, \delta, S\)</span>, onde <span class="math inline">\(S\)</span> mede a similaridade de duas instâncias de <span class="math inline">\(X_{teste}\)</span>, por meio do cálculo de uma função de similaridade nos vetores de predição gerados por <span class="math inline">\(f_{\theta}\)</span>. Esse cálculo é feito apenas para instâncias de <span class="math inline">\(X_{teste}\)</span> que possuam probabilidade de pertencer a classes diferentes. Essa probabilidade é dada por <span class="math inline">\(\delta : X \times X \xrightarrow{} \{0,1\}\)</span>, obtida da seguinte maneira:</p>
+<p><span class="math display">\[\delta_{f}(x_{i},x_{j}) =
+        \begin{cases}
+        1, &amp; f_{\theta0}(x_{i}) \neq f_{\theta0}(x_{j}) \\
+        0, &amp; \textit{caso contrário}
+        \end{cases}\]</span></p>
+<p>onde <span class="math inline">\(f_{\theta0}\)</span> representa o modelo responsável por gerar os pseudo-rótulos, e <span class="math inline">\(f_{\theta0}(x_{i})\)</span> a predição de um pseudo-rótulo gerado para <span class="math inline">\(x_{i}\)</span>.</p>
+<p>Voltando para o exemplo, como <span class="math inline">\(f_{\theta0}(x_3) \neq f_{\theta0}(x_4)\)</span>, temos:</p>
+<p><span class="math display">\[\delta(x_3, x_4) = 1\]</span></p>
+<p>Como o cálculo anterior indicou uma maior confiança do modelo de que <span class="math inline">\((x_3, x_4)\)</span> tenham rótulos distintos, vamos considerar esse par de exemplos não rotulados para medirmos a similaridade <span class="math inline">\(S(x_3, x_4)\)</span> entre os vetores de predição gerados por <span class="math inline">\(f_{\theta}\)</span> usando a similaridade do cosseno (esse passo busca penalizar predições similares para exemplos que provavelmente pertencem a classes diferentes):</p>
+<!-- ::: {style="transform-origin:left; scale:0.9;"}
+`\begingroup\small`{=latex} -->
+<p><span class="math display">\[\begin{aligned}
+  S(x_3, x_4) = \cos(\theta) = \displaystyle \frac{f_{\theta}(x_3) \cdot f(x_4)}{\|f_{\theta}(x_3)\| \cdot \|f_{\theta}(x_4)\|} \\
+  = \displaystyle \frac{0{,}6 \cdot 0{,}7 + 0{,}4 \cdot 0{,}3}{\sqrt{0{,}7^2 + 0{,}3^2} \cdot \sqrt{0{,}6^2 + 0{,}4^2}} \\
+  = \displaystyle \frac{0{,}54}{0{,}7616 \cdot 0{,}7211} \\
+  \approx 0{,}9827  
+\end{aligned}\]</span> <!-- `\endgroup`{=latex}
+::: --></p>
+<p>Por fim, <span class="math inline">\(k\)</span> é dado por:</p>
+<p><span class="math display">\[k_{f}(x) = max\{p_{j}(x|f_{\theta0})\}_{j=1}^{C}\]</span></p>
+<p>utilizando uma função <em>softmax</em> padrão, representando a confiança da predição de <span class="math inline">\(f_{\theta0}\)</span> para o pseudo-rótulo gerado com a intenção de ponderar a penalidade baseando-se na confiança do modelo na predição gerada.</p>
+<p>Voltando para o nosso exemplo, <span class="math inline">\(k\)</span> é a predição feita pelo modelo auxiliar <span class="math inline">\(f_{\theta0}\)</span> de maior confiança, ou seja:</p>
+<p><span class="math display">\[k(x_3) = 0{,}6; \quad k(x_4) = 0{,}7\]</span></p>
+<p>Agora já temos todas as informações necessárias para o cálculo do termo transdutivo. A perda transdutiva será, portanto:</p>
+<p><span class="math display">\[l_{\text{Transdutivo}} = k(x_3) \cdot k(x_4) \cdot \delta(x_3, x_4) \cdot S(x_3, x_4) = 0{,}6 \cdot 0{,}7 \cdot 1 \cdot 0{,}9827 = 0{,}4127\]</span></p>
+<p>Esse valor representa uma penalidade adicional para o modelo, considerando o desacordo entre exemplos não rotulados que são similares (do ponto de vista das predições) mas foram pseudo-rotulados de forma distinta pelo modelo auxiliar. Por fim, considerando o hiperparâmetro <span class="math inline">\(\lambda = 1\)</span>, a função de custo total será:</p>
+<p><span class="math display">\[L = L_{\text{indutiva}} + \lambda \cdot l_{\text{Transdutivo}} = 0{,}29 + 0{,}4127 = 0{,}7027\]</span></p>
+<p>Como podemos observar na <a href="#tbl-cap-transdutivo-comparacao_custo" class="quarto-xref">Tabela&nbsp;<span>17.1</span></a>, o custo total aumenta com a adição do termo transdutivo. Essa penalidade extra força o modelo a ajustar melhor suas predições para evitar que exemplos não rotulados, sejam rotulados de forma incoerente, especialmente quando o modelo auxiliar está confiante nas predições.</p>
+<p></p>
+<div id="tbl-cap-transdutivo-comparacao_custo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cap-transdutivo-comparacao_custo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;17.1: Comparação entre a função de custo padrão e a função com termo transdutivo.
+</figcaption>
+<div aria-describedby="tbl-cap-transdutivo-comparacao_custo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Componente</strong></th>
+<th style="text-align: center;"><strong>Valor Aproximado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Perda indutiva</td>
+<td style="text-align: center;">0,290</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Perda transdutiva</td>
+<td style="text-align: center;">0,4127</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Total (com termo transdutivo)</strong></td>
+<td style="text-align: center;"><strong>0,7027</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p></p>
+<p>Esse exemplo mostra na prática como o aprendizado transdutivo pode ajudar a refinar o processo de ajuste de modelos mesmo quando os dados rotulados são escassos. Ao incorporar a estrutura dos dados não rotulados e considerar a confiança e coerência entre pares, é possível alcançar um desempenho mais robusto e coerente, o que é especialmente útil em tarefas de PLN com limitação de anotação supervisionada.</p>
+</section>
+<section id="avaliação-dos-dados-anotados" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="avaliação-dos-dados-anotados"><span class="header-section-number">17.3.3</span> Avaliação dos dados anotados</h3>
+<p>A confiança nos rótulos artificiais gerados pelo método transdutivo precisa ser avaliada para evitar a propagação de erros e garantir a consistência dos dados anotados. Nesse sentido, uma forma inicial de avaliação é baseada na <strong>Confiança nas Predições</strong>, ou seja, o valor da confiança do modelo nas predições realizadas para os exemplos não rotulados. Isso é normalmente extraído da distribuição de confiança da camada de saída do modelo, podendo ser feito considerando como predições corretas aquelas a partir de um limiar ou também considerando uma margem mínima entre as duas classes com maiores confianças <span class="citation" data-cites="fixmatch-trans-eval-confidence">(<a href="../../shared/referencias/referencias.html#ref-fixmatch-trans-eval-confidence" role="doc-biblioref">Sohn et al., 2020</a>)</span>.</p>
+<p>A qualidade dos pseudo-rótulos também pode ser verificada por meio de sua consistência com instâncias similares, chamada de <strong>Consistência Semântica Local</strong>. Isso pode ser feito verificando se os vizinhos mais próximos de um exemplo (no espaço vetorial do modelo) possuem o mesmo pseudo-rótulos ou agrupar os <em>embeddings</em> e medir se os rótulos atribuídos coincidem com os agrupamentos naturais dos dados <span class="citation" data-cites="botzer2023tkknnbalanceddistancebasedpseudo">(<a href="../../shared/referencias/referencias.html#ref-botzer2023tkknnbalanceddistancebasedpseudo" role="doc-biblioref">Botzer et al., 2023</a>)</span>.</p>
+<p>Alternativamente, é possível realizar uma <strong>avaliação manual amostral</strong>. Embora mais custosa, a avaliação humana de uma amostra dos pseudo-rótulos gerados é uma forma direta e confiável de verificar sua qualidade. Esta pode ser feita em duas etapas principais:</p>
+<ul>
+<li><p><strong>Seleção de uma amostra de exemplos representativos:</strong> selecionar exemplos de diferentes níveis de confiança, classes e regiões do espaço vetorial para revisão manual.</p></li>
+<li><p><strong>Taxa de concordância com anotadores humanos:</strong> calcular métricas de concordância entre rótulos automáticos e os atribuídos por especialistas.</p></li>
+</ul>
+<p>Por fim, uma forma pragmática de avaliar os rótulos gerados transdutivamente é observar seu <strong>impacto no treinamento posterior</strong>, ou seja, seu impacto quando utilizados em etapas posteriores de treinamento, comparando a acurácia sobre um conjunto de validação real ao incorporar os pseudo-rótulos ao treinamento supervisionado, e medir o desempenho final com e sem os dados rotulados artificialmente para avaliar sua contribuição. Essa abordagem permite verificar se os rótulos gerados estão, de fato, contribuindo positivamente para a tarefa-alvo <span class="citation" data-cites="oliver2019realisticevaluationdeepsemisupervised">(<a href="../../shared/referencias/referencias.html#ref-oliver2019realisticevaluationdeepsemisupervised" role="doc-biblioref">Oliver et al., 2018</a>)</span>.</p>
+</section>
+</section>
+<section id="benefícios-e-limitações" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="benefícios-e-limitações"><span class="header-section-number">17.4</span> Benefícios e Limitações</h2>
+<p>O aprendizado transdutivo tem ganhado destaque como uma abordagem promissora em cenários onde o custo de anotação de dados é elevado ou a disponibilidade de dados rotulados é limitada, uma realidade comum em diversas aplicações de PLN. Ao contrário do aprendizado indutivo, cujo objetivo é generalizar para instâncias futuras e desconhecidas, o aprendizado transdutivo busca otimizar a predição para um conjunto fixo de exemplos de teste conhecidos previamente. Essa mudança de foco permite que a informação presente nos próprios dados de teste seja explorada diretamente durante o treinamento e consequentemente rotulada.</p>
+<p>Entre os principais benefícios do aprendizado transdutivo, destacam-se:</p>
+<ul>
+<li><p><strong>Redução da dependência de bases de dados rotuladas:</strong> ao incorporar dados não rotulados no processo de aprendizagem.</p></li>
+<li><p><strong>Melhor aproveitamento de recursos humanos e financeiros:</strong> a diminuição da necessidade de rotulagem torna o processo de desenvolvimento mais econômico, especialmente em domínios de difícil anotação ou com poucos recursos computacionais disponíveis.</p></li>
+<li><p><strong>Predição especializada:</strong> como o modelo conhece previamente os exemplos de teste, ele pode adaptar melhor suas representações e decisões a esses dados específicos, sem a preocupação de vazamento de dados.</p></li>
+</ul>
+<p>No entanto, essa abordagem também apresenta desafios e limitações importantes:</p>
+<ul>
+<li><p><strong>Maior complexidade computacional:</strong> alguns métodos transdutivos exigem a construção de grafos, inferência sobre todas as instâncias ou múltiplas etapas de ajuste fino, o que pode tornar sua aplicação mais cara e demorada computacionalmente.</p></li>
+<li><p><strong>Baixa generalização fora do conjunto de teste:</strong> por estar centrado em um conjunto específico de exemplos, o modelo transdutivo pode não generalizar bem para novos dados, o que limita seu uso em cenários dinâmicos ou contínuos, apesar de não ser o objetivo desse tipo de aprendizado.</p></li>
+<li><p><strong>Dependência de uma boa inicialização:</strong> muitos métodos transdutivos se beneficiam de modelos pré-treinados ou de boas predições iniciais (por meio de pseudo-rótulos), o que introduz um grau de sensibilidade ao desempenho do modelo base.</p></li>
+</ul>
+<p>Visto isso, o aprendizado transdutivo representa uma alternativa aos métodos supervisionados tradicionais, especialmente quando incorporado a arquiteturas modernas de modelos. Sua utilidade se destaca em tarefas onde os dados de teste estão disponíveis antecipadamente, como em classificações offline, revisões, ou anotação de <em>corpora</em>, e quando há interesse em maximizar o desempenho sobre um conjunto específico de instâncias.</p>
+<p>Espera-se um avanço na integração entre modelos pré-treinados e técnicas transdutivas, potencializando ainda mais o uso de dados não rotulados com maior eficiência. O aprendizado transdutivo é uma ferramenta complementar importante no repertório de técnicas de aprendizado de máquina aplicadas ao PLN, com potencial para democratizar o acesso a soluções de alta qualidade mesmo em cenários com recursos limitados.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-datascarcity" class="csl-entry" role="listitem">
+ALZUBAIDI, L. et al. <a href="https://doi.org/10.1186/s40537-023-00727-2">A survey on deep learning tools dealing with data scarcity: definitions, challenges, solutions, tips, and applications</a>. <strong>Journal of Big Data</strong>, v. 10, abr. 2023.
+</div>
+<div id="ref-belhasin2023transboostimprovingbestimagenet" class="csl-entry" role="listitem">
+BELHASIN, O.; BAR-SHALOM, G.; EL-YANIV, R. <strong>TransBoost: improving the best ImageNet performance using deep transduction</strong>. Proceedings of the 36th International Conference on Neural Information Processing Systems. <strong>Anais</strong>...: NIPS ’22.Red Hook, NY, USA: Curran Associates Inc., 2022.
+</div>
+<div id="ref-botzer2023tkknnbalanceddistancebasedpseudo" class="csl-entry" role="listitem">
+BOTZER, N. et al. <strong><span>TK</span>-<span>KNN</span>: A Balanced Distance-Based Pseudo Labeling Approach for Semi-Supervised Intent Classification</strong>. (H. Bouamor, J. Pino, K. Bali, Eds.)Findings of the Association for Computational Linguistics: EMNLP 2023. <strong>Anais</strong>...Singapore: Association for Computational Linguistics, dez. 2023. Disponível em: &lt;<a href="https://aclanthology.org/2023.findings-emnlp.429/">https://aclanthology.org/2023.findings-emnlp.429/</a>&gt;
+</div>
+<div id="ref-Chapelle2006" class="csl-entry" role="listitem">
+CHAPELLE, O.; SCHOLKOPF, B.; ZIEN, A. <strong><a href="https://doi.org/10.7551/mitpress/9780262033589.001.0001">Semi-Supervised Learning</a></strong>. [s.l.] The MIT Press, 2006.
+</div>
+<div id="ref-DiFelippo2024DANTEStocks" class="csl-entry" role="listitem">
+DI FELIPPO, A. et al. <a href="https://doi.org/10.25189/rabralin.v22i2.2119"><span>The DANTEStocks Corpus: an analysis of the distribution of <span>Universal Dependencies</span>-based Part-of-Speech tags</span></a>. <strong>Revista da ABRALIN</strong>, v. 22, n. 2, p. 249–271, 2024.
+</div>
+<div id="ref-learning-transdu-vapnik98" class="csl-entry" role="listitem">
+GAMMERMAN, A.; VOVK, V.; VAPNIK, V. <strong>Learning by Transduction</strong>. : UAI’98.San Francisco, CA, USA: Morgan Kaufmann Publishers Inc., 1998.
+</div>
+<div id="ref-iscen2019labelpropagationdeepsemisupervised" class="csl-entry" role="listitem">
+ISCEN, A. et al. <strong><a href="https://doi.org/10.1109/CVPR.2019.00521">Label Propagation for Deep Semi-Supervised Learning</a></strong>. jun. 2019.
+</div>
+<div id="ref-jafarlou2024reducinglabelingcostssentiment" class="csl-entry" role="listitem">
+JAFARLOU, M.; KUBEK, M. M. <strong>Reducing Labeling Costs in Sentiment Analysis via Semi-Supervised Learning</strong>. Proceedings of the 2024 8th International Conference on Natural Language Processing and Information Retrieval. <strong>Anais</strong>...: NLPIR ’24.New York, NY, USA: Association for Computing Machinery, 2025. Disponível em: &lt;<a href="https://doi.org/10.1145/3711542.3711570">https://doi.org/10.1145/3711542.3711570</a>&gt;
+</div>
+<div id="ref-review-sent-trans" class="csl-entry" role="listitem">
+MARCACINI, R. M. et al. <a href="https://doi.org/10.1016/j.dss.2018.08.009">Cross-domain aspect extraction for sentiment analysis: A transductive learning approach</a>. <strong>Decision Support Systems</strong>, v. 114, p. 70–80, 2018.
+</div>
+<div id="ref-needham2019graph" class="csl-entry" role="listitem">
+NEEDHAM, M.; HODLER, A. E. <strong><a href="https://books.google.com.br/books?id=UwIevgEACAAJ">Graph Algorithms: Practical Examples in Apache Spark and Neo4j</a></strong>. [s.l.] O’Reilly Media, 2019.
+</div>
+<div id="ref-oliver2019realisticevaluationdeepsemisupervised" class="csl-entry" role="listitem">
+OLIVER, A. et al. <strong>Realistic evaluation of deep semi-supervised learning algorithms</strong>. Proceedings of the 32nd International Conference on Neural Information Processing Systems. <strong>Anais</strong>...: NIPS’18.Red Hook, NY, USA: Curran Associates Inc., 2018.
+</div>
+<div id="ref-russell" class="csl-entry" role="listitem">
+RUSSELL, S.; NORVIG, P. <strong>Artificial Intelligence: A Modern Approach</strong>. 3rd. ed. USA: Prentice Hall Press, 2009.
+</div>
+<div id="ref-fixmatch-trans-eval-confidence" class="csl-entry" role="listitem">
+SOHN, K. et al. <strong>FixMatch: simplifying semi-supervised learning with consistency and confidence</strong>. Proceedings of the 34th International Conference on Neural Information Processing Systems. <strong>Anais</strong>...: NIPS ’20.Red Hook, NY, USA: Curran Associates Inc., 2020.
+</div>
+<div id="ref-Vapnik1998" class="csl-entry" role="listitem">
+VAPNIK, V. N. <strong><a href="https://books.google.com.br/books?id=RWrlkQEACAAJ">Statistical Learning Theory</a></strong>. [s.l.] Wiley, 1998.
+</div>
+<div id="ref-vapnik2000" class="csl-entry" role="listitem">
+VAPNIK, V. N. <strong><a href="https://doi.org/10.1007/978-1-4757-3264-1">The Nature of Statistical Learning Theory</a></strong>. 2. ed. New York, NY: Springer, 2000. p. 314
+</div>
+<div id="ref-Zhu2009" class="csl-entry" role="listitem">
+ZHU, X. et al. <strong>Introduction to Semi-Supervised Learning</strong>. [s.l.] Morgan; Claypool Publishers, 2009.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Usamos a notação <span class="math inline">\(\hat{Y}\)</span> para denotar que <span class="math inline">\(\hat{Y}\)</span> é uma estimativa do valor de <span class="math inline">\(Y\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Também conhecido por seu papel fundamental no desenvolvimento das Máquinas de Vetores de Suporte (SVMs).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Ver <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span> e <span class="citation" data-cites="Zhu2009">(<a href="../../shared/referencias/referencias.html#ref-Zhu2009" role="doc-biblioref">Zhu et al., 2009</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="pagination-link" aria-label="Conjunto de dados, *dataset* e *corpus*">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="pagination-link" aria-label="Avaliação de tecnologias de linguagem">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

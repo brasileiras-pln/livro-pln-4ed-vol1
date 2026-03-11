@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Evandro Fonseca">
+<meta name="author" content="Aline Aver Vanin">
+<meta name="author" content="Renata Vieira">
+
+<title>12&nbsp; Resolução de correferência – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" rel="next">
+<link href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html"><strong>Discurso</strong></a></li><li class="breadcrumb-item"><a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">12.1</span> Introdução</a></li>
+  <li><a href="#resolução-de-correferência" id="toc-resolução-de-correferência" class="nav-link" data-scroll-target="#resolução-de-correferência"><span class="header-section-number">12.2</span> Resolução de Correferência</a>
+  <ul class="collapse">
+  <li><a href="#referentes" id="toc-referentes" class="nav-link" data-scroll-target="#referentes"><span class="header-section-number">12.2.1</span> Referentes</a></li>
+  <li><a href="#relações-semânticas-referenciais" id="toc-relações-semânticas-referenciais" class="nav-link" data-scroll-target="#relações-semânticas-referenciais"><span class="header-section-number">12.2.2</span> Relações Semânticas Referenciais</a></li>
+  <li><a href="#correferência-anáfora-e-catáfora" id="toc-correferência-anáfora-e-catáfora" class="nav-link" data-scroll-target="#correferência-anáfora-e-catáfora"><span class="header-section-number">12.2.3</span> Correferência, Anáfora e Catáfora</a></li>
+  <li><a href="#referências-endofóricas-e-exofóricas" id="toc-referências-endofóricas-e-exofóricas" class="nav-link" data-scroll-target="#referências-endofóricas-e-exofóricas"><span class="header-section-number">12.2.4</span> Referências Endofóricas e Exofóricas</a></li>
+  <li><a href="#correferência-coerência-e-coesão" id="toc-correferência-coerência-e-coesão" class="nav-link" data-scroll-target="#correferência-coerência-e-coesão"><span class="header-section-number">12.2.5</span> Correferência, coerência e coesão</a></li>
+  </ul></li>
+  <li><a href="#principaismodelosdaliteratura" id="toc-principaismodelosdaliteratura" class="nav-link" data-scroll-target="#principaismodelosdaliteratura"><span class="header-section-number">12.3</span> Abordagens Computacionais para Resolução de Correferência</a>
+  <ul class="collapse">
+  <li><a href="#modelos-baseados-em-regras" id="toc-modelos-baseados-em-regras" class="nav-link" data-scroll-target="#modelos-baseados-em-regras"><span class="header-section-number">12.3.1</span> Modelos Baseados em Regras</a></li>
+  <li><a href="#modelos-baseados-em-aprendizado-de-máquina" id="toc-modelos-baseados-em-aprendizado-de-máquina" class="nav-link" data-scroll-target="#modelos-baseados-em-aprendizado-de-máquina"><span class="header-section-number">12.3.2</span> Modelos Baseados em Aprendizado de Máquina</a></li>
+  <li><a href="#entity-mention" id="toc-entity-mention" class="nav-link" data-scroll-target="#entity-mention"><span class="header-section-number">12.3.3</span> Entity-Mention</a></li>
+  <li><a href="#mention-ranking" id="toc-mention-ranking" class="nav-link" data-scroll-target="#mention-ranking"><span class="header-section-number">12.3.4</span> Mention-Ranking</a></li>
+  <li><a href="#antecedent-tree" id="toc-antecedent-tree" class="nav-link" data-scroll-target="#antecedent-tree"><span class="header-section-number">12.3.5</span> Antecedent-Tree</a></li>
+  <li><a href="#modelos-voltados-à-língua-portuguesa" id="toc-modelos-voltados-à-língua-portuguesa" class="nav-link" data-scroll-target="#modelos-voltados-à-língua-portuguesa"><span class="header-section-number">12.3.6</span> Modelos Voltados à Língua Portuguesa</a></li>
+  </ul></li>
+  <li><a href="#avaliação-da-tarefa-de-resolução-de-correferência" id="toc-avaliação-da-tarefa-de-resolução-de-correferência" class="nav-link" data-scroll-target="#avaliação-da-tarefa-de-resolução-de-correferência"><span class="header-section-number">12.4</span> Avaliação da Tarefa de Resolução de Correferência</a>
+  <ul class="collapse">
+  <li><a href="#métricas-de-avaliação" id="toc-métricas-de-avaliação" class="nav-link" data-scroll-target="#métricas-de-avaliação"><span class="header-section-number">12.4.1</span> Métricas de Avaliação</a></li>
+  </ul></li>
+  <li><a href="#aplicações" id="toc-aplicações" class="nav-link" data-scroll-target="#aplicações"><span class="header-section-number">12.5</span> Aplicações</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html"><strong>Discurso</strong></a></li><li class="breadcrumb-item"><a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-resolucao-correferencia" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Evandro Fonseca </p>
+             <p>Aline Aver Vanin </p>
+             <p>Renata Vieira </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-resolucao-correferencia.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-controls="callout-cite" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle callout" data-bs-target=".callout-cite-contents">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-resolucao-correferencia:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Fonseca, Evandro and Vanin, Aline Aver and Vieira, Renata},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Resolução de correferência},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {12},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="introdução" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">12.1</span> Introdução</h2>
+<p>No processo de construção de sentidos na língua em uso, interlocutores negociam o universo de discurso de que falam, escolhendo referir-se a algum, ou a alguns, indivíduo(s) cuja identidade estabelecem e da qual garantem a existência <span class="citation" data-cites="neves2013">(<a href="../../shared/referencias/referencias.html#ref-neves2013" role="doc-biblioref">Neves, 2013</a>)</span>. Esses referentes, concretizados no texto por <strong>expressões referenciais</strong>, vão atravessá-lo por inteiro, garantindo unidade temática – isto é, a coerência que constitui um texto <span class="citation" data-cites="vieira2019">(<a href="../../shared/referencias/referencias.html#ref-vieira2019" role="doc-biblioref">Vieira; Faraco, 2019</a>)</span>. Fazer referência a algo ou a alguém no mundo é uma ação intrinsecamente ligada à interação, em que se constituem os objetos de discurso, isto é, entidades que constituem termos das predicações, entidades oriundas de uma construção mental, e não de um mundo real <span class="citation" data-cites="neves2013">(<a href="../../shared/referencias/referencias.html#ref-neves2013" role="doc-biblioref">Neves, 2013</a>)</span>.</p>
+<p>A construção de referentes se dá por cadeias de texto, redes referenciais construídas pelos objetos de discurso que constituem as marcas da textualidade. Uma cadeia de referência, ou cadeia referencial, corresponde à noção de cadeia anafórica, e cadeia coesiva <span class="citation" data-cites="roncarati2010">(<a href="../../shared/referencias/referencias.html#ref-roncarati2010" role="doc-biblioref">Roncarati, 2010</a>)</span>. Os elos coesivos em um texto são mecanismos semânticos e léxico-gramaticais essenciais para a tessitura textual. Os referentes se ligam por meio de relações de sentido que formam a base para retomadas em um texto <span class="citation" data-cites="roncarati2010">(<a href="../../shared/referencias/referencias.html#ref-roncarati2010" role="doc-biblioref">Roncarati, 2010</a>)</span>. Nesse sentido, as cadeias coesivas ligam referentes à(s) sua(s) expressão(ões) referencial(is), em que os fios que tecem o texto são articulados por meio de procedimentos e recursos - o que chamamos de <strong>coesão textual</strong> <span class="citation" data-cites="vieira2019">(<a href="../../shared/referencias/referencias.html#ref-vieira2019" role="doc-biblioref">Vieira; Faraco, 2019</a>)</span>. Trata-se de elementos cujos mecanismos gramaticais coesivos estão em consonância, sejam eles por reiteração (ou retomada), por associação (ou ligações de sentidos entre as palavras presentes), ou por conexão entre as orações (por conectores) <span class="citation" data-cites="antunes2007lutar">(<a href="../../shared/referencias/referencias.html#ref-antunes2007lutar" role="doc-biblioref">Antunes, 2007</a>)</span>, os quais garantem que o texto seja coerente em sua extensão. Então, se em um dado texto temos uma dada entidade, como “Maria”, nome próprio, é de se esperar que os seus referentes sejam detectados por relações léxico-semânticas do texto, como, por exemplo: por pronome, “ela”, ou por sintagma nominal, “a professora”, “a ativista”, “a mulher” etc.</p>
+</section>
+<section id="resolução-de-correferência" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="resolução-de-correferência"><span class="header-section-number">12.2</span> Resolução de Correferência</h2>
+<p>A Resolução de Correferência a partir de textos é uma tarefa útil e também um dos principais desafios da área de Processamento da Linguagem Natural (PLN). Isso porque essa tarefa depende de diversos níveis de processamento, como análise sintática, morfológica, extração de sintagmas nominais, entre outros. Na literatura, encontramos diversas iniciativas para a língua portuguesa que abordam esse problema, geralmente separados entre a resolução de anáfora <span class="citation" data-cites="vieira2005coreference bick2010dependency rocha2000corpus ferradeira1993 basso2009semantica">(<a href="../../shared/referencias/referencias.html#ref-basso2009semantica" role="doc-biblioref">Basso, 2009</a>; <a href="../../shared/referencias/referencias.html#ref-bick2010dependency" role="doc-biblioref">Bick, 2010</a>; <a href="../../shared/referencias/referencias.html#ref-ferradeira1993" role="doc-biblioref">Ferradeira, 1993</a>; <a href="../../shared/referencias/referencias.html#ref-rocha2000corpus" role="doc-biblioref">Rocha, 2000</a>; <a href="../../shared/referencias/referencias.html#ref-vieira2005coreference" role="doc-biblioref">Vieira et al., 2005</a>)</span> e o estudo da correferência nominal <span class="citation" data-cites="freitas2009relation fonseca2014 fonsecalm2014 fonseca2016lrec">(<a href="../../shared/referencias/referencias.html#ref-fonseca2014" role="doc-biblioref">Fonseca, 2014</a>; <a href="../../shared/referencias/referencias.html#ref-fonsecalm2014" role="doc-biblioref">Fonseca et al., 2014</a>; <a href="../../shared/referencias/referencias.html#ref-fonseca2016lrec" role="doc-biblioref">Fonseca et al., 2016a</a>; <a href="../../shared/referencias/referencias.html#ref-freitas2009relation" role="doc-biblioref">Freitas et al., 2009</a>)</span>. Resolução de Correferência consiste em identificar as diferentes formas que uma mesma menção pode assumir em um discurso. Em outras palavras, esse processo consiste em identificar determinados termos e expressões que remetem a uma mesma referência. Na sentença apresentada no <a href="#exm-cap-resolucao-correferencia-1" class="quarto-xref">Exemplo&nbsp;<span>12.1</span></a> podemos dizer que [<em>o único país de a União Europeia a não permitir patenteamento de genes</em>] é uma correferência de [<em>A França</em>], da mesma forma que [<em>A UE</em>] é uma correferência de [<em>a União Europeia</em>]. Agrupando esses termos formamos grupos de menções referenciais, mais conhecidos como cadeias de correferência.</p>
+<div id="exm-cap-resolucao-correferencia-1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 12.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>A França resiste como o único país de a União Europeia a não permitir patenteamento de genes. A UE …</p>
+</blockquote>
+</div>
+<p>Na presente seção, veremos as definições de conceitos fortemente relacionados à tarefa de Resolução de Correferências, tais como os de referentes, entidades nomeadas, sintagmas nominais, entre outras definições.</p>
+<section id="referentes" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="referentes"><span class="header-section-number">12.2.1</span> Referentes</h3>
+<p>Referentes, ou menções, podem ser definidos como termos os quais usamos para nos referirmos a determinada entidade em um discurso. Em um texto, essas referências podem aparecer como uma entidade nomeada específica ou como parte constituinte de um sintagma nominal.</p>
+<section id="entidades-nomeadas" class="level4" data-number="12.2.1.1">
+<h4 data-number="12.2.1.1" class="anchored" data-anchor-id="entidades-nomeadas"><span class="header-section-number">12.2.1.1</span> Entidades Nomeadas</h4>
+<p>Entidades nomeadas, a grosso modo, são elementos que podem ser referenciados por meio de nomes próprios <span class="citation" data-cites="jurafsky2023">(<a href="../../shared/referencias/referencias.html#ref-jurafsky2023" role="doc-biblioref">Jurafsky; Martin, 2023</a>)</span>. Esses nomes próprios podem configurar-se em classes específicas, tais como: Pessoa (nomes de pessoas), Organização (nomes de empresas), Local (nomes de lugares), entre outras. Por meio dos exemplos abaixo, podemos identificar diversas entidades nomeadas (ENs), como Banco Nacional de Desenvolvimento Econômico e Social (a), Apple (b), nomes de bandas musicais (c)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<ol type="a">
+<li>O <u>Banco Nacional de Desenvolvimento Econômico e Social</u> <u>(BNDES)</u>, empresa pública federal, é hoje o principal instrumento de financiamento de longo prazo …</li>
+<li>A <u>Apple</u> informou que vendeu 5 milhões de iPhone 5 só em um fim de semana …</li>
+<li>Várias bandas de black metal tiveram influências do punk, tais como <u>Venom</u>, <u>Celtic Frost</u>, <u>Bathory</u>, <u>Sarcófago</u>, <u>Darkthrone</u>, <u>Impaled</u>, <u>Nazarene</u>, <u>Mayhem</u>, <u>Hellhammer</u>, <u>Behemoth</u>, entre outras …</li>
+</ol>
+</section>
+<section id="sintagmas-nominais" class="level4" data-number="12.2.1.2">
+<h4 data-number="12.2.1.2" class="anchored" data-anchor-id="sintagmas-nominais"><span class="header-section-number">12.2.1.2</span> Sintagmas Nominais</h4>
+<p>São unidades formadas por uma ou mais palavras que, juntas, desempenham uma função sintática específica na frase (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>). A natureza de um sintagma depende diretamente do elemento que constitui seu núcleo. Neste capítulo, damos foco a menções expressas por sintagmas nominais. Dito isso, temos então os sintagmas nominais, cujos núcleos podem configurar-se em nome comum, nome próprio ou um pronome. Os pronomes podem apresentar-se, basicamente, nas formas de pronome pessoal, demonstrativo, indefinido, possessivo ou relativo. Um sintagma nominal geralmente é composto por um determinante (artigo, pronome demonstrativo, pronome indefinido e numeral cardinal) seguido de um substantivo. Por exemplo, na sentença do <a href="#exm-cap-resolucao-correferencia-2" class="quarto-xref">Exemplo&nbsp;<span>12.2</span></a> “<strong>O especialista</strong>” é um sintagma nominal, e o artigo “<strong>O</strong>” é seu determinante. Por meio do determinante de um sintagma é possível extrair informações valiosas. Isto é, a palavra “especialista”, por si só, pode assumir diferentes papéis. Contudo, “<strong>O especialista</strong>” qualifica uma pessoa do sexo masculino, além de informar quem é o especialista (apenas um, não dois ou mais). Notemos que o determinante carrega informações úteis para o processamento linguístico.</p>
+<div id="exm-cap-resolucao-correferencia-2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 12.2</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p><strong>O especialista</strong> não respondeu todas as perguntas.</p>
+</blockquote>
+</div>
+<p>Contudo, sintagmas nominais podem configurar-se em apenas substantivos como no <a href="#exm-cap-resolucao-correferencia-3" class="quarto-xref">Exemplo&nbsp;<span>12.3</span></a> onde temos dois sintagmas nominais sem determinante explícito: “Rio de Janeiro” e “cidade maravilhosa”. Respectivamente, um nome próprio e um substantivo comum seguido de seu adjunto adnominal. Algumas vezes, esse adjunto pode ser predicativo.</p>
+<div id="exm-cap-resolucao-correferencia-3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 12.3</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Rio de Janeiro, cidade maravilhosa</p>
+</blockquote>
+</div>
+<p>Para entendermos a diferença entre adjunto adnominal e predicativo, basta observarmos que ora um termo pode exercer a função de adjunto, ora de predicativo. Ou seja, enquanto o adjunto adnominal representa o termo acessório da oração, o predicativo se revela como um termo essencial, de modo a deixá-la compreensível, dotada de sentido. Em d), “referência em saúde e segurança” representa parte essencial à constituição do enunciado, pois sem a presença desses termos o entendimento estaria comprometido. Assim, consideramos que se trata de um predicativo, visto que atribui uma característica ao sujeito, cujo núcleo é representado por “cidade”.</p>
+<ol start="4" type="a">
+<li>A cidade que é <u>referência em saúde e segurança</u>.</li>
+</ol>
+<p>Em e) constatamos que o termo “limpa” pode perfeitamente ser retirado do contexto oracional sem que isso cause nenhum dano ao perfeito entendimento do discurso. Logo, trata-se de um termo acessório da oração ou adjunto adnominal.</p>
+<ol start="5" type="a">
+<li>A cidade <u>limpa</u> que é referência em saúde e segurança.</li>
+</ol>
+</section>
+<section id="tipos-de-referentes" class="level4" data-number="12.2.1.3">
+<h4 data-number="12.2.1.3" class="anchored" data-anchor-id="tipos-de-referentes"><span class="header-section-number">12.2.1.3</span> Tipos de Referentes</h4>
+<p>Existem três tipos de referentes: referentes específicos, referentes não-específicos e referentes abstratos.</p>
+<dl>
+<dt>Referentes específicos:</dt>
+<dd>
+<p>Quando a menção de uma entidade, basicamente, identifica-a por meio de um nome comum ou próprio.</p>
+<ol start="6" type="a">
+<li><u>Microsoft</u> informou que irá resolver o bug que reinicia o <u>Windows Phone</u> em dezembro.</li>
+<li><u>Luiz Inácio Lula da Silva</u> sancionou nesta quarta-feira, 29, a lei que regulamenta as atividades de moto-taxista e motoboy de todo país...</li>
+<li><u>Roger Waters</u> faz seu segundo show em <u>São Paulo</u>.</li>
+</ol>
+</dd>
+</dl>
+<p>Em (f) temos um referente específico, isto é, a menção da entidade refere-se diretamente a algo específico, à empresa Microsoft. O referente específico, nesse caso, ainda pode ser classificado como uma entidade do tipo Organização. Existem outros tipos de referentes específicos, como Pessoa (g), Local (h) , entre outros. Notemos que em (h) temos dois tipos de referentes específicos, “Roger Waters” e “São Paulo”, respectivamente entidades do tipo Pessoa e Local.</p>
+<dl>
+<dt>Referentes não-específicos:</dt>
+<dd>
+<p>Quando as menções referem-se a uma entidade de forma não específica (autoridades, funcionários, policiais...), como mostram os exemplos “i”, “j” e “k”.</p>
+<ol type="i">
+<li><u>Policiais</u> invadiram a casa, porém os bandidos já haviam fugido.…</li>
+</ol>
+<ol start="10" type="a">
+<li><u>Funcionários</u> estão descontentes. Eles afirmam ainda não terem recebido o seu décimo terceiro salário.</li>
+<li><u>Autoridades</u> disseram que estão cansados de fazer as mesmas declarações.</li>
+</ol>
+</dd>
+<dt>Referentes abstratos:</dt>
+<dd>
+<p>como o próprio nome sugere, são entidades abstratas, “não físicas”. Tratam de estados e qualidades, sentimentos e ações, como: medo, viagem, coragem, felicidade, esforço... Exemplos “l” e “m”.</p>
+<ol start="12" type="a">
+<li>O <u>medo</u> é algo que deve ser superado. Para isso, concentre-se em seus objetivos.</li>
+<li>A <u>viagem</u> foi ótima, porém o tempo podia estar melhor.</li>
+</ol>
+</dd>
+</dl>
+</section>
+</section>
+<section id="relações-semânticas-referenciais" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="relações-semânticas-referenciais"><span class="header-section-number">12.2.2</span> Relações Semânticas Referenciais</h3>
+<p>Nesta subseção temos como foco tornar claro os tipos de relações semânticas que podem indicar uma relação de correferência.</p>
+<section id="hiperonímia-e-hiponímia" class="level4" data-number="12.2.2.1">
+<h4 data-number="12.2.2.1" class="anchored" data-anchor-id="hiperonímia-e-hiponímia"><span class="header-section-number">12.2.2.1</span> Hiperonímia e Hiponímia</h4>
+<p>Hiperonímia é uma relação semântica que expressa um sentido amplo entre dois termos, partindo de uma classe mais ampla para uma subclasse mais específica, por exemplo: (inseto abelha). Neste caso, o termo “inseto” é um hiperônimo de “abelha”. Já Hiponímia representa uma relação contrária, ou seja, parte de uma classe mais específica para uma classe mais abrangente. Para o exemplo previamente dado temos que “abelha” é um hipônimo de “inseto”. Os hiperônimos e hipônimos são importantes no campo semântico, pois são muito usados na retomada de elementos em um texto, a fim de evitar repetições desnecessárias. No que diz respeito à identificação de menções referenciais em um discurso, na língua portuguesa é comum partirmos de termos específicos para termos mais abrangentes. Dessa forma, a relação de Hiponímia geralmente ocorre com maior frequência.</p>
+<ol start="14" type="a">
+<li>João e Maria estão muito felizes com o seu <u>cão</u>. O <u>animal</u> é fiel e companheiro.</li>
+<li>Nada disso vai fazê-los mudar de <u>carro</u>. O pequeno <u>veículo</u> parece suprir todas as necessidades deles.</li>
+</ol>
+</section>
+<section id="synonymysection" class="level4" data-number="12.2.2.2">
+<h4 data-number="12.2.2.2" class="anchored" data-anchor-id="synonymysection"><span class="header-section-number">12.2.2.2</span> Sinonímia</h4>
+<p>Trata-se de uma relação entre dois termos, em que estes, mesmo sendo distintos lexicalmente, possuem significados muito próximos, por exemplo: (menino garoto). É importante referir que muitas vezes os sinônimos podem ter conotações diferentes, dependendo do contexto, como: (gato bichano) e (gato atraente). Em um texto, a utilização de sinônimos de uma palavra é importante para evitar repetições. Assim, um sinônimo é uma palavra que, apesar de ser diferente, tem o mesmo significado (ou semelhante) e, por isso, a sua inclusão não altera o sentido do texto em questão.</p>
+<ol start="16" type="a">
+<li>Esse <u>carro</u> é maravilhoso. Também, estamos falando de um <u>automóvel</u> de 100 mil reais.</li>
+<li>Ana comprou um <u>gato</u>. O <u>bichano</u> adora dormir no sofá.</li>
+</ol>
+</section>
+</section>
+<section id="correferência-anáfora-e-catáfora" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="correferência-anáfora-e-catáfora"><span class="header-section-number">12.2.3</span> Correferência, Anáfora e Catáfora</h3>
+<p>Para o entendimento sobre o que é correferência, é relevante também definirmos anáfora, já que seus conceitos estão relacionados. Anáfora pode ser definida como a retomada de uma expressão apresentada anteriormente em um texto. Quando uma entidade é mencionada pela primeira vez textualmente, temos a evocação da entidade. Durante a leitura da sequência do texto, quando essa entidade é novamente mencionada, temos a realização do acesso a essa entidade. A expressão que faz o acesso é dita como anafórica, e a expressão anterior é dita como seu antecedente <span class="citation" data-cites="vieira2012">(<a href="../../shared/referencias/referencias.html#ref-vieira2012" role="doc-biblioref">Vieira et al., 2012</a>)</span>. Há casos de anáfora em que o termo anafórico e o antecedente são correferentes, isto é, remetem a uma mesma entidade (como os Exemplos “r” e “s” ilustram), mas há também casos de anáfora sem correferência, como podemos ver em “t”.</p>
+<ol start="18" type="a">
+<li>A Ana comprou um <u>cão</u>. <u>O animal</u> já conhece todos os cantos da casa. Nesse exemplo, o termo anafórico é o grupo nominal “o animal”, que retoma o valor referencial do antecedente, “o cão”. É a relação entre “cão” e “animal” que suporta a correferência.</li>
+<li><u>Maria</u> está com febre. Acho que <u>ela</u> está doente. Notemos que a interpretação referencial do sintagma nominal “ela” depende da sua relação anafórica com o sintagma nominal “Maria”.</li>
+<li>João faz 18 anos no dia 2 de Julho de 2001. <u>No dia seguinte</u>, parte para uma grande viagem pela Europa. Já nesse caso, o valor referencial da expressão sublinhada constrói-se a partir da interpretação do antecedente, a expressão adverbial temporal “no dia 2 de Julho de 2001”. Assim, “No dia seguinte” designa o dia 3 de Julho de 2001.</li>
+</ol>
+<p>Catáfora: semelhante à anáfora mas em ordem oposta, uma relação catafórica ocorre quando um termo se refere a outro que vem à frente e lhe dá, a partir deste, o seu sentido. Conforme podemos ver no exemplo “u”:</p>
+<ol start="21" type="a">
+<li>A mãe olhou-<u>o</u> e disse: - <u>Meu filho</u>, estás com um olhar cansado.</li>
+</ol>
+<p>Correferência: é um fenômeno que ocorre quando duas ou mais menções em um discurso referem-se a uma mesma entidade. O conjunto de menções a uma mesma entidade no texto é denominado de cadeia de correferência.</p>
+<ol start="22" type="a">
+<li><p>O <u>João</u> está doente. Vi-<u>o</u> na semana passada. Neste caso, o pronome “o” é uma anáfora de “João”, pois, para ser compreendido, necessita resgatar a frase anterior para que seu significado seja construído.</p>
+<p>Temos também o tipo aposto, que ocorre quando o termo da oração se relaciona a uma entidade para esclarecê-la ou explicá-la, como em “w” e “x”.</p></li>
+<li><p><u>Cubatão</u>, <u>a cidade mais poluída do Brasil</u>, localiza-se na Baixada Santista.</p></li>
+<li><p>Maria comprou várias <u>frutas</u>: <u>mamão</u>, <u>melancia</u>, <u>abacate</u> e <u>uva</u>. Normalmente, o aposto aparece isolado por sinais de pontuação, sendo mais comum aparecer entre vírgulas ou então introduzido por dois pontos. Nos exemplos acima podemos notar que “cidade” é correferente de “Cubatão”, e “mamão, melancia, abacate e uva” são correferentes de “frutas”.</p></li>
+<li><p>(extraído do <em>corpus</em> Summ-it <span class="citation" data-cites="collovini2007summit">(<a href="../../shared/referencias/referencias.html#ref-collovini2007summit" role="doc-biblioref">Collovini et al., 2007</a>)</span>) “A discussão sobre a biotecnologia nacional está enviesada, pois está sendo entendida como sinônimo de transgenia. A opinião é de <u>Miguel Guerra</u>, da UFSC (Universidade Federal de Santa Catarina). <u>Guerra</u> participou do debate”Biotecnologia para uma Agricultura Sustentável”... Para <u>o agrônomo</u>, o Brasil deve buscar o desenvolvimento de transgenias que tentem melhorar as condições da agricultura local...”</p></li>
+</ol>
+<p>No exemplo “y”, as expressões “Guerra” e “o agrônomo” fazem referência à entidade “Miguel Guerra”, já mencionada anteriormente no texto. Para não repetir a mesma expressão, faz-se uso de outra diferente, mas que retoma a mesma entidade mencionada previamente. Esse é um método muito utilizado no processo de escrita para não deixar o texto repetitivo, e está diretamente relacionado a coesão referencial e sequencial. Notemos que a coesão referencial é responsável por criar um sistema de relações entre as menções dentro de um texto, permitindo que o leitor identifique termos e expressões que remetem a uma mesma entidade. Junto a isso temos também a coesão sequencial, responsável por criar condições que auxiliam na progressão textual. De forma geral, as flexões de tempo, as de modo dos verbos e as conjunções são mecanismos responsáveis pela coesão sequencial e auxiliam na coesão referencial.</p>
+<p>Esses fatores inferem diretamente nas dificuldades existentes na tarefa de resolução de correferência, dado que estão relacionados diretamente a questões linguísticas e a habilidades cognitivas humanas complexas, de difícil reprodução por sistemas computacionais. Em poucas palavras, o desafio é: como inferir computacionalmente que a palavra “agrônomo”, que está sendo citada dois parágrafos abaixo da expressão “o agrônomo Miguel Guerra”, está se referindo a esta entidade e não a uma outra?</p>
+<p>Portanto, o conjunto dessas expressões referenciais relativas a uma mesma entidade de mundo denomina-se <strong>cadeia de correferência</strong>. Esse conjunto é responsável pela construção coesa de um texto e por isso sua importância, já que a coesão é responsável pela compreensão textual. No exemplo “y”, podemos afirmar que “Miguel Guerra” é o antecedente e “Guerra” é a anáfora. Dessa forma, expressões correferentes fazem referência à mesma entidade, enquanto expressões anafóricas e catafóricas podem retomar uma referência ou ativar um novo referente. Anáfora e catáfora pressupõem um par ordenado, enquanto que a correferência remete à ideia de conjunto <span class="citation" data-cites="poesio2016anaphora">(<a href="../../shared/referencias/referencias.html#ref-poesio2016anaphora" role="doc-biblioref">Poesio et al., 2016</a>)</span>.</p>
+</section>
+<section id="referências-endofóricas-e-exofóricas" class="level3" data-number="12.2.4">
+<h3 data-number="12.2.4" class="anchored" data-anchor-id="referências-endofóricas-e-exofóricas"><span class="header-section-number">12.2.4</span> Referências Endofóricas e Exofóricas</h3>
+<p>Quando lidamos com relações referenciais é importante deixarmos claro que estas podem configurar-se em dois tipos: endofóricas e exofóricas. Referências endofóricas são aquelas que antecedem ou sucedem informação dentro de um texto. Essas comumente ocorrem na forma de anáforas ou catáforas, conforme visto nos exemplos anteriores. Já relações exofóricas referem-se a relações que ocorrem fora de um dado texto e necessitam de um prévio conhecimento de mundo, local ou momento para serem identificadas, como em:</p>
+<ol start="26" type="a">
+<li><u>O Bruxo do Cosme Velho</u> foi homenageado em <u>nossa cidade</u>.</li>
+</ol>
+<p>Notemos que no exemplo “z” não existem referências para os termos “Bruxo do Cosme Velho” e “nossa cidade”. É necessário recorrermos ao conhecimento de mundo para inferirmos que “Bruxo do Cosme Velho” refere-se a Machado de Assis. Da mesma forma, a referência do termo “nossa cidade” não está no texto, mas pode estar na memória do leitor ou na memória do escritor.</p>
+</section>
+<section id="correferência-coerência-e-coesão" class="level3" data-number="12.2.5">
+<h3 data-number="12.2.5" class="anchored" data-anchor-id="correferência-coerência-e-coesão"><span class="header-section-number">12.2.5</span> Correferência, coerência e coesão</h3>
+<p>Quando lidamos com a resolução de correferência, existem características que geralmente ficam implícitas em textos bem escritos e estruturados, mas que merecem atenção, dado que influenciam diretamente na obtenção de bons resultados. Dentro desse contexto, temos a coerência e a coesão textual. De acordo com <span class="citation" data-cites="koch1989">Koch; Travaglia (<a href="../../shared/referencias/referencias.html#ref-koch1989" role="doc-biblioref">2012</a>)</span> a coerência textual é algo que tem a ver com a boa formação do texto, não em um sentido gramatical, mas sim em nível de interlocução. A coerência é algo que se estabelece na interação, na interlocução ou em uma situação comunicativa entre duas pessoas. Em poucas palavras, a coerência é o que faz com que o texto tenha sentido, devendo ser vista como um princípio de interpretabilidade do texto e também com a capacidade que o leitor possui para calcular seu significado. A coerência é vista também como uma continuidade de sentidos perceptíveis no texto, a qual resulta em uma conexão conceitual cognitiva entre os elementos do texto. Como podemos perceber, a coerência é, ao mesmo tempo, semântica e pragmática aplicadas, pois a forma como construímos nossas ideias pode variar, de acordo com nosso conhecimento de mundo.</p>
+<p>Paralelamente ao conceito de coerência temos a coesão. Ao contrário da coerência, a coesão é explicitamente revelada por meio de marcas linguísticas, sendo de caráter linear, dado que manifesta-se na organização sequencial de um texto. Em poucas palavras, a coesão está muito mais ligada à sintaxe e à gramática. Notemos que esses conceitos são muito importantes para a tarefa de Resolução de Correferência, dado que a correferência de um termo e seu antecedente é guiada por essa construção de ideias.</p>
+</section>
+</section>
+<section id="principaismodelosdaliteratura" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="principaismodelosdaliteratura"><span class="header-section-number">12.3</span> Abordagens Computacionais para Resolução de Correferência</h2>
+<p>Na literatura, encontramos uma grande variedade de abordagens que propõem resolver correferência em diversos idiomas, como: inglês, chinês, árabe, espanhol, galego, português, entre outros <span class="citation" data-cites="soon2001 vincent2002 entitymention rahmanandng2011 fernandes2014 chang2012 coreixas2010 fonsecalm2014 fonseca2014 fonsecaflairs2015 latentstructures lee2017endtoend">(<a href="../../shared/referencias/referencias.html#ref-chang2012" role="doc-biblioref">Chang et al., 2012</a>; <a href="../../shared/referencias/referencias.html#ref-coreixas2010" role="doc-biblioref">Coreixas, 2010</a>; <a href="../../shared/referencias/referencias.html#ref-fernandes2014" role="doc-biblioref">Fernandes et al., 2014</a>; <a href="../../shared/referencias/referencias.html#ref-fonsecalm2014" role="doc-biblioref">Fonseca et al., 2014</a>; <a href="../../shared/referencias/referencias.html#ref-fonseca2014" role="doc-biblioref">Fonseca, 2014</a>; <a href="../../shared/referencias/referencias.html#ref-fonsecaflairs2015" role="doc-biblioref">Fonseca et al., 2015</a>; <a href="../../shared/referencias/referencias.html#ref-lee2017endtoend" role="doc-biblioref">Lee et al., 2017</a>; <a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">Martschat; Strube, 2015</a>; <a href="../../shared/referencias/referencias.html#ref-vincent2002" role="doc-biblioref">Ng; Cardie, 2002</a>; <a href="../../shared/referencias/referencias.html#ref-rahmanandng2011" role="doc-biblioref">Rahman; Ng, 2011a</a>; <a href="../../shared/referencias/referencias.html#ref-soon2001" role="doc-biblioref">Soon et al., 2001</a>; <a href="../../shared/referencias/referencias.html#ref-entitymention" role="doc-biblioref">Yang et al., 2008</a>)</span>. Essas abordagens, em sua maioria, são voltadas para a língua Inglesa e baseadas em aprendizado de máquina. Contudo, é possível encontrarmos alguns modelos baseados em regras linguísticas <span class="citation" data-cites="lee2013 garcia2014 hou2014">(<a href="../../shared/referencias/referencias.html#ref-garcia2014" role="doc-biblioref">Garcia; Gamallo, 2014</a>; <a href="../../shared/referencias/referencias.html#ref-hou2014" role="doc-biblioref">Hou et al., 2014</a>; <a href="../../shared/referencias/referencias.html#ref-lee2013" role="doc-biblioref">Lee et al., 2013</a>)</span>. Veremos que, diferente dos modelos baseados em regras, o aprendizado de máquina pode se ramificar em diferentes propostas, como <em>Mention-Pair</em>, <em>Entity-Mention</em>, <em>Mention-Ranking</em> e <em>Antecedent-Trees</em>.</p>
+<section id="modelos-baseados-em-regras" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="modelos-baseados-em-regras"><span class="header-section-number">12.3.1</span> Modelos Baseados em Regras</h3>
+<p>Modelos baseados em regras consistem em uma série de passos que definem se duas menções são correferentes entre si. Abordagens baseadas em regras requerem um conhecimento prévio mais aprofundado referente ao idioma e ao domínio a serem tratados. Por exemplo, ao lidarmos com aprendizado de máquina, durante a implementação e seleção de <em>features</em>, caso sejam selecionadas <em>features</em> irrelevantes, a maioria dos algoritmos de treino consegue detectar e desconsiderar tal característica. Já em abordagens voltadas a regras, não temos essa flexibilidade. Cada regra deve ser elaborada cuidadosamente, pois não temos um modelo estatístico como apoio. Outra característica forte desses modelos é a forma como as menções são agrupadas. Ou seja, em abordagens baseadas em regras não existe etapa de treinamento: definidas as regras, uma menção <span class="math inline">\(m_j\)</span> é comparada com todas as menções que a antecedem e, caso alguma das regras seja satisfeita, essas menções são agrupadas. Esse tipo de método é o mais utilizado pelos modelos de regras atuais <span class="citation" data-cites="lee2013 garcia2014">(<a href="../../shared/referencias/referencias.html#ref-garcia2014" role="doc-biblioref">Garcia; Gamallo, 2014</a>; <a href="../../shared/referencias/referencias.html#ref-lee2013" role="doc-biblioref">Lee et al., 2013</a>)</span>.</p>
+<p>Um dos principais modelos de regras contido na literatura foi proposto por <span class="citation" data-cites="lee2011">Lee et al. (<a href="../../shared/referencias/referencias.html#ref-lee2011" role="doc-biblioref">2011</a>)</span>. Denominado Stanford Multi-Pass Sieve, é um sistema para a resolução de correferência puramente baseado em regras linguísticas. Seu modelo possui dez <em>Sieves</em>/filtros, cujo objetivo é agrupar menções correferentes, caso cada regra ou conjunto de regras sejam satisfeitos. O modelo de Lee et al.&nbsp;foi proposto para o inglês, durante a CoNLL<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (<em>Conference on Natural Language Learning</em>), ficando em primeiro colocado no <em>ranking</em> de melhores modelos. Os modelos foram avaliados por meio do <em>corpus</em> Ontonotes <span class="citation" data-cites="ontonotes">(<a href="../../shared/referencias/referencias.html#ref-ontonotes" role="doc-biblioref">Pradhan et al., 2011</a>)</span>, em conjunto do CoNLL Scorer <span class="citation" data-cites="conllscorer">(<a href="../../shared/referencias/referencias.html#ref-conllscorer" role="doc-biblioref">Pradhan et al., 2014</a>)</span>. Alguns anos após surgiram outras abordagens semelhantes com o mesmo propósito, como o trabalho de <span class="citation" data-cites="garcia2014">Garcia; Gamallo (<a href="../../shared/referencias/referencias.html#ref-garcia2014" role="doc-biblioref">2014</a>)</span>, voltado ao português, ao espanhol e ao galego. Embora abordagens baseadas em regras possam ser de custoso planejamento, dado que cada idioma possui suas características, estas podem provar-se eficazes e competitivas, principalmente quando há carência por <em>corpora</em> anotados.</p>
+</section>
+<section id="modelos-baseados-em-aprendizado-de-máquina" class="level3" data-number="12.3.2">
+<h3 data-number="12.3.2" class="anchored" data-anchor-id="modelos-baseados-em-aprendizado-de-máquina"><span class="header-section-number">12.3.2</span> Modelos Baseados em Aprendizado de Máquina</h3>
+<section id="mention-pair" class="level4" data-number="12.3.2.1">
+<h4 data-number="12.3.2.1" class="anchored" data-anchor-id="mention-pair"><span class="header-section-number">12.3.2.1</span> Mention Pair</h4>
+<p>A primeira delas, e a mais popular, provavelmente por sua simplicidade, é a abordagem baseada em pares de menções. Basicamente, modelos que lidam com essa abordagem optam por efetuar seu treino por meio de pares de menções, de forma a determinar se duas menções são correferentes ou não. Os modelos baseados em pares de menções têm influenciado significativamente os trabalhos que propõem a resolução de correferência utilizando técnicas de aprendizado de máquina nos últimos dezesseis anos <span class="citation" data-cites="soon2001">(<a href="../../shared/referencias/referencias.html#ref-soon2001" role="doc-biblioref">Soon et al., 2001</a>)</span>. Modelos baseados em pares de menções visam responder se devem ou não classificar como correferente uma menção <span class="math inline">\(m_j\)</span> com um candidato antecedente <span class="math inline">\(m_i\)</span>. Inicialmente, para treinar um modelo baseado em pares, é necessário extrair características/<em>features</em> que possibilitem obter alguma informação proveniente da comparação entre <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span>. No <a href="#def-cap-resolucao-correferencia-quadrofeatures" class="quarto-xref">Quadro&nbsp;<span>12.1</span></a>, podemos observar as <em>features</em> mais utilizadas pela literatura.</p>
+<div id="def-cap-resolucao-correferencia-quadrofeatures" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.1</strong></span> <em>Features</em> mais comuns na literatura.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong><em>Feature</em></strong></th>
+<th style="text-align: left;"><strong>Descrição</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Casamento de Padrões</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> são lexicalmente iguais.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Casamento de Núcleos</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuem o mesmo núcleo.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alias</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_j\)</span> é sigla de <span class="math inline">\(m_i\)</span> ou vice-versa.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I_Pronome</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> é um pronome.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">J_Pronome</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_j\)</span> é um pronome.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Número</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> concordam em número (singular/plural).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gênero</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> concordam em gênero (masculino/feminino).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nome Próprio</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> são nomes próprios.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aposto</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_j\)</span> é aposto de <span class="math inline">\(m_i\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Distância entre Sentenças</td>
+<td style="text-align: left;">Distância em sentenças entre <span class="math inline">\(m_j\)</span> e <span class="math inline">\(m_i\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Distância entre Sintagmas</td>
+<td style="text-align: left;">Distância em menções à entre <span class="math inline">\(m_j\)</span> e <span class="math inline">\(m_i\)</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Classe Semântica</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuem mesma classe semântica.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hiponímia</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuem uma relação de hiponímia.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hiperonímia</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuem uma relação de hiperonímia.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sinonímia</td>
+<td style="text-align: left;">Se <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuem uma relação de sinonímia.</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Um dos grandes desafios ao utilizar uma abordagem baseada em pares de menções se dá no desbalanceamento entre as classes positiva (pares correferentes) e negativa (pares não correferentes). Ou seja, todo modelo requer, além de amostras positivas, amostras de pares negativos. Dada essa premissa, é necessário realizar a construção de pares. Nessa etapa, ao cruzarmos essas menções, consequentemente teremos muito mais amostras negativas do que positivas. Objetivando minimizar esse desbalanceamento entre as classes, alguns trabalhos propõem diferentes técnicas para geração de pares.</p>
+<p><span class="citation" data-cites="soon2001">Soon et al. (<a href="../../shared/referencias/referencias.html#ref-soon2001" role="doc-biblioref">2001</a>)</span> realizam um pareamento distinto para cada uma das classes: para os pares positivos, dado o conjunto de menções C={<span class="math inline">\(m_i\)</span>,<span class="math inline">\(m_j\)</span>,<span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span>} (todas correferentes entre si), apenas as menções imediatamente adjacentes formam pares (<a href="#def-cap-resolucao-correferencia-pareamentopositivosoon" class="quarto-xref">Quadro&nbsp;<span>12.2</span></a>): <span class="math inline">\(P_p\)</span>= {(<span class="math inline">\(m_i\)</span>,<span class="math inline">\(m_j\)</span>), (<span class="math inline">\(m_j\)</span>,<span class="math inline">\(m_k\)</span>), (<span class="math inline">\(m_k\)</span>,<span class="math inline">\(m_l\)</span>)}. Para gerar os pares negativos, considere o conjunto de menções M={<span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span>, <span class="math inline">\(m_o\)</span>, <span class="math inline">\(m_p\)</span>, <span class="math inline">\(m_q\)</span>} em que apenas as menções <span class="math inline">\(m_m\)</span> e <span class="math inline">\(m_q\)</span> são correferentes. Dentro desse contexto, a última menção deste conjunto, <span class="math inline">\(m_q\)</span>, faz par com todas as anteriores, exceto com <span class="math inline">\(m_m\)</span>: <span class="math inline">\(P_n\)</span>={ (<span class="math inline">\(m_q\)</span>,<span class="math inline">\(m_p\)</span>), (<span class="math inline">\(m_q\)</span>,<span class="math inline">\(m_o\)</span>) e (<span class="math inline">\(m_q\)</span>,<span class="math inline">\(m_n\)</span>)} (<a href="#def-cap-resolucao-correferencia-pareamentonegativosoon" class="quarto-xref">Quadro&nbsp;<span>12.3</span></a>).</p>
+<p>Notemos que no <a href="#def-cap-resolucao-correferencia-pareamentopositivosoon" class="quarto-xref">Quadro&nbsp;<span>12.2</span></a>, o conjunto de menções considerado é uma cadeia de correferência. Já no <a href="#def-cap-resolucao-correferencia-pareamentonegativosoon" class="quarto-xref">Quadro&nbsp;<span>12.3</span></a>, o conjunto de menções não consiste em uma cadeia. Apenas as menções <span class="math inline">\(m_m\)</span> e <span class="math inline">\(m_q\)</span> são correferentes. Logo, não formam par.</p>
+<p></p>
+<div id="def-cap-resolucao-correferencia-pareamentopositivosoon" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.2</strong></span> Geração de pares positivos proposta por <span class="citation" data-cites="soon2001">(<a href="../../shared/referencias/referencias.html#ref-soon2001" role="doc-biblioref">Soon et al., 2001</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de amostras Positivas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span><br>
+<span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span><br>
+<span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<div id="def-cap-resolucao-correferencia-pareamentonegativosoon" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.3</strong></span> Geração de pares negativos proposta por <span class="citation" data-cites="soon2001">(<a href="../../shared/referencias/referencias.html#ref-soon2001" role="doc-biblioref">Soon et al., 2001</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de amostras Negativas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span>, <span class="math inline">\(m_o\)</span>, <span class="math inline">\(m_p\)</span>, <span class="math inline">\(m_q\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_q\)</span>, <span class="math inline">\(m_p\)</span><br>
+<span class="math inline">\(m_q\)</span>, <span class="math inline">\(m_o\)</span><br>
+<span class="math inline">\(m_q\)</span>, <span class="math inline">\(m_n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p><span class="citation" data-cites="latentstructures">Martschat; Strube (<a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">2015</a>)</span> propõem uma mesma metodologia para geração de pares positivos e negativos: dado documento <span class="math inline">\(D_x\)</span>, que possua um conjunto de menções M={<span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span>,<span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span>} em que apenas <span class="math inline">\(m_l\)</span> e <span class="math inline">\(m_i\)</span> são correferentes, o conjunto de pares (positivos e negativos) será: P= {(<span class="math inline">\(m_l\)</span>,<span class="math inline">\(m_k\)</span>), (<span class="math inline">\(m_l\)</span>,<span class="math inline">\(m_j\)</span>), (<span class="math inline">\(m_l\)</span>,<span class="math inline">\(m_i\)</span>)}. Basicamente, para cada par correferente (<span class="math inline">\(m_x\)</span>,<span class="math inline">\(m_y\)</span>), a geração de amostras negativas será realizada com as menções entre (<span class="math inline">\(m_x\)</span>,<span class="math inline">\(m_y\)</span>). Notemos que essa construção é efetiva pelo fato de não gerar uma grande quantidade de amostras negativas. No entanto, devido a essa restrição, pode-se perder pares negativos que possuam informações relevantes.</p>
+<div id="def-cap-resolucao-correferencia-pareamentomartschat" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.4</strong></span> Geração de pares positivos e negativos proposta por <span class="citation" data-cites="latentstructures">(<a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">Martschat; Strube, 2015</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de amostras Positivas e Negativas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_k\)</span><br>
+<span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_j\)</span><br>
+<span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_i\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Em <span class="citation" data-cites="fonsecaflairs2015">(<a href="../../shared/referencias/referencias.html#ref-fonsecaflairs2015" role="doc-biblioref">Fonseca et al., 2015</a>)</span>, para um dado conjunto de menções M={<span class="math inline">\(m_i\)</span>,<span class="math inline">\(m_j\)</span>,<span class="math inline">\(m_k\)</span>}, temos: P={(<span class="math inline">\(m_i\)</span>,<span class="math inline">\(m_j\)</span>), (<span class="math inline">\(m_i\)</span>,<span class="math inline">\(m_k\)</span>), (<span class="math inline">\(m_j\)</span>,<span class="math inline">\(m_k\)</span>)}. Basicamente, cada menção faz par com a próxima, independente de esta ser correferente ou não. Notemos que a quantidade de pares será muito maior que em <span class="citation" data-cites="latentstructures">(<a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">Martschat; Strube, 2015</a>)</span>. Para minimizar o desbalanceamento entre as classes foi utilizado <em>random undersampling</em>, que consiste na seleção aleatória de <em>n</em> pares negativos, em que <em>n</em> é a quantidade de pares positivos. Por meio de experimentos, foi visto que os níveis de balanceamento “1 para 1” (um par positivo para cada par negativo) e “1 para 2” (um par positivo para cada dois pares negativos) foram os que obtiveram melhores resultados.</p>
+<div id="def-cap-resolucao-correferencia-pareamentofonseca" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.5</strong></span> Geração de pares positivos e negativos proposta por <span class="citation" data-cites="fonsecaflairs2015">(<a href="../../shared/referencias/referencias.html#ref-fonsecaflairs2015" role="doc-biblioref">Fonseca et al., 2015</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de amostras Positivas e Negativas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span><br>
+<span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_k\)</span><br>
+<span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+</section>
+</section>
+<section id="entity-mention" class="level3" data-number="12.3.3">
+<h3 data-number="12.3.3" class="anchored" data-anchor-id="entity-mention"><span class="header-section-number">12.3.3</span> Entity-Mention</h3>
+<p>Diferente do tradicional <em>Mention Pair</em>, o <em>Entity-Mention</em> <span class="citation" data-cites="entitymention">(<a href="../../shared/referencias/referencias.html#ref-entitymention" role="doc-biblioref">Yang et al., 2008</a>)</span> explora a propriedade de representação do discurso, tendo em vista o conhecimento de quando uma entidade é nova no discurso ou anafórica (semelhante à nossa metodologia de agrupamento proposta). Para conceber os pares, assume-se que uma instância de treino positiva consiste em i{<span class="math inline">\(e_x\)</span>,<span class="math inline">\(m_y\)</span>}, na qual <span class="math inline">\(m_y\)</span> é uma menção ativa e <span class="math inline">\(e_x\)</span> é uma entidade parcial, encontrada antes de <span class="math inline">\(m_y\)</span>. Para cada menção anafórica <span class="math inline">\(m_y\)</span>, uma única instância de treinamento positivo é criada para a entidade parcial à qual <span class="math inline">\(m_y\)</span> pertence. Para os pares negativos, é criado um grupo de instâncias para cada entidade cuja última menção ocorra entre <span class="math inline">\(m_y\)</span> e o antecedente mais próximo de <span class="math inline">\(m_y\)</span>. Por exemplo: considere o conjunto de menções M={<span class="math inline">\(e_i\)</span>,<span class="math inline">\(m_j\)</span>,<span class="math inline">\(e_k\)</span>,<span class="math inline">\(m_l\)</span>,<span class="math inline">\(m_m\)</span>,<span class="math inline">\(m_n\)</span>}. Assumindo que neste conjunto tenhamos duas cadeias: C1={<span class="math inline">\(e_i\)</span>,<span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_m\)</span>} e C2={<span class="math inline">\(e_k\)</span>,<span class="math inline">\(m_n\)</span>} e <span class="math inline">\(m_n\)</span> é a menção ativa. Teremos então, como conjunto dos pares positivos, <span class="math inline">\(P_p\)</span>={(<span class="math inline">\(m_n\)</span>,<span class="math inline">\(e_k\)</span>)} e como conjunto de pares negativos <span class="math inline">\(P_n\)</span>={(<span class="math inline">\(m_n\)</span>,<span class="math inline">\(m_m\)</span>), (<span class="math inline">\(m_n\)</span>,<span class="math inline">\(m_j\)</span>), (<span class="math inline">\(m_n\)</span>,<span class="math inline">\(e_i\)</span>), (<span class="math inline">\(m_n\)</span>,<span class="math inline">\(m_l\)</span>)}. Basicamente, assumindo que <span class="math inline">\(m_n\)</span> representa a menção ativa e <span class="math inline">\(e_k\)</span> representa seu antecedente, notemos que temos duas menções entre elas (<span class="math inline">\(m_l\)</span> e <span class="math inline">\(m_m\)</span>). Nesse caso, toda menção ou cadeia pertencente a m<span class="math inline">\(_l\)</span> e m<span class="math inline">\(_m\)</span> forma par com a menção ativa. Nos Quadros <a href="#def-cap-resolucao-correferencia-yangpareamentopositivo" class="quarto-xref"><span>12.6</span></a> e <a href="#def-cap-resolucao-correferencia-yangpareamentonegativo" class="quarto-xref"><span>12.7</span></a> temos os pares gerados, considerando <span class="math inline">\(m_n\)</span> como menção ativa. Notemos que a cada iteração a menção ativa será outra e com isso novos pares serão gerados, sempre utilizando o mesmo critério.</p>
+<div id="def-cap-resolucao-correferencia-yangpareamentopositivo" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.6</strong></span> Geração de pares positivos proposta por <span class="citation" data-cites="entitymention">(<a href="../../shared/referencias/referencias.html#ref-entitymention" role="doc-biblioref">Yang et al., 2008</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de Amostras Positivas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(e_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(e_k\)</span>, <span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_n\)</span>, <span class="math inline">\(e_k\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p></p>
+<div id="def-cap-resolucao-correferencia-yangpareamentonegativo" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.7</strong></span> Geração de pares negativos proposta por <span class="citation" data-cites="entitymention">(<a href="../../shared/referencias/referencias.html#ref-entitymention" role="doc-biblioref">Yang et al., 2008</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Pareamento de Amostras Negativas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Conjunto de menções</strong></td>
+<td style="text-align: center;"><span class="math inline">\(e_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(e_k\)</span>, <span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Pares</strong></td>
+<td style="text-align: center;"><span class="math inline">\(m_n\)</span>, <span class="math inline">\(m_m\)</span><br>
+<span class="math inline">\(m_n\)</span>, <span class="math inline">\(m_j\)</span><br>
+<span class="math inline">\(m_n\)</span>, <span class="math inline">\(e_i\)</span><br>
+<span class="math inline">\(m_n\)</span>, <span class="math inline">\(m_l\)</span></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Outro diferencial deste modelo focado em entidades está na forma de representar suas <em>features</em>: os autores definem três tipos de instâncias, que representam como as menções se relacionam: <em>link(<span class="math inline">\(e_x\)</span>,<span class="math inline">\(m_y\)</span>)</em>, em que <span class="math inline">\(m_y\)</span> representa uma menção ativa e <span class="math inline">\(e_x\)</span> representa uma entidade parcial; <em>has_mention(<span class="math inline">\(e\)</span>,<span class="math inline">\(m\)</span>)</em>, descrevendo todas as menções as quais determinada menção está ligada. Por exemplo, para a cadeia previamente mencionada, C1={<span class="math inline">\(e_i\)</span>,<span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_m\)</span>}, teremos então <em>has_mention(<span class="math inline">\(e_i\)</span>,<span class="math inline">\(m_j\)</span>)</em>, <em>has_mention(<span class="math inline">\(e_i\)</span>,<span class="math inline">\(m_m\)</span>)</em>; e o último denota as características de cada par de menções, seguindo a seguinte estrutura: nome_da_feature(<span class="math inline">\(m_x\)</span>,<span class="math inline">\(m_y\)</span>, 0), representando respectivamente: o nome da <em>feature</em>, o par de menções e um valor binário (0 para falso e 1 para verdadeiro).</p>
+</section>
+<section id="mention-ranking" class="level3" data-number="12.3.4">
+<h3 data-number="12.3.4" class="anchored" data-anchor-id="mention-ranking"><span class="header-section-number">12.3.4</span> Mention-Ranking</h3>
+<p>No <em>Mention-Ranking model</em>, assim como o <em>Mention pair</em>, cada instância de treino i(<span class="math inline">\(m_x\)</span>,<span class="math inline">\(m_y\)</span>) representa <span class="math inline">\(m_y\)</span> e sua menção precedente <span class="math inline">\(m_x\)</span>. Basicamente, as <em>features</em> que representam uma instância e um método para criar uma instância de treino são idênticas às utilizadas pelo <em>Mention Pair model</em>. A diferença reside em rotular as instâncias de treino, assumindo que <span class="math inline">\(I_y\)</span> é um conjunto de instâncias de treino, criadas para a menção anafórica <span class="math inline">\(m_y\)</span>, o <em>rank</em> para i(<span class="math inline">\(m_x\)</span>,<span class="math inline">\(m_y\)</span>) em <span class="math inline">\(I_y\)</span> é o rank de <span class="math inline">\(m_y\)</span> entre os candidatos antecedentes, que é 2 se <span class="math inline">\(m_x\)</span> é o antecedente mais próximo de <span class="math inline">\(m_y\)</span> ou 1 caso contrário. Em poucas palavras, o antecedente mais próximo de sua anáfora recebe um <em>ranking</em> maior em relação às demais menções. Considere o seguinte conjunto de menções M={<span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span>}, contendo as seguintes cadeias C1={<span class="math inline">\(m_i\)</span>, <span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_n\)</span>,} C2={<span class="math inline">\(m_j\)</span>, <span class="math inline">\(m_l\)</span>,}. Notemos que, para <span class="math inline">\(m_n\)</span>, teremos as seguintes instâncias:</p>
+<div id="def-cap-resolucao-correferencia-pareamentomentionranking" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.8</strong></span> Instâncias de treino geradas para <span class="math inline">\(m_n\)</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 20%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\mathbf{I_n}\)</span></th>
+<th></th>
+<th style="text-align: center;"><strong><em>Ranking</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>Pares</strong></td>
+<td><span class="math inline">\(m_m\)</span>, <span class="math inline">\(m_n\)</span><br>
+<span class="math inline">\(m_l\)</span>, <span class="math inline">\(m_n\)</span><br>
+<span class="math inline">\(m_k\)</span>, <span class="math inline">\(m_n\)</span><br>
+</td>
+<td style="text-align: center;">1<br>
+1<br>
+2<br>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Notemos que <span class="math inline">\(m_i\)</span> não faz par com <span class="math inline">\(m_n\)</span>, mas sim com <span class="math inline">\(m_k\)</span>, dado que <span class="math inline">\(m_i\)</span> é antecedente de <span class="math inline">\(m_k\)</span>. Dado que <span class="math inline">\(m_k\)</span> é o antecedente mais próximo de <span class="math inline">\(m_n\)</span>, o par recebe <em>ranking</em> 2. Já os demais pares (considerando <span class="math inline">\(m_n\)</span>) recebem valor 1. Mesmo o <em>Mention-Ranking</em> não sendo muito popular, seus resultados são superiores às abordagens baseadas em pares de menções, como podemos ver em <span class="citation" data-cites="rahman2011">(<a href="../../shared/referencias/referencias.html#ref-rahman2011" role="doc-biblioref">Rahman; Ng, 2011b</a>)</span> e <span class="citation" data-cites="latentstructures">(<a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">Martschat; Strube, 2015</a>)</span>.</p>
+</section>
+<section id="antecedent-tree" class="level3" data-number="12.3.5">
+<h3 data-number="12.3.5" class="anchored" data-anchor-id="antecedent-tree"><span class="header-section-number">12.3.5</span> Antecedent-Tree</h3>
+<p>Na proposta de <span class="citation" data-cites="fernandes2014">(<a href="../../shared/referencias/referencias.html#ref-fernandes2014" role="doc-biblioref">Fernandes et al., 2014</a>)</span>, também baseada em pares de menções, os autores propõem um conjunto de regras, as quais objetivam reduzir a quantidade de pares menos propensos a serem correferentes. Assim, para um dado par de menções, caso pelo menos uma das regras do <a href="#def-cap-resolucao-correferencia-regrasparfernandes" class="quarto-xref">Quadro&nbsp;<span>12.9</span></a> seja satisfeita, o par é considerado válido para utilizar em seu treinamento (seja ele um par positivo ou negativo).</p>
+<div id="def-cap-resolucao-correferencia-regrasparfernandes" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 12.9</strong></span> Conjunto de regras para seleção de pares proposto por <span class="citation" data-cites="fernandes2014">(<a href="../../shared/referencias/referencias.html#ref-fernandes2014" role="doc-biblioref">Fernandes et al., 2014</a>)</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Regra</strong></th>
+<th style="text-align: left;"><strong>Descrição – Considera um par como válido se:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Distância</td>
+<td style="text-align: left;">a quantidade de menções entre <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> não ultrapassar um determinado <em>threshold</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Classe Semântica</td>
+<td style="text-align: left;"><span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span> possuírem mesma classe semântica.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Combinação de Núcleos</td>
+<td style="text-align: left;">o núcleo de <span class="math inline">\(m_i\)</span> combinar com o núcleo de <span class="math inline">\(m_j\)</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Concordância em atributos de discurso</td>
+<td style="text-align: left;">os atributos de discurso combinam para <span class="math inline">\(m_i\)</span> e <span class="math inline">\(m_j\)</span>. Esta regra consiste de um conjunto de regras proposto por <span class="citation" data-cites="lee2013">Lee et al. (<a href="../../shared/referencias/referencias.html#ref-lee2013" role="doc-biblioref">2013</a>)</span>, o qual baseia-se em atributos de uma menção e seu falante.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pronome J</td>
+<td style="text-align: left;"><span class="math inline">\(m_j\)</span> for um pronome e <span class="math inline">\(m_i\)</span> concordar em gênero, número ou fala.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pronome e Entidade Nomeada</td>
+<td style="text-align: left;"><span class="math inline">\(m_j\)</span> for um pronome e <span class="math inline">\(m_i\)</span> for um pronome compatível ou uma entidade nomeada.</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Referente ao motivo dos autores nomearem sua abordagem como <em>Antecedent-Tree model</em>, reside na forma de representar o agrupamento de suas menções: para representar o agrupamento de menções correferentes entre si são utilizadas estruturas chamadas de árvores. Uma árvore de correferência é uma árvore cujos nós são dirigidos às menções e os arcos representam alguma relação entre elas. Basicamente, para cada documento é gerado um conjunto de árvores e de sub-árvores, em que cada sub-árvore representa uma menção e seus referentes. Ou seja, cada anáfora pode ser considerada uma raiz ou nodo-pai e seus antecedentes podem ser considerados nodos-filhos.</p>
+<p>Notemos que cada abordagem possui uma forma distinta para concepção de suas amostras de treino, assim como que para representar suas estruturas de agrupamento. <span class="citation" data-cites="latentstructures">Martschat; Strube (<a href="../../shared/referencias/referencias.html#ref-latentstructures" role="doc-biblioref">2015</a>)</span> propuseram uma forma unificada de representar tais estruturas, os autores a chamam de estrutura latente. Basicamente, uma estrutura latente é representada por um conjunto de <em>arrays</em> “V”, “A” e “L”. Analisando-a, podemos verificar que uma estrutura latente pode ser abstraída à forma de um grafo, o qual “V” representa um conjunto de nós/menções; “A” representa o conjunto de arestas, e “L”(label), representa um sinal, positivo ou negativo, informando se dada menção é correferente de outra.</p>
+<section id="modelos-de-linguagem" class="level4" data-number="12.3.5.1">
+<h4 data-number="12.3.5.1" class="anchored" data-anchor-id="modelos-de-linguagem"><span class="header-section-number">12.3.5.1</span> Modelos de linguagem</h4>
+<p>Os modelos de linguagem (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-modelos-linguagem/cap-modelos-linguagem.html#sec-cap-modelos-linguagem" target="_blank" title="Volume 2">Modelos de linguagem</a></span>) foram também incorporados às tarefas de resolução de correferência, <span class="citation" data-cites="joshi-etal-2019-bert">Joshi et al. (<a href="../../shared/referencias/referencias.html#ref-joshi-etal-2019-bert" role="doc-biblioref">2019</a>)</span> apresentam uma análise do modelo BERT nessa tarefa.</p>
+<p>Com os avanços recentes dos modelos de linguagem, abordagens alternativas, como a de <span class="citation" data-cites="kirstain2021coreference">Kirstain et al. (<a href="../../shared/referencias/referencias.html#ref-kirstain2021coreference" role="doc-biblioref">2021</a>)</span>, dispensam a necessidade de representação de <em>spans</em>.</p>
+</section>
+</section>
+<section id="modelos-voltados-à-língua-portuguesa" class="level3" data-number="12.3.6">
+<h3 data-number="12.3.6" class="anchored" data-anchor-id="modelos-voltados-à-língua-portuguesa"><span class="header-section-number">12.3.6</span> Modelos Voltados à Língua Portuguesa</h3>
+<p>Para a língua portuguesa, <span class="citation" data-cites="silva2011">Silva (<a href="../../shared/referencias/referencias.html#ref-silva2011" role="doc-biblioref">2011</a>)</span> propôs um modelo para a resolução de correferência utilizando o conjunto de etiquetas semânticas providas pelo <em>corpus</em> do HAREM <span class="citation" data-cites="harem">(<a href="../../shared/referencias/referencias.html#ref-harem" role="doc-biblioref">Freitas et al., 2010</a>)</span>. Para detectar tais categorias, Silva utilizou o <em>parser</em> PALAVRAS <span class="citation" data-cites="bick2000">(<a href="../../shared/referencias/referencias.html#ref-bick2000" role="doc-biblioref">Bick, 2000</a>)</span> e o reconhecedor de entidades nomeadas Rembrandt <span class="citation" data-cites="rembrandt">(<a href="../../shared/referencias/referencias.html#ref-rembrandt" role="doc-biblioref">Cardoso, 2012</a>)</span>. Como base de conhecimento semântico, o autor utilizou o Tep2.0<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <span class="citation" data-cites="tep20">(<a href="../../shared/referencias/referencias.html#ref-tep20" role="doc-biblioref">Maziero et al., 2008</a>)</span>, um <em>thesaurus</em> contendo relações de sinonímia e antonímia para a língua portuguesa.</p>
+<p>Lidando com aprendizado supervisionado, temos o trabalho de <span class="citation" data-cites="coreixas2010">Coreixas (<a href="../../shared/referencias/referencias.html#ref-coreixas2010" role="doc-biblioref">2010</a>)</span>, o qual focou nas categorias “Pessoa”, “Local”, “Organização”, “Acontecimento”, “Obra”, “Coisa” e “Outro”. Como recursos, foram utilizados o <em>corpus</em> do HAREM <span class="citation" data-cites="harem">(<a href="../../shared/referencias/referencias.html#ref-harem" role="doc-biblioref">Freitas et al., 2010</a>)</span>, o <em>parser</em> PALAVRAS <span class="citation" data-cites="bick2000">(<a href="../../shared/referencias/referencias.html#ref-bick2000" role="doc-biblioref">Bick, 2000</a>)</span> e o <em>corpus</em> Summ-it <span class="citation" data-cites="collovini2007summit">(<a href="../../shared/referencias/referencias.html#ref-collovini2007summit" role="doc-biblioref">Collovini et al., 2007</a>)</span>. De forma a provar que o uso de categorias semânticas pode auxiliar na tarefa de resolução de correferência, o autor compara duas versões de seu sistema: a primeira, sem fazer o uso de categorias semânticas; e a segunda, fazendo uso de categorias. Como resultado, Coreixas mostrou que o uso de categorias podem prover melhorias significativas, dado que o uso de categorias pode auxiliar a determinar se dado par de menções é correferente ou não. O autor também mostrou a importância do conhecimento de mundo para esta linha de pesquisa.</p>
+<p>Seguindo uma linha semelhante ao trabalho de <span class="citation" data-cites="coreixas2010">Coreixas (<a href="../../shared/referencias/referencias.html#ref-coreixas2010" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="fonsecalm2014">Fonseca et al. (<a href="../../shared/referencias/referencias.html#ref-fonsecalm2014" role="doc-biblioref">2014</a>)</span> propõem um modelo baseado em aprendizado de máquina, com foco em nomes próprios e nas categorias de entidades “Pessoa”, “Local” e “Organização”. Para detectar as entidades, foram utilizados os recursos Repentino <span class="citation" data-cites="sarmento2006">(<a href="../../shared/referencias/referencias.html#ref-sarmento2006" role="doc-biblioref">Sarmento et al., 2006</a>)</span> e NERP-CRF <span class="citation" data-cites="amaral2013">(<a href="../../shared/referencias/referencias.html#ref-amaral2013" role="doc-biblioref">Amaral, 2013</a>)</span>. Adicionalmente, para casos mais genéricos de entidades, os autores utilizaram listas, contendo substantivos comuns, que remetem a determinadas entidades, tais como: [advogado, agrônomo, juiz] para a categoria “Pessoa”, e [avenida, rua, praça, cidade] para “Local”.</p>
+<p>Diferente dos trabalhos anteriores <span class="citation" data-cites="garcia2014">(<a href="../../shared/referencias/referencias.html#ref-garcia2014" role="doc-biblioref">Garcia; Gamallo, 2014</a>)</span> abordam um modelo baseado em regras (semelhante ao de <span class="citation" data-cites="lee2013">Lee et al. (<a href="../../shared/referencias/referencias.html#ref-lee2013" role="doc-biblioref">2013</a>)</span>), mas para múltiplos idiomas (português, espanhol e galego). Em seu trabalho, os autores focam apenas na categoria semântica “Pessoa”. Mais recentemente <span class="citation" data-cites="fonseca2018">Fonseca (<a href="../../shared/referencias/referencias.html#ref-fonseca2018" role="doc-biblioref">2018</a>)</span> propôs um modelo baseado em regras linguísticas, similar ao modelo de <span class="citation" data-cites="lee2013">Lee et al. (<a href="../../shared/referencias/referencias.html#ref-lee2013" role="doc-biblioref">2013</a>)</span>, mas totalmente voltado ao português.</p>
+<p>Adicionalmente, <span class="citation" data-cites="fonseca2018">Fonseca (<a href="../../shared/referencias/referencias.html#ref-fonseca2018" role="doc-biblioref">2018</a>)</span> introduziu conhecimento semântico ao seu modelo, provindo do Onto.PT <span class="citation" data-cites="ontopt">(<a href="../../shared/referencias/referencias.html#ref-ontopt" role="doc-biblioref">Gonçalo Oliveira; Gomes, 2014</a>)</span> e uma nova metodologia de agrupamento de menções <span class="citation" data-cites="fonseca2018mention">(<a href="../../shared/referencias/referencias.html#ref-fonseca2018mention" role="doc-biblioref">Fonseca et al., 2018</a>)</span>. Basicamente, seu método (<a href="#fig-cap-resolucao-correferencia-alg1" class="quarto-xref">Figura&nbsp;<span>12.1</span></a>) recebe como entrada uma lista ordenada de menções “M” e devolve uma lista de Cadeias contendo essas menções devidamente agrupadas, de acordo com o critério selecionado.</p>
+<div id="fig-cap-resolucao-correferencia-alg1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-resolucao-correferencia-alg1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;12.1: Algoritmo de agrupamento proposto por <span class="citation" data-cites="fonseca2018">Fonseca (<a href="../../shared/referencias/referencias.html#ref-fonseca2018" role="doc-biblioref">2018</a>)</span>
+</figcaption>
+<div aria-describedby="fig-cap-resolucao-correferencia-alg1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/algoritmo1.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+</figure>
+</div>
+<p>O método proposto foi baseado no trabalho de <span class="citation" data-cites="heim1983file">Heim (<a href="../../shared/referencias/referencias.html#ref-heim1983file" role="doc-biblioref">2008</a>)</span> e consiste em explorar a representação do discurso<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Para isso, assume-se que qualquer menção é nova no discurso se não possuir ligação de correferência com uma ou mais menções antecedentes. Essas ligações são consideradas utilizando o conjunto de regras proposto pelo autor. Assim, sempre que uma menção não possui uma relação referencial (nenhuma regra é satisfeita), uma nova cadeia é gerada. Basicamente utilizou-se uma lista de menções M (esta lista é ordenada na ordem em que as menções ocorrem no texto), contendo todas as menções de um documento de entrada. Cada menção pode ter uma ligação de correferência entre uma ou mais cadeias “C”. Dessa forma, os Ids dessas cadeias são armazenados em um vetor “S” (apenas se M<span class="math inline">\(_0\)</span> possui alguma relação de correferência com C<span class="math inline">\(_i\)</span> (se alguma regra retorna o valor verdade). O próximo passo é responsável por agrupar uma menção atual M<span class="math inline">\(_0\)</span> a uma cadeia existente C<span class="math inline">\(_k\)</span> ou criar uma nova cadeia de correferência, usando M<span class="math inline">\(_0\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Isso depende do critério de agrupamento utilizado. Dos critérios propostos pelo autor, vale mencionar o que obteve melhores resultados: o “Peso por Regra", o qual para cada menção explora o conjunto C, com o objetivo de encontrar o maior peso (em nível de cadeias). O modelo proposto possui um total de 13 regras e; para cada regra satisfeita, soma-se 1 à pontuação. Assim, se para uma dada cadeia C<span class="math inline">\(_x\)</span> existem duas menções correferentes com uma menção M<span class="math inline">\(_0\)</span> (M<span class="math inline">\(_a\)</span> e M<span class="math inline">\(_b\)</span>) e M<span class="math inline">\(_a\)</span> e M<span class="math inline">\(_b\)</span> possuem respectivamente três e duas regras com valor verdade, o peso da cadeia será cinco.</p>
+</section>
+</section>
+<section id="avaliação-da-tarefa-de-resolução-de-correferência" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="avaliação-da-tarefa-de-resolução-de-correferência"><span class="header-section-number">12.4</span> Avaliação da Tarefa de Resolução de Correferência</h2>
+<p>A tarefa de resolução de correferência é complexa e envolve diferentes níveis de processamento. Logo, avaliar um modelo de correferência não é uma tarefa simples, dado que existem muitos detalhes a serem considerados, como a detecção de menções, agrupamentos realizados, agrupamentos não realizados<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Na literatura encontramos cinco métricas propostas para avaliar esses modelos: MUC <span class="citation" data-cites="Vilainetal1995">(<a href="../../shared/referencias/referencias.html#ref-Vilainetal1995" role="doc-biblioref">Vilain et al., 1995</a>)</span>, B-CUBED <span class="citation" data-cites="b3">(<a href="../../shared/referencias/referencias.html#ref-b3" role="doc-biblioref">Bagga; Baldwin, 1998</a>)</span>, Ceaf<span class="math inline">\(_e\)</span>, Ceaf<span class="math inline">\(_m\)</span> <span class="citation" data-cites="ceaf">(<a href="../../shared/referencias/referencias.html#ref-ceaf" role="doc-biblioref">Luo, 2005</a>)</span> e BLANC <span class="citation" data-cites="blanc">(<a href="../../shared/referencias/referencias.html#ref-blanc" role="doc-biblioref">Recasens; Hovy, 2011</a>)</span>. Cada uma dessas métricas visa avaliar uma característica específica de cada modelo. Anualmente, competições como a CoNLL <span class="citation" data-cites="conll2012">(<a href="../../shared/referencias/referencias.html#ref-conll2012" role="doc-biblioref">Pradhan et al., 2012</a>)</span> são realizadas, visando motivar o desenvolvimento de sistemas. Nos anos de 2011 e 2012 essas competições foram voltadas à tarefa de Resolução de Correferência. Com o objetivo de avaliar os modelos participantes por meio de uma pontuação única, a conferência propôs uma nova métrica, chamada CoNLL <span class="citation" data-cites="conllscorer">(<a href="../../shared/referencias/referencias.html#ref-conllscorer" role="doc-biblioref">Pradhan et al., 2014</a>)</span>. A métrica CoNLL consiste na média da medida-F de três outras métricas da literatura, como veremos nessa seção.</p>
+<section id="métricas-de-avaliação" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="métricas-de-avaliação"><span class="header-section-number">12.4.1</span> Métricas de Avaliação</h3>
+<section id="muc" class="level4" data-number="12.4.1.1">
+<h4 data-number="12.4.1.1" class="anchored" data-anchor-id="muc"><span class="header-section-number">12.4.1.1</span> MUC:</h4>
+<p>Baseada em cadeias, mede quantos agrupamentos de menções são necessários para cobrir as cadeias padrão. Por exemplo, considere que o conjunto K (cadeia de referência) seja composto pelas seguintes ligações(<em>links</em>) de correferência {AB, BE, CD} e que o conjunto R (cadeia predita pelo modelo) seja composto por {AB, CD}. Para este caso podemos ver que falta uma ligação no conjunto R. teremos então Abrangência= <span class="math inline">\(\dfrac{2}{3} =0,67 \ (67\%)\)</span> e Precisão = <span class="math inline">\(\dfrac{2}{2} = 1 \ (100\%)\)</span>. De forma mais geral, o cálculo da métrica MUC pode ser obtido por meio das seguintes fórmulas:</p>
+<p><span class="math display">\[Abrang\hat{e}ncia = \dfrac{\sum\limits_{i=1}^{N_k} (\|K_i\| - \|p(K_i)\|)}{\sum\limits_{i=1}^{N_k} (\|K_i\| - 1}\]</span></p>
+<p><span class="math display">\[Precis\tilde{a}o = \dfrac{\sum\limits_{i=1}^{N_r} (\|R_i\| - \|p'(R_i)\|)}{\sum\limits_{i=1}^{N_r} (\|R_i\| - 1)}\]</span></p>
+<p>Em que: K<span class="math inline">\(_i\)</span> é i-ésima entidade padrão (<em>key entity</em> referência) e p(K<span class="math inline">\(_i\)</span>) é o grupo de partições criado por meio da intersecção de K<span class="math inline">\(_i\)</span> e os <em>links</em> preditos pelo modelo; R<span class="math inline">\(_i\)</span> é a i-ésima entidade predita pelo modelo (<em>Response entity</em>) e p’(R<span class="math inline">\(_i\)</span>) é o conjunto de partições criadas por meio da intersecção de R<span class="math inline">\(_i\)</span> e K<span class="math inline">\(_i\)</span>. N<span class="math inline">\(_k\)</span> e N<span class="math inline">\(_r\)</span> representam a quantidade de menções padrão e resposta, respectivamente.</p>
+</section>
+<section id="b-cubed" class="level4" data-number="12.4.1.2">
+<h4 data-number="12.4.1.2" class="anchored" data-anchor-id="b-cubed"><span class="header-section-number">12.4.1.2</span> B-CUBED:</h4>
+<p>Baseada em menções, gera resultados considerando as menções presentes e ausentes de cada entidade em dada cadeia. Basicamente, a métrica B-Cubed atribui um peso para as menções, baseando-se na quantidade total de menções existentes. Sua abrangência e precisão são obtidas por:</p>
+<p><span class="math display">\[Abrang\hat{e}ncia = \dfrac{\sum\limits_{i=1}^{N_k} \sum\limits_{j=1}^{N_k} \dfrac{\|K_i \cap R_j\|^2}{K_i} }{\sum\limits_{i=1}^{N_k} K_i}\]</span></p>
+<p><span class="math display">\[Precis\tilde{a}o = \dfrac{\sum\limits_{i=1}^{N_k} \sum\limits_{j=1}^{N_k} \dfrac{\|K_i \cap R_j\|^2}{R_j} }{\sum\limits_{i=1}^{N_k} R_j}\]</span></p>
+<p>Em que: K representa o conjunto das <em>key entities</em> (menções padrão) e R o conjunto de menções preditas pelo modelo. Por exemplo, dadas as cadeias de referência :</p>
+<ul>
+<li><span class="math inline">\(C_{K1}\)</span> = {A, B, C, D, E};</li>
+<li><span class="math inline">\(C_{K2}\)</span> = {F, G};</li>
+<li><span class="math inline">\(C_{K3}\)</span> = {H, I, J, K, L}.</li>
+</ul>
+<p>E as cadeias preditas pelo modelo:</p>
+<ul>
+<li><span class="math inline">\(C_{R1}\)</span> = {A, B, C, D, E};</li>
+<li><span class="math inline">\(C_{R2}\)</span> = {F, G, H, I, J, K, L}.</li>
+</ul>
+<p>Cada menção possuirá o peso de <span class="math inline">\(\dfrac{1}{12}\)</span>, dado que o total de menções existente é 12. Dito isso temos então:<br>
+Abrangência = <span class="math inline">\(\dfrac{1}{12} * [\dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{2}{2} + \dfrac{2}{2} + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} ]  = 1 \ (100\%)\)</span><br>
+Precisão = <span class="math inline">\(\dfrac{1}{12} * [\dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{5}{5} + \dfrac{2}{7} + \dfrac{2}{7}  + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} + \dfrac{5}{7} ] = \dfrac{16}{21} = 0,76 \ (76\%)\)</span></p>
+</section>
+<section id="ceaf" class="level4" data-number="12.4.1.3">
+<h4 data-number="12.4.1.3" class="anchored" data-anchor-id="ceaf"><span class="header-section-number">12.4.1.3</span> CEAF:</h4>
+<p>Baseada no alinhamento de menções e entidades, possui duas variações: CEAF<span class="math inline">\(_m\)</span> (<span class="math inline">\(\Phi_3\)</span>) e CEAF<span class="math inline">\(_e\)</span> (<span class="math inline">\(\Phi_4\)</span>).</p>
+<div class="centering">
+<p><span class="math display">\[\Phi_3(K,R) = \|K \cap R \|\]</span></p>
+<p><span class="math display">\[\Phi_4(K,R) = \dfrac{2 \| K \cap R \|}{\| K\| +\| R \|}\]</span></p>
+<p><span class="math display">\[Abrang\hat{e}ncia = \dfrac{\Phi_x} {\sum\limits_{i=1} \|K_i\|}\]</span></p>
+<p><span class="math display">\[Precis\tilde{a}o = \dfrac{\Phi_x} {\sum\limits_{i=1} \|R_i\|}\]</span></p>
+</div>
+<p>Por exemplo, dadas as cadeias de referência:</p>
+<ul>
+<li><span class="math inline">\(C_{K1}\)</span> = {A, B, C, D, E};</li>
+<li><span class="math inline">\(C_{K2}\)</span> = {F, G}.</li>
+</ul>
+<p>E as cadeias preditas pelo modelo:</p>
+<ul>
+<li><span class="math inline">\(C_{R1}\)</span> = {A, B, C, D, E}.</li>
+</ul>
+<p>As métricas CEAF utilizam o alinhamento entre as entidades ou menções para calcular seus resultados, dessa forma C<span class="math inline">\(_{K1}\)</span> será alinhado com C<span class="math inline">\(_{R1}\)</span> e C<span class="math inline">\(_{K2}\)</span> não possuirá um alinhamento, dado que o modelo não obteve tal cadeia. Notemos que o número de menções alinhadas é 5. Portanto <span class="math inline">\(\Phi_3\)</span> = 5. Dito isso, temos:</p>
+<p>CEAF<span class="math inline">\(_m\)</span>: Abrangência = <span class="math inline">\(\dfrac{5}{7} = 0,71 \ (71\%)\)</span> e Precisão = <span class="math inline">\(\dfrac{5}{5} =  1 \ (100\%)\)</span></p>
+<p>Para CEAF<span class="math inline">\(_e\)</span>, dado que <span class="math inline">\(\Phi_4\)</span> = <span class="math inline">\(\dfrac{2*5}{5 + 5} = 1\)</span> , temos:</p>
+<p>Abrangência = <span class="math inline">\(\dfrac{1}{2} = 0,5 \ (50\%)\)</span> e Precisão = <span class="math inline">\(\dfrac{1}{1} = 1 \ (100\%)\)</span><br>
+Notemos que para a métrica CEAF<span class="math inline">\(_m\)</span> o cálculo de precisão e abrangência é realizado considerando a quantidade de menções, para a métrica CEAF<span class="math inline">\(_e\)</span> esse valor é considerado em <span class="math inline">\(\Phi_4\)</span>. Contudo, para obtenção dos valores de precisão e abrangência, são usados os valores referentes a quantidade de entidades/cadeias.</p>
+</section>
+<section id="blanc" class="level4" data-number="12.4.1.4">
+<h4 data-number="12.4.1.4" class="anchored" data-anchor-id="blanc"><span class="header-section-number">12.4.1.4</span> BLANC:</h4>
+<p>BiLateral Assessment of NounPhrase Coreference avalia tanto <em>links</em> de correferência quanto os de não correferência. Basicamente, um <em>link</em> de não correferência é formado por duas menções que não são correferentes entre si. A métrica BLANC tem como objetivo recompensar as cadeias de correferência corretas, de forma proporcional ao seu tamanho. Temos, então, C<span class="math inline">\(_K\)</span> e C<span class="math inline">\(_R\)</span> respectivamente como: <em>links</em> de correferência padrão e preditos automaticamente e; N<span class="math inline">\(_K\)</span> e N<span class="math inline">\(_R\)</span> como grupo dos <em>links</em> de não correferência padrão e preditos automaticamente; Abrangência<span class="math inline">\(_C\)</span> e Precisão<span class="math inline">\(_C\)</span> remetem ao cálculo de abrangência e precisão dos <em>links</em> de correferência, e Abrangência<span class="math inline">\(_N\)</span> e Precisão<span class="math inline">\(_N\)</span>, aos <em>links</em> de não correferência.</p>
+<p><span class="math display">\[Abrang\hat{e}ncia_C = \dfrac{\|C_k \cap C_r \|}{C_k}\]</span></p>
+<p><span class="math display">\[Precis\tilde{a}o_C = \dfrac{\|C_k \cap C_r \|}{C_r}\]</span></p>
+<p><span class="math display">\[Abrang\hat{e}ncia_N = \dfrac{\|N_k \cap N_r \|}{N_k}\]</span></p>
+<p><span class="math display">\[Precis\tilde{a}o_N = \dfrac{\|N_k \cap N_r \|}{N_r}\]</span></p>
+<p>Por fim, a precisão e a abrangência da métrica BLANC são calculadas, respectivamente, por meio das médias de Precisão e de abrangência, obtidas entre os <em>links</em> de correferência e de não correferência:</p>
+<p><span class="math display">\[BLANC_{Precisao} = \dfrac{Precis\tilde{a}o_C + Precis\tilde{a}o_N  }{2}\]</span></p>
+<p><span class="math display">\[BLANC_{Abrangencia} = \dfrac{Abrang\hat{e}ncia_C + Abrang\hat{e}ncia_N }{2}\]</span></p>
+<p>Por exemplo: dados os seguintes links de correferência:</p>
+<ul>
+<li><span class="math inline">\(C_{K1}\)</span> = {A–B, B–C, C–D, D–E};</li>
+<li><span class="math inline">\(C_{K2}\)</span> = {F–G}.</li>
+</ul>
+<p>E os seguintes links preditos pelo modelo:</p>
+<ul>
+<li><span class="math inline">\(C_{R1}\)</span> = {A–B, B–C, C–D, D–E};</li>
+<li><span class="math inline">\(C_{R2}\)</span> = {F–G, F–I}.</li>
+</ul>
+<p>Temos, então: <span class="math inline">\(Abrang\hat{e}ncia_C = \dfrac{5}{5} = 1 \ (100\%)\)</span> , <span class="math inline">\(Precis\tilde{a}o_C = \dfrac{5}{6} = 0,83 \ (83\%)\)</span><br>
+Considerando que os links de não correferência representam ligações entre todas as menções que não são referenciais, teremos então:</p>
+<ul>
+<li><span class="math inline">\(N_K\)</span> = {F–A, F–B, F–C, F–D, F–E, G–A, G–B, G–C, G–D, G–E};</li>
+<li><span class="math inline">\(N_R\)</span> = {F–A, F–B, F–C, F–D, F–E, G–A, G–B, G–C, G–D, G–E, I–A, I–B, I–C, I–D, I–E}.</li>
+</ul>
+<p><span class="math inline">\(Abrang\hat{e}ncia_N = \dfrac{10}{10} = 1 \ (100\%)\)</span> , <span class="math inline">\(Precis\tilde{a}o_C = \dfrac{10}{15} = 0,67 \ (67\%)\)</span></p>
+<p><span class="math inline">\(BLANC_{Precisao} = \dfrac{0,83+0,67}{2} = 0,75 \ (75\%)\)</span></p>
+<p><span class="math inline">\(BLANC_{Abrangencia} = \dfrac{1+1}{2} = 1 \ (100\%)\)</span></p>
+</section>
+<section id="conll" class="level4" data-number="12.4.1.5">
+<h4 data-number="12.4.1.5" class="anchored" data-anchor-id="conll"><span class="header-section-number">12.4.1.5</span> CoNLL:</h4>
+<p>Amplamente utilizada para avaliar modelos de resolução de correferência, a métrica CoNLL calcula um score único, baseando-se no cálculo da medida-f das métricas MUC, B<span class="math inline">\(^3\)</span> e CEAF<span class="math inline">\(_e\)</span>:</p>
+<p><span class="math display">\[CoNLL = \dfrac{(F(MUC)+F(B^3)+F(CEAF_e))}{3}\]</span></p>
+</section>
+</section>
+</section>
+<section id="aplicações" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="aplicações"><span class="header-section-number">12.5</span> Aplicações</h2>
+<p>Os ganhos da tarefa de Resolução de Correferência podem ser significativos, principalmente se considerarmos abordagens que utilizam apoio semântico <span class="citation" data-cites="fonseca2018 rahmanandng2011">(<a href="../../shared/referencias/referencias.html#ref-fonseca2018" role="doc-biblioref">Fonseca, 2018</a>; <a href="../../shared/referencias/referencias.html#ref-rahmanandng2011" role="doc-biblioref">Rahman; Ng, 2011a</a>)</span>. Em poucas palavras, existem muitas utilidades para a tarefa, e muitas outras tarefas de PLN podem se beneficiar de tal processamento. Na literatura, encontramos alguns trabalhos que fazem uso de tais modelos, como o de <span class="citation" data-cites="vargas2018aspect">Vargas; Pardo (<a href="../../shared/referencias/referencias.html#ref-vargas2018aspect" role="doc-biblioref">2018</a>)</span>. Na presente abordagem, os autores fazem uso da ferramenta de prateleira chamada CORP <span class="citation" data-cites="corp">(<a href="../../shared/referencias/referencias.html#ref-corp" role="doc-biblioref">Fonseca et al., 2016b</a>)</span>, até o momento a única ferramenta disponível para a língua portuguesa. Em sua produção os autores mostraram que, por meio da resolução de correferências, foi possível obter ganhos significativos na tarefa de Agrupamento de Aspectos para Análise de Sentimentos.</p>
+<p>Muitas outras tarefas de PLN podem se beneficiar de seus resultados; como o Reconhecimento de Entidades Nomeadas (REN) <span class="citation" data-cites="amaral2013">(<a href="../../shared/referencias/referencias.html#ref-amaral2013" role="doc-biblioref">Amaral, 2013</a>)</span>, Extração de Relação entre Entidades Nomeadas <span class="citation" data-cites="collovini2014">(<a href="../../shared/referencias/referencias.html#ref-collovini2014" role="doc-biblioref">Collovini et al., 2014</a>)</span> (ER), entre outras. Na <a href="#fig-cap-resolucao-correferencia-exemplo1corref" class="quarto-xref">Figura&nbsp;<span>12.2</span></a>, no que diz respeito a tarefa de Reconhecimento de Entidades Nomeadas, considerando a cadeia [o agrônomo Miguel Guerra, de a UFSC, Guerra, Guerra, o agrônomo], podemos dizer que o sintagma nominal “Guerra” pode ser ambíguo e existe a possibilidade de que modelos de REN (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html#sec-cap-resolucao-correferencia" target="_blank" title="Volume 1">Resolução de correferência</a></span>) não o classifiquem corretamente. Por meio da tarefa de Resolução de Correferências podemos identificar que a menção “Guerra” corresponde ao agrônomo Miguel Guerra e, portanto, inferir uma mesma categoria de entidade nomeada (Pessoa). No contexto de extração de relação entre entidades nomeadas, considerando o sintagma nominal [o agrônomo Miguel Guerra, de a UFSC] é possível identificarmos a seguinte relação (Miguel Guerra, de, UFSC). E, identificando que “Guerra” faz referência a “Miguel Guerra” é possível inferirmos uma relação direta entre “Guerra” e “UFSC”.</p>
+<div id="fig-cap-resolucao-correferencia-exemplo1corref" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-resolucao-correferencia-exemplo1corref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;12.2: Resolução de correferência e sua aplicabilidade (imagem extraída utilizando a ferramenta CORP <span class="citation" data-cites="corp">(<a href="../../shared/referencias/referencias.html#ref-corp" role="doc-biblioref">Fonseca et al., 2016b</a>)</span>)
+</figcaption>
+<div aria-describedby="fig-cap-resolucao-correferencia-exemplo1corref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/m_guerra.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-amaral2013" class="csl-entry" role="listitem">
+AMARAL, D. O. F. DO. <strong>O reconhecimento de entidades nomeadas por meio de conditional random fields para a l<span>ı́</span>ngua portuguesa</strong>. Dissertação de Mestrado, Pontif<span>ı́</span>cia Universidade Cat<span>ó</span>lica do Rio Grande do Sul, 2013.
+</div>
+<div id="ref-antunes2007lutar" class="csl-entry" role="listitem">
+ANTUNES, I. <strong>Lutar com palavras: coes<span>ã</span>o e coer<span>ê</span>ncia</strong>. [s.l.] Par<span>á</span>bola, 2007.
+</div>
+<div id="ref-b3" class="csl-entry" role="listitem">
+BAGGA, A.; BALDWIN, B. <strong>Algorithms for Scoring Coreference Chains</strong>. Proceedings of the first International Conference on Language Resources and Evaluation Workshop on Linguistics Coreference. <strong>Anais</strong>...Granada, Spain: 1998.
+</div>
+<div id="ref-basso2009semantica" class="csl-entry" role="listitem">
+BASSO, R. M. <strong>A Sem<span>â</span>ntica das Rela<span>ç</span><span>õ</span>es Anaf<span>ó</span>ricas entre Eventos</strong>. tese de doutorado—[s.l.] Universidade Estadual de Campinas, SP, 2009.
+</div>
+<div id="ref-bick2000" class="csl-entry" role="listitem">
+BICK, E. <strong><a href="https://edu.visl.dk/~eckhard/pdf/PLP20-amilo.ps.pdf">The Parsing System "Palavras": Automatic Grammatical Analysis of Portuguese in a Constraint Grammar Framework</a></strong>. tese de doutorado—[s.l.] Aarhus University Press, Denmark; University of Arhus, 2000.
+</div>
+<div id="ref-bick2010dependency" class="csl-entry" role="listitem">
+BICK, E. <strong>A dependency-based approach to anaphora annotation</strong>. Proceedings of th 9th International Conference on Computational Processing of the Portuguese Language. <strong>Anais</strong>...Porto Alegre, Brazil: 2010.
+</div>
+<div id="ref-rembrandt" class="csl-entry" role="listitem">
+CARDOSO, N. <strong>Rembrandt - a named-entity recognition framework</strong>. Proceedings of the Eighth International Conference on Language Resources and Evaluation. <strong>Anais</strong>...Istanbul, Turkey: 2012. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2012/summaries/409.html">http://www.lrec-conf.org/proceedings/lrec2012/summaries/409.html</a>&gt;
+</div>
+<div id="ref-chang2012" class="csl-entry" role="listitem">
+CHANG, K.-W. et al. <strong>Illinois-Coref: The UI system in the CoNLL-2012 shared task</strong>. Joint Conference on EMNLP and CoNLL-Shared Task. <strong>Anais</strong>...Association for Computational Linguistics, 2012.
+</div>
+<div id="ref-collovini2007summit" class="csl-entry" role="listitem">
+COLLOVINI, S. et al. <strong>Summ-it: Um Corpus Anotado com Informações Discursivas Visando a Sumarização Autom<span>á</span>tica</strong>. Proceedings of V Workshop em Tecnologia da Informação e da Linguagem Humana. <strong>Anais</strong>...Rio de Janeiro, Brasil: 2007.
+</div>
+<div id="ref-collovini2014" class="csl-entry" role="listitem">
+COLLOVINI, S. et al. <strong>Extraction of Relation Descriptors for Portuguese Using Conditional Random Fields</strong>. Proceedings of the 14th Ibero-American Conference on Advances in Artificial Intelligence. <strong>Anais</strong>...Santiago de Chile: 2014.
+</div>
+<div id="ref-coreixas2010" class="csl-entry" role="listitem">
+COREIXAS, T. <strong>Resolução De Correferência E Categorias De Entidades Nomeadas</strong>. Dissertação de Mestrado, Pontifı́cia Universidade Católica do Rio Grande do Sul, 2010.
+</div>
+<div id="ref-fernandes2014" class="csl-entry" role="listitem">
+FERNANDES, E. R.; SANTOS, C. N. DOS; MILIDIÚ, R. L. Latent trees for coreference resolution. <strong>Computational Linguistics</strong>, 2014.
+</div>
+<div id="ref-ferradeira1993" class="csl-entry" role="listitem">
+FERRADEIRA, J. E. DE S. <strong>Resolução de anáfora pronominal</strong>. mathesis—[s.l.] Universidade Nova de Lisboa; Dissertação de Mestrado, Universidade Nova de Lisboa, 1993.
+</div>
+<div id="ref-fonseca2014" class="csl-entry" role="listitem">
+FONSECA, E. B. <strong>Resolu<span>ç</span><span>ã</span>o de correfer<span>ê</span>ncias em l<span>í</span>ngua portuguesa: pessoa, local e organiza<span>ç</span><span>ã</span>o</strong>. Dissertação de Mestrado, Pontif<span>ı́</span>cia Universidade Cat<span>ó</span>lica do Rio Grande do Sul, 2014.
+</div>
+<div id="ref-fonseca2018" class="csl-entry" role="listitem">
+FONSECA, E. B. <strong><a href="https://tede2.pucrs.br/tede2/handle/tede/8169">Resolu<span>ç</span><span>ã</span>o de correfer<span>ê</span>ncia nominal usando sem<span>â</span>ntica em língua portuguesa</a></strong>. tese de doutorado—[s.l.] Pontifícia Universidade Católica do Rio Grande do Sul; Pontif<span>ı́</span>cia Universidade Cat<span>ó</span>lica do Rio Grande do Sul, 2018.
+</div>
+<div id="ref-fonsecaflairs2015" class="csl-entry" role="listitem">
+FONSECA, E. B.; VIEIRA, R.; VANIN, A. <strong>Dealing With Imbalanced Datasets For Coreference Resolution</strong>. Proceedings of The Twenty-Eighth International Flairs Conference. <strong>Anais</strong>...2015.
+</div>
+<div id="ref-fonseca2016lrec" class="csl-entry" role="listitem">
+FONSECA, E. B.; VIEIRA, R.; VANIN, A. <strong>Adapting an Entity Centric Model for Portuguese Coreference Resolution</strong>. Portorož, Slovenia, a2016.
+</div>
+<div id="ref-corp" class="csl-entry" role="listitem">
+FONSECA, E. B.; VIEIRA, R.; VANIN, A. <strong>CORP: Coreference Resolution for Portuguese</strong>., b2016.
+</div>
+<div id="ref-fonsecalm2014" class="csl-entry" role="listitem">
+FONSECA, E. B.; VIEIRA, R.; VANIN, A. A. Coreference Resolution In Portuguese: Detecting Person, Location And Organization. <strong>Journal of the Brazilian Computational Intelligence Society</strong>, v. 12, n. 2, p. 86–97, 2014.
+</div>
+<div id="ref-fonseca2018mention" class="csl-entry" role="listitem">
+FONSECA, E.; VANIN, A.; VIEIRA, R. <strong>Mention clustering to improve portuguese semantic coreference resolution</strong>. International Conference on Applications of Natural Language to Information Systems. <strong>Anais</strong>...Springer, 2018.
+</div>
+<div id="ref-freitas2009relation" class="csl-entry" role="listitem">
+FREITAS, C. et al. <strong>Relation detection between named entities: report of a shared task</strong>. Proceedings of the Workshop on Semantic Evaluations: Recent Achievements and Future Directions. <strong>Anais</strong>...Boulder, Colorado: 2009.
+</div>
+<div id="ref-harem" class="csl-entry" role="listitem">
+FREITAS, C. et al. <strong>Second <span>HAREM:</span> Advancing the State of the Art of Named Entity Recognition in Portuguese</strong>. Proceedings of the International Conference on Language Resources and Evaluation. <strong>Anais</strong>...Valletta, Malta: 2010. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2010/summaries/412.html">http://www.lrec-conf.org/proceedings/lrec2010/summaries/412.html</a>&gt;
+</div>
+<div id="ref-garcia2014" class="csl-entry" role="listitem">
+GARCIA, M.; GAMALLO, P. <strong>An Entity-Centric Coreference Resolution System for Person Entities with Rich Linguistic Information</strong>. Proceedings of 25th International Conference on Computational Linguistics. <strong>Anais</strong>...Dublin, Ireland: 2014. Disponível em: &lt;<a href="http://aclweb.org/anthology/C/C14/C14-1070.pdf">http://aclweb.org/anthology/C/C14/C14-1070.pdf</a>&gt;
+</div>
+<div id="ref-ontopt" class="csl-entry" role="listitem">
+GONÇALO OLIVEIRA, H.; GOMES, P. <a href="https://doi.org/10.1007/s10579-013-9249-9"><span>ECO</span> and Onto-PT: a flexible approach for creating a Portuguese Wordnet automatically</a>. <strong>Language Resources and Evaluation</strong>, v. 48, n. 2, p. 373–393, 2014.
+</div>
+<div id="ref-heim1983file" class="csl-entry" role="listitem">
+HEIM, I. File Change Semantics and the Familiarity Theory of Definiteness. Em: <strong>Formal Semantics</strong>. [s.l.] Wiley-Blackwell, 2008. p. 223–248.
+</div>
+<div id="ref-hou2014" class="csl-entry" role="listitem">
+HOU, Y.; MARKERT, K.; STRUBE, M. <strong>A Rule-Based System for Unrestricted Bridging Resolution: Recognizing Bridging Anaphora and Finding Links to Antecedents</strong>. Proceedings of the Conference on Empirical Methods in Natural Language Processing. <strong>Anais</strong>...Doha, Qatar: 2014. Disponível em: &lt;<a href="http://aclweb.org/anthology/D/D14/D14-1222.pdf">http://aclweb.org/anthology/D/D14/D14-1222.pdf</a>&gt;
+</div>
+<div id="ref-joshi-etal-2019-bert" class="csl-entry" role="listitem">
+JOSHI, M. et al. <strong><span>BERT</span> for Coreference Resolution: Baselines and Analysis</strong>. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP). <strong>Anais</strong>...Hong Kong, China: Association for Computational Linguistics, nov. 2019. Disponível em: &lt;<a href="https://aclanthology.org/D19-1588">https://aclanthology.org/D19-1588</a>&gt;
+</div>
+<div id="ref-jurafsky2023" class="csl-entry" role="listitem">
+JURAFSKY, D.; MARTIN, J. H. <strong>Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition</strong>. 3rd. ed. USA: Prentice Hall PTR, 2023.
+</div>
+<div id="ref-kirstain2021coreference" class="csl-entry" role="listitem">
+KIRSTAIN, Y.; RAM, O.; LEVY, O. <strong>Coreference Resolution without Span Representations</strong>. Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers). <strong>Anais</strong>...2021.
+</div>
+<div id="ref-koch1989" class="csl-entry" role="listitem">
+KOCH, I. G. V.; TRAVAGLIA, L. <strong><span>Texto e coerência</span></strong>. 13. ed. [s.l.] Cortez, 2012.
+</div>
+<div id="ref-lee2011" class="csl-entry" role="listitem">
+LEE, H. et al. <strong>Stanford’s multi-pass sieve coreference resolution system at the CoNLL-2011 shared task</strong>. Proceedings of the Fifteenth Conference on Computational Natural Language Learning: Shared Task. <strong>Anais</strong>...2011.
+</div>
+<div id="ref-lee2013" class="csl-entry" role="listitem">
+LEE, H. et al. Deterministic coreference resolution based on entity-centric, precision-ranked rules. <strong>Computational Linguistics</strong>, v. 39, n. 4, p. 885–916, 2013.
+</div>
+<div id="ref-lee2017endtoend" class="csl-entry" role="listitem">
+LEE, K. et al. End-to-end neural coreference resolution. <strong>arXiv preprint arXiv:1707.07045</strong>, 2017.
+</div>
+<div id="ref-ceaf" class="csl-entry" role="listitem">
+LUO, X. <strong>On Coreference Resolution Performance Metrics</strong>. Proceedings of the Conference on Empirical Methods in Natural Language Processing. <strong>Anais</strong>...Vancouver, Canada: 2005.
+</div>
+<div id="ref-latentstructures" class="csl-entry" role="listitem">
+MARTSCHAT, S.; STRUBE, M. Latent Structures for Coreference Resolution. <strong>Transactions of the Association for Computational Linguistics</strong>, v. 3, p. 405–418, 2015.
+</div>
+<div id="ref-tep20" class="csl-entry" role="listitem">
+MAZIERO, E. G. et al. <strong>A base de dados lexical e a interface web do TeP 2.0: thesaurus eletr<span>ô</span>nico para o Portugu<span>ê</span>s do Brasil</strong>. Proceedings of the XIV Brazilian Symposium on Multimedia and the Web. <strong>Anais</strong>...Salvador, Brazil: 2008.
+</div>
+<div id="ref-neves2013" class="csl-entry" role="listitem">
+NEVES, M. H. DE M. <strong>Texto e gram<span>á</span>tica</strong>. [s.l.] Contexto, 2013.
+</div>
+<div id="ref-vincent2002" class="csl-entry" role="listitem">
+NG, V.; CARDIE, C. <strong>Improving machine learning approaches to coreference resolution</strong>. Proceedings of the 40th Annual Meeting on Association for Computational Linguistics. <strong>Anais</strong>...Association for Computational Linguistics, 2002.
+</div>
+<div id="ref-poesio2016anaphora" class="csl-entry" role="listitem">
+POESIO, M.; STUCKARDT, R.; VERSLEY, Y. <strong><span>Anaphora Resolution: Algorithms, Resources, and Applications</span></strong>. 1. ed. [s.l.] Springer, 2016.
+</div>
+<div id="ref-ontonotes" class="csl-entry" role="listitem">
+PRADHAN, S. et al. <strong>CoNLL-2011 shared task: Modeling unrestricted coreference in ontonotes</strong>. Proceedings of the Fifteenth Conference on Computational Natural Language Learning: Shared Task. <strong>Anais</strong>...Portland, Oregon: Association for Computational Linguistics, 2011.
+</div>
+<div id="ref-conll2012" class="csl-entry" role="listitem">
+PRADHAN, S. et al. <strong>CoNLL-2012 shared task: Modeling multilingual unrestricted coreference in OntoNotes</strong>. Proceedings of Joint Conference on Empirical Methods in Natural Language Processing and Conference on Natural Language Learning - Shared Task. <strong>Anais</strong>...Jeju Island, Korea: 2012.
+</div>
+<div id="ref-conllscorer" class="csl-entry" role="listitem">
+PRADHAN, S. et al. <strong>Scoring Coreference Partitions of Predicted Mentions: <span>A</span> Reference Implementation</strong>. Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics. <strong>Anais</strong>...Baltimore, MD, USA: 2014. Disponível em: &lt;<a href="http://aclweb.org/anthology/P/P14/P14-2006.pdf">http://aclweb.org/anthology/P/P14/P14-2006.pdf</a>&gt;
+</div>
+<div id="ref-rahmanandng2011" class="csl-entry" role="listitem">
+RAHMAN, A.; NG, V. <strong>Coreference Resolution with World Knowledge</strong>. Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies. <strong>Anais</strong>...Portland, Oregon, USA: a2011. Disponível em: &lt;<a href="http://www.aclweb.org/anthology/P11-1082">http://www.aclweb.org/anthology/P11-1082</a>&gt;
+</div>
+<div id="ref-rahman2011" class="csl-entry" role="listitem">
+RAHMAN, A.; NG, V. Narrowing the modeling gap: a cluster-ranking approach to coreference resolution. <strong>Journal of Artificial Intelligence Research</strong>, p. 469–521, b2011.
+</div>
+<div id="ref-blanc" class="csl-entry" role="listitem">
+RECASENS, M.; HOVY, E. H. <a href="https://doi.org/10.1017/S135132491000029X"><span>BLANC:</span> Implementing the Rand index for coreference evaluation</a>. <strong>Natural Language Engineering</strong>, v. 17, n. 4, p. 485–510, 2011.
+</div>
+<div id="ref-rocha2000corpus" class="csl-entry" role="listitem">
+ROCHA, M. A corpus-based study of anaphora in English and Portuguese, Corpus-based and Computational Approaches to Discourse Anaphora. Em: [s.l.] John Benjamins Publishing Company, 2000. p. 81–94.
+</div>
+<div id="ref-roncarati2010" class="csl-entry" role="listitem">
+RONCARATI, C. <strong>As cadeias do texto: construindo sentidos.</strong> [s.l.] Par<span>á</span>bola, 2010.
+</div>
+<div id="ref-sarmento2006" class="csl-entry" role="listitem">
+SARMENTO, L.; PINTO, A. S.; CABRAL, L. <strong>REPENTINO – a wide-scope gazetteer for entity recognition in portuguese</strong>. Proceedings of International Workshop on Computational Processing of the Portuguese Language. <strong>Anais</strong>...Springer, 2006.
+</div>
+<div id="ref-silva2011" class="csl-entry" role="listitem">
+SILVA, J. F. DA. <strong>Resolu<span>ç</span><span>ã</span>o de correfer<span>ê</span>ncia em m<span>ú</span>ltiplos documentos utilizando aprendizado n<span>ã</span>o supervisionado</strong>. Dissertação de Mestrado, Universidade de S<span>ã</span>o Paulo, 2011.
+</div>
+<div id="ref-soon2001" class="csl-entry" role="listitem">
+SOON, W. M.; NG, H. T.; LIM, C. Y. <a href="https://doi.org/10.1162/089120101753342653">A Machine Learning Approach to Coreference Resolution of Noun Phrases</a>. <strong>Computational Linguistics</strong>, v. 27, n. 4, p. 521–544, 2001.
+</div>
+<div id="ref-vargas2018aspect" class="csl-entry" role="listitem">
+VARGAS, F. A.; PARDO, T. A. S. <strong>Aspect clustering methods for sentiment analysis</strong>. Proceedings of International conference on computational processing of the Portuguese language. <strong>Anais</strong>...Springer, 2018.
+</div>
+<div id="ref-vieira2019" class="csl-entry" role="listitem">
+VIEIRA, F. E.; FARACO, C. A. <strong>Texto e discurso. Escrever na universidade.</strong> [s.l.] Par<span>á</span>bola, 2019.
+</div>
+<div id="ref-vieira2005coreference" class="csl-entry" role="listitem">
+VIEIRA, R. et al. Coreference and anaphoric relations of demonstrative noun phrases in multilingual corpus. <strong>Anaphora Processing: linguistic, cognitive and computational modeling</strong>, p. 385–403, 2005.
+</div>
+<div id="ref-vieira2012" class="csl-entry" role="listitem">
+VIEIRA, R.; GONÇALVES, P. N.; SOUZA, J. G. C. DE. Processamento computacional de an<span>á</span>fora e correfer<span>ê</span>ncia. <strong>Revista de Estudos da Linguagem</strong>, v. 16, n. 1, 2012.
+</div>
+<div id="ref-Vilainetal1995" class="csl-entry" role="listitem">
+VILAIN, M. et al. <strong><span>A</span> model-theoretic coreference scoring scheme</strong>. <span>P</span>roceedings of the 6th <span>M</span>essage <span>U</span>nderstanding <span>C</span>onference (<span>MUC</span>-6). <strong>Anais</strong>...Los Altos, CA, EUA: Morgan Kaufmann, 1995. Disponível em: &lt;<a href="http://acl.ldc.upenn.edu/M/M95/M95-1005.pdf">http://acl.ldc.upenn.edu/M/M95/M95-1005.pdf</a>&gt;
+</div>
+<div id="ref-entitymention" class="csl-entry" role="listitem">
+YANG, X. et al. <strong>An Entity-Mention Model for Coreference Resolution with Inductive Logic Programming.</strong> Proceeding of Association for Computational Linguistics. <strong>Anais</strong>...2008.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>O <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-direito-ren/cap-direito-ren.html#sec-cap-direito-ren" target="_blank" title="Volume 3">Reconhecimento de Entidades Nomeadas no Domínio Legal</a></span> apresenta técnicas para o tratamento de entidades nomeadas no domínio do Direito.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="http://conll.cemantix.org/2011/" class="uri">http://conll.cemantix.org/2011/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="http://www.nilc.icmc.usp.br/tep2" class="uri">http://www.nilc.icmc.usp.br/tep2</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Considera-se como representação do discurso a forma como as ideias são construídas em textos de linguagem natural, considerando sua construção linguística e seu contexto de uso, bem como suas formas de expressões comuns. Em linguística, a Pragmática é o ramo que analisa o uso concreto da linguagem pelos falantes da língua em seus variados contextos.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Notemos que, para cada iteração, M<span class="math inline">\(_0\)</span> muda.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Veja mais sobre Avaliação de sistemas de PLN no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/avaliacao/cap-avaliacao/cap-avaliacao.html#sec-cap-avaliacao" target="_blank" title="Volume 1">Avaliação de tecnologias de linguagem</a></span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="pagination-link" aria-label="Modelos discursivos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="pagination-link" aria-label="Geração de linguagem natural">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

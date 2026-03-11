@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Camila de Araújo Azevedo">
+<meta name="author" content="Heliana Ribeiro de Mello">
+<meta name="author" content="Priscila Osório Côrtes">
+
+<title>2&nbsp; Texto ou fala? – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../fala/cap-recursos-fala/cap-recursos-fala.html" rel="next">
+<link href="../../introducao/cap-introducao/cap-introducao.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../fala/cap-fala/cap-fala.html"><strong>Fala</strong></a></li><li class="breadcrumb-item"><a href="../../fala/cap-fala/cap-fala.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#sec-cap-fala-intro" id="toc-sec-cap-fala-intro" class="nav-link active" data-scroll-target="#sec-cap-fala-intro"><span class="header-section-number">2.1</span> Histórico e panorama da área</a></li>
+  <li><a href="#aspectos-teóricos-fundamentais" id="toc-aspectos-teóricos-fundamentais" class="nav-link" data-scroll-target="#aspectos-teóricos-fundamentais"><span class="header-section-number">2.2</span> Aspectos teóricos fundamentais</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-fala-estrutura-lingua-falada" id="toc-sec-cap-fala-estrutura-lingua-falada" class="nav-link" data-scroll-target="#sec-cap-fala-estrutura-lingua-falada"><span class="header-section-number">2.2.1</span> A estrutura da língua falada</a></li>
+  <li><a href="#sec-cap-fala-asr" id="toc-sec-cap-fala-asr" class="nav-link" data-scroll-target="#sec-cap-fala-asr"><span class="header-section-number">2.2.2</span> Reconhecimento de fala</a></li>
+  <li><a href="#sec-cap-fala-sintese" id="toc-sec-cap-fala-sintese" class="nav-link" data-scroll-target="#sec-cap-fala-sintese"><span class="header-section-number">2.2.3</span> Síntese de fala</a></li>
+  <li><a href="#considerações-finais" id="toc-considerações-finais" class="nav-link" data-scroll-target="#considerações-finais"><span class="header-section-number">2.2.4</span> Considerações finais</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../fala/cap-fala/cap-fala.html"><strong>Fala</strong></a></li><li class="breadcrumb-item"><a href="../../fala/cap-fala/cap-fala.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-fala" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Camila de Araújo Azevedo </p>
+             <p>Heliana Ribeiro de Mello </p>
+             <p>Priscila Osório Côrtes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-fala.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-cite-contents" aria-label="Toggle callout" aria-controls="callout-cite" aria-expanded="false">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div id="callout-cite" class="callout-cite-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-fala:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Azevedo, Camila de Araújo and Mello, Heliana Ribeiro de and Côrtes, Priscila Osório},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Texto ou fala?},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {2},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/fala/cap-fala/cap-fala.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="sec-cap-fala-intro" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-cap-fala-intro"><span class="header-section-number">2.1</span> Histórico e panorama da área</h2>
+<p>O processamento da língua falada depende de uma vasta gama de conhecimentos que inclui acústica, fonologia, fonética, linguística geral, semântica, sintaxe, pragmática, estruturas discursivas, entre outras. Para além disso, outros conhecimentos mais comuns à ciência da computação, à engenharia elétrica, à matemática e, até mesmo à psicologia, também são necessários. Neste contexto, este capítulo visa oferecer um panorama da área e das habilidades e métodos mais conhecidos no universo do processamento computacional da língua falada.</p>
+<p>Desde os primórdios do surgimento da interação falada na espécie humana até os dias de hoje – e podemos afirmar com tranquilidade, que assim também será no futuro imaginável –, a fala tem sido o principal instrumento para a troca de informações e de coesão social <span class="citation" data-cites="RIZZOLATTI1998188">(<a href="../../shared/referencias/referencias.html#ref-RIZZOLATTI1998188" role="doc-biblioref">Rizzolatti; Arbib, 1998</a>)</span>. É através da fala<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> que expressamos nossas emoções, a nossa atitude em relação a fatos e eventos, bem como negociamos ideias e ações. A capacidade linguística nos diferencia de outras espécies, mas é a fala, e o que ela nos proporciona, que nos identifica como humanos. Estima-se que a fala tenha surgido na filogênese humana há cerca de 60 mil anos, enquanto a escrita, que é uma tecnologia desenvolvida pelos humanos, surgiu provavelmente há cerca de 10 mil anos. A chamada “dupla articulação” presente na linguagem humana é uma habilidade exclusiva da nossa espécie. Ela se caracteriza por ser a articulação entre unidades significativas (morfemas) e fonemas, que são elementos finitos que se combinam de forma variada, criando infinitas possibilidades de morfemas<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. A língua falada é hoje expandida para além do domínio da interação face-a-face para meios como a telefonia, a televisão, a interação via computadores. Os aplicativos para interações multimodais imagem/som ganharam uma dimensão inimaginável com a eclosão da pandemia do Sars-Cov-19 em 2020, demonstrando claramente a preferência dos humanos pela interação via fala.</p>
+<p>Tal preferência também se reflete na interação homem-máquina e, apesar de ainda estarmos distantes de um mundo em que homens e máquinas interagem majoritariamente através da verbalização oral, já temos aplicações que nos permitem interagir com as máquinas através de comandos orais no contexto doméstico, comercial e computacional.</p>
+<p>Em sua fase inicial, o processamento de língua falada em português era bastante limitado devido à falta de recursos computacionais e técnicas apropriadas. As primeiras abordagens eram baseadas em regras gramaticais e modelos acústicos simples. No entanto, com o avanço da tecnologia e o aumento do poder computacional, novas técnicas e abordagens foram desenvolvidas, resultando em avanços significativos nessa área.</p>
+<p>A partir da década de 1990, técnicas baseadas em estatística começaram a ganhar popularidade. Esses modelos estatísticos utilizam algoritmos de aprendizado de máquina, como as redes neurais artificiais, para melhorar o desempenho do processamento de língua falada em português. Com a disponibilidade de grandes quantidades de dados de fala e avanços em hardware e software, os sistemas de reconhecimento de fala começaram a se tornar mais precisos e eficientes.</p>
+<p>Outro marco importante no processamento de língua falada em português foi a introdução dos sistemas de síntese de fala (<span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-sintese" target="_blank" title="Volume 1">Síntese de fala</a></span>). Esses sistemas permitem que um computador gere fala humana a partir de texto escrito em português. Inicialmente, a síntese de fala em português era baseada em técnicas concatenativas, que envolviam a gravação de segmentos de fala de um locutor humano e a concatenação desses segmentos para gerar a fala sintetizada. A concatenação refere-se ao processo de unir ou combinar várias partes ou segmentos de fala para formar uma sequência contínua ou mais longa de palavras ou frases. Com o tempo, surgiram abordagens baseadas em síntese de formantes (na fala, um formante é uma ressonância específica ou pico de intensidade em um espectrograma de som. Os formantes são associados à forma e ao posicionamento da cavidade oral, da faringe e da língua durante a produção de sons da fala, especialmente as vogais) e síntese de fala concatenativa com modelos estatísticos, proporcionando uma qualidade de síntese cada vez melhor.</p>
+<p>Avanços mais recentes no processamento da fala em português estão relacionados ao uso de modelos de linguagem neural (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume2/modelos/cap-modelos-linguagem/cap-modelos-linguagem.html#sec-cap-modelos-linguagem" target="_blank" title="Volume 2">Modelos de linguagem</a></span>), como os modelos de transformação de sequência a sequência (Seq2Seq) e as redes neurais convolucionais (CNNs) e recorrentes (RNNs). Esses modelos têm oferecido resultados impressionantes em várias tarefas de processamento de língua falada, como reconhecimento automático de fala, tradução automática de fala e resumo automático de áudio.</p>
+<p>Além disso, com o advento dos assistentes virtuais e sistemas de processamento de linguagem natural, a interação por meio da fala em português tornou-se cada vez mais comum. Empresas de tecnologia estão investindo em pesquisas e desenvolvimento para melhorar a compreensão e a resposta dos sistemas de processamento de língua falada em português, a fim de proporcionar uma experiência mais natural e intuitiva aos usuários.</p>
+<p>Para que se alcancem bons resultados no processamento computacional da fala é preciso que haja <em>datasets</em> e <em>corpora</em> de fala<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> de alta qualidade. Tem havido um esforço considerável da comunidade de pesquisadores para a compilação de dados dessa natureza. Para o português brasileiro, destaca-se o recente <em>corpus</em> CORAA ASR v. 1.1 (Corpus de Áudios Anotados)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> voltado para tarefas de reconhecimento de fala <span class="citation" data-cites="DBLP:journals/corr/abs-2110-15731">(<a href="../../shared/referencias/referencias.html#ref-DBLP:journals/corr/abs-2110-15731" role="doc-biblioref">Candido Junior et al., 2021</a>)</span>, que é apresentado no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-recursos-fala/cap-recursos-fala.html#sec-cap-recursos-fala" target="_blank" title="Volume 1">Recursos para o processamento de fala</a></span>.</p>
+<p>Os sons da fala podem ser digitalizados e processados usando-se algoritmos tanto para <strong>reconhecimento de fala</strong> (transcrição de formas de onda em texto) quanto para <strong>síntese de fala</strong> (conversão de texto em formas de onda). O processo de digitalização da fala envolve a conversão do sinal analógico das ondas sonoras em um formato digital que pode ser armazenado e manipulado por um computador. Isso é normalmente feito usando-se um conversor analógico-digital (CAD), que amostra, isto é, faz uma amostragem da onda sonora em intervalos regulares e converte cada amostra em um número binário. Uma vez que o sinal da fala tenha sido digitalizado, ele pode ser processado usando-se várias técnicas, como filtragem, compressão e análise.</p>
+<p>Um sistema computacional para a língua falada necessita de capacidades tanto de reconhecimento quanto de síntese de fala. Entretanto, esses dois componentes não são suficientes para a construção de um sistema útil. Um componente de compreensão e diálogo é necessário para a interação com o usuário; o conhecimento de domínio é necessário para guiar a interpretação da fala pelo sistema e permitir que ele determine a ação apropriada. Para todos esses componentes, há uma série de desafios, que incluem robustez, flexibilidade, facilidade de integração e eficiência de engenharia.</p>
+</section>
+<section id="aspectos-teóricos-fundamentais" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="aspectos-teóricos-fundamentais"><span class="header-section-number">2.2</span> Aspectos teóricos fundamentais</h2>
+<p>A língua falada é utilizada para diversas funções que se estabelecem entre falantes e ouvintes. A produção e a percepção são ambos elementos importantes na cadeia da fala. A fala se inicia com uma intenção (volição) de comunicação no cérebro do falante, o qual ativa movimentos musculares para a produção de sons. O ouvinte, por sua vez, recebe os sinais sonoros em seu sistema auditivo, processando-os para transformá-los em sinais neurológicos que o cérebro pode compreender. O falante monitora e controla continuamente os órgãos vocais ao receber a sua própria fala como feedback <span class="citation" data-cites="MOORE2007418">(<a href="../../shared/referencias/referencias.html#ref-MOORE2007418" role="doc-biblioref">Moore, 2007</a>)</span>.</p>
+<p>Considerando os componentes universais da comunicação verbal, a interação falante/ouvinte é tecida a partir de vários elementos distintos. Como dito, o processo de produção da fala começa com a mensagem semântica na mente de uma pessoa a ser transmitida ao ouvinte através da fala. O equivalente computacional ao processo de formulação da mensagem é a semântica da aplicação que cria o conceito a ser expresso. Após a criação da mensagem, o próximo passo é convertê-la em uma sequência de palavras. Cada palavra consiste em uma sequência de fonemas e respectivos alofones (realizações fonéticas correlacionadas do fonema) que correspondem à pronúncia das palavras. Cada frase também contém um padrão prosódico que denota a duração de cada fonema, entonação da frase e volume dos sons. Uma vez que o sistema de linguagem finaliza o mapeamento, o falante executa uma série de sinais neuromusculares. Os comandos neuromusculares realizam o mapeamento articulatório para controlar as cordas vocais, lábios, mandíbula, língua e véu palatino, produzindo assim a sequência sonora como saída final. O processo de compreensão da fala funciona na ordem inversa. Primeiro, o sinal é enviado para a cóclea no ouvido interno, que realiza a análise de frequência como um banco de filtros. Em seguida, um processo de transdução neural converte o sinal espectral em sinais de atividade no nervo auditivo, correspondendo aproximadamente a um componente de extração de recursos. Atualmente, ainda não está claro como a atividade neural é mapeada no sistema de linguagem e como a compreensão da mensagem é alcançada no cérebro.</p>
+<p>Os sinais de fala são compostos de padrões sonoros analógicos que servem como base para uma representação discreta e simbólica da linguagem falada – fonemas, sílabas e palavras. A produção e interpretação desses sons são regidas pela sintaxe, semântica e estrutura informacional da língua falada. Neste capítulo, adotamos uma abordagem de baixo para cima para introduzir os conceitos básicos, começando pelos sons e passando pela fonética e fonologia, chegando até as sílabas e palavras.</p>
+<section id="sec-cap-fala-estrutura-lingua-falada" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-cap-fala-estrutura-lingua-falada"><span class="header-section-number">2.2.1</span> A estrutura da língua falada</h3>
+<p>Nesta seção, revisamos brevemente os sistemas de produção e percepção de fala humana. Esperamos que, algum dia, a pesquisa em linguagem falada nos permita construir um sistema de computador tão bom quanto o nosso próprio sistema de produção e compreensão de fala.</p>
+<section id="som" class="level4" data-number="2.2.1.1">
+<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="som"><span class="header-section-number">2.2.1.1</span> Som</h4>
+<p>O som é uma onda de pressão longitudinal formada por compressões e rarefações das moléculas de ar, em uma direção paralela àquela da aplicação de energia. Compressões são zonas onde as moléculas de ar foram forçadas pela aplicação de energia a uma configuração mais apertada do que o normal, e rarefações são zonas onde as moléculas de ar estão menos densamente empacotadas. As configurações alternadas de compressão e rarefação de moléculas de ar ao longo do caminho de uma fonte de energia são às vezes descritas pelo gráfico de uma onda senoidal. A forma básica de uma curva senoidal (<a href="#fig-cap-fala-senoidal" class="quarto-xref">Figura&nbsp;<span>2.1</span></a>) é de uma onda suave, que se repete ao longo de um eixo horizontal. Ela se assemelha a uma série de montanhas e vales, subindo e descendo de forma suave. Neste tipo de representação, as cristas da curva senoidal correspondem a momentos de compressão máxima e os vales correspondem a momentos de rarefação máxima.</p>
+<div id="fig-cap-fala-senoidal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-fala-senoidal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.1: Curva senoidal
+</figcaption>
+<div aria-describedby="fig-cap-fala-senoidal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image1.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-cap-fala-producao-fala" class="level4" data-number="2.2.1.2">
+<h4 data-number="2.2.1.2" class="anchored" data-anchor-id="sec-cap-fala-producao-fala"><span class="header-section-number">2.2.1.2</span> Produção de Fala<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></h4>
+<p>Aqui revisamos os sistemas básicos de produção de fala humana, que influenciaram a pesquisa em codificação, síntese e reconhecimento de fala.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<section id="sec-cap-fala-articuladores" class="level5" data-number="2.2.1.2.1">
+<h5 data-number="2.2.1.2.1" class="anchored" data-anchor-id="sec-cap-fala-articuladores"><span class="header-section-number">2.2.1.2.1</span> Articuladores</h5>
+<p>A fala é produzida por ondas de pressão de ar que emanam da boca e das narinas de um falante.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Na maioria das línguas do mundo, o inventário de fonemas pode ser dividido em duas classes básicas: ­</p>
+<ul>
+<li><strong>Consoantes</strong> – articuladas na presença de constrições na garganta ou obstruções na boca (língua, dentes, lábios) enquanto falamos;</li>
+<li><strong>Vogais</strong> – articuladas sem grandes constrições e obstruções.</li>
+</ul>
+<p>Os sons podem ser subdivididos ainda mais em subgrupos com base em certas propriedades articulatórias. Essas propriedades derivam da anatomia de alguns articuladores importantes e dos locais onde eles tocam as fronteiras do trato vocal humano. Além disso, um grande número de músculos contribui para a posição e o movimento dos articuladores. Nós nos restringimos a apenas uma visão esquemática dos principais articuladores. Os componentes principais do aparelho de produção da fala são os pulmões, traquéia, laringe (órgão de produção de voz), cavidade faríngea (garganta), cavidade oral e nasal. As cavidades faríngea e oral são geralmente referidas como o trato vocal, e a cavidade nasal como o trato nasal. O aparelho de produção de fala humano consiste em:</p>
+<ul>
+<li><strong>Pulmões:</strong> fonte de ar durante a fala;</li>
+<li><strong>Cordas vocais (laringe):</strong> quando as pregas vocais são mantidas próximas uma da outra e oscilam uma contra a outra durante um som da fala, o som é categorizado como sonoro. Por exemplo, /b d g/. Quando as pregas são muito soltas ou tensas para vibrar periodicamente, o som é categorizado como surdo. Por exemplo, /p t k/. O local onde as pregas vocais se unem é chamado de glote;</li>
+<li><strong>Véu palatino (palato mole):</strong> atua como uma válvula, abrindo para permitir a passagem de ar (e, portanto, ressonância) através da cavidade nasal. Sons produzidos com a aba aberta incluem /m/ e /n/;</li>
+<li>Palato duro: uma superfície relativamente dura e longa no teto dentro da boca; quando a língua é colocada contra ela, permite a articulação de consoantes, como o <span class="math inline">\(\lambda\)</span> em alho /a<span class="math inline">\(\lambda\)</span>u/;</li>
+<li><strong>Língua:</strong> articulador flexível, afastado do palato para vogais, colocado próximo ou sobre o palato ou outras superfícies duras para articulação de consoantes;</li>
+<li><strong>Dentes:</strong> outro local de articulação usado para segurar a língua para certas consoantes, como /t d/;</li>
+<li><strong>Lábios:</strong> podem ser arredondados ou espalhados para afetar a qualidade das vogais, e completamente fechados para interromper o fluxo de ar oral em certas consoantes /p b m/.</li>
+</ul>
+</section>
+<section id="o-mecanismo-de-sonorização" class="level5" data-number="2.2.1.2.2">
+<h5 data-number="2.2.1.2.2" class="anchored" data-anchor-id="o-mecanismo-de-sonorização"><span class="header-section-number">2.2.1.2.2</span> O Mecanismo de Sonorização</h5>
+<p>A distinção mais fundamental entre os tipos de som na fala é a distinção sonoro/surdo. Sons sonoros, incluindo vogais, têm em sua estrutura temporal e de frequência um padrão regular que sons surdos, como a consoante /s/, não possuem. Sons sonoros geralmente têm mais energia. O que no mecanismo de produção de fala cria essa distinção fundamental? Como já dito na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-articuladores" target="_blank" title="Volume 1">Articuladores</a></span>, quando as pregas vocais vibram durante a articulação do fonema, o fonema é considerado sonoro; caso contrário, é surdo. Vogais são sonoras durante toda a sua duração. Os timbres distintos de vogais são criados usando a língua e os lábios para moldar a principal cavidade de ressonância oral de maneiras diferentes. As pregas vocais vibram em taxas mais lentas ou mais rápidas, desde tão baixas quanto 60 ciclos por segundo (Hz) para um homem de tamanho grande, até 300 Hz ou mais para uma mulher ou criança pequena. A taxa de ciclagem (abertura e fechamento) das pregas vocais na laringe durante a fonação de sons sonoros é chamada de frequência fundamental(f0). Isso ocorre porque ela estabelece a linha de base periódica para todos os harmônicos de frequência mais alta contribuídos pelas cavidades de ressonância faríngea e oral. A frequência fundamental também contribui mais do que qualquer outro fator único para a percepção de altura (o aumento e queda semelhante à música das tonalidades de voz) na fala.</p>
+<p>Uma vez que a onda glotal é periódica, consistindo na frequência fundamental (f0) e em um número de harmônicos (múltiplos integrais de f0), ela pode ser analisada como uma soma de ondas senoidais. As ressonâncias do trato vocal (acima da glote) são excitadas pela energia glotal. Vamos supor, para simplicidade, que o trato vocal seja um tubo reto de área transversal uniforme, fechado na extremidade da glote e aberto nos lábios. Quando a forma do trato vocal muda, as ressonâncias também mudam. Harmônicos próximos às ressonâncias são enfatizados, e, na fala, as ressonâncias das cavidades que são típicas de configurações articulatórias particulares (por exemplo, os diferentes timbres vocálicos) são chamadas de formantes. As vogais em uma forma de onda de fala real podem ser visualizadas a partir de várias perspectivas diferentes, por exemplo, enfatizando uma visão em seção transversal das respostas harmônicas em um único momento ou, por outro lado, uma visão de longo prazo da evolução da trajetória dos formantes ao longo do tempo.</p>
+</section>
+</section>
+<section id="percepção-da-fala" class="level4" data-number="2.2.1.3">
+<h4 data-number="2.2.1.3" class="anchored" data-anchor-id="percepção-da-fala"><span class="header-section-number">2.2.1.3</span> Percepção da Fala</h4>
+<p>Existem dois componentes principais no sistema de percepção auditiva: os órgãos auditivos periféricos (orelhas) e o sistema nervoso auditivo (cérebro). A orelha (ouvido externo) capta um sinal de pressão acústica, processa-o, transformando-o primeiro em um padrão de vibração mecânica na membrana basilar e depois representando o padrão por uma série de pulsos a serem transmitidos pelo nervo auditivo. A informação perceptual é extraída em vários estágios do sistema nervoso auditivo. Nesta seção, focamos principalmente nos órgãos auditivos.</p>
+<section id="fisiologia-do-ouvido" class="level5" data-number="2.2.1.3.1">
+<h5 data-number="2.2.1.3.1" class="anchored" data-anchor-id="fisiologia-do-ouvido"><span class="header-section-number">2.2.1.3.1</span> Fisiologia do Ouvido</h5>
+<p>O ouvido humano tem três partes: o ouvido externo, o ouvido médio e o ouvido interno. O ouvido externo consiste na parte visível externa e no canal auditivo externo, que forma um tubo ao longo do qual o som viaja. Esse tubo tem cerca de 2,5 cm de comprimento e é coberto pelo tímpano na extremidade distante. Quando variações na pressão do ar alcançam o tímpano do exterior, ele vibra e transmite as vibrações aos ossos adjacentes do seu lado oposto. A vibração do tímpano está na mesma frequência (compressão e rarefação alternadas) que a onda de pressão sonora que chega. O ouvido médio é um espaço ou cavidade cheia de ar com cerca de 1,3 cm de largura e volume de cerca de 6 cm³. O ar viaja pela abertura (quando aberta) que conecta a cavidade com o nariz e a garganta. Há, ainda, a janela oval, que é uma pequena membrana na interface óssea com o ouvido interno (cóclea). Uma vez que as paredes da cóclea são ósseas, a energia é transferida por ação mecânica do estribo para uma impressão na membrana que se estende sobre a janela oval.</p>
+<p>A estrutura relevante do ouvido interno para a percepção sonora é a cóclea, que se comunica diretamente com o nervo auditivo, conduzindo uma representação do som para o cérebro. A cóclea é um tubo espiralado de cerca de 3,5 cm de comprimento, que se enrola cerca de 2,6 vezes. A espiral é dividida, principalmente pela membrana basilar que corre longitudinalmente, em duas câmaras preenchidas de líquido. A cóclea pode ser considerada grosseiramente como um banco de filtros, cujas saídas são ordenadas por localização, de modo que uma transformação de frequência local é realizada. Os filtros mais próximos da base da cóclea respondem às frequências mais altas, e aqueles mais próximos do ápice respondem às mais baixas.</p>
+<p>Em psicoacústica, faz-se uma distinção básica entre os atributos perceptuais de um som, especialmente de um som de fala, e as propriedades físicas mensuráveis que o caracterizam. Cada um dos atributos perceptuais, conforme listado a seguir, parece ter uma forte correlação com uma propriedade física principal, mas a conexão é complexa, porque outras propriedades físicas do som podem afetar a percepção de maneiras complexas.</p>
+<p>O <a href="#def-cap-fala-quadro1" class="quarto-xref">Quadro&nbsp;<span>2.1</span></a> traz a relação entre atributos perceptuais e físicos do som.</p>
+<div id="def-cap-fala-quadro1" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 2.1</strong></span> Relação entre atributos perceptuais e físicos do som</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Quantidade física</strong></th>
+<th style="text-align: left;"><strong>Qualidade perceptual</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intensidade</td>
+<td style="text-align: left;">Volume</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Frequência fundamental</td>
+<td style="text-align: left;">Tom</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Forma espectral</td>
+<td style="text-align: left;">Timbre</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tempo de início/fim</td>
+<td style="text-align: left;">Temporização</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Diferença de fase na audição binaural</td>
+<td style="text-align: left;">Localização</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Embora sons com níveis de intensidade maiores geralmente soem mais altos, a sensibilidade do ouvido varia com a frequência e a qualidade do som. Uma divergência fundamental entre as qualidades físicas e perceptuais é o fenômeno da percepção de igualdade de intensidade não uniforme de tons de frequências variadas. Em geral, tons de diferentes alturas têm diferentes níveis percebidos de volume. Há uma relativa insensibilidade do ouvido a sons de baixa frequência em níveis de intensidade moderados a baixos. A sensibilidade auditiva atinge um máximo em torno de 4 kHz, que está próximo da primeira frequência de ressonância do canal auditivo externo, e atinge outro pico em torno de 13 kHz, a frequência da segunda ressonância.</p>
+<p>A altura está, de fato, mais intimamente relacionada com a frequência fundamental. Quanto maior a frequência fundamental, maior a altura que percebemos. No entanto, a discriminação entre duas alturas depende da frequência da altura inferior. A altura percebida mudará à medida que a intensidade aumentar e a frequência for mantida constante.</p>
+<p>Em um exemplo da não identidade de efeitos acústicos e perceptuais, foi observado experimentalmente que, quando o ouvido é exposto a dois ou mais tons diferentes, é comum que um tom possa mascarar os outros. O mascaramento provavelmente é mais bem explicado como um deslocamento ascendente no limiar auditivo do tom mais fraco pelo tom mais alto. Tons puros, sons complexos, bandas estreitas e amplas de ruído mostram diferenças em sua capacidade de mascarar outros sons. Em geral, tons puros, próximos em frequência, se mascaram mais do que tons amplamente separados em frequência. Um tom puro mascara tons de frequência mais alta com mais eficácia do que tons de frequência mais baixa. Quanto maior a intensidade do tom de mascaramento, mais ampla é a faixa de frequências que ele pode mascarar. O mascaramento, no contexto da fala e da audição, pode ter um impacto significativo, causando dificuldade de compreensão e reduzindo a inteligibilidade, além de aumentar o esforço de escuta. O mascaramento pode afetar o reconhecimento automático de fala aumentando a taxa de erros, levando à perda de partes importantes do discurso (perda de contexto) e dificultando a separação de vozes.</p>
+<p>A escuta binaural melhora muito nossa capacidade de sentir a direção da fonte de som. A atenção à localização está principalmente focada na discriminação lateral ou de lado a lado. As pistas de tempo e intensidade têm diferentes impactos para frequências baixas e altas, respectivamente. Sons de baixa frequência são lateralizados principalmente com base na diferença interaural de tempo, enquanto sons de alta frequência são localizados principalmente com base na diferença interaural de intensidade.</p>
+<p>Finalmente, uma questão perceptual interessante é a questão da qualidade de voz distinta. O discurso de pessoas diferentes soa diferente. Em parte, isso se deve a fatores óbvios, como diferenças na frequência fundamental característica causada, por exemplo, pela maior massa e comprimento das pregas vocais masculinas adultas em comparação com as femininas. Mas existem efeitos mais sutis também.</p>
+<p>Em psicoacústica, o conceito de timbre (de um som ou instrumento) é definido como o atributo da sensação auditiva pelo qual um sujeito pode julgar que dois sons apresentados de maneira semelhante, com a mesma intensidade e altura, são diferentes. Em outras palavras, quando todas as diferenças facilmente mensuráveis são controladas, a percepção restante de diferença é atribuída ao timbre. Isso é mais facilmente ouvido na música, onde a mesma nota na mesma oitava, tocada por igual tempo, por exemplo, em um violino, soa diferente de uma flauta. O timbre de um som depende de muitas variáveis físicas, incluindo a distribuição de energia espectral do som, o envelope temporal, a taxa e profundidade de modulação de amplitude ou frequência e o grau de inarmonia de seus harmônicos.</p>
+</section>
+<section id="análise-de-frequência" class="level5" data-number="2.2.1.3.2">
+<h5 data-number="2.2.1.3.2" class="anchored" data-anchor-id="análise-de-frequência"><span class="header-section-number">2.2.1.3.2</span> Análise de Frequência</h5>
+<p>Pesquisadores têm realizado trabalhos experimentais psicoacústicos para derivar escalas de frequência que tentam modelar a resposta natural do sistema perceptual humano, uma vez que a cóclea do ouvido interno atua como um analisador de espectro. O complexo mecanismo do ouvido interno e do nervo auditivo implica que os atributos perceptuais de sons em diferentes frequências podem não ser completamente simples ou lineares por natureza. É bem conhecido que a altura musical ocidental é descrita em oitavas e semitons. A altura musical percebida de tons complexos é basicamente proporcional ao logaritmo da frequência. Para tons complexos, a diferença perceptível para frequência é essencialmente constante na escala de oitavas/semitons. As escalas de altura musical são usadas em pesquisas prosódicas (sobre a geração de contorno de entonação da fala).</p>
+</section>
+</section>
+<section id="panorama-genérico-dos-níveis-de-análise-da-fala" class="level4" data-number="2.2.1.4">
+<h4 data-number="2.2.1.4" class="anchored" data-anchor-id="panorama-genérico-dos-níveis-de-análise-da-fala"><span class="header-section-number">2.2.1.4</span> Panorama genérico dos níveis de análise da fala</h4>
+<p>A fala, diferentemente da escrita, não é uma tecnologia desenvolvida pelos humanos. É algo bem mais complexo e antigo, sendo hoje considerada, por alguns, como uma dotação genética e, por outros, como o produto de diferentes processos cognitivos e corpóreos.</p>
+<p>A fala humana pode ser definida genericamente como o processo de expressar pensamentos, ideias e emoções por meio da produção de sons articulados. É uma forma de comunicação específica dos seres humanos e é fundamental para a interação social e o desenvolvimento das sociedades.</p>
+<p>A caracterização da fala humana envolve vários aspectos tais como:</p>
+<ul>
+<li><strong>Produção de sons articulados:</strong> A fala envolve a produção de sons através da coordenação dos órgãos articulatórios, como a língua, os lábios, os dentes e a glote. Esses órgãos são responsáveis por modificar a corrente de ar expirada pelos pulmões para produzir os diferentes sons da fala.</li>
+<li><strong>Sistema linguístico (linguagem):</strong> A fala é mediada pela linguagem, que é um sistema de símbolos e regras que permite a comunicação entre os indivíduos. A linguagem compreende elementos fonéticos (sons), fonológicos (padrões de som), morfológicos (estrutura das palavras), sintáticos (ordem das palavras), semânticos (significado das palavras) e pragmáticos (uso da linguagem em contextos específicos).</li>
+<li><strong>Expressão de pensamentos e emoções:</strong> A fala humana permite expressar uma ampla gama de pensamentos, ideias e emoções. Além da transmissão de informações, a fala também é utilizada para expressar sentimentos, intenções, opiniões e experiências pessoais.</li>
+<li><strong>Comunicação social:</strong> A fala é um meio de interação social fundamental. Por meio da fala, os indivíduos podem se comunicar, compartilhar informações, estabelecer conexões emocionais, resolver problemas e coordenar atividades em grupo.</li>
+<li><strong>Aquisição:</strong> A habilidade de falar é adquirida ao longo do desenvolvimento humano. As crianças passam por um processo de aprendizado da fala, no qual adquirem as habilidades motoras necessárias para articular os sons e aprendem as regras e estruturas da linguagem de seu ambiente.</li>
+</ul>
+<p>É importante ressaltar que a fala humana é altamente diversa e comporta variações entre diferentes idiomas, culturas e indivíduos. Além disso, a fala também pode ser afetada por condições clínicas, como distúrbios da fala e da linguagem.</p>
+<p>Diferentemente do que acontece para a escrita, o processamento computacional da fala não parte do encadeamento simbólico de grafemas organizados em itens lexicais e suas supra-estruturas sintáticas. É preciso converter o sinal sonoro em símbolos passíveis de análise por um sistema computacional, ou seja, as ondas sonoras precisam ser convertidas em bits processáveis computacionalmente. Ademais, a fala não pode prescindir de um nível analítico comumente ignorado pelas análises da escrita: a pragmática e, mais especificamente o seu nível prosódico e suas correspondências na estruturação informacional. Neste capítulo não há a possibilidade de explorarmos este assunto com a profundidade que ele merece, portanto recomendamos ao leitor recorrer a leituras específicas para se inteirar sobre isso.</p>
+<p>Nas próximas subseções, faremos um apanhado genérico sobre o nível analítico mínimo, o fonético-fonológico.</p>
+<section id="fonética-e-fonologia" class="level5" data-number="2.2.1.4.1">
+<h5 data-number="2.2.1.4.1" class="anchored" data-anchor-id="fonética-e-fonologia"><span class="header-section-number">2.2.1.4.1</span> Fonética e fonologia</h5>
+<p>Agora discutiremos as noções de fonética e fonologia básicas necessárias para o processamento da linguagem falada. Fonética refere-se ao estudo dos sons da fala, sua produção, classificação e transcrição. Fonologia é o estudo da distribuição e padrões dos sons da fala em uma língua e das suas regras implícitas.</p>
+<p>Ao linguista Ferdinand de Saussure (1857-1913) atribui-se a observação de que a relação entre um sinal e o objeto significado por ele é arbitrária. Assim, um mesmo conceito é arbitrariamente expresso em línguas diferentes: usamos [pɛ] em português para nos referirmos ao mesmo conceito que em inglês foneticamente seria [fʊt] . Para a fonética, isso significa que os sons da fala não têm um significado intrínseco e devem ser distribuídos aleatoriamente no léxico.</p>
+<p>Os sons são apenas um conjunto de efeitos arbitrários disponibilizados pela anatomia vocal humana. Assim como as impressões digitais, a anatomia vocal de cada falante é única, o que resulta em vocalizações também únicas. No entanto, a comunicação linguística é baseada na comunalidade de formas no nível perceptual. Para permitir a discussão das semelhanças, os pesquisadores identificaram certas características gerais dos sons da fala que são adequadas para a descrição e classificação das palavras nos dicionários. Eles também adotaram vários sistemas de notação para representar o subconjunto de fenômenos fonéticos que são cruciais para o significado.</p>
+<p>Na ciência da fala, o termo fonema é usado para denotar qualquer uma das unidades mínimas de som da fala em uma língua que podem servir para distinguir uma palavra de outra. O termo fone é utilizado para denotar a realização acústica de um fonema. Há duas classes de fonemas: vogais e consoantes (<span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-articuladores" target="_blank" title="Volume 1">Articuladores</a></span>).</p>
+<p>As vogais são definidas fonologicamente com base em três características principais: qualidade, altura e tensão.</p>
+<p>A qualidade vocálica refere-se à diferença perceptível entre os diferentes sons de vogais. Ela é determinada principalmente pela posição da língua e pelos formatos das cavidades oral e faríngea durante a produção da vogal. Por exemplo, as vogais podem ser classificadas como “abertas” ou “fechadas”, dependendo da posição da mandíbula e da abertura da boca. Por exemplo, /a/ é uma vogal aberta e /i/ é uma vogal fechada.</p>
+<p>A altura vocálica se refere à posição vertical da língua em relação ao palato durante a produção da vogal. As vogais podem ser classificadas como “alta”, “média” ou “baixa” com base na posição da língua. Por exemplo, a vogal /i/ em “pique” é considerada alta, enquanto a vogal /a/ em “casa” é considerada baixa.</p>
+<p>A tensão vocálica se refere à tensão muscular envolvida na produção da vogal. As vogais podem ser classificadas como “tensas” ou “frouxas”. Vogais tensas são produzidas com maior tensão muscular e duração, enquanto vogais frouxas são produzidas com menos tensão muscular e têm uma duração mais curta. No português brasileiro não se considera que haja essa diferenciação. No português europeu, dependendo do dialeto, seriam encontradas vogais tensas como o /ɔ/ em “corta” ou “porta”, e vogais frouxas como o /i/ em “pia” ou “fria”.</p>
+<p>Essas características fonológicas das vogais são usadas para distinguir as palavras em um determinado idioma. As diferenças na qualidade, altura e tensão vocálicas são consideradas contrastivas e podem levar a diferentes significados das palavras. Por exemplo, as palavras “bela”/ ˈbɛlɐ/ e “bola”/ ˈbɔlɐ/ são distinguidas pela qualidade vocálica dos fonemas /ɛ/ e /ɔ/ respectivamente.</p>
+<p>A forma e a posição da língua na cavidade oral não formam uma obstrução significativa do fluxo de ar durante a articulação das vogais. No entanto, variações no posicionamento da língua conferem a cada vogal seu caráter distintivo, alterando a ressonância, assim como diferentes tamanhos e formas de garrafas produzem efeitos acústicos diferentes quando são golpeadas. A energia primária que entra nas cavidades faríngea e oral na produção das vogais vibra na frequência fundamental. As principais ressonâncias das cavidades oral e faríngea para as vogais são chamadas de f1 e f2 - primeiro e segundo formantes, respectivamente. Eles são determinados pelo posicionamento da língua e pela forma do trato oral nas vogais e determinam o timbre ou a qualidade característica da vogal.</p>
+<p>As consoantes, por outro lado, são definidas fonologicamente como sons produzidos por meio de um bloqueio ou estreitamento parcial ou completo do trato vocal, que resulta na turbulência do ar que passa através do ponto de obstrução.</p>
+<p>Existem diferentes tipos de consoantes, classificadas de acordo com o ponto e modo de articulação, e também com a presença ou ausência de vozeamento (consoantes surdas e sonoras) (<span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-articuladores" target="_blank" title="Volume 1">Articuladores</a></span>). Por exemplo, as consoantes, quanto ao ponto de articulação, podem ser bilabiais, alveolares, palatais ou velares, além de serem oclusivas, fricativas, aproximantes ou nasais, quanto ao modo de articulação, entre outras classificações possíveis.</p>
+<p>Um exemplo de um par de consoantes contrastivas no português seria /p/ e /b/. Ambas são consoantes oclusivas bilabiais, produzidas bloqueando completamente o fluxo de ar nos lábios (para /p/) ou. além disso, vibrando as cordas vocais enquanto bloqueiam o fluxo de ar (para /b/).</p>
+</section>
+<section id="o-alofone-som-e-contexto" class="level5" data-number="2.2.1.4.2">
+<h5 data-number="2.2.1.4.2" class="anchored" data-anchor-id="o-alofone-som-e-contexto"><span class="header-section-number">2.2.1.4.2</span> O Alofone: Som e Contexto</h5>
+<p>As tabelas que representam vogais e consoantes fornecem símbolos abstratos para os fonemas<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> – principais distinções sonoras. As unidades fonêmicas devem estar correlacionadas com distinções de significado potencial. Por exemplo, a mudança criada ao manter a língua alta e à frente (/i/) em comparação à posição diretamente abaixo (frontal) para /e/, no contexto consonantal /m _ w/, corresponde a uma importante distinção de significado no léxico do português: mil /miw/ vs.&nbsp;meu /mew/. Esta distinção de significado, condicionada por um par de sons bastante similares, em um contexto idêntico, justifica a inclusão de /i/ e /e/ como distinções logicamente separadas. No entanto, um dos sons fundamentais que distingue significados é muitas vezes modificado de forma sistemática por seus vizinhos fonéticos. O processo pelo qual sons vizinhos influenciam um ao outro é chamado de coarticulação. As variações na realização fonética de um fonema, resultantes dos processos coarticulatórios, são chamadas de alofones. As diferenças alofônicas são sempre categóricas, ou seja, podem ser entendidas e denotadas por meio de um pequeno número delimitado de símbolos ou diacríticos nos símbolos fonêmicos básicos.</p>
+</section>
+<section id="sec-cap-fala-taxa-de-articulacao-e-coarticulacao" class="level5" data-number="2.2.1.4.3">
+<h5 data-number="2.2.1.4.3" class="anchored" data-anchor-id="sec-cap-fala-taxa-de-articulacao-e-coarticulacao"><span class="header-section-number">2.2.1.4.3</span> Taxa de articulação e Coarticulação</h5>
+<p>Além dos alofones, existem outras variações na fala para as quais não é possível delimitar um pequeno conjunto de categorias estabelecidas de variação. Essas variações são graduais, existindo ao longo de uma escala para cada dimensão relevante, com falantes distribuídos de maneira ampla. Falantes individuais podem variar suas taxas de acordo com o conteúdo e contexto de sua fala, e também pode haver grandes diferenças entre os falantes de uma dada língua. Alguns falantes podem fazer pausas frequentes, enquanto outros podem falar muitas palavras por minuto com quase nenhuma pausa entre enunciados. Nas taxas mais rápidas, é menos provável que os alvos de formantes sejam completamente alcançados. Além disso, alofones individuais podem se fundir ou desaparecer completamente (por exemplo, possibilidades do dialeto mineirês no enunciado “você sabe se esse ônibus passa na Savassi”, passível de realização, em representação ortográfica, como “cêsasessonspasansavas”)</p>
+</section>
+<section id="sílabas-e-palavras" class="level5" data-number="2.2.1.4.4">
+<h5 data-number="2.2.1.4.4" class="anchored" data-anchor-id="sílabas-e-palavras"><span class="header-section-number">2.2.1.4.4</span> Sílabas e Palavras</h5>
+<p>Os fonemas são como tijolos em uma construção. Para contribuir para o significado de uma língua, eles devem ser organizados em extensões coesas mais longas, e as unidades formadas devem ser combinadas em padrões característicos para ter significado, como sílabas e palavras.</p>
+<p>A sílaba, uma unidade intermediária, é considerada como interposta entre os fonemas e o nível da palavra. O conceito de sílaba é complexo, com implicações tanto para a produção quanto para a percepção da fala. Aqui trataremos a sílaba como uma unidade perceptual. Em português, as sílabas geralmente são centradas em torno de vogais. Por exemplo, numa palavra como “casa” /ka.za/, há duas sílabas porque há duas vogais. Para dividir completamente uma palavra em sílabas, é necessário fazer julgamentos de afiliação consonantal (tomando as vogais como pico da sílaba). A questão de saber se tais julgamentos devem ser baseados em critérios articulatórios ou perceptuais, e como podem ser rigorosamente aplicados, ainda não está resolvida. Os núcleos das sílabas podem ser considerados picos de sonoridade (seções de alta amplitude). Esses picos de sonoridade têm vizinhanças afiliadas de sonoridade estritamente não crescente. Para a diferenciação dos níveis de sonoridade, pode-se utilizar uma escala de sonoridade, classificando consoantes ao longo de um continuum de oclusivas, africadas, fricativas e aproximantes. Portanto, em uma palavra como “verbal”, a silabificação seria “ver-bal”, mas não “ve-rbal”, porque colocar a aproximante /r/ antes da oclusiva /b/ na segunda sílaba violaria o requisito de sonoridade não crescente em direção à sílaba.</p>
+<p>As sílabas são consideradas pelos fonólogos como tendo uma estrutura interna, e vale a pena conhecer os termos atribuídos às partes dessa estrutura. Considere uma sílaba como “trans” /trans/, por exemplo. Ela consiste em um pico vocálico, chamado de núcleo, cercado pelos outros sons em suas posições características. O elemento inicial de uma sílaba é o ataque - preenchido por consoantes. O ataque é um elemento opcional - há sílabas sem ataque, por exemplo, em uma palavra como “as”. A rima consiste da combinação do núcleo com consoantes finais, a coda, se estas estiverem presentes. Em alguns tratamentos, a última consoante em um <em>cluster</em> de final de sílaba pertenceria a um apêndice e não à coda. Assim, em “trans”, teríamos /tr/ em ataque e /ans/ em rima; a rima é formada pelo núcleo, que é /a/, e pela coda que é /ns/. A sílaba é às vezes considerada o domínio primário da coarticulação, ou seja, os sons dentro de uma sílaba influenciam mais a realização uns dos outros do que os mesmos sons se estiverem separados por uma fronteira de sílaba.</p>
+<p>O conceito de palavra parece intuitivamente óbvio para a maioria dos falantes de línguas indo-europeias. A palavra pode ser definida, de forma geral, como: um item lexical, com um significado aceito em uma determinada comunidade de fala, e que tem a liberdade de combinação sintática permitida pela sua classe (substantivo, verbo etc.).</p>
+<p>Na fala, há um problema de segmentação das palavras: elas se fundem, a menos que sejam afetadas por uma disfluência (problema não intencional de produção de fala) ou pela pausa deliberada (silêncio) por alguma razão estrutural ou comunicativa. Isso é surpreendente para muitas pessoas, porque a alfabetização condicionou os falantes/leitores de línguas indo-europeias a esperar um espaço em branco entre as palavras na página impressa. Mas na fala, apenas algumas pausas verdadeiras (o equivalente sonoro de um espaço em branco entre sinais gráficos na escrita) podem estar presentes. Portanto, o que parece para o olho do leitor como “você sabe se esse ônibus passa na Savassi” na escrita, soaria para o ouvido, se simplesmente usarmos letras para representar seus sons correspondentes no dialeto mineirês, como “cêsasessonspasansavas” (<span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-taxa-de-articulacao-e-coarticulacao" target="_blank" title="Volume 1">Taxa de articulação e Coarticulação</a></span>) – não há pausas nesse enunciado. Frequentemente, o que encontramos na fala, são quebras prosódicas, que podem ser de natureza não-terminal – indicando unidades entoacionais em um enunciado e representadas por /, e quebras terminais, indicando a conclusão de um enunciado e representadas por //. Assim, dependendo da constituição informacional, uma sequência de palavras como: “não deu a altura que a Mari marcou lá”, pode ser enunciada com propósitos ilocucionários distintos como as seguintes configurações, dentre outras:</p>
+<blockquote class="blockquote">
+<p>não deu a altura que a Mari marcou lá // um enunciado, com uma unidade entoacional;<br>
+não // deu a altura que a Mari marcou lá // dois enunciados, com uma unidade entoacional cada;<br>
+não // deu a altura / que a Mari marcou / lá // dois enunciados, um com uma unidade entoacional e o outro com três unidades entoacionais.</p>
+</blockquote>
+<p>Certos fatos sobre a estrutura das palavras e as suas possibilidades de combinação são evidentes para a maioria dos falantes nativos e foram confirmados por décadas de pesquisa linguística. Alguns desses fatos descrevem as relações entre as palavras quando consideradas isoladamente, outros dizem respeito a grupos de palavras relacionadas que parecem intuitivamente similares ao longo de alguma dimensão de forma ou significado - essas propriedades são chamadas de paradigmáticas. As propriedades paradigmáticas das palavras incluem a sua classe gramatical, a sua morfologia flexional e derivacional e a sua estrutura em compostos. Outras propriedades das palavras dizem respeito ao seu comportamento e distribuição quando combinadas para fins comunicativos em enunciados – essas propriedades são chamadas de sintagmáticas.</p>
+</section>
+</section>
+</section>
+<section id="sec-cap-fala-asr" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-cap-fala-asr"><span class="header-section-number">2.2.2</span> Reconhecimento de fala</h3>
+<p>A tarefa de reconhecimento de fala, também conhecida como ASR (do inglês, <em>automatic speech recognition</em>), consiste na transformação do sinal acústico de um trecho de fala em um trecho de texto (<a href="#fig-asr" class="quarto-xref">Figura&nbsp;<span>2.2</span></a>).</p>
+<div id="fig-asr" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-asr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.2: Conversão do áudio da fala em sua transcrição textual.
+</figcaption>
+<div aria-describedby="fig-asr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image2.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+<p>Essa tarefa tem diversas aplicações, mas a mais difundida é no uso de assistentes de voz, também conhecidos como assistentes virtuais. Os assistentes, comumente embutidos em celulares, como o próprio nome revela, foram criados para ajudar as pessoas em tarefas corriqueiras, como enviar mensagens, fazer ligações, agendar compromissos etc. Para que a ajuda dos assistentes “valha a pena”, eles devem interagir com o humano da forma mais natural, isto é, por meio da fala. Para que isso aconteça, o assistente precisa, antes de tudo, compreender a fala do humano. A primeira etapa dessa compreensão<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> envolve o reconhecimento da fala, ou a sua conversão em texto.</p>
+<p>No processamento da fala, assim como em diversas aplicações de PLN na atualidade, também concluiu-se ao longo do tempo que os modelos de aprendizado profundo, baseados em dados, são os que geram melhores resultados. Essa abordagem se baseia em grandes quantidades de dados, a partir dos quais a rede neural conseguirá aprender, isto é, identificar padrões e ajustar os pesos dos neurônios. No caso do reconhecimento de fala, os dados são <em>corpora</em> de áudio e texto, isto é, para cada trecho de áudio produzido por humanos, em geral uma sentença ou enunciado, deve haver uma transcrição correspondente, para que o modelo consiga associar uma coisa à outra. A seguir, falaremos mais sobre como devem ser esses dados, e sobre aspectos fundamentais do reconhecimento de fala.</p>
+<section id="sec-cap-fala-dados" class="level4" data-number="2.2.2.1">
+<h4 data-number="2.2.2.1" class="anchored" data-anchor-id="sec-cap-fala-dados"><span class="header-section-number">2.2.2.1</span> Coleta de dados</h4>
+<p>Os dados, que são o ponto de partida para o treinamento de uma rede neural, devem ser os mais representativos possíveis para a língua falada que se deseja processar. O que isso quer dizer? Da mesma forma como acontece com humanos, a rede neural aprende a partir do que é mostrado a ela, e ela aprende melhor o que for mostrado mais vezes. Nesse sentido, essa seção aborda alguns pontos muito importantes na coleta dos dados: propósito, público-alvo, variações de fala e contexto.</p>
+<p>No caso do reconhecimento de fala, é ideal que se tenha em mente para qual <strong>tipo de produto</strong> o modelo de ASR será usado. Tomando novamente como exemplo os assistentes virtuais, seu objetivo principal é o reconhecimento correto de comandos de voz. Dessa forma, os dados para o treinamento da rede neural deverão conter também<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> comandos de voz, instâncias primordiais da interação de usuários com assistentes. É claro que é possível construir um reconhecedor de fala “geral”, isto é, que não esteja destinado a um tipo específico de aplicação, mas que visa a reconhecer qualquer tipo de fala que for dado como entrada, seja um diálogo com um <em>chatbot</em>, seja uma conversa entre amigos. No entanto, a acurácia de um modelo “geral” tenderá a ser bem inferior à de um modelo específico, uma vez que a fala espontânea encontrada em conversas entre amigos possui muitas particularidades que dificultam o reconhecimento, tais como sobreposição de fala, ruídos de ambiente e fala menos articulada.</p>
+<p>Os dados também precisam representar o <strong>usuário-alvo</strong>. Com relação a assistentes de voz, os usuários costumam ser pessoas portadoras de celulares, o que hoje em dia significa “praticamente todo mundo”. Mas, pensando bem, talvez nem tanto crianças abaixo de 12 anos ou idosos com mais de 70. Dessa forma, as gravações que compõem o <em>corpus</em> de treinamento precisam ser feitas por todo tipo de usuário, mas especialmente por adolescentes e adultos de uma faixa etária entre 12 e 70 anos, em igual proporção de homens e mulheres. Se um modelo for treinado apenas com crianças do gênero feminino, por exemplo, ele será excelente em reconhecer a fala de crianças do gênero feminino, mas provavelmente bem ruim em reconhecer a fala de senhores de 70 anos.</p>
+<p>Outro ponto ao qual devemos nos atentar no momento de coleta de dados é a <strong>representatividade dialetal</strong>. Da mesma forma que o modelo precisa ver áudios produzidos tanto por homens quanto por mulheres, adolescentes e idosos, ele também precisa ver áudios de usuários de Caucaia (CE) e de Uruguaiana (RS), por exemplo, localidades nas quais o português falado difere consideravelmente no âmbito fonético, principalmente. Se o modelo for treinado com dados de usuários da mesma variedade dialetal, ele será bom em reconhecer a fala desses usuários, mas não tão bom em reconhecer a fala de usuários de outras regiões. Nesse sentido, vale mencionar que enquanto as variações de fala encontradas nas variantes do português brasileiro e europeu – ou mesmo nos diferentes sotaques e pronúncias dentro do próprio Brasil – têm um grande impacto no PLN da fala, esse impacto no PLN de texto é bem menor.</p>
+<p>Finalmente, é preciso também levar em consideração a <strong>forma como a gravação foi feita</strong>. Idealmente, para o produto assistente de voz, as gravações que comporão o <em>corpus</em> de treinamento deverão também ter sido feitas utilizando-se o gravador do celular, inclusive com os ruídos de fundo típicos do contexto de uso final da aplicação. As pessoas utilizam o celular na rua, dentro de carros, em casa, em restaurantes, onde há ruídos de conversas, trânsito, música etc., mas muito raramente em estúdios com isolamento acústico perfeito. Portanto, é preciso mostrar à rede neural uma parcela significativa de áudios com esses tipos de ruído<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
+<p>Em resumo, os dados do treinamento de uma rede neural precisam ser representativos da interação ou contexto de uso, tanto no conteúdo e formato do texto, quanto na forma de gravação, e do perfil de usuário que se quer atingir.</p>
+<p>Talvez o leitor esteja se perguntando onde é possível encontrar dados tão peculiares. De fato, esse é um grande desafio da tarefa de reconhecimento de fala, senão o maior. Em se tratando do português, assim como faltam recursos para outras tarefas de PLN, faltam também <em>corpora</em> de áudio e texto suficientemente grandes que estejam disponíveis de forma gratuita. Há alguns recursos grátis na internet, como o Mozilla Common Voice (sentenças lidas, em sua maioria)<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> e o LibriVox (audiolivros)<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>, mas, infelizmente, eles são insuficientes em termos do número de horas de gravação para se treinar um modelo <em>end-to-end</em> do zero. Em geral, o treinamento de uma rede neural para o reconhecimento de fala requer milhares de horas<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>. Fica aqui um convite aos recém-chegados à área para investir na coleta de dados para o português brasileiro.</p>
+<p>Para lidar com essa questão da disponibilidade de dados, existem algumas técnicas. Uma técnica bastante usada é a de aumento de dados (<em>data augmentation</em>)<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a>. Essa estratégia não é restrita ao reconhecimento de fala, mas, no caso desta tarefa, se refere ao aumento dos dados com base em manipulações dos dados já existentes. Um número de gravações do <em>corpus</em> de treinamento pode, por exemplo, sofrer adição de ruídos diversos, como os mencionados anteriormente. Suponhamos que o <em>corpus</em> de treinamento seja composto por 100 horas de gravação. Podemos, por exemplo, separar 20% dos áudios e adicionar cinco tipos de ruídos a eles, de modo que teremos ao final 200 áudios diferentes (100 áudios iniciais + 100 gerados por manipulação). Assim, os dados resultantes serão diferentes entre si, mas não haverá o trabalho de se criar novos dados do zero. Há outras técnicas para se melhorar a acurácia de um modelo, das quais falaremos na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-etapas-adicionais" target="_blank" title="Volume 1">Etapas adicionais</a></span>.</p>
+</section>
+<section id="pré-processamento-do-texto-limpeza-e-formatação" class="level4" data-number="2.2.2.2">
+<h4 data-number="2.2.2.2" class="anchored" data-anchor-id="pré-processamento-do-texto-limpeza-e-formatação"><span class="header-section-number">2.2.2.2</span> Pré-processamento do texto: limpeza e formatação</h4>
+<p>Uma vez coletados os dados de texto e fala para formar o <em>corpus</em> paralelo de treinamento, é necessário formatá-los para que possam servir de entrada para a rede neural. Essa seção descreve o processo de limpeza e formatação do texto correspondente à transcrição dos áudios. Idealmente, não deve haver muitos erros de digitação ou grafia nas transcrições, para que a rede não aprenda errado. Em outras palavras, a saída de um reconhecedor não deve conter erros de grafia, por isso não seria bom treinar um modelo com um <em>corpus</em> no qual o <em>token</em> “tambem” ocorresse um número igual ou superior de vezes que sua versão correta, “também”. Se esse fosse o caso, o modelo aprenderia que o <em>chunk</em> acústico [tɐ̃bẽj] <sup>[tɐ</sup> corresponderia a “tambem”, e, por conseguinte, a saída do modelo conteria o <em>typo</em> “tambem”. Por isso, é importante fazer um levantamento desse tipo de erro no <em>corpus</em> de treinamento, por exemplo, contrastando a lista de palavras do <em>corpus</em> com uma lista-referência da língua para a qual a aplicação está sendo desenvolvida<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>.</p>
+<p>Depois de levantados os erros, é preciso corrigi-los de alguma forma caso sejam muito frequentes. Isso é muito comum em dados coletados na internet ou que não passaram por um processo rigoroso de transcrição e revisão. Outra forma de lidar com esse problema dos <em>typos</em>, caso não se queira investir tempo na limpeza dos dados, é implementar um módulo de pós-processamento que corrige grafias incorretas, mas isso pode trazer desvantagens, como um possível aumento na latência (tempo corrente entre a fala do usuário e o reconhecimento do texto, crucial em aplicações como a dos assistentes de voz).</p>
+<p>Finalmente, talvez seja necessário normalizar o texto antes do treinamento<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>. As técnicas de normalização são as mesmas utilizadas em processamento de texto (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>), por isso não vamos repeti-las aqui. Vale apenas dizer que atualmente existem modelos de reconhecimento de fala <em>end-to-end</em>, isto é, que têm como entrada o texto não normalizado, minimamente manipulado, e como saída, a transcrição também já normalizada inversamente, da forma exata como deve aparecer para o usuário. No entanto, para se obter uma acurácia boa em modelos <em>end-to-end</em>, é necessária uma quantidade muito grande de dados, o que é inviável de se obter para muitos pesquisadores e empresas, por isso não se deve descartar a normalização.</p>
+</section>
+<section id="pré-processamento-do-áudio" class="level4" data-number="2.2.2.3">
+<h4 data-number="2.2.2.3" class="anchored" data-anchor-id="pré-processamento-do-áudio"><span class="header-section-number">2.2.2.3</span> Pré-processamento do áudio</h4>
+<p>Depois da limpeza do texto, é preciso “limpar” os áudios. Áudios distorcidos<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> devem ser removidos e também aqueles cuja duração é muito discrepante da duração da maioria. Mais uma vez, isso só é necessário caso o número de áudios <em>outliers</em> seja muito grande. Um caso ou outro não vai atrapalhar a aprendizado. Por fim, os áudios e a transcrição devem ser segmentados e alinhados de alguma forma, caso já não estejam assim. Essa segmentação e alinhamento são importantes para garantir que a rede possa aprender a partir de dados que sejam os mais específicos e corretos possíveis.</p>
+<p>Conforme mencionado anteriormente, o reconhecimento de fala é feito atualmente por meio de redes neurais, mas, qualquer que seja a arquitetura utilizada (veremos as principais na próxima seção), a primeira etapa envolve processamento de sinais. O primeiro passo é sempre a conversão do sinal analógico para digital. A isso se segue a extração de informações do sinal, que serão os elementos de entrada para a rede neural (combinados ao texto)<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>.</p>
+<section id="conversão-analógico-digital" class="level5" data-number="2.2.2.3.1">
+<h5 data-number="2.2.2.3.1" class="anchored" data-anchor-id="conversão-analógico-digital"><span class="header-section-number">2.2.2.3.1</span> Conversão analógico-digital</h5>
+<p>Como explicado na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-estrutura-lingua-falada" target="_blank" title="Volume 1">A estrutura da língua falada</a></span>, o sinal acústico da fala nada mais é que o resultado da vibração das pregas vocais pela passagem do ar. O ar que respiramos passa pelas cordas vocais e causa sua vibração, gerando ondas sonoras, que passam pela faringe e laringe até atingir a cavidade bucal. Nela, as ressonâncias geradas pela vibração das pregas encontram obstáculos e são por eles modificadas e, finalmente, liberadas com a abertura da boca (e pelo nariz, no caso de nasais), quando falamos. Os “obstáculos” mencionados são as diferentes posições que os nossos articuladores assumem<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a>. Dessa forma, o nosso aparato vocálico atua como um filtro para as frequências originais emitidas pela glote, e o que ouvimos é o que passou pelo filtro. Essas frequências filtradas são captadas por microfones como ondas analógicas, que precisam ser digitalizadas para serem processadas por um sistema de reconhecimento de fala.</p>
+<p>A conversão do sinal envolve dois processos: a <strong>amostragem</strong> e a <strong>quantização</strong><a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a>. A amostragem é a seleção das amostras de amplitude do sinal acústico que serão medidas para se representar digitalmente a onda. Deve-se selecionar, no mínimo, duas amostras por ciclo, uma correspondente ao pico, e a outra, ao vale da onda. O número de amostras por segundo corresponde à taxa de amostragem. Qualquer que seja a taxa de amostragem, a máxima frequência registrada em 1 segundo será sempre a metade do número de amostras em 1 segundo, uma vez que uma repetição da onda deverá ter, pelo menos, duas medições para ser minimamente registrada. A taxa de amostragem para gravações de fala deve ser de no mínimo 20 kHz (vinte mil medições por segundo), uma vez que a maioria das informações relevantes para a fala estão abaixo de 10 kHz.</p>
+<p>A quantização é a representação desses valores de amplitude em inteiros pelo computador. As representações mais comuns para um sinal acústico são de 8 ou 16 bits. Quanto maior o número de bits que podem ser alocados para representar uma medição de amplitude, melhor será a representação digital da onda, uma vez que mais pontos de amplitude poderão ser armazenados.</p>
+</section>
+<section id="sec-cap-fala-janelamento" class="level5" data-number="2.2.2.3.2">
+<h5 data-number="2.2.2.3.2" class="anchored" data-anchor-id="sec-cap-fala-janelamento"><span class="header-section-number">2.2.2.3.2</span> Janelamento</h5>
+<p>Pelo fato de ser gerado de maneira irregular (vibrações da glote), o sinal de fala é um sinal não-estacionário, isto é, não mantém suas propriedades constantes por mais de 100 ms. No entanto, entre 5 e 100 ms, as propriedades se mantêm relativamente constantes, e o sinal se assemelha a um sinal estacionário<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a>. Por isso, para representar um sinal com duração de vários segundos ou até minutos, utiliza-se o método de janelamento<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a>. Esse método consiste na fragmentação do sinal em pequenas janelas de tempo de modo que o início da próxima janela ocorra cerca de alguns milissegundos após o início da anterior<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>. Para que não haja cortes abruptos na representação da amplitude do sinal entre uma janela e outra, costuma-se aplicar a função Hamming em cada janela. Essa função aproxima de zero os valores de amplitude nas extremidades das janelas.</p>
+</section>
+<section id="extração-de-informações-das-frequências-do-sinal" class="level5" data-number="2.2.2.3.3">
+<h5 data-number="2.2.2.3.3" class="anchored" data-anchor-id="extração-de-informações-das-frequências-do-sinal"><span class="header-section-number">2.2.2.3.3</span> Extração de informações das frequências do sinal</h5>
+<p>Uma vez separado em janelas, é preciso extrair as informações das frequências do sinal digital, pois é nas frequências que residem os correlatos dos fones (a informação que nos permite identificar diferentes fones)<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>. São informações de frequência e pressão que servirão de entrada para a modelagem da fala. Há mais de um método de extração dessas informações, mas o mais comum atualmente é a Transformada Discreta de Fourier (DFT), computado pelo algoritmo FFT (<em>Fast Fourier Transform</em>). Esse método é aplicado a cada janela, tendo como entrada a amplitude do sinal em um dado intervalo de tempo, e, como saída, informações de frequência e pressão para cada janela.</p>
+<p>Depois de extraídas, as informações das frequências do sinal são convertidas para a escala mel <span class="citation" data-cites="Stevens:1937">(<a href="../../shared/referencias/referencias.html#ref-Stevens:1937" role="doc-biblioref">Stevens, 1937</a>)</span>, uma escala de frequência baseada na percepção humana do sinal acústico. Nosso ouvido é mais sensível a mudanças sutis de amplitude nas frequências mais baixas e menos sensível a mudanças nas frequências mais altas. Dessa forma, a escala mel agrupa as frequências com base em filtros logaritmicamente diferentes, isto é, as frequências mais baixas possuem mais agrupamentos de menos faixas de frequência, cada, e as frequências mais altas possuem menos agrupamentos com mais faixas de frequência em cada um. Assim, as frequências mais baixas são representadas em mais detalhes do que as mais altas.</p>
+<p>As janelas de sinal digitalizado e representado na forma de frequências na escala mel são transformadas em vetores, que servirão de entrada para a rede neural de reconhecimento de fala, como veremos adiante.</p>
+</section>
+</section>
+<section id="modelos-de-reconhecimento" class="level4" data-number="2.2.2.4">
+<h4 data-number="2.2.2.4" class="anchored" data-anchor-id="modelos-de-reconhecimento"><span class="header-section-number">2.2.2.4</span> Modelos de reconhecimento</h4>
+<p>O problema de reconhecimento de fala é um problema de classificação de sequências. A entrada é um sinal contínuo, o sinal acústico, que deve ser primeiro filtrado para que a fala seja separada do ruído<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>, e digitalizado. Assim, o sinal é transformado em uma sequência de unidades discretas, como vimos na seção anterior. Essa sequência de unidades será classificada como outra sequência, que será a saída do processo. A sequência de saída é, na maioria dos casos, palavras.</p>
+<p>No caso da conversão de fala em texto, a diferença de tamanho entre a sequência de entrada da rede neural, vetores com <em>features</em> acústicas, e a de saída, palavras, costuma ser muito grande. Lembre-se de que o áudio foi digitalizado e, com a extração das informações de frequência, vetorizado. Cada vetor corresponde a uma janela de 10 ms, como vimos na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-janelamento" target="_blank" title="Volume 1">Janelamento</a></span>, então, para uma sentença de 10 s, com 5 palavras, teríamos 100 vetores. Para minimizar essa discrepância, realiza-se um <em>subamostragem</em>, processo de redução do número de vetores do <em>input</em>.</p>
+<p>Até alguns anos atrás, empregavam-se modelos estatísticos híbridos para resolver o problema do reconhecimento de fala. As arquiteturas utilizadas continham módulos que eram treinados de maneira independente. Os módulos eram o modelo acústico (AM), o modelo de língua (LM) e um modelo lexical com um dicionário de pronúncias. Os modelos conhecidos como HMM (<em>Hidden Markov Model</em>) foram amplamente utilizados com relativo sucesso nas tarefas de ASR. No entanto, essas arquiteturas trabalhavam com modelos de linguagem baseados em n-gramas<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> e assumiam independência entre as probabilidades de ocorrência dos fones, e, por isso, não eram eficazes em processar informações de longa distância<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a>. Hoje, as arquiteturas do tipo <em>encoder-decoder</em> são as mais utilizadas em ASR.</p>
+<p>Os modelos HMM que geravam melhores resultados eram baseados numa arquitetura de máquina de estados finitos, em que cada estado corresponde a uma parte de um fone. Por exemplo, para o fone [a], gerava-se um HMM com três estados: o primeiro representando o início do fone [a], o segundo representando a parte mais estável do fone, e o último, o final do fone. Dessa forma, os modelos eram treinados para todos os fones da língua. Para tratar o problema mencionado anteriormente de ausência de contexto, treinava-se modelos com grupos de três fones seguidos (trifones). Os melhores modelos eram agrupados no módulo do modelo acústico. A saída do modelo acústico, por sua vez, era interpolada com um dicionário de pronúncias. O último passo era a combinação da saída do módulo lexical com um modelo de língua, que continha n-gramas e suas probabilidades de ocorrência. O <a href="#def-cap-fala-quadro2" class="quarto-xref">Quadro&nbsp;<span>2.2</span></a> demonstra esse processo:</p>
+<div id="def-cap-fala-quadro2" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 2.2</strong></span> Modelos de reconhecimento</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>AM + Léxico</strong></th>
+<th style="text-align: left;"><strong>LM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ingressos para a próxima seção -&gt;</td>
+<td style="text-align: left;">ingressos para <u>a próxima <strong>sessão</strong></u></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Na primeira coluna do <a href="#def-cap-fala-quadro2" class="quarto-xref">Quadro&nbsp;<span>2.2</span></a>, temos a saída do modelo acústico e do léxico, que é “ingressos para a próxima seção”. Note-se que a palavra “seção”, um dos homófonos conhecidos do português, não está escrita da maneira correta. Nesse contexto, a grafia correta seria “sessão”. A adição de um modelo de língua, treinado com uma quantidade suficiente de dados, é capaz de acertar a grafia correta para esse contexto, com base nas relações entre as palavras.</p>
+<p>Como o treinamento do modelo acústico HMM era baseado nos fones, era necessário balancear os dados de treinamento foneticamente. Isto é, a distribuição dos fones nos dados deveria refletir a sua proporção na língua falada<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a>. A consoante [l], por exemplo, um dos fones mais frequentes do português brasileiro, deveria ocorrer mais vezes nos dados de treinamento do que sua parente [lh], menos comum.</p>
+<p>Uma arquitetura parecida com as híbridas, chamada CTC (<em>Connectionist Temporal Classification</em>), configura a forma mais simples de executar a tarefa de reconhecimento de fala. Assim como os modelos acústicos dos modelos híbridos, o CTC atribui <em>labels</em> (classes, dentre as possíveis letras do alfabeto) a cada <em>frame</em> de atributos acústicos e depois elimina as letras duplicadas seguidas uma da outra. O principal problema do CTC é a sua “falta de memória”, isto é, ele considera todas as saídas independentes umas das outras, e computa a saída para um instante <em>t</em> apenas com base na entrada desse mesmo instante <em>t</em>.</p>
+<p>Mais recentemente, começou-se a empregar redes neurais recorrentes na tarefa de ASR. Basicamente, essas redes, chamadas de RNN, tinham a vantagem de armazenar informação desde o início da sequência, ou no nosso caso, da sentença, configurando uma forma de “memória”<a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a>. A computação dentro de uma unidade da rede leva em consideração a saída da unidade da etapa anterior bem como a saída do próprio neurônio na etapa atual. As RNN-T (T de <em>Transducer</em>) são a combinação do CTC, enquanto modelo acústico, com um predictor que faria as vezes de modelo de língua e reavaliaria a saída do CTC, gerando uma nova saída, levando em consideração o contexto.</p>
+<p>Outra opção muito usada são os Transformers com <em>self-attention</em>. De forma resumida, diferentemente das RNN, nos Transformers, os vetores de entrada e de saída têm o mesmo tamanho e cada bloco de atenção tem acesso às entradas dos blocos anteriores. Assim, cada entrada é comparada com as demais para que a saída mais provável seja gerada. Os Transformers são eficazes em modelar contextos mais distantes, mas menos eficazes em contextos de curta distância.</p>
+<p>Atualmente, tanto RNN-T quanto Transformers são técnicas bastante utilizadas em ASR. No entanto, alguns estudos mais recentes apontam outras soluções como ainda melhores. <span class="citation" data-cites="DBLP:journals/corr/abs-2005-08100">Gulati et al. (<a href="../../shared/referencias/referencias.html#ref-DBLP:journals/corr/abs-2005-08100" role="doc-biblioref">2020</a>)</span> mostram resultados competitivos com o uso de <em>Conformers</em>, arquitetura que une as redes convolucionais (CNN) com os Transformers (daí o nome “<em>conformer</em>”). Na combinação CNN + Transformers, as limitações de ambas arquiteturas são suavizadas, porque o que é deficiente em uma é o ponto forte da outra. Os Transformers são melhores em contextos mais globais, e as CNN, em contextos mais locais.</p>
+<p>Nas arquiteturas de <em>encoder-decoder</em>, o “<em>encoding</em>” pode assumir diferentes unidades, como fones, sílabas ou grafemas. No entanto, os resultados mais competitivos em ASR utilizam <em>wordpieces</em> como as menores unidades codificadas. <em>Wordpieces</em>, ou <em>subwords</em>, são exatamente o que os nomes indicam: partes de palavras (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>). Mas não devem ser confundidos com morfemas! Diferentemente dos morfemas, as <em>wordpieces</em> não carregam nenhum significado necessariamente<a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref"><sup>31</sup></a>. Elas podem ser geradas de maneira empírica por diferentes algoritmos (WordPieceModel, <em>byte pair encoding</em> (BPE) e outros) e constituem um vocabulário induzido a partir de dados de texto. A segmentação das palavras da língua em unidades menores é, de certa forma, arbitrária (sua geração envolve etapas “<em>greedy</em>”), embora se baseie na frequência com que essas unidades aparecem no <em>corpus</em>. Por exemplo, em um <em>corpus</em> formado apenas por sentenças com verbos no infinitivo, é de se esperar que um vocabulário induzido a partir dele contenha alguma <em>wordpiece</em> que termine em “-ar”, como <strong>tar_</strong> (o “<em>underscore</em>” após a <em>string</em> representa final de palavra). Dessa forma, caso o modelo se depare com o neologismo “deletar”, considerando que ele não esteve presente no <em>corpus</em> de treinamento, o modelo conseguirá gerá-lo concatenando a <em>wordpiece</em> “tar_” com outras <em>wordpieces</em> (talvez “de_”, de “deixar, derrubar”, “le_” de “ler, levar”, e “tar_”).</p>
+<p>A abordagem de <em>wordpieces</em> como unidade de modelagem se mostrou melhor do que a de grafemas no que diz respeito especialmente às palavras OOV (<em>out-of-vocabulary</em>), como neologismos, nomes próprios, palavras estrangeiras e termos da moda. Nos modelos híbridos, os <em>frames</em> acústicos eram mapeados para fones e depois era necessária uma interpolação com um dicionário de pronúncia para gerar as palavras. Nos modelos <em>end-to-end</em>, em que se busca eliminar essa última etapa, <em>wordpieces</em> têm gerado resultados melhores pelo fato de trazerem em si uma espécie de contexto. Na maioria das línguas, incluindo o português, um grafema isolado pode ser associado a mais de uma pronúncia, como é o caso de “r” (“rato” e “caro”). Ao contrário, o fone [h] de “rato” não ocorrerá na <em>wordpiece</em> “_ro”. Os grafemas e o léxico de pronúncia funcionam bem para palavras conhecidas da língua, mas deixam a desejar quando se deparam com palavras que não estão no dicionário.</p>
+<p>Mais recentemente, em 2019, uma arquitetura bastante promissora foi proposta pela Facebook AI, o <em>encoder</em> wav2vec<a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref"><sup>32</sup></a>. Baseado no word2vec (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/significado/cap-semantica-distribucional/cap-semantica-distribucional.html#sec-cap-semantica-distribucional" target="_blank" title="Volume 1">Semântica distribucional</a></span>) do processamento de texto, a ideia do wav2vec é obter representações vetoriais diretamente a partir do áudio puro, isto é, eliminando a etapa de extração de atributos acústicos e a necessidade de se treinar com áudios transcritos. Por meio de duas redes convolucionais sucessivas, o modelo transforma áudio digitalizado em vetores e aprende distinguindo trechos reais de áudio de trechos modificados por ele mesmo. O wav2vec é uma arquitetura de aprendizado autossupervisionada (<em>self-supervised learning</em>) que aprende a predizer trechos de áudio. Esse modelo depois pode ser combinado com outras redes neurais usadas em ASR. A grande vantagem dessa abordagem é que ela resolve o principal problema da tarefa de reconhecimento de fala: a falta de dados de áudio e texto, especialmente para <em>low resource languages</em>, para as quais a oferta de dados é baixíssima ou até mesmo inexistente. Mesmo para línguas como o inglês, bem representado em termos de dados para processamento de fala, o wav2vec é bastante eficiente, porque precisa de 100 vezes menos horas de áudio de treinamento do que as arquiteturas <em>end-to-end</em> que vimos acima <span class="citation" data-cites="baevski2020wav2vec">(<a href="../../shared/referencias/referencias.html#ref-baevski2020wav2vec" role="doc-biblioref">Baevski et al., 2020</a>)</span>.</p>
+</section>
+<section id="sec-cap-fala-etapas-adicionais" class="level4" data-number="2.2.2.5">
+<h4 data-number="2.2.2.5" class="anchored" data-anchor-id="sec-cap-fala-etapas-adicionais"><span class="header-section-number">2.2.2.5</span> Etapas adicionais</h4>
+<p>Devido à escassez de dados de fala anotados disponíveis e à necessidade que os modelos <em>end-to-end</em> têm de muitos dados, várias técnicas vêm sendo experimentadas para que seja possível contornar essa questão. Uma técnica bastante conhecida é o <em>shallow fusion</em> <span class="citation" data-cites="47384">(<a href="../../shared/referencias/referencias.html#ref-47384" role="doc-biblioref">Williams et al., 2018</a>)</span>. Nessa técnica, um modelo de língua, treinado a partir de <em>corpora</em> de textos, é adicionado ao <em>pipeline</em> de treinamento. Esse LM externo, como é chamado, é eficaz em completar sequências de palavras, então sua contribuição se dá na reavaliação de dado segmento para um <em>chunk</em> mais provável. Suponhamos que o modelo de ASR treinado com áudio e texto tenha gerado a seguinte saída “essas ideias como-as com sebo”. O recálculo da hipótese pelo LM externo provavelmente chegaria em “essas ideias como as concebo”, que é um trecho mais provável de ocorrer, dada a semântica das palavras envolvidas.</p>
+<p>Há muitas outras técnicas de aprendizado de máquina que podem ser usadas, e combinadas, para aprimorar o resultado de um sistema de reconhecimento de fala. Há quem recorra à síntese de áudio para resolver o problema da falta de dados, por exemplo.</p>
+</section>
+<section id="pós-processamento" class="level4" data-number="2.2.2.6">
+<h4 data-number="2.2.2.6" class="anchored" data-anchor-id="pós-processamento"><span class="header-section-number">2.2.2.6</span> Pós-processamento</h4>
+<p>Uma última etapa do <em>pipeline</em> de um sistema de ASR costuma ser a normalização inversa, mais conhecida como ITN (<em>Inverse Text Normalization</em>)<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a>. O que ocorre nessa etapa é a conversão de <em>strings</em> que foram transcritas da forma como foram faladas (domínio falado) em símbolos (domínio escrito). Isso se aplica principalmente a números, unidades de medida, moedas, contas de matemática, números romanos, tudo que envolve uma simbologia diferente de “palavra”. Normalmente, a hipótese gerada pelo ASR não contém caracteres numéricos nem outros símbolos, como “ª” ou “&amp;”, então, para que um número de telefone, por exemplo, seja mais legível para o usuário final da aplicação, se faz a normalização inversa. Dessa forma, um número como “noventa e nove nove nove nove nove nove nove nove nove”, formato gerado na hipótese, pode ser convertido para (99) 9999-9999. O mesmo costuma acontecer com quantias monetárias, como “dois milhões e quinhentos mil reais”, que pode ser transformado em “R$ 2.500.000” ou “R$ 2500000”, a depender da convenção adotada.</p>
+<p>Os módulos de ITN podem ser feitos por meio de regras escritas por especialistas ou podem ser redes neurais. Recentemente, começou-se a migrar para os ITNs neurais, como indica o artigo da Amazon AWS AI de 2021 <span class="citation" data-cites="DBLP:journals/corr/abs-2102-06380">(<a href="../../shared/referencias/referencias.html#ref-DBLP:journals/corr/abs-2102-06380" role="doc-biblioref">Sunkara et al., 2021</a>)</span>. Um ITN baseado em regras funciona segundo um modelo de transdutor de estados finitos (FST), semelhante à máquina de estados finitos mencionada anteriormente na explicação dos HMMs.</p>
+</section>
+<section id="sec-cap-fala-avaliacao" class="level4" data-number="2.2.2.7">
+<h4 data-number="2.2.2.7" class="anchored" data-anchor-id="sec-cap-fala-avaliacao"><span class="header-section-number">2.2.2.7</span> Métricas de avaliação</h4>
+<p>A acurácia de um modelo de ASR costuma ser medida em termos de taxa de erro de palavras e de sentenças. As métricas mais utilizadas são a <em>Word Error Rate</em> (WER) e a <em>Sentence Error Rate</em> (SER). A WER é calculada com base na soma de deleções, substituições e inserções dividida pelo total de palavras da referência e multiplicada por 100. Veja o exemplo abaixo, retirado da base de teste do LibriVox:</p>
+<blockquote class="blockquote">
+<p><strong>Referência:</strong> A virtude é comunicável. O vício é contagioso. Os governos fracos fazem fortes os ambiciosos e insurgentes. <u>Atividade</u> sem juízo é mais <u>ruinosa</u> que a preguiça.<br>
+<strong>Hipótese :</strong> A virtude é comunicável. O vício é contagioso. Os governos fracos fazem fortes os ambiciosos e insurgentes. <strong>Atividades</strong> sem juízo é mais <strong>ruidosa</strong> que a preguiça.<br>
+<strong>Avaliação:</strong> S S</p>
+</blockquote>
+<p>O trecho da referência é a transcrição manual do áudio, e o trecho da hipótese é a saída gerada por um sistema de ASR. Os segmentos sublinhados são aqueles cujo reconhecimento automático errou. Enquanto a referência era “atividade”, no singular, a hipótese gerada foi “atividades”, no plural; enquanto a referência era “ruinosa”, a hipótese foi “ruidosa”. Esses são exemplos de erros de substituição e a WER desse trecho é dada por 2/26 * 100 = 7,69%, em que 2 é a soma das substituições e 26 é o total de palavras do trecho.</p>
+<p>Em geral, calcula-se um valor único de WER, para um dado conjunto de teste, para se avaliar o desempenho de um modelo. Atualmente, os melhores modelos atingem um valor de WER inferior a 5% sem técnicas de <em>fine-tuning</em> e <em>shallow fusion</em>.</p>
+<p>A métrica SER é referente à computação do número de sentenças com pelo menos um erro. Portanto, para um conjunto de teste com 100 sentenças, das quais dez apresentaram um ou mais erros de inserção, deleção ou substituição, a taxa de SER será de 10%. Por ser mais detalhada e dar uma ideia melhor do desempenho de um modelo, a WER costuma ser mais utilizada do que a SER. A SER é indicada para casos em que se queira medir o desempenho de um normalizador inverso, por exemplo, em que o número de <em>tokens</em> de uma sentença não normalizada para uma normalizada não nos diz muito. Por exemplo, a sentença “Você me deve cinco reais”, quando normalizada inversamente, gera “Você me deve R$5,00”, a depender da convenção adotada pelo ITN. Digamos que a saída de um ITN para essa sentença seja “Você me deve R$ 5,00”. Se computarmos o WER, obteremos 2/4 * 100 = 50%. Nesse caso, o WER não nos diria muito sobre a eficácia do ITN. Por isso é mais interessante computarmos a SER e sabermos qual a porcentagem de sentenças do conjunto de teste que apresentaram algum erro de normalização.</p>
+<p>Como bem apontou <span class="citation" data-cites="jurafsky2023">Jurafsky; Martin (<a href="../../shared/referencias/referencias.html#ref-jurafsky2023" role="doc-biblioref">2023</a>)</span>, talvez fosse interessante criar uma métrica que levasse em consideração a relevância das palavras da sentença, atribuindo um peso maior às palavras mais relevantes, que são, em geral, palavras de conteúdo, como verbos e nomes (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>). Por exemplo, uma sentença como “Mande um beijo para a Juliana” reconhecida por um ASR como “Mande um beijo pra Juliana” seria muito menos problemática para todos os efeitos do que uma saída como “Mande um beijo para a Júlia”. Embora o WER da segunda sentença (16,6%) seja menor do que o da primeira (50%), a primeira hipótese é muito mais fiel ao conteúdo da sentença. Em muitas aplicações, o ASR é o primeiro passo de um <em>pipeline</em> de PLN que envolve a atribuição da sentença a uma intenção do falante e depois realiza uma ação. Nesse caso, enviar um beijo para a pessoa errada pode ter sérias consequências.</p>
+</section>
+<section id="desafios-em-reconhecimento-de-fala" class="level4" data-number="2.2.2.8">
+<h4 data-number="2.2.2.8" class="anchored" data-anchor-id="desafios-em-reconhecimento-de-fala"><span class="header-section-number">2.2.2.8</span> Desafios em reconhecimento de fala</h4>
+<p>Mesmo quando um modelo atinge uma acurácia de quase cem por cento de acerto no reconhecimento das palavras, há ainda alguns erros bastante difíceis de corrigir. Os casos que apresentamos aqui valem para o português brasileiro. É possível que se apliquem a outras línguas em situações parecidas, mas o que será apresentado se baseia nas observações com relação ao português do Brasil. Esses problemas estão relacionados aos artigos “a” e “o”, vogais átonas, na maioria das vezes, quando ocorrem no fim de uma palavra seguidas da mesma vogal também em posição átona, como no <a href="#exm-cap-fala-1" class="quarto-xref">Exemplo&nbsp;<span>2.1</span></a>.</p>
+<div id="exm-cap-fala-1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Mande um beijo <strong>para a</strong> Amanda</p>
+</blockquote>
+</div>
+<p>Quando falamos espontaneamente, ou até mesmo numa fala colaborativa, cujo “interlocutor” é um assistente virtual, situação em que tendemos a falar de um modo mais monitorado e articulado, as vogais em sequência são pronunciadas de forma contínua, numa mesma corrente de ar. Não costumamos fazer pausas (chamadas de <em>glottal stops</em>) entre uma vogal e outra nessas situações. No <a href="#exm-cap-fala-1" class="quarto-xref">Exemplo&nbsp;<span>2.1</span></a>, o [a] final de “para” se junta ao [a] do artigo “a” e ambos podem ser interpretados pelos modelos como sendo apenas um único fone [a], como ilustrado em <a href="#exm-cap-fala-2" class="quarto-xref">Exemplo&nbsp;<span>2.2</span></a>.</p>
+<div id="exm-cap-fala-2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.2</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Mande um beijo par<strong>a a</strong> Amanda</p>
+</blockquote>
+</div>
+<p>Embora a diferença de duração entre um caso e outro seja de apenas alguns milissegundos, nem sempre o modelo consegue fazer a segmentação correta. Dessa forma, é possível que um modelo reconheça “Mande um beijo <strong>para</strong> Amanda” em vez do esperado. Isso não quer dizer que os modelos nunca irão acertar o trecho “para a”. Como mostrado nas seções anteriores, há outros fatores que não apenas a correspondência grafema-fone em jogo no reconhecimento de fala (por exemplo, a distribuição das palavras na língua dada pelo LM).</p>
+<div id="exm-cap-fala-3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.3</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Quero instalar o WhatsApp</p>
+</blockquote>
+</div>
+<p>Algo semelhante poderia acontecer com <a href="#exm-cap-fala-3" class="quarto-xref">Exemplo&nbsp;<span>2.3</span></a>, em que os modelos podem ter dificuldade em reconhecer o artigo “o” pelo fato de a vogal [o] átona ser bastante próxima em qualidade da semivogal de “wa” em “WhatsApp” e de ambas serem produzidas em coarticulação. É possível que uma saída para a transcrição automática dessa sentença fosse “Quero instalar WhatsApp”.</p>
+<p>Esses dois exemplos têm outro ponto em comum: ambas as possibilidades são bastante banais e frequentes na língua. Tanto “para” quanto “para a” são formas muito usadas em qualquer contexto. O mesmo vale para “instalar WhatsApp” e “instalar o WhatsApp”. As duas formas são muito comuns. Isso dificulta a resolução do problema por meio de uma interpolação com um modelo de língua, por exemplo, uma vez que as formas com e sem artigo provavelmente serão bem próximas em probabilidade de ocorrência.</p>
+<p>Outro caso de semelhança fonética que confunde um modelo de ASR é o par “no/do” (e suas variações). Pelo fato de as duas preposições poderem ocorrer nos mesmos contextos e ainda serem formadas de apenas dois fones muito parecidos, a sua distinção não é trivial para o modelo. Desse modo, uma sentença como “vou buscar um trabalho <strong>na</strong> escola” pode facilmente ser reconhecida como “vou buscar um trabalho <strong>da</strong> escola”. É claro que isso depende também do quão articulada a fala é e também da qualidade do áudio, e da presença ou ausência de ruído.</p>
+<p>Todos os casos relatados nesta seção não constituem, a priori, erros graves de reconhecimento de fala, uma vez que não alteram o significado das sentenças em questão de maneira drástica. Apesar disso, como dito na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-avaliacao" target="_blank" title="Volume 1">Métricas de avaliação</a></span>, a principal métrica utilizada na avaliação de um modelo de ASR não faz nenhum tipo de discriminação entre as palavras, e considera todas de igual peso. Embora a princípio um pouco injusta, essa prática se explica pelo fato de que seria necessário algum trabalho etiquetador para identificar as palavras relevantes nas sentenças. Talvez a classificação binária entre palavras de conteúdo versus palavras gramaticais (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>) não fosse suficiente para todos os casos. Poderia haver, por exemplo, algum caso em que “na” e “da” trouxessem uma distinção decisiva de significado. Talvez por isso ainda seja mais viável manter todas as palavras com o mesmo status durante a avaliação.</p>
+</section>
+</section>
+<section id="sec-cap-fala-sintese" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-cap-fala-sintese"><span class="header-section-number">2.2.3</span> Síntese de fala</h3>
+<p>Síntese de fala é o processo de conversão de texto ortográfico para áudio. Nos sistemas de conversão texto-fala ocorre um mapeamento de sequências de letras para formas de ondas sonoras.</p>
+<p>Comumente utilizado por softwares de acessibilidade, módulos de atendimento automático e assistentes virtuais, os sistemas de conversão texto-fala têm suas unidades acústicas segmentadas e concatenadas conforme informações de transcrição fonética do texto que se deseja sintetizar, transformando então aquela sentença em sinal acústico.</p>
+<p>Um TTS (do inglês, <em>text-to-speech</em>) pode ser dividido em duas etapas: a primeira, chamada de análise do texto, onde o texto de entrada é normalizado e transcrito da forma ortográfica para a fonológica; e a segunda, síntese do sinal, onde ocorre a concatenação das unidades fonológicas e a inserção da prosódia. Vamos detalhar cada uma destas etapas a seguir.</p>
+<section id="análise-do-texto" class="level4" data-number="2.2.3.1">
+<h4 data-number="2.2.3.1" class="anchored" data-anchor-id="análise-do-texto"><span class="header-section-number">2.2.3.1</span> Análise do texto</h4>
+<p>Na etapa de Análise do texto o objetivo é decodificar o texto de entrada e prepará-lo para ser convertido em áudio. Essa etapa, também conhecida como pré-processamento, pode ser dividida em outras duas tarefas: a normalização, que expande o texto de entrada para a sua forma literal; e a segunda, que converte o texto já expandido para fonemas, ou representações de pronúncia, e o entrega para a etapa seguinte.</p>
+<section id="normalização" class="level5" data-number="2.2.3.1.1">
+<h5 data-number="2.2.3.1.1" class="anchored" data-anchor-id="normalização"><span class="header-section-number">2.2.3.1.1</span> Normalização</h5>
+<p>Ao receber o texto a ser sintetizado o sistema de TTS, nesse primeiro estágio, a tarefa é normalizar a sentença de entrada. Nesta etapa normalizar significa substituir elementos do texto como números e abreviaturas, por palavras ou sequência de palavras escritas por extenso. Exemplos são apresentados no <a href="#def-cap-fala-quadro3" class="quarto-xref">Quadro&nbsp;<span>2.3</span></a>.</p>
+<div id="def-cap-fala-quadro3" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 2.3</strong></span> Exemplos de normalização</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Texto de entrada</strong></th>
+<th style="text-align: left;"><strong>Texto normalizado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1990</td>
+<td style="text-align: left;">mil novecentos e noventa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">68,3%</td>
+<td style="text-align: left;">sessenta e oito vírgula três por cento</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Av.</td>
+<td style="text-align: left;">avenida</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">km²</td>
+<td style="text-align: left;">quilômetros quadrados</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2:45PM</td>
+<td style="text-align: left;">Duas e quarenta e cinco da tarde</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Algumas classes de normalização têm mais problemas do que outras. As siglas, por exemplo, podem ser lidas letra por letra, como “OMS”, ou como uma única palavra, no caso dos acrônimos, como em “USP”, ou ainda serem expandidas como em “SP – São Paulo”. No português ainda temos o caso do gênero gramatical para casos como dos algarismos 1 e 2, que podem ser expandidos como um/uma e dois/duas, a depender da palavra que vem a seguir. Exemplos são apresentados no <a href="#def-cap-fala-quadro4" class="quarto-xref">Quadro&nbsp;<span>2.4</span></a>.</p>
+<div id="def-cap-fala-quadro4" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 2.4</strong></span> Exemplos de normalização para algarismos</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Texto de entrada</strong></th>
+<th style="text-align: left;"><strong>Texto expandido</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1 mesa</td>
+<td style="text-align: left;">uma mesa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1 copo</td>
+<td style="text-align: left;">um copo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2 dias</td>
+<td style="text-align: left;">dois dias</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Para a etapa de normalização, a divisão por categoria pode tornar a organização do trabalho mais fácil e/ou intuitiva. Assim, dá-se conta de casos a serem normalizados por categorias ou classes de fenômenos linguísticos de acordo com suas ocorrências na língua. Algumas categorias de normalização no português brasileiro são apresentadas no <a href="#def-cap-fala-quadro5" class="quarto-xref">Quadro&nbsp;<span>2.5</span></a>.</p>
+<div id="def-cap-fala-quadro5" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 2.5</strong></span> Categorias de normalização no português brasileiro</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Categoria</strong></th>
+<th style="text-align: left;"><strong>Exemplos</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abreviaturas</td>
+<td style="text-align: left;">“Av.” “ltda.” “Sra.”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Siglas</td>
+<td style="text-align: left;">“SP” “USP” “IR”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Números cardinais</td>
+<td style="text-align: left;">“102” “1.500” “18,20”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Números ordinais</td>
+<td style="text-align: left;">“2º” “3ª”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Datas</td>
+<td style="text-align: left;">“08/07/2014” “1º de maio de 1.886”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valores monetários</td>
+<td style="text-align: left;">“R$ 32,50” “US$ 150,00” “R$ 149,6 bilhões”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Links/URLs</td>
+<td style="text-align: left;">“www.google.com”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Porcentagem</td>
+<td style="text-align: left;">“12,8%” “21,3%”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unidades de medida</td>
+<td style="text-align: left;">“3cm” “8,515 mi Km²” “100km/h” 45</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>A tarefa de normalização do texto pode ser feita com a utilização de duas diferentes técnicas: (1) É possível optar por desenvolvê-la por meio de regras: muitas vezes utilizando-se de expressões regulares, tais regras são descritas de modo a analisar o texto <em>token</em> a <em>token</em> e buscar padrões compatíveis no texto. Uma vez que um padrão do texto dá match com uma regra descrita, a regra cuida de substituir o <em>token</em> em questão por seu correspondente por extenso. Modelos de TTS mais robustos contam com sistemas como o Kestral de <span class="citation" data-cites="ebden_sproat_2014">(<a href="../../shared/referencias/referencias.html#ref-ebden_sproat_2014" role="doc-biblioref">Ebden; Sproat, 2014</a>)</span> que também é baseado em regras, mas primeiro classifica e analisa cada entrada do texto e depois produz um novo texto usando uma gramática de verbalização. O normalizador desenvolvido com base em regras tem a vantagem de não depender de dados de treinamento anotados, mas as regras podem se tornar complexas e frágeis, além de carecer de escritores especializados para mantê-las.</p>
+<p>Há também normalizadores baseados em redes neurais (2) chamados de modelo codificador-decodificador, que demonstram melhor funcionamento se comparados aos normalizadores baseados em regras, mas que demandam grandes conjuntos de dados anotados.</p>
+<p>Além das etapas aqui apresentadas, a síntese de fala ainda passa pela etapa de conversão grafema-fonema, treinamento da voz e validação do modelo treinado. A etapa de conversão grafema-fonema para o português brasileiro é comumente realizada com uso de regras descritas de modo a mapear as letras do alfabeto para o som correspondente a ela, de acordo com o contexto em que tal letra aparece. Já os treinamentos do modelo de voz, por muitos anos feitos por meio de métodos estatísticos (<em>Hidden Markov Models</em> – HMMs), hoje são comumente realizados com o uso de redes neurais, método conhecido como Tacotron2 integrado à LPCnet. A avaliação de qualidade e acurácia desses modelos é feita por meio de uma medida numérica baseada na opinião pessoal de humanos, o Mean Opinion Score (MOS) é uma classificação de qualidade de voz. O teste consiste em humanos falantes nativos do idioma ouvirem e atribuírem uma nota entre 1 (ruim) e 5 (excelente) para áudios sintetizados a partir do modelo a ser avaliado. A média das notas atribuídas aos áudios sintéticos passam a ser a nota da avaliação do modelo. Ainda muito dependentes da impressão dos avaliadores humanos, a acurácia dos modelos assim treinados ainda não é mensurada numericamente, ou seja, com avaliações automáticas e objetivas, o que torna a validação das tecnologias hoje empregadas na área bastante dependentes das percepções dos avaliadores.</p>
+</section>
+</section>
+</section>
+<section id="considerações-finais" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="considerações-finais"><span class="header-section-number">2.2.4</span> Considerações finais</h3>
+<p>Neste capítulo, vimos um pouco sobre a história do processamento de fala, sobre as características da língua falada e sobre as principais tarefas da área de processamento de fala, que são o reconhecimento automático e a síntese de fala. Esperamos ter conseguido demonstrar no que o processamento de fala difere do processamento de texto e quais são os seus principais desafios. De maneira semelhante ao que ocorre no processamento de texto, há carência de dados de qualidade para o processamento do português brasileiro em comparação com o cenário do processamento do inglês. Atualmente, os modelos de reconhecimento de fala <em>end-to-end</em>, que são o estado da arte, necessitam de uma quantidade muito grande de dados para que seja obtida uma qualidade de ponta. Os modelos de síntese, por sua vez, necessitam de menos horas de fala, porém a qualidade das gravações precisa ser impecável e há a necessidade de se gravar a mesma pessoa, o que aponta para um custo elevado, tanto financeiro quanto de tempo.</p>
+<p>Conforme demonstrado na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala.html#sec-cap-fala-dados" target="_blank" title="Volume 1">Coleta de dados</a></span>, em se tratando de ASR, é necessário considerar variações dialetais, tanto de pronúncia quanto de vocabulário e sintaxe, durante o treinamento dos modelos. Os dados precisam ser suficientemente variados e representativos de cada variedade a fim de que um sistema genérico o bastante para dada língua seja desenvolvido. Isso não ocorre no processamento de texto nas mesmas proporções. Especialmente quando comparamos o português europeu com o brasileiro no que diz respeito ao reconhecimento, e também à síntese de fala, por serem variedades muito diversas, especialmente foneticamente, seria preciso construir sistemas de ASR separados para processar as duas línguas. No processamento de texto, diferentemente, pelo fato de a língua escrita ser mais conservadora, as duas variedades se aproximam, embora cada uma continue tendo suas peculiaridades de grafia, vocabulário e sintaxe. O impacto da distância entre as variedades se torna mais evidente na síntese de fala, uma vez que um sistema desenvolvido para o português europeu não seria bem aceito por falantes brasileiros residentes no Brasil. Basta pensar no quão estranho seria utilizar um assistente virtual que falasse português europeu. Apesar de todas essas considerações, vemos despontar, nos últimos meses, modelos de reconhecimento e de síntese de fala treinados com várias línguas. Os estudos de <span class="citation" data-cites="yang2023learning">Yang et al. (<a href="../../shared/referencias/referencias.html#ref-yang2023learning" role="doc-biblioref">2023</a>)</span>, <span class="citation" data-cites="pratap2020massively">Pratap et al. (<a href="../../shared/referencias/referencias.html#ref-pratap2020massively" role="doc-biblioref">2020</a>)</span> e <span class="citation" data-cites="saeki2023virtuoso">Saeki et al. (<a href="../../shared/referencias/referencias.html#ref-saeki2023virtuoso" role="doc-biblioref">2023</a>)</span> explicam como essas técnicas funcionam. Esse tópico é bastante interessante e será objeto de uma próxima edição deste capítulo.</p>
+<p>Além do reconhecimento e da síntese de fala, há várias outras tarefas na área de processamento de fala. Podemos elencar aqui as seguintes: clonagem de voz, detecção de palavras-chave, identificação de falantes, diarização da fala, entre outras. O <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-recursos-fala/cap-recursos-fala.html#sec-cap-recursos-fala" target="_blank" title="Volume 1">Recursos para o processamento de fala</a></span> deste livro tratará de recursos para o desenvolvimento dessas e de outras tarefas do processamento de fala e também apresentará uma breve descrição de cada uma.</p>
+<!-- [^cap-fala-33]: Veja @baevski2020wav2vec. Comentário da Helena: as notas de rodapé foram substituídas pelas citações às referências
+
+[^cap-fala-34]: Cf. @47384. -->
+<!-- [^cap-fala-36]: Cf. @DBLP:journals/corr/abs-2102-06380. Comentário da Helena: IDEM -->
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-alcaim1992frequencia" class="csl-entry" role="listitem">
+ALCAIM, A.; SOLEWICZ, J. A.; MORAES, J. A. DE. Freq<span>ü</span><span>ê</span>ncia de ocorr<span>ê</span>ncia dos fones e listas de frases foneticamente balanceadas no portugu<span>ê</span>s falado no Rio de Janeiro. <strong>Journal of Communication and Information Systems</strong>, v. 7, n. 1, 1992.
+</div>
+<div id="ref-baevski2020wav2vec" class="csl-entry" role="listitem">
+BAEVSKI, A. et al. <strong>wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations</strong>., 2020. Disponível em: &lt;<a href="https://arxiv.org/abs/2006.11477">https://arxiv.org/abs/2006.11477</a>&gt;
+</div>
+<div id="ref-DBLP:journals/corr/abs-2110-15731" class="csl-entry" role="listitem">
+CANDIDO JUNIOR, A. et al. <a href="https://arxiv.org/abs/2110.15731"><span>CORAA:</span> a large corpus of spontaneous and prepared speech manually validated for speech recognition in Brazilian Portuguese</a>. <strong>CoRR</strong>, v. abs/2110.15731, 2021.
+</div>
+<div id="ref-ebden_sproat_2014" class="csl-entry" role="listitem">
+EBDEN, P.; SPROAT, R. <a href="https://doi.org/10.1017/S1351324914000175">The Kestrel TTS text normalization system</a>. <strong>Natural Language Engineering</strong>, v. 21, p. 333–353, maio 2014.
+</div>
+<div id="ref-fayek2016" class="csl-entry" role="listitem">
+FAYEK, H. M. <strong>Speech Processing for Machine Learning: Filter banks, Mel-Frequency Cepstral Coefficients (MFCCs) and What’s In-Between</strong>., 2016. Disponível em: &lt;<a href="https://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html">https://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html</a>&gt;
+</div>
+<div id="ref-DBLP:journals/corr/abs-2005-08100" class="csl-entry" role="listitem">
+GULATI, A. et al. <a href="https://arxiv.org/abs/2005.08100">Conformer: Convolution-augmented Transformer for Speech Recognition</a>. <strong>CoRR</strong>, v. abs/2005.08100, 2020.
+</div>
+<div id="ref-huang2001spoken" class="csl-entry" role="listitem">
+HUANG, X.; ACERO, A.; HON, H. W. <strong><a href="https://books.google.com.br/books?id=reZQAAAAMAAJ">Spoken Language Processing: A Guide to Theory, Algorithm, and System Development</a></strong>. [s.l.] Prentice Hall PTR, 2001.
+</div>
+<div id="ref-johnson2011acoustic" class="csl-entry" role="listitem">
+JOHNSON, K. <strong><a href="https://books.google.com.br/books?id=sKOUKJXbmYMC">Acoustic and Auditory Phonetics</a></strong>. [s.l.] Wiley, 2011.
+</div>
+<div id="ref-jurafsky2023" class="csl-entry" role="listitem">
+JURAFSKY, D.; MARTIN, J. H. <strong>Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition</strong>. 3rd. ed. USA: Prentice Hall PTR, 2023.
+</div>
+<div id="ref-MOORE2007418" class="csl-entry" role="listitem">
+MOORE, R. K. <a href="https://doi.org/10.1016/j.specom.2007.01.011">Spoken language processing: Piecing together the puzzle</a>. <strong>Speech Communication</strong>, v. 49, n. 5, p. 418–435, 2007.
+</div>
+<div id="ref-Park_2019" class="csl-entry" role="listitem">
+PARK, D. S. et al. <strong><span>SpecAugment</span>: A Simple Data Augmentation Method for Automatic Speech Recognition</strong>. Interspeech 2019. <strong>Anais</strong>...<span>ISCA</span>, set. 2019. Disponível em: &lt;<a href="https://doi.org/10.21437%2Finterspeech.2019-2680">https://doi.org/10.21437%2Finterspeech.2019-2680</a>&gt;
+</div>
+<div id="ref-pratap2020massively" class="csl-entry" role="listitem">
+PRATAP, V. et al. <strong>Massively Multilingual ASR: 50 Languages, 1 Model, 1 Billion Parameters</strong>., 2020. Disponível em: &lt;<a href="https://arxiv.org/abs/2007.03001">https://arxiv.org/abs/2007.03001</a>&gt;
+</div>
+<div id="ref-rabiner1993fundamentals" class="csl-entry" role="listitem">
+RABINER, L. R.; JUANG, B. H. <strong><a href="https://books.google.com.br/books?id=hoVLAAAACAAJ">Fundamentals of Speech Recognition</a></strong>. [s.l.] Pearson Education, 1993.
+</div>
+<div id="ref-RIZZOLATTI1998188" class="csl-entry" role="listitem">
+RIZZOLATTI, G.; ARBIB, M. A. <a href="https://doi.org/10.1016/S0166-2236(98)01260-0">Language within our grasp</a>. <strong>Trends in Neurosciences</strong>, v. 21, n. 5, p. 188–194, 1998.
+</div>
+<div id="ref-saeki2023virtuoso" class="csl-entry" role="listitem">
+SAEKI, T. et al. <strong>Virtuoso: Massive Multilingual Speech-Text Joint Semi-Supervised Learning for Text-To-Speech</strong>., 2023. Disponível em: &lt;<a href="https://arxiv.org/abs/2210.15447">https://arxiv.org/abs/2210.15447</a>&gt;
+</div>
+<div id="ref-Stevens:1937" class="csl-entry" role="listitem">
+STEVENS, S. S. <a href="https://doi.org/10.1121/1.1915893"><span>A Scale for the Measurement of the Psychological Magnitude Pitch</span></a>. <strong>Acoustical Society of America Journal</strong>, v. 8, n. 3, p. 185, jan. 1937.
+</div>
+<div id="ref-DBLP:journals/corr/abs-2102-06380" class="csl-entry" role="listitem">
+SUNKARA, M. et al. <a href="https://arxiv.org/abs/2102.06380">Neural Inverse Text Normalization</a>. <strong>CoRR</strong>, v. abs/2102.06380, 2021.
+</div>
+<div id="ref-47384" class="csl-entry" role="listitem">
+WILLIAMS, I. et al. <strong>Contextual speech recognition in end-to-end neural network systems using beam search</strong>. 2018. Disponível em: &lt;<a href="https://www.isca-speech.org/archive/Interspeech_2018/pdfs/2416.pdf">https://www.isca-speech.org/archive/Interspeech_2018/pdfs/2416.pdf</a>&gt;
+</div>
+<div id="ref-yang2023learning" class="csl-entry" role="listitem">
+YANG, M. et al. <strong>Learning ASR pathways: A sparse multilingual ASR model</strong>., 2023. Disponível em: &lt;<a href="https://arxiv.org/abs/2209.05735">https://arxiv.org/abs/2209.05735</a>&gt;
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Ressaltamos que “fala” neste contexto inclui a comunicação gestual em língua de sinais. As línguas de sinais, como LIBRAS, para o português brasileiro, são línguas naturais, com a mesma riqueza e complexidade que as línguas que se utilizam de sinal sonoro.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Cf. a discussão sobre Ciências da Fala, em Barbosa, Plínio A. (2020) Ciências da fala. In: <em>Speech Sciences Entries</em>. Speech Prosody Studies Group. Disponível em: <a href="https://gepf.falar.org/entries/1" class="uri">https://gepf.falar.org/entries/1</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Para saber mais sobre <em>datasets</em> e <em>corpora</em>, sugere-se a leitura do <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://github.com/nilc-nlp/CORAA" class="uri">https://github.com/nilc-nlp/CORAA</a> e <a href="https://sites.google.com/view/tarsila-c4ai/coraa-versions?pli=1" class="uri">https://sites.google.com/view/tarsila-c4ai/coraa-versions?pli=1</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Recomendamos o PRAAT como software para análise da fala: <a href="https://www.fon.hum.uva.nl/praat/manual/Intro.html" class="uri">https://www.fon.hum.uva.nl/praat/manual/Intro.html</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Toda a seção sobre produção da fala é orientada pelo livro de <span class="citation" data-cites="huang2001spoken">Huang et al. (<a href="../../shared/referencias/referencias.html#ref-huang2001spoken" role="doc-biblioref">2001</a>)</span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Cf. O site Fonética e Fonologia:<a href="https://fonologia.org/" class="uri">https://fonologia.org/</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Consultar a tabela da Associação Internacional de Fonética disponível em <a href="https://www.internationalphoneticassociation.org/content/full-ipa-chart" class="uri">https://www.internationalphoneticassociation.org/content/full-ipa-chart</a> e no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/fala/cap-fala/cap-fala-apendice.html#sec-cap-fala-apendice" target="_blank" title="Volume 1">Alguns pressupostos para o processamento de fala</a></span>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>A compreensão da fala envolve também a tarefa chamada de NLU, <em>Natural Language Understanding</em>, na qual aspectos relacionados ao sentido do enunciado são processados pelo computador e convertidos em algum tipo de ação. No caso dos assistentes de voz, um enunciado como “Escrever um e-mail”, dito pelo usuário, será convertido na ação de escrita do e-mail - provavelmente algum aplicativo de e-mail será aberto ou o assistente perguntará para o usuário quem seria o destinatário ou qual o texto do e-mail etc. Essa tarefa não faz parte do que hoje está no escopo da maioria dos modelos de reconhecimento de fala, mas é a etapa que a segue.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Digo “também”, porque se os dados contiverem apenas comandos de voz, a aplicação ficará muito restrita. Falaremos disso mais adiante.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>É claro que áudios com ruídos muito intensos atrapalham consideravelmente o reconhecimento de fala e não devem ser considerados válidos ou representativos do uso, e por isso, não devem ser incluídos no treinamento.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://commonvoice.mozilla.org/en/datasets" class="uri">https://commonvoice.mozilla.org/en/datasets</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://librivox.org/search?primary_key=52&amp;search_category=language&amp;search_page=1&amp;search_form=get_results" class="uri">https://librivox.org/search?primary_key=52&amp;search_category=language&amp;search_page=1&amp;search_form=get_results</a><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>O número de horas depende da arquitetura de rede neural utilizada. Estamos considerando aqui o estado da arte, que são modelos <em>end-to-end</em>. Modelos híbridos conseguem ser bem treinados com bem menos horas. Falaremos mais disso na seção sobre arquiteturas.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>Na realidade, há mais de uma técnica de aumento de dados. Uma delas, bastante utilizada em treinamentos para ASR, é a <em>spec augmentation</em> <span class="citation" data-cites="Park_2019">(<a href="../../shared/referencias/referencias.html#ref-Park_2019" role="doc-biblioref">Park et al., 2019</a>)</span>, que, apesar de ter “<em>augmentation</em>” no nome, não aumenta os dados, mas faz edições nos dados já existentes.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>Vale lembrar que um sistema de reconhecimento de fala é dependente do idioma, isto é, um modelo bem treinado em dados do português não conseguirá fazer um bom reconhecimento do francês. O mais próximo que se pode chegar de modelos independentes de língua seria por meio de <em>transfer learning</em>, que é uma técnica de aprendizado de máquina que “aproveita” um treinamento prévio como ponto de partida para um treinamento com outros dados. No <em>transfer learning</em>, os pesos da rede neural não são iniciados em 1, mas já ajustados com base no treinamento anterior.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Há dois tipos de normalização de texto, a direta, conhecida apenas como “normalização”, e a inversa, conhecida como “ITN (<em>inverse text normalization</em>)”, da qual falaremos mais adiante.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>Nos referimos a arquivos de áudio em que ocorre distorção do sinal e perceptualmente ouve-se um chiado alto que compromete a compreensão da fala.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Exceto no modelo wav2vec <span class="citation" data-cites="baevski2020wav2vec">(<a href="../../shared/referencias/referencias.html#ref-baevski2020wav2vec" role="doc-biblioref">Baevski et al., 2020</a>)</span>, que será descrito mais adiante.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Em linguística, a vogal [i], por exemplo, costuma ser descrita como “anterior alta não-arredondada”. Cada um desses adjetivos se refere a um aspecto da articulação do [i]. “Anterior” e “alta” se referem ao posicionamento da língua, e “não-arredondada”, à configuração dos lábios.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p>Recomendamos a leitura de <span class="citation" data-cites="johnson2011acoustic">(<a href="../../shared/referencias/referencias.html#ref-johnson2011acoustic" role="doc-biblioref">Johnson, 2011</a>)</span> para saber mais.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p>Para saber mais, consulte <span class="citation" data-cites="rabiner1993fundamentals">(<a href="../../shared/referencias/referencias.html#ref-rabiner1993fundamentals" role="doc-biblioref">Rabiner; Juang, 1993</a>)</span>.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p>Para representar um sinal estacionário, como o ruído branco, bastaria apenas uma janela, uma vez que esse sinal é constante ao longo do tempo.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p>Segundo <span class="citation" data-cites="fayek2016">Fayek (<a href="../../shared/referencias/referencias.html#ref-fayek2016" role="doc-biblioref">2016</a>)</span>, costuma-se usar intervalos de 20 a 40 ms para a janela, e 10 ms de deslocamento (50-60% de sobreposição entre duas janelas consecutivas).<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p>Lembre-se das aulas de fonética acústica e dos formantes que caracterizam cada vogal. Para saber mais, consulte <span class="citation" data-cites="johnson2011acoustic">(<a href="../../shared/referencias/referencias.html#ref-johnson2011acoustic" role="doc-biblioref">Johnson, 2011</a>)</span>.<a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p>Atualmente, as redes neurais conseguem aprender qual parte de um áudio contém fala.<a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p>N-gramas representam contextos muito restritos, na maioria das vezes.<a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn28"><p>Outra desvantagem dos modelos híbridos é o fato de o LM precisar alocar muita memória (100 GB) para que se obtenham bons resultados no modelo. Isso se torna proibitivo em se tratando de ASR embarcados em dispositivos.<a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn29"><p><span class="citation" data-cites="alcaim1992frequencia">Alcaim et al. (<a href="../../shared/referencias/referencias.html#ref-alcaim1992frequencia" role="doc-biblioref">1992</a>)</span> descrevem uma metodologia para gerar listas foneticamente balanceadas. Um procedimento semelhante, baseado no cálculo do qui quadrado, pode ser aplicado ao balanceamento de <em>corpora</em>.<a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn30"><p>RNN têm a desvantagem dos <em>vanishing gradients</em> e precisam ser combinadas com técnicas de <em>gating</em>, como LSTM e GRUs. Na prática, RNNs são séries de LSTMs.<a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn31"><p>Apenas no caso de uma <em>wordpiece</em> coincidir com um morfema, ela intrinsecamente terá significado, mas isso não é levado em consideração pelo modelo.<a href="#fnref31" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn32"><p><a href="https://ai.facebook.com/blog/wav2vec-state-of-the-art-speech-recognition-through-self-supervision/" class="uri">https://ai.facebook.com/blog/wav2vec-state-of-the-art-speech-recognition-through-self-supervision/</a>. <!-- Acesso em 11/04/2022.--><a href="#fnref32" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn33"><p>Isso depende bastante de qual aplicação se está desenvolvendo. Em se tratando de aplicações para fins comerciais, é extremamente comum haver a normalização inversa, por questões de experiência do usuário.<a href="#fnref33" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../introducao/cap-introducao/cap-introducao.html" class="pagination-link" aria-label="O que é PLN?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="pagination-link" aria-label="Recursos para o processamento de fala">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

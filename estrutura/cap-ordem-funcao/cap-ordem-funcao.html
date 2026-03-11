@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Adriana S Pagano">
+<meta name="author" content="Amanda Rassi">
+<meta name="author" content="Ana Clara S Pagano">
+
+<title>6&nbsp; A ordem e a função das palavras em uma sentença – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" rel="next">
+<link href="../../palavras/cap-mwe/cap-mwe.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><strong>Estrutura</strong></a></li><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#sec-cap-ordem-funcao-introducao" id="toc-sec-cap-ordem-funcao-introducao" class="nav-link active" data-scroll-target="#sec-cap-ordem-funcao-introducao"><span class="header-section-number">6.1</span> Introdução</a></li>
+  <li><a href="#sec-cap-ordem-funcao-reflexoes" id="toc-sec-cap-ordem-funcao-reflexoes" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-reflexoes"><span class="header-section-number">6.2</span> Reflexões Iniciais</a></li>
+  <li><a href="#sec-cap-ordem-funcao-nocoes" id="toc-sec-cap-ordem-funcao-nocoes" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-nocoes"><span class="header-section-number">6.3</span> Noções Básicas de Sintaxe</a></li>
+  <li><a href="#sec-cap-ordem-funcao-tipos" id="toc-sec-cap-ordem-funcao-tipos" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-tipos"><span class="header-section-number">6.4</span> Tipos de representação</a>
+  <ul class="collapse">
+  <li><a href="#colchetes" id="toc-colchetes" class="nav-link" data-scroll-target="#colchetes"><span class="header-section-number">6.4.1</span> Colchetes</a></li>
+  <li><a href="#árvores" id="toc-árvores" class="nav-link" data-scroll-target="#árvores"><span class="header-section-number">6.4.2</span> Árvores</a></li>
+  <li><a href="#setas" id="toc-setas" class="nav-link" data-scroll-target="#setas"><span class="header-section-number">6.4.3</span> Setas</a></li>
+  <li><a href="#parênteses" id="toc-parênteses" class="nav-link" data-scroll-target="#parênteses"><span class="header-section-number">6.4.4</span> Parênteses</a></li>
+  <li><a href="#indentação" id="toc-indentação" class="nav-link" data-scroll-target="#indentação"><span class="header-section-number">6.4.5</span> Indentação</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-ordem-funcao-constituencia" id="toc-sec-cap-ordem-funcao-constituencia" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-constituencia"><span class="header-section-number">6.5</span> Sintaxe de constituência</a>
+  <ul class="collapse">
+  <li><a href="#possibilidades-de-interpretação-e-ambiguidades-sintáticas" id="toc-possibilidades-de-interpretação-e-ambiguidades-sintáticas" class="nav-link" data-scroll-target="#possibilidades-de-interpretação-e-ambiguidades-sintáticas"><span class="header-section-number">6.5.1</span> Possibilidades de interpretação e ambiguidades sintáticas</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-ordem-funcao-dependencia" id="toc-sec-cap-ordem-funcao-dependencia" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-dependencia"><span class="header-section-number">6.6</span> Sintaxe de dependência</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-ordem-funcao-nucleo-dependente" id="toc-sec-cap-ordem-funcao-nucleo-dependente" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-nucleo-dependente"><span class="header-section-number">6.6.1</span> Núcleo e dependente</a></li>
+  <li><a href="#a-representação-da-sintaxe-de-dependência" id="toc-a-representação-da-sintaxe-de-dependência" class="nav-link" data-scroll-target="#a-representação-da-sintaxe-de-dependência"><span class="header-section-number">6.6.2</span> A representação da sintaxe de dependência</a></li>
+  <li><a href="#sec-cap-ordem-funcao-projeto-ud" id="toc-sec-cap-ordem-funcao-projeto-ud" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-projeto-ud"><span class="header-section-number">6.6.3</span> Projetos de anotação multilingue: Universal Dependencies</a></li>
+  </ul></li>
+  <li><a href="#qual-é-melhor-constituência-ou-dependência" id="toc-qual-é-melhor-constituência-ou-dependência" class="nav-link" data-scroll-target="#qual-é-melhor-constituência-ou-dependência"><span class="header-section-number">6.7</span> Qual é melhor: constituência ou dependência?</a></li>
+  <li><a href="#sec-cap-ordem-funcao-fronteiras" id="toc-sec-cap-ordem-funcao-fronteiras" class="nav-link" data-scroll-target="#sec-cap-ordem-funcao-fronteiras"><span class="header-section-number">6.8</span> Fronteiras da sintaxe</a>
+  <ul class="collapse">
+  <li><a href="#sintaxe-e-morfologia" id="toc-sintaxe-e-morfologia" class="nav-link" data-scroll-target="#sintaxe-e-morfologia"><span class="header-section-number">6.8.1</span> Sintaxe e Morfologia</a></li>
+  <li><a href="#sintaxe-e-semântica" id="toc-sintaxe-e-semântica" class="nav-link" data-scroll-target="#sintaxe-e-semântica"><span class="header-section-number">6.8.2</span> Sintaxe e Semântica</a></li>
+  <li><a href="#sintaxe-e-pragmática" id="toc-sintaxe-e-pragmática" class="nav-link" data-scroll-target="#sintaxe-e-pragmática"><span class="header-section-number">6.8.3</span> Sintaxe e Pragmática</a></li>
+  <li><a href="#sintaxe-e-discurso" id="toc-sintaxe-e-discurso" class="nav-link" data-scroll-target="#sintaxe-e-discurso"><span class="header-section-number">6.8.4</span> Sintaxe e Discurso</a></li>
+  </ul></li>
+  <li><a href="#considerações-finais" id="toc-considerações-finais" class="nav-link" data-scroll-target="#considerações-finais"><span class="header-section-number">6.9</span> Considerações finais</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><strong>Estrutura</strong></a></li><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-ordem-funcao" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></h1>
+<p class="subtitle lead">Sintaxe</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Adriana S Pagano </p>
+             <p>Amanda Rassi </p>
+             <p>Ana Clara S Pagano </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-ordem-funcao.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-label="Toggle callout" data-bs-target=".callout-cite-contents" data-bs-toggle="collapse" aria-controls="callout-cite" aria-expanded="false">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-ordem-funcao:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Pagano, Adriana S and Rassi, Amanda and Pagano, Ana Clara S},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {A ordem e a função das palavras em uma sentença: Sintaxe},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {6},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="sec-cap-ordem-funcao-introducao" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-cap-ordem-funcao-introducao"><span class="header-section-number">6.1</span> Introdução</h2>
+<p>Nos capítulos anteriores, vimos algumas das unidades de análise que são examinadas nas distintas subáreas dos estudos linguísticos, cada uma das quais com desafios específicos para o PLN. Neste capítulo, nosso foco será uma subárea em particular – a sintaxe –, que estuda como as palavras se organizam nas estruturas que constroem as distintas funções gramaticais no escopo da frase ou sentença.</p>
+<p>Retomando nossa representação do estudo da linguagem (<a href="../../introducao/cap-introducao/cap-introducao.html#fig-cap-introducao-fig2" class="quarto-xref">Figura&nbsp;<span>1.2</span></a> do <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/introducao/cap-introducao/cap-introducao.html#sec-cap-introducao" target="_blank" title="Volume 1">O que é PLN?</a></span>), podemos dizer que a sintaxe é um estrato/camada central do sistema linguístico (<a href="#fig-cap-ordem-funcao-fig1" class="quarto-xref">Figura&nbsp;<span>6.1</span></a>), pois organiza funções no estrato imediatamente inferior – a morfologia – e fornece estruturas de funções que serão importantes nos estratos superiores – semântica e pragmática – para, por exemplo, identificar papéis temáticos cruciais na tarefa de extração de informação, os quais respondem as perguntas “quem?” faz “o quê?”, “para quem?”, “como?”, “quando?”, “onde?” etc.</p>
+<div id="fig-cap-ordem-funcao-fig1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.1: Representação das subáreas de estudo da linguagem com destaque para a sintaxe
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image17.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>Ainda em relação ao sistema linguístico, além de sua organização em estratos, temos uma segunda forma de organização: a escala de ordens (em inglês, <em>rank scale</em>), que organiza diferentes unidades de análise em níveis hierárquicos. A escala de ordens<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> está representada na <a href="#fig-cap-ordem-funcao-fig2" class="quarto-xref">Figura&nbsp;<span>6.2</span></a>. Os morfemas são as menores unidades constitutivas das palavras, as quais, por sua vez, se organizam em estruturas, chamadas sintagmas, que nos permitem construir funções na oração, tais como sujeito, objetos, adjuntos e complementos.</p>
+<div id="fig-cap-ordem-funcao-fig2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.2: Escala de ordens
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image4.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>A escala de ordens abrange as unidades utilizadas para a descrição da língua, seja esta língua falada ou escrita. A unidade superior de análise – a oração – consiste em um conjunto organizado de palavras que constroem significados sobre algum evento no mundo, que, como dissemos, podemos indagar perguntando “quem?” faz “o quê?”, “para quem?”, “como?”, “quando?”, “onde?” etc.</p>
+<p>Na língua escrita, há uma unidade grafológica, geralmente denominada, em português, “sentença”, também conhecida como “frase” ou “período”<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. A “sentença” segue as convenções prototípicas da língua escrita, isto é, letra maiúscula inicial e sinal de pontuação que indica finalização, podendo ser este um ponto final, um sinal de interrogação ou de exclamação. A distinção entre “sentença” (em inglês, <em>sentence</em>) e “oração” (em inglês, <em>clause</em>) é muito importante em PLN, uma vez que em uma sentença (aquela que inicia com letra maiúscula e conclui com sinal de pontuação) pode haver mais de uma oração e, portanto, mais de um evento.</p>
+<p>Neste capítulo, vamos abordar os níveis da escala de ordens e sua relevância para a análise sintática. Para compreendermos melhor como as palavras funcionam nos distintos tipos de sintagma e os sintagmas na oração, apresentaremos exemplos que esperamos que sejam esclarecedores. Após uma seção de reflexões iniciais, revisaremos conceitos básicos sobre análise sintática, passando por tipos de representação, até chegarmos nos dois tipos de análise sintática mais utilizados em PLN: a sintaxe de constituência e a sintaxe de dependência. Por último, abordaremos as intersecções entre a sintaxe e os demais estratos do sistema linguístico ao final deste capítulo, na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-fronteiras" target="_blank" title="Volume 1">Fronteiras da sintaxe</a></span>.</p>
+<p>Antes de passarmos para nossas reflexões iniciais sobre sintaxe, cabe mencionar que o processo de analisar a estrutura de orações em PLN é denominado “<em>parsing</em>”, termo tomado por empréstimo do inglês. O <em>parsing</em> sintático toma como base a classe de palavra (em inglês, <em>part-of-speech</em>) das distintas palavras que compõem os sintagmas. Como veremos no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html#sec-cap-recursos-sintaxe" target="_blank" title="Volume 1">Ferramentas e recursos para o processamento sintático</a></span>, em PLN a análise sintática automática é realizada por meio de softwares denominados <em>parsers</em>. Também veremos alguns desafios que a análise em constituintes sintáticos traz para os <em>parsers</em> já existentes, sobretudo em casos nos quais a delimitação de unidades e suas relações entre si na hierarquia da oração admitem mais de uma interpretação possível.</p>
+<p>Um outro termo que é importante introduzir neste momento é o conceito de <em>treebank</em>, que é utilizado para se nomear um conjunto de sentenças com anotação morfossintática e com representação em diagramas de árvore. Nas seções seguintes, veremos alguns exemplos de diagramas de árvore juntamente com outras formas de representação. No <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html#sec-cap-recursos-sintaxe" target="_blank" title="Volume 1">Ferramentas e recursos para o processamento sintático</a></span>, veremos alguns dos <em>treebanks</em> disponíveis atualmente para PLN em português.</p>
+</section>
+<section id="sec-cap-ordem-funcao-reflexoes" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-cap-ordem-funcao-reflexoes"><span class="header-section-number">6.2</span> Reflexões Iniciais</h2>
+<p>Vamos começar examinando um texto, no <a href="#exm-cap-ordem-funcao-1" class="quarto-xref">Exemplo&nbsp;<span>6.1</span></a>. Trata-se de um texto pequeno e simples, reproduzido aqui sem qualquer letra maiúscula e sem pontuação. Até o espaçamento entre palavras foi removido. À medida que for lendo, tente identificar sentido nele:</p>
+<div id="exm-cap-ordem-funcao-1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p><strong>ameninapostouumafoto</strong></p>
+</blockquote>
+</div>
+<p>Embora a forma como o texto é apresentado acima não seja a mais esperada por nós num texto hoje em dia, ao menos nas línguas de origem europeia contemporâneas, essa forma já foi utilizada na antiguidade, no latim clássico, e é conhecida como <em>scriptio continua</em>. De fato, a separação visual entre palavras e sentenças, tal como escrevemos hoje, foi um desenvolvimento histórico que levou à forma como representamos hoje a língua na sua forma escrita. Contudo, apesar do estranhamento que possa causar o texto no <a href="#exm-cap-ordem-funcao-1" class="quarto-xref">Exemplo&nbsp;<span>6.1</span></a>, muito provavelmente você não teve muita dificuldade em reinserir o espaçamento entre palavras, chegando a uma versão como a que segue no <a href="#exm-cap-ordem-funcao-2" class="quarto-xref">Exemplo&nbsp;<span>6.2</span></a>:</p>
+<div id="exm-cap-ordem-funcao-2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.2</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p><strong>a menina postou uma foto</strong></p>
+</blockquote>
+</div>
+<p>Pensando, ainda, numa versão impressa deste texto, a letra maiúscula inicial e a pontuação final certamente não geram grandes dificuldades e você deve ter chegado à versão no <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a>:</p>
+<div id="exm-cap-ordem-funcao-3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.3</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p><strong>A menina postou uma foto.</strong></p>
+</blockquote>
+</div>
+<p>O reconhecimento de cada uma das palavras, separadamente, e da sentença toda como uma unidade, todavia, não é suficiente para podermos explicar por que ou como o texto faz sentido para nós. Entre as palavras individuais e a sentença como um todo, há agrupamentos que funcionam como unidades intermediárias e nos quais a ordem das palavras é condicionada pela estrutura da língua. Assim, na sentença acima, identificamos palavras que agrupamos como pequenos blocos de informação, pois constroem significados e contribuem com o significado do texto como um todo. Esses agrupamentos são, por exemplo, “a menina” e “uma foto”.</p>
+<p>Em cada um desses agrupamentos de palavras que naturalmente reconhecemos, há uma ordem em que as palavras se sucedem umas às outras. Assim, uma palavra como “a” (artigo) ocorre antes de “menina” (substantivo), nunca depois. Quando a ordem das palavras dentro desses agrupamentos é trocada, temos uma forma que consideramos com problemas na sua formulação e que nos causa estranhamento. Por exemplo: “menina a” ou “foto uma”.</p>
+<p>Com estas reflexões iniciais, passamos agora a revisar alguns conceitos básicos de sintaxe.</p>
+</section>
+<section id="sec-cap-ordem-funcao-nocoes" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-cap-ordem-funcao-nocoes"><span class="header-section-number">6.3</span> Noções Básicas de Sintaxe</h2>
+<p>O estudo de como as palavras se agrupam e se organizam em uma ordem determinada é o objeto do campo de estudos da sintaxe. É através da sintaxe que reconhecemos as regras que ditam quais agrupamentos de palavras serão aceitos por nós e quais serão considerados problemáticos.</p>
+<p>Os agrupamentos operam como pequenos “tijolos” que vão construindo significados, ao serem agrupados em uma unidade maior até construir um significado que é relevante para a oração. Nessa analogia com tijolos que são agrupados, o <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a> pode ser representado como disposto na <a href="#fig-cap-ordem-funcao-fig3" class="quarto-xref">Figura&nbsp;<span>6.3</span></a>:</p>
+<div id="fig-cap-ordem-funcao-fig3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.3: Representação do agrupamento progressivo de unidades menores em maiores
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image6.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>Olhando para a <a href="#fig-cap-ordem-funcao-fig3" class="quarto-xref">Figura&nbsp;<span>6.3</span></a>, temos, no topo, cada uma das palavras do nosso exemplo. À medida que vamos descendo na <a href="#fig-cap-ordem-funcao-fig3" class="quarto-xref">Figura&nbsp;<span>6.3</span></a>, vemos agrupamentos entre as palavras, os quais, progressivamente, culminam na oração. Os agrupamentos mais próximos da oração são aqueles que constroem os significados mais relevantes para a compreensão de informações, como as que respondem às perguntas elencadas no <a href="#def-cap-ordem-funcao-quadro1" class="quarto-xref">Quadro&nbsp;<span>6.1</span></a>:</p>
+<div id="def-cap-ordem-funcao-quadro1" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 6.1</strong></span> Perguntas utilizadas para elucidar informações sobre eventos</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Pergunta</strong></th>
+<th style="text-align: left;"><strong>Resposta</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Quem?</td>
+<td style="text-align: left;">a menina</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fez o quê?</td>
+<td style="text-align: left;">postou uma foto</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Postou o quê?</td>
+<td style="text-align: left;">uma foto</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Em cada um dos agrupamentos de palavras que vamos progressivamente formando até chegar ao agrupamento maior, a oração, as palavras trabalham para realizar uma função em comum; elas são uma única unidade funcionando dentro da oração. Dito de outra forma, cada um desses agrupamentos existe pois exerce uma função dentro da oração. Por exemplo, “a menina” é uma unidade constituída por um artigo, também chamado determinante (“a”), e um substantivo (“menina”). Esses dois elementos operam conjuntamente para constituir uma função e realizar um significado. Os agrupamentos acima do nível da palavra, como vimos na escala de ordens na <a href="#fig-cap-ordem-funcao-fig2" class="quarto-xref">Figura&nbsp;<span>6.2</span></a>, recebem a denominação <strong>sintagma</strong> (em inglês, <em>phrase</em>). Cada um dos sintagmas é uma estrutura que é parte de uma unidade maior e que exerce uma função nela, sendo que esta outra estrutura pode ser um outro sintagma ou a oração.</p>
+<p>Existem vários tipos de sintagma: sintagmas nominais, verbais, adverbiais, adjetivais e preposicionais, e cada um possui as suas próprias regras para a organização das palavras que o compõem, de acordo com a função que as palavras exercem dentro do próprio sintagma.</p>
+<p>A cada uma das unidades que funciona dentro de um sintagma damos o nome de constituinte (em inglês, <em>constituent</em>). São constituintes as palavras individuais bem como seus agrupamentos progressivos em unidades maiores. Nossa sentença “A menina postou uma foto” está constituída por cinco palavras, as quais podem ser agrupadas em constituintes intermediários até dois grandes constituintes: [a menina] e [postou uma foto].</p>
+<p>Alguns exemplos de constituintes no nível da palavra são: substantivos, verbos, adjetivos etc.</p>
+<p>Retomando o <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a> temos, então, os seguintes sintagmas: “a menina”, que é um sintagma nominal, pois o seu constituinte principal é o substantivo “menina”; e “postou uma foto”, que é um sintagma verbal, pois seu constituinte principal é o verbo “postou”; dentro do sintagma verbal temos ainda um outro sintagma, “uma foto”, que é considerado um sintagma nominal, pois seu constituinte principal é o substantivo “foto”. É importante notar, portanto, que pode haver um ou mais sintagmas dentro de um outro sintagma. Esse constituinte principal que dita qual é o tipo de sintagma é chamado de núcleo, pois ele é o núcleo da estrutura gramatical, ou seja, do sintagma.</p>
+<p>Para saber com que tipo de sintagma estamos lidando, precisamos, então, saber que fatores ditam qual é o núcleo desse sintagma. Isso irá depender da função que o sintagma exerce na oração. Pensemos no exemplo: o sintagma nominal “uma foto” exerce a função de objeto dentro do sintagma “postou uma foto”. Objetos são realizados por sintagmas nominais; assim, o seu núcleo é um substantivo.</p>
+<p>É importante ressaltar, também, que esses constituintes não se restringem ao nível imediatamente inferior na oração, nem a nenhum outro nível: constituintes são os componentes que integram todas as estruturas da sentença, ou seja, todos os sintagmas, e podem ser compostos por outros constituintes. Daí a relevância da escala de ordens apresentada na <a href="#fig-cap-ordem-funcao-fig2" class="quarto-xref">Figura&nbsp;<span>6.2</span></a>.</p>
+<p>No <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a>, os sintagmas “a menina”, “postou uma foto” e “uma foto” têm uma função no nível superior da escala de ordens, isto é, na oração. Na oração, essas funções podem ser associadas ao que chamamos, na Semântica, de papéis temáticos.</p>
+<p>Papel temático é um conceito utilizado para nomear o tipo de relação que um verbo estabelece com seu sujeito e seus complementos, relação pela qual o verbo lhes atribui uma função semântica, como, por exemplo, Agente, Paciente ou Objeto de uma ação. Os papéis temáticos podem ser mapeados com as funções sintáticas na oração e podem ser indagados por meio de perguntas do tipo “quem?” faz “o quê?”, “para quem?”, “como?”, “quando?”, “onde?” etc., como as exemplificadas no <a href="#def-cap-ordem-funcao-quadro2" class="quarto-xref">Quadro&nbsp;<span>6.2</span></a>. As respostas a cada pergunta nos ajudam a identificar um constituinte com uma função sintática específica na oração e um papel temático. No <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a>, a parte da oração que responde a pergunta “quem?” correspondente ao sujeito da oração, que, neste caso, é identificado com o papel temático de Agente da ação realizada. Já a parte que responde a “o quê?” corresponde ao objeto do verbo e ao papel temático Objeto Estativo.</p>
+<div id="def-cap-ordem-funcao-quadro2" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 6.2</strong></span> Exemplo de funções sintáticas e papéis temáticos</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Pergunta</strong></th>
+<th style="text-align: left;"><strong>Resposta</strong></th>
+<th><strong>Função sintática</strong></th>
+<th><strong>Papel temático</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Quem?</td>
+<td style="text-align: left;">a menina</td>
+<td>sujeito</td>
+<td>Agente</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fez o quê?</td>
+<td style="text-align: left;">postou uma foto</td>
+<td>predicado</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Postou o quê?</td>
+<td style="text-align: left;">uma foto</td>
+<td>objeto</td>
+<td>Objeto Estativo</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Como vimos, então, um sintagma pode ser construído por uma ou mais palavras, sendo uma delas a principal, o núcleo. A estrutura dos constituintes é o que conhecemos como sintagma e o tipo de sintagma é definido pela classe de palavra do seu núcleo ou componente principal. No <a href="#def-cap-ordem-funcao-quadro3" class="quarto-xref">Quadro&nbsp;<span>6.3</span></a>, temos os três constituintes da oração no <a href="#exm-cap-ordem-funcao-3" class="quarto-xref">Exemplo&nbsp;<span>6.3</span></a> e o tipo de sintagma de cada um deles.</p>
+<div id="def-cap-ordem-funcao-quadro3" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 6.3</strong></span> Exemplo de tipos de sintagma</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 14%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Sintagma</strong></th>
+<th style="text-align: left;"><strong>Núcleo</strong></th>
+<th style="text-align: left;"><strong>Classe de palavra do núcleo</strong></th>
+<th style="text-align: left;"><strong>Tipo de sintagma</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a menina</td>
+<td style="text-align: left;">menina</td>
+<td style="text-align: left;">substantivo</td>
+<td style="text-align: left;">sintagma nominal</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">postou uma foto</td>
+<td style="text-align: left;">postou</td>
+<td style="text-align: left;">verbo</td>
+<td style="text-align: left;">sintagma verbal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uma foto</td>
+<td style="text-align: left;">foto</td>
+<td style="text-align: left;">substantivo</td>
+<td style="text-align: left;">sintagma nominal</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>Palavras e sintagmas podem, assim, ser constituintes, sempre funcionando numa estrutura maior, na escala de ordens, tendo como unidade maior a oração. A análise da estrutura das orações de acordo com seus constituintes e a hierarquia estabelecida entre eles é conhecida como <strong>sintaxe de constituência</strong>. A análise sintática de constituência é um dos dois tipos de análise sintática mais utilizados em PLN, sendo o outro tipo a denominada <strong>sintaxe de dependência</strong>. Neste capítulo, vamos apresentar os dois tipos de análise e discorrer brevemente sobre suas diferenças. Mas, antes, vamos examinar os principais tipos de representação em sintaxe.</p>
+</section>
+<section id="sec-cap-ordem-funcao-tipos" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-cap-ordem-funcao-tipos"><span class="header-section-number">6.4</span> Tipos de representação</h2>
+<p>Há algumas formas convencionais de se representar as estruturas sintáticas que podem ser utilizadas de acordo com o tipo de análise sintática. Dentre elas, destacamos as seguintes: colchetes, árvores, setas, parênteses e indentação.</p>
+<section id="colchetes" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="colchetes"><span class="header-section-number">6.4.1</span> Colchetes</h3>
+<p><strong>Colchetes</strong> (em inglês, <em>brackets</em>) são uma forma de representação hierárquica por meio da qual indicamos quais palavras estão agrupadas dentro de uma mesma unidade e quais unidades são parte de unidades maiores. Por exemplo, a sentença “A menina postou uma foto.” pode ser representada, de forma progressiva, dos constituintes maiores aos menores, como ilustrado na <a href="#fig-cap-ordem-funcao-fig4" class="quarto-xref">Figura&nbsp;<span>6.4</span></a>.</p>
+<div id="fig-cap-ordem-funcao-fig4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.4: Representação de hierarquia de constituintes por meio de colchetes
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image8.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+</figure>
+</div>
+<p>No topo, temos um único par de colchetes que abrange a sentença toda. Em seguida, separamos, entre colchetes, a oração e seu ponto final. Em seguida, separamos, entre colchetes, os constituintes maiores e, progressivamente, vamos separando, entre colchetes, constituintes dentro de constituintes, até chegarmos às palavras individuais, que são nossos constituintes mínimos. Barras verticais auxiliam a visualização na <a href="#fig-cap-ordem-funcao-fig4" class="quarto-xref">Figura&nbsp;<span>6.4</span></a>.</p>
+<p>Na representação por meio de colchetes, cada par de colchetes indica um <strong>nível de continência</strong>. O par de colchetes mais externo contém a sentença como um todo. Já o par de colchetes mais interno de todos contém as palavras. As unidades menores encontram-se contidas nas maiores, sendo as unidades mínimas cada uma das palavras individualmente. A representação completa pode ser feita numa única linha:<br>
+</p>
+<p><strong>[[[[[A][menina]][[postou][[uma][foto]]]][.]]]</strong><br>
+</p>
+<p>Este tipo de representação, como veremos neste capítulo, pode ser feito tanto para sintaxe de constituência como para sintaxe de dependência.</p>
+</section>
+<section id="árvores" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="árvores"><span class="header-section-number">6.4.2</span> Árvores</h3>
+<p><strong>Árvores</strong> (em inglês, <em>trees</em>) são uma forma de representação que fornece uma visualização mais clara da hierarquia dos constituintes. Assim, nosso exemplo anterior tem a seguinte representação arbórea na <a href="#fig-cap-ordem-funcao-fig5" class="quarto-xref">Figura&nbsp;<span>6.5</span></a>:</p>
+<div id="fig-cap-ordem-funcao-fig5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.5: Representação de hierarquia de constituintes por meio de árvore
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image7.jpg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>Na notação com estruturas arbóreas, um diagrama chamado de árvore representa graficamente a estrutura de uma sentença como uma hierarquia, sendo os <strong>nós</strong> (em inglês, <em>nodes</em>), elementos discretos (ou elementos finais) em um grafo (ou representação simbólica) e as <strong>arestas</strong> (em inglês, <em>edges</em>) linhas que conectam dois nós e indicam uma relação entre eles.</p>
+<p>Este tipo de representação, como veremos neste capítulo, pode ser feito tanto para sintaxe de constituência como para sintaxe de dependência.</p>
+</section>
+<section id="setas" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="setas"><span class="header-section-number">6.4.3</span> Setas</h3>
+<p><strong>Setas</strong> (em inglês, <em>arced arrows</em>) são uma representação na qual setas unidirecionais são desenhadas de um <strong>nó pai</strong> (em inglês, <em>parent</em>) para um <strong>nó filho</strong> (em inglês, <em>child</em>), como pode ser visto na <a href="#fig-cap-ordem-funcao-fig6" class="quarto-xref">Figura&nbsp;<span>6.6</span></a>. Nela, temos uma representação de relações de dependência entre nós pais e filhos. A seta parte da palavra que governa a relação e chega na palavra dependente. Essa relação será melhor explicada na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-dependencia" target="_blank" title="Volume 1">Sintaxe de dependência</a></span>.</p>
+<div id="fig-cap-ordem-funcao-fig6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.6: Representação de relações de dependência por meio de setas unidirecionais
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image11.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p>A seta central, que chega no verbo “postou” é apenas uma representação conceitual de que esse é o elemento central da sentença. As setas que saem de “postou” e chegam em “menina”, “foto” e “.” indicam que, nessas relações, “postou” é o pai e “menina”, “foto” e “.” são filhos de “postou”. A seta que sai de “menina” e chega em “a” indica que “a” é filho de “menina”, assim como a seta de “foto” para “uma” indica que “foto” é pai de “uma”.</p>
+<p>Este tipo de representação, como veremos mais adiante neste capítulo, é prototípico da análise sintática de dependência.</p>
+</section>
+<section id="parênteses" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="parênteses"><span class="header-section-number">6.4.4</span> Parênteses</h3>
+<p><strong>Parênteses</strong> (em inglês, <em>parentheses</em>) são usados para estabelecer a relação entre pares de palavras. Nesta representação, cada um dos pares de palavras entre as quais se estabelece uma relação unidirecional de dependência é apresentado entre parênteses, sendo a primeira posição a da palavra que governa a relação e a segunda a da palavra dependente.</p>
+<div id="fig-cap-ordem-funcao-fig7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.7: Representação de relações de dependência por meio de parênteses
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image22.png" class="img-fluid figure-img" style="width:45.0%">
+</div>
+</figure>
+</div>
+<p>Na linha 1, temos a relação conceitual de <code>root</code>, que é representada pelo elemento vazio, o qual governa o verbo “postou”, considerado o elemento central na sentença. Assim como na representação por setas, temos nas linhas 2, 4 e 6, as relações de dependência em que o verbo “postou” governa seus dependentes “menina”, “foto” e “.”, respectivamente. Na linha 3, vemos a dependência de “a” (dependente) em relação a “menina” (governante), assim como na linha 5, em que “uma” é dependente de “foto”.</p>
+<p>Este tipo de representação é utilizado pela análise sintática de dependência.</p>
+</section>
+<section id="indentação" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="indentação"><span class="header-section-number">6.4.5</span> Indentação</h3>
+<p><strong>Indentação</strong> (em inglês, <em>indentation</em>) também é usada para explicitar a hierarquia entre as palavras. Este tipo de representação nos permite visualizar a hierarquia nas relações de dependência.</p>
+<div id="fig-cap-ordem-funcao-fig8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.8: Representação de relações de dependência por meio de indentação
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image14.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+</figure>
+</div>
+<p>Na <a href="#fig-cap-ordem-funcao-fig8" class="quarto-xref">Figura&nbsp;<span>6.8</span></a>, os dependentes ou nós filhos, por exemplo “menina” e “foto”, são indentados em relação ao nó pai “postou”. Os nós “a” e “uma” são indentados em relação aos nós “menina” e “foto”, respectivamente.</p>
+<p>Este tipo de representação é utilizado pela análise sintática de dependência.</p>
+<p>Como veremos nas seções seguintes, cada formato de representação pode ser mais ou menos adequado para cada tipo de análise sintática. Neste capítulo, vamos explicar as duas abordagens mais comuns de análise sintática que fundamentam os dois tipos de <em>parsing</em> mais utilizados em PLN: o <em>parsing</em> de constituência e o <em>parsing</em> de dependência.</p>
+</section>
+</section>
+<section id="sec-cap-ordem-funcao-constituencia" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-cap-ordem-funcao-constituencia"><span class="header-section-number">6.5</span> Sintaxe de constituência</h2>
+<p>Na sintaxe de constituência, também chamada de sintaxe de constituintes, unidades chamadas constituintes são agrupadas em unidades maiores. Os constituintes podem ser palavras ou distintos tipos de sintagmas, podendo haver sintagmas contidos dentro de sintagmas maiores. Esse fenômeno implica uma hierarquia de unidades, que é capturada e visualizada por meio de representações como as que vimos na seção anterior.</p>
+<p>Na sintaxe de constituência, a estrutura hierárquica pode ser representada com o uso de colchetes, que, como vimos anteriormente, indicam quais constituintes inferiores estão contidos nos constituintes hierarquicamente superiores; ou com estruturas arbóreas, nas quais no topo da árvore encontra-se a sentença completa e, nos níveis inferiores, os constituintes menores. Em ambos os casos, cada constituinte está acompanhado de sua respectiva notação, de acordo com um conjunto específico de etiquetas morfossintáticas (em inglês, <em>tagset</em>).</p>
+<p>A análise sintática tem como ponto de partida a unidade maior – a sentença – representada, prototipicamente, pela notação <strong>S</strong> (do inglês, <em>sentence</em>). Se uma sentença tem pontuação final, o sinal de pontuação recebe a notação <strong>PNT</strong> (do inglês, <em>punctuation</em>) e é anotado no mesmo nível hierárquico de <strong>S</strong>. De <strong>S</strong>, derivam constituintes cujas estruturas realizam tipicamente as funções sintáticas no nível da oração: sujeito, geralmente realizada por um constituinte com estrutura de sintagma nominal, que recebe a notação <strong>NP</strong> (do inglês, <em>noun phrase)</em>; e predicado, geralmente realizada por um constituinte com estrutura de sintagma verbal, com a notação <strong>VP</strong> (do inglês, <em>verb phrase</em>), podendo ter objetos com estrutura prototípica de sintagma nominal (<strong>NP</strong>). Há também frases preposicionais, anotadas como <strong>PP</strong> (do inglês, <em>prepositional phrase</em>). Nos níveis seguintes, cada constituinte é subdividido em subconstituintes até chegarmos às palavras individuais, as quais recebem a notação de sua classe: <strong>V</strong> para verbo, <strong>N</strong> para substantivo, <strong>DET</strong> para determinantes como artigos e pronomes demonstrativos, <strong>ADJ</strong> para adjetivo, <strong>ADV</strong> para advérbio, e <strong>P</strong> para preposição.</p>
+<p>Vejamos a representação com colchetes e notação para a sentença: “A menina postou uma foto.”.<br>
+</p>
+<p><strong>[ROOT [S [S [NP [DET A] [N menina]] [VP [V postou] [NP [DET uma] [N foto]]]] [PNT .]]]</strong><br>
+</p>
+<p>Como pode ser observado, a cada palavra é atribuída uma classe de palavra de acordo com um conjunto de etiquetas definido. Nesta representação, o par de colchetes mais externos contém a sentença como um todo, incluindo a pontuação, e recebe a etiqueta <strong>ROOT</strong> (em português, raiz) que indica o ponto inicial da análise. Já os pares de colchetes mais internos de todos contêm as palavras individuais com sua respectiva notação para classe de palavra.</p>
+<p>Na notação com estruturas arbóreas, a sentença: “A menina postou uma foto.” é representada na forma de árvore<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> na <a href="#fig-cap-ordem-funcao-fig9" class="quarto-xref">Figura&nbsp;<span>6.9</span></a>.</p>
+<div id="fig-cap-ordem-funcao-fig9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.9: Representação de sintaxe de constituência em diagrama de árvore
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image1.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p>A árvore pode ser lida, de cima para baixo, da seguinte forma: O nó denominado <strong>ROOT</strong> indica a raiz da árvore. O nó <strong>S1</strong> representa a sentença toda como um único constituinte; é o nó que domina todos os outros nós da árvore. No caso de uma sentença grafológica (unidade delimitada por um sinal de pontuação), como é o caso na <a href="#fig-cap-ordem-funcao-fig9" class="quarto-xref">Figura&nbsp;<span>6.9</span></a>, temos uma representação da sentença como um todo (<strong>S1</strong>), abrangendo a sentença (<strong>S2</strong>) e o seu sinal de pontuação (<strong>PNT</strong>). De <strong>S2</strong> derivam constituintes cujas estruturas realizam tipicamente as funções sintáticas no nível da oração: sujeito realizado por um constituinte com estrutura de sintagma nominal (<strong>NP</strong>) e predicado, por um constituinte com estrutura de sintagma verbal (<strong>VP</strong>). Nos níveis seguintes, cada constituinte é subdividido em subconstituintes até chegarmos às palavras individuais.</p>
+<p>Na árvore de constituência, as arestas representam segmentos que conectam os nós filhos a um nó pai. Assim, o nó <strong>NP</strong> (“a menina”) possui uma aresta que conecta <strong>DET</strong> (“a”) e <strong>N</strong> (“menina”). As palavras individuais são as folhas da árvore (em inglês, <em>leaves</em>) e são o nível inferior na hierarquia da árvore.</p>
+<p>Identificar os constituintes e seu lugar na hierarquia da oração é uma operação fundamental para a compreensão das funções sintáticas, que, como vimos, são a base para as funções semânticas da oração. Uma vantagem da notação com estrutura arbórea é a maior facilidade com a qual podemos visualizar as relações hierárquicas dos constituintes. Contudo, a notação com colchetes é computacionalmente mais fácil de ser processada.</p>
+<section id="possibilidades-de-interpretação-e-ambiguidades-sintáticas" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="possibilidades-de-interpretação-e-ambiguidades-sintáticas"><span class="header-section-number">6.5.1</span> Possibilidades de interpretação e ambiguidades sintáticas</h3>
+<p>Vejamos agora um exemplo de como a análise de constituintes requer uma análise dos papéis temáticos.</p>
+<div id="exm-cap-ordem-funcao-4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.4</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>A menina postou uma foto com o celular.</p>
+</blockquote>
+</div>
+<p>No <a href="#exm-cap-ordem-funcao-4" class="quarto-xref">Exemplo&nbsp;<span>6.4</span></a>, “com o celular” é um sintagma preposicional (<strong>PP</strong>), formado pela preposição “com” e o sintagma nominal “o celular”. Uma característica dos sintagmas preposicionais é que eles podem estar contidos num sintagma nominal ou num sintagma verbal. No <a href="#exm-cap-ordem-funcao-4" class="quarto-xref">Exemplo&nbsp;<span>6.4</span></a>, “com o celular” pode estar contido no sintagma nominal “uma foto” ou no sintagma verbal “postou uma foto”. A decisão por considerar uma ou outra análise depende da interpretação do analista, tendo como apoio informações do contexto, ou seja, as informações que podemos depreender de outras partes do texto ou ao ter acesso a imagens, como, por exemplo, na <a href="#fig-cap-ordem-funcao-fig10" class="quarto-xref">Figura&nbsp;<span>6.10</span></a><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<div id="fig-cap-ordem-funcao-fig10" class="quarto-float quarto-figure quarto-figure-center anchored" data-layout-col="2">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.10: Duas imagens passíveis de serem rotuladas como “a menina postou uma foto com o celular”
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><img src="media/image21.png" class="img-fluid figure-img" style="width:20.0%"> <img src="media/image3.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="media/image10.png" class="img-fluid figure-img" style="width:30.0%"> <img src="media/image2.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</div>
+</figure>
+</div>
+<p>Na <a href="#fig-cap-ordem-funcao-fig10" class="quarto-xref">Figura&nbsp;<span>6.10</span></a>, a imagem de cima pode ser interpretada como uma foto que foi postada com o celular, sendo o celular o instrumento utilizado para a postagem. Nesse caso, o sintagma preposicional “com o celular” estará ligado ao sintagma verbal “postou”, como mostrado na representação da árvore. <!-- na @fig-cap-ordem-funcao-fig11. --></p>
+<!-- ![Representação em diagrama de árvore para a interpretação de sintagma preposicional vinculado a sintagma verbal](media/image3.png){#fig-cap-ordem-funcao-fig11 width="70%"} -->
+<p>Já a imagem de baixo, na <a href="#fig-cap-ordem-funcao-fig10" class="quarto-xref">Figura&nbsp;<span>6.10</span></a>, pode ser interpretada como a menina tendo postado uma foto, na qual ela está segurando o celular. Nesse caso, o sintagma preposicional “com o celular” estará contido no sintagma nominal “uma foto com o celular”, como mostrado na representação da árvore. <!-- na @fig-cap-ordem-funcao-fig12. --></p>
+<!--![Representação em diagrama de árvore para a interpretação de sintagma preposicional contido em sintagma nominal](media/image2.png){#fig-cap-ordem-funcao-fig12 width="70%"} -->
+<p>Há alguns testes que podem ser realizados para observar se um constituinte, por exemplo, um sintagma preposicional, deve ser interpretado como vinculado a um sintagma verbal ou contido em um sintagma nominal. Se o sintagma preposicional pode ser deslocado de posição numa oração e esse deslocamento é condizente com o significado que interpretamos pelas dicas do contexto, ele estará conectado ao sintagma verbal. Assim, em “A menina postou uma foto com o celular”, podemos mudar a posição do sintagma preposicional “com o celular” e obtermos duas sentenças nas quais “com o celular” se conecta ao sintagma verbal “postou”:</p>
+<div id="exm-cap-ordem-funcao-5" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.5</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Com o celular, a menina postou uma foto.</p>
+</blockquote>
+</div>
+<p>Uma outra possibilidade é fazer uma paráfrase da oração, como no <a href="#exm-cap-ordem-funcao-6" class="quarto-xref">Exemplo&nbsp;<span>6.6</span></a>. Por outro lado, se o sintagma preposicional “com o celular” for interpretado como sendo contido no sintagma nominal “uma foto com o celular”, a paráfrase poderia ser a apresentada no <a href="#exm-cap-ordem-funcao-7" class="quarto-xref">Exemplo&nbsp;<span>6.7</span></a>.</p>
+<div id="exm-cap-ordem-funcao-6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.6</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>A menina postou uma foto por meio do celular.</p>
+</blockquote>
+</div>
+<div id="exm-cap-ordem-funcao-7" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.7</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>A menina postou uma foto na qual ela está segurando o celular.</p>
+</blockquote>
+</div>
+<p>Se considerarmos as duas interpretações do <a href="#exm-cap-ordem-funcao-4" class="quarto-xref">Exemplo&nbsp;<span>6.4</span></a> sob a perspectiva dos papéis temáticos, podemos afirmar que o sintagma preposicional “com o celular” terá o papel temático de Instrumento quando estiver vinculado ao sintagma verbal “postou”. Se o sintagma preposicional estiver contido dentro do sintagma nominal “uma foto com o celular”, o sintagma como um todo terá o papel temático de Objeto Estativo.</p>
+<p>A decisão sobre como segmentar a oração em constituintes exige do analista humano a interpretação de significados que são construídos pelas distintas funções sintáticas, associadas aos papéis temáticos e tendo como apoio o contexto, isto é, informações situacionais (por exemplo, imagens que acompanham a linguagem verbal) ou de sentenças anteriores ou posteriores no próprio texto do qual uma sentença faz parte.</p>
+<p>Esta situação é um exemplo representativo de um dos motivos pelos quais o conhecimento linguístico e de uso da língua ainda não têm sido completamente representado/capturado por nenhum dos métodos atuais. A interpretação de significados linguísticos que dependem de informações contextuais é um dos maiores desafios para o PLN atualmente.</p>
+<p>Além da análise sintática de constituintes da oração, há uma segunda abordagem, conhecida como sintaxe de dependência. Ela será o objeto da seção seguinte.</p>
+</section>
+</section>
+<section id="sec-cap-ordem-funcao-dependencia" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="sec-cap-ordem-funcao-dependencia"><span class="header-section-number">6.6</span> Sintaxe de dependência</h2>
+<p>O segundo tipo de análise sintática é chamado de sintaxe de dependência e tem suas bases na gramática de dependência de <span class="citation" data-cites="Tesniere:1959">Tesnière (<a href="../../shared/referencias/referencias.html#ref-Tesniere:1959" role="doc-biblioref">1959</a>)</span>.</p>
+<p>Diferentemente da abordagem de constituência, explicada na seção anterior, em que a estrutura de uma sentença é definida por meio de sintagmas contidos em outros sintagmas, a análise de dependência descreve as relações de <strong>dependência</strong> entre palavras. Nessa abordagem, uma palavra é vista como subordinada a outra ou regida por ela, de acordo com relações sintáticas tais como sujeito-verbo; sujeito-objeto; verbo-objeto; coordenação; subordinação etc.</p>
+<p>Na sintaxe de dependência, cada palavra é um nó de uma relação com uma outra palavra. Essas relações entre palavras são estabelecidas de forma unidirecional entre uma palavra regente (<em>head</em>), que é o nó de onde a relação parte, e uma palavra regida ou dependente, que é o nó ou palavra aonde a relação chega. Essa unidirecionalidade da relação é importante para se estabelecer a hierarquia entre as palavras, pois determina quem é o regente (de onde a relação parte) e quem é o regido (aonde a relação chega), o que será explicado na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-nucleo-dependente" target="_blank" title="Volume 1">Núcleo e dependente</a></span>. Por fim, é importante destacar que uma palavra pode reger várias outras, mas só pode ser regida por uma única.</p>
+<p>Se quisermos conectar dois sintagmas, precisamos, diferentemente da análise de constituintes, conectar a palavra que representa o núcleo de um sintagma à palavra que representa o núcleo de outro sintagma. Além disso, também é necessário estabelecer as microrrelações dentro de um mesmo sintagma.</p>
+<p>Na sintaxe de dependência, há basicamente dois tipos de relações:</p>
+<p>(i) macrorrelações</p>
+<p>(ii) microrrelações.</p>
+<p>Como o próprio nome sugere, as <strong>macrorrelações</strong> estabelecem relações entre os núcleos de diferentes sintagmas e geralmente conectam palavras de classe aberta. Por exemplo, a relação que liga um verbo (núcleo do sintagma verbal) ao seu sujeito (núcleo do sintagma nominal) é chamada de macrorrelação. Já as <strong>microrrelações</strong> conectam elementos mais próximos, podendo ser adjacentes ou estar em uma vizinhança próxima. As microrrelações de dependência geralmente conectam uma palavra de classe aberta a uma palavra de classe fechada, como é o caso de um substantivo (palavra de classe aberta) e seu artigo (palavra de classe fechada).</p>
+<section id="sec-cap-ordem-funcao-nucleo-dependente" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="sec-cap-ordem-funcao-nucleo-dependente"><span class="header-section-number">6.6.1</span> Núcleo e dependente</h3>
+<p>Para estabelecer a relação de hierarquia entre duas palavras na sintaxe de Dependência, os termos mais usados em inglês são <em>head</em> e <em>dependent</em>. Em português, convencionou-se traduzir <em>dependent</em> por “dependente”, mas, com relação a “<em>head</em>”, os trabalhos de PLN usam nomenclaturas diferentes, tais como “cabeça”, “núcleo”, “dominante” ou o próprio termo em inglês <em>head</em><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Também é comum em PLN chamar o núcleo de “pai” e o dependente de “filho”, já que essa nomenclatura permite extrapolar as relações de parentesco e chamar também os nós de “avô” (quando se refere ao núcleo do núcleo), “neto” (quando se refere ao dependente do dependente) e de “irmão” (quando os dependentes possuem o mesmo núcleo)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+<p>Em uma relação de dependência, o <strong>núcleo</strong> é o que rege, que comanda o seu <strong>dependente</strong>. Por exemplo, em um sintagma nominal como “a menina”, o substantivo é o núcleo enquanto o artigo é o dependente, pois é o substantivo que rege o artigo, impondo-lhe os traços morfológicos de gênero (neste caso, feminino) e de número (neste caso, singular).</p>
+<p>Definir quem é o núcleo e quem é o dependente nem sempre é uma tarefa fácil. Apesar de existirem convenções de diferentes teorias que definem essa hierarquia, nem sempre essas convenções são consensuais e, às vezes, essas definições são estabelecidas de forma arbitrária ou ad hoc. Por exemplo, preposições são consideradas núcleo em algumas abordagens de dependências <span class="citation" data-cites="osborne:hal-02450313">(<a href="../../shared/referencias/referencias.html#ref-osborne:hal-02450313" role="doc-biblioref">Osborne; Gerdes, 2019</a>)</span> e dependentes em outras (Universal Dependencies).</p>
+<p>Por fim, vale ressaltar que as palavras podem ser núcleos ou dependentes, a depender da relação que elas estabelecem umas com as outras. Na frase “A menina postou uma foto.”, por exemplo, o substantivo “menina”, será núcleo na relação com seu determinante “a”, mas ao mesmo tempo será dependente na relação com o verbo “postou”. Algumas palavras, principalmente as de classe fechada, são consideradas sempre como dependentes, enquanto outras podem ser ora núcleo, ora dependente, considerando-se a outra palavra com a qual se relacionam.</p>
+</section>
+<section id="a-representação-da-sintaxe-de-dependência" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="a-representação-da-sintaxe-de-dependência"><span class="header-section-number">6.6.2</span> A representação da sintaxe de dependência</h3>
+<p>Assim como na sintaxe de constituência, as relações de dependência podem ser representadas de formas distintas, sendo que todas explicitam a hierarquia e a direcionalidade da relação entre duas palavras em uma sentença. Das representações vistas neste capítulo, as duas mais utilizadas são os diagramas com setas e com representação parentética.</p>
+<p>Como já foi dito, na representação com seta, as palavras são ligadas umas às outras por setas unidirecionais, ou seja, em um único sentido. Cada seta tem um ponto de partida e um ponto de chegada, o que significa que as relações não são recíprocas e nem uma mera concatenação entre palavras; pelo contrário, essas setas explicitam a dependência de uma palavra em relação à outra. Vale esclarecer que a representação com setas, assim como a representação de dependência com diagrama arbóreo, são ambas chamadas de “árvore de dependência”. A <a href="#fig-cap-ordem-funcao-fig13" class="quarto-xref">Figura&nbsp;<span>6.11</span></a> mostra um exemplo de representação das relações de dependência com setas.</p>
+<div id="fig-cap-ordem-funcao-fig13" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.11: Exemplo de árvore de dependência para “A menina postou uma foto”
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image12.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+</figure>
+</div>
+<p>Como vemos na <a href="#fig-cap-ordem-funcao-fig13" class="quarto-xref">Figura&nbsp;<span>6.11</span></a>, a cada palavra é atribuída uma etiqueta morfossintática, indicada em caixa alta na parte de baixo da Figura. A etiqueta que aparece acima dos arcos das setas representa o nome da relação que se estabelece entre a palavra núcleo e a palavra dependente. Essa etiqueta é escrita em letras minúsculas. As etiquetas são selecionadas dentro de um conjunto fechado que varia segundo o padrão de anotação. Na <a href="#fig-cap-ordem-funcao-fig13" class="quarto-xref">Figura&nbsp;<span>6.11</span></a>, o conjunto de etiquetas é o proposto pelo projeto Universal Dependencies, sobre o qual falaremos na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-projeto-ud" target="_blank" title="Volume 1">Projetos de anotação multilingue: Universal Dependencies</a></span>.</p>
+<p>Como vemos na <a href="#fig-cap-ordem-funcao-fig13" class="quarto-xref">Figura&nbsp;<span>6.11</span></a>, toda sentença possui uma única raiz (ou <code>root</code>), que é a palavra que não depende de nenhuma outra. Em sentenças que possuem verbos, a raiz geralmente é o próprio verbo.</p>
+<p>No exemplo da <a href="#fig-cap-ordem-funcao-fig13" class="quarto-xref">Figura&nbsp;<span>6.11</span></a>, verificamos três macrorrelações entre: i) o verbo (“postou”) e o núcleo do sujeito (“menina”); ii) o verbo (“postou”) e o núcleo do objeto direto (“foto”); e iii) o verbo e o ponto final. Em todas elas, o verbo é o núcleo e as demais palavras são seus dependentes, conforme aponta a direção das setas.</p>
+<p>Há também duas microrrelações entre: i) o substantivo (“menina”) e o artigo (“a”); e ii) o substantivo (“foto”) e o artigo (“uma”).</p>
+<p>Em uma árvore de dependência, algumas classes de palavras podem ser núcleo; outras, não. Mas cada palavra é dependente de uma outra. Isso significa que, na representação por diagrama com setas, em toda palavra deve chegar alguma (e exclusivamente uma) seta. A única exceção é para a raiz, na qual também chega uma seta, mas é a seta da relação <code>root</code>, o que significa que esta é a única palavra que não tem núcleo/pai. Todas as demais palavras, além da raiz, possuem um núcleo, de onde a seta parte.</p>
+<p>Conforme sinalizado na <span>Subseção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-nucleo-dependente" target="_blank" title="Volume 1">Núcleo e dependente</a></span>, o ponto de partida da seta representa o núcleo, e o ponto de chegada representa o dependente. Algumas relações de dependência permitem qualquer direção de seta, ou seja, pode ir de uma palavra à esquerda para uma palavra à direita ou vice-versa (e.g.&nbsp;relações de <code>nsubj</code>, <code>punct</code>, <code>obj</code> etc.). Outras relações possuem direção obrigatória, como é o caso de <code>det</code> ou de <code>case</code>, que é sempre da direita para a esquerda em línguas românicas como o português, uma vez que artigos e preposições são antepostos aos substantivos.</p>
+<p>Na <a href="#fig-cap-ordem-funcao-fig14" class="quarto-xref">Figura&nbsp;<span>6.12</span></a>, temos a representação da sentença “A menina postou uma foto com o celular”, aqui anotada em sintaxe de dependência. Nela, “com o celular” é interpretado como Instrumento e como uma função dependente do verbo “postou”.</p>
+<div id="fig-cap-ordem-funcao-fig14" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.12: Exemplo de uma árvore de dependência para “A menina postou uma foto com o celular”
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image13.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>Já na <a href="#fig-cap-ordem-funcao-fig15" class="quarto-xref">Figura&nbsp;<span>6.13</span></a>, “com o celular” é interpretado como contido no sintagma nominal e com uma função dependente do substantivo “foto”.</p>
+<div id="fig-cap-ordem-funcao-fig15" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.13: Exemplo de uma outra árvore de dependência para “A menina postou uma foto com o celular”
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image16.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+</figure>
+</div>
+<p>Na sintaxe de dependência, existe uma orientação geral para se evitar cruzamento dos arcos das setas. Na maior parte das vezes, isso é possível e recomendado. Porém, há casos pontuais em que o cruzamento de arcos é necessário para estabelecer a relação correta entre duas palavras, como ocorre no <a href="#exm-cap-ordem-funcao-8" class="quarto-xref">Exemplo&nbsp;<span>6.8</span></a> da <a href="#fig-cap-ordem-funcao-fig16" class="quarto-xref">Figura&nbsp;<span>6.14</span></a>.</p>
+<div id="exm-cap-ordem-funcao-8" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.8</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>A menina postou uma foto no Instagram com filtro.</p>
+</blockquote>
+</div>
+<div id="fig-cap-ordem-funcao-fig16" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.14: Exemplo de árvore de dependência com cruzamento de arcos
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image15.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+<p>Neste exemplo, foi necessário cruzar os arcos de duas relações porque existe uma relação entre “postou no Instagram” e outra relação entre “foto com filtro”. Para não haver cruzamento de arcos, a sentença teria de ter a seguinte ordem: “A menina postou uma foto com filtro no Instagram.” ou ainda “A menina postou no Instagram uma foto com filtro.”</p>
+<p>O segundo tipo de representação mais comum em sintaxe de dependência é aquela feita por meio de parênteses. Na representação parentética, coloca-se o nome da relação de dependência, seguida de parênteses; dentro dos parênteses, coloca-se o núcleo, seguido do dependente e separados por uma vírgula.</p>
+<p>Na <a href="#fig-cap-ordem-funcao-fig17" class="quarto-xref">Figura&nbsp;<span>6.15</span></a>, temos a representação parentética da sentença “A menina postou uma foto”.</p>
+<div id="fig-cap-ordem-funcao-fig17" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.15: Representação parentética da sentença “A menina postou uma foto”.
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image23.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p>A representação na <a href="#fig-cap-ordem-funcao-fig17" class="quarto-xref">Figura&nbsp;<span>6.15</span></a> também mostra a hierarquia entre as duas palavras e a direcionalidade da relação, por meio da ordem das palavras dentro dos parênteses.</p>
+<p>A raiz, assim como acontece na representação por diagrama arbóreo, também é representada em uma das linhas, como se fosse “dependente” de um núcleo fictício, chamado <strong>ROOT</strong>, representado por letras maiúsculas, em uma relação chamada <code>root</code> representada por letras minúsculas. O elemento <strong>ROOT</strong> representa o elemento vazio.</p>
+<p>A vantagem da representação parentética é que ela é mais fácil de ser implementada, já que está no formato de texto e não depende de softwares de anotação. Por outro lado, a desvantagem é que a visualização da estrutura sintática da sentença, por um humano, é mais difícil do que uma representação por árvore. Na <a href="#fig-cap-ordem-funcao-fig18" class="quarto-xref">Figura&nbsp;<span>6.16</span></a> temos a representação parentética da sentença “A menina postou uma foto no Instagram com filtro”, na qual há cruzamento de arcos. O cruzamento das relações, claramente visível na <a href="#fig-cap-ordem-funcao-fig16" class="quarto-xref">Figura&nbsp;<span>6.14</span></a>, é mais difícil de ser identificado na representação parentética.</p>
+<div id="fig-cap-ordem-funcao-fig18" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.16: Representação parentética de sentença com cruzamento de arcos.
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image24.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>Destacamos, também, que, na representação parentética, a ordem das linhas não precisa seguir a ordem das palavras, podendo-se começar na primeira linha com a relação de <code>root</code> ou de <code>punct</code> ou qualquer outra macro ou microrrelação, ou colocar qualquer uma delas na sequência. O importante é que todas as relações macro e micro estejam explícitas. Nesse sentido, verificar se a anotação de todas as relações está completa é mais difícil de ser feito na representação parentética, ao passo que, na representação por diagrama arbóreo, é mais fácil visualizar caso haja palavras nas quais não esteja chegando nenhuma seta.</p>
+<p>A sintaxe de dependência foi ganhando espaço no PLN nas últimas duas décadas e é hoje o tipo de <em>parsing</em> sintático mais utilizado, sobretudo em tarefas de extração de informação (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-ie/cap-ie.html#sec-cap-ie" target="_blank" title="Volume 3">Extração de Informação</a></span>). A seguir apresentamos um dos projetos de anotação multilíngue de sintaxe de dependência com reconhecido impacto nacional e internacional. Trata-se do projeto Universal Dependencies, cuja proposta visa maior consistência na anotação de <em>corpora</em> nas distintas línguas com base num arcabouço comum que possibilite a comparabilidade entre línguas. Apresentamos, também, um breve histórico de iniciativas de anotação que antecederam a proposta das Universal Dependencies.</p>
+</section>
+<section id="sec-cap-ordem-funcao-projeto-ud" class="level3" data-number="6.6.3">
+<h3 data-number="6.6.3" class="anchored" data-anchor-id="sec-cap-ordem-funcao-projeto-ud"><span class="header-section-number">6.6.3</span> Projetos de anotação multilingue: Universal Dependencies</h3>
+<p>Na primeira década de 2000, surgiram várias iniciativas para tentar representar as relações sintáticas entre as palavras de uma frase por meio de dependências. Uma delas é a chamada <strong>Stanford Dependencies</strong> (SD), que passou a fazer parte de um dos <em>parsers</em> mais utilizados, o <em>parser</em> Stanford, primeiramente para o inglês e posteriormente, para várias outras línguas<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Como essa iniciativa despertou interesse na comunidade linguística e de PLN, em 2006 e 2007 foram propostas <em>shared tasks</em> no CoNLL-X, nas quais os participantes treinaram e testaram sistemas nos mesmos conjuntos de dados usando anotação de dependências. Em 2007 especificamente, os participantes usaram uma abordagem multilíngue, baseada em <em>treebanks</em> de 10 línguas, e adaptada a um domínio. <span class="citation" data-cites="nivre-etal-2007-conll">Nivre et al. (<a href="../../shared/referencias/referencias.html#ref-nivre-etal-2007-conll" role="doc-biblioref">2007</a>)</span> descrevem essa tarefa, as diferentes abordagens usadas pelos participantes e os resultados dos experimentos.</p>
+<p>Seguindo essa ideia de universalizar as representações de dependência para várias línguas, <strong>Google</strong> também criou seu próprio conjunto de etiquetas, baseando-se na análise de erros que foi feita para aquela <em>shared task</em> do CoNLL-X.</p>
+<p>Outra iniciativa relevante foi o <strong>Interset interlíngua</strong> <span class="citation" data-cites="zeman-2008-reusable">(<a href="../../shared/referencias/referencias.html#ref-zeman-2008-reusable" role="doc-biblioref">Zeman, 2008</a>)</span>, que criou uma ferramenta para a conversão de etiquetas morfossintáticas entre línguas. Essa abordagem parte do princípio de que algumas línguas são semelhantes entre si, mas nem todas elas possuem recursos suficientes para PLN. A iniciativa propõe converter a anotação morfossintática de uma língua com mais recursos para outra língua que possua menos recursos <span class="citation" data-cites="zeman-resnik-2008-cross">(<a href="../../shared/referencias/referencias.html#ref-zeman-resnik-2008-cross" role="doc-biblioref">Zeman; Resnik, 2008</a>)</span>.</p>
+<p>Todas essas iniciativas contribuíram para o que foi posteriormente chamado de projeto <strong>Universal Dependency Treebank</strong> (UDT) <span class="citation" data-cites="mcdonald-etal-2013-universal">(<a href="../../shared/referencias/referencias.html#ref-mcdonald-etal-2013-universal" role="doc-biblioref">McDonald et al., 2013</a>)</span>, cuja ideia principal é universalizar as anotações das relações sintáticas e os conjuntos de etiquetas, a fim de propiciar a comparabilidade entre as línguas. Em 2013, foi lançada uma primeira versão envolvendo 6 línguas e depois, em 2014, outra versão envolvendo 11 línguas. A língua portuguesa, com <em>corpora</em> de português europeu e brasileiro, está representada nos <em>treebanks</em> com anotação em UD disponíveis <span class="citation" data-cites="rademaker-etal-2017-universal">(<a href="../../shared/referencias/referencias.html#ref-rademaker-etal-2017-universal" role="doc-biblioref">Rademaker et al., 2017</a>)</span>. Atualmente, os <em>treebanks</em> anotados de acordo com o padrão UD abrangem mais de 100 línguas de várias famílias e troncos linguísticos diferentes.</p>
+<p>Assim, o projeto das Dependências Universais (em inglês, <em>Universal Dependencies</em>), mais conhecido como as UD, é o resultado da combinação de todas essas iniciativas em uma abordagem única e articulada, baseada nas dependências universais de Stanford, uma versão ampliada do conjunto de etiquetas universais propostas pelo Google, um subconjunto revisado do conjunto de <em>features</em> do Interset, e uma versão revisada do formato CoNLL-X (chamado CoNLL-U)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. O projeto é a iniciativa mais usada e difundida hoje, motivo que justifica sua descrição em detalhes neste capítulo.</p>
+<p>UD é um projeto que visa à anotação sintática sistemática e consistente em diversas línguas, de forma que essas línguas possam ser comparadas em relação à estrutura de suas sentenças. Apesar de buscar a maior padronização possível das anotações para garantir a comparabilidade entre as línguas, essa representação também prevê anotações particulares para línguas específicas, quando necessário. Justamente pelo fato de que algumas línguas possuem especificidades que não podem ser generalizadas para outras, o projeto UD precisa garantir que, apesar disso, as anotações sejam consistentes para que as línguas possam ser comparadas. Portanto, o projeto deve seguir seis premissas básicas<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> que reproduzimos, em nossa tradução, a seguir:</p>
+<ol type="1">
+<li>A proposta das UD precisa possibilitar uma análise linguística satisfatória para todas as línguas.</li>
+<li>A proposta das UD precisa ser apropriada para a tipologia linguística, ou seja, fornecer uma base adequada para evidenciar o paralelismo linguístico entre línguas e famílias linguísticas.</li>
+<li>A proposta das UD precisa ser adequada para uma anotação rápida e consistente pelo anotador humano.</li>
+<li>A proposta das UD precisa ser compreendida e utilizada com facilidade por uma pessoa sem formação como linguista, seja um aprendiz de línguas ou um engenheiro com demandas básicas de processamento de língua.</li>
+<li>A proposta das UD precisa ser adequada para o <em>parsing</em> de alto desempenho.</li>
+<li>A proposta das UD precisa apoiar bem as tarefas de Compreensão de Linguagem Natural (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/introducao/cap-introducao/cap-introducao.html#sec-cap-introducao" target="_blank" title="Volume 1">O que é PLN?</a></span>) subsequentes ao <em>parsing</em> sintático (extração de relações, compreensão de textos, tradução automática, dentre outras).</li>
+</ol>
+<p>Além da representação básica por dependência já explicitada ao longo da <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-dependencia" target="_blank" title="Volume 1">Sintaxe de dependência</a></span>, que é obrigatória para todos os <em>treebanks</em>, a UD também prevê um segundo nível de representação de dependência chamada de <em>enhanced</em>, no sentido de obter uma representação mais completa e mais enriquecida. Esse segundo nível é uma camada extra de anotação das relações, realizada a fim de dar uma base mais completa para a interpretação semântica. Essa representação <em>enhanced</em> não é uma árvore tal como a árvore de dependências básicas, mas uma estrutura que agrega informação à árvore básica, conforme se apresenta para o <a href="#exm-cap-ordem-funcao-9" class="quarto-xref">Exemplo&nbsp;<span>6.9</span></a> na <a href="#fig-cap-ordem-funcao-fig19" class="quarto-xref">Figura&nbsp;<span>6.17</span></a>.</p>
+<div id="exm-cap-ordem-funcao-9" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6.9</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>As colegas convenceram a menina a postar a foto com o celular.</p>
+</blockquote>
+</div>
+<div id="fig-cap-ordem-funcao-fig19" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.17: Anotação de sintaxe de dependência incluindo relações básicas e <em>enhanced</em>
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image5.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>A <a href="#fig-cap-ordem-funcao-fig19" class="quarto-xref">Figura&nbsp;<span>6.17</span></a> mostra, na parte de cima da sentença, as relações de dependência básicas, e na parte de baixo, as relações <em>enhanced</em>. No <a href="#exm-cap-ordem-funcao-9" class="quarto-xref">Exemplo&nbsp;<span>6.9</span></a>, temos dois verbos, cada um dos quais tem seu sujeito. Nas relações básicas, indicamos, por meio da relação <code>nsubj</code>, o sujeito (“as colegas”) do verbo principal (“convenceram”). Nas relações <em>enhanced</em>, podemos indicar, por meio da relação <code>nsubj:xsubj</code>, o sujeito (“a menina”) do segundo verbo (“postar”). Ambos os sujeitos são relevantes para a interpretação de papéis temáticos e, consequentemente, para tarefas em PLN como a extração de informação.</p>
+<section id="tagsets" class="level4" data-number="6.6.3.1">
+<h4 data-number="6.6.3.1" class="anchored" data-anchor-id="tagsets"><span class="header-section-number">6.6.3.1</span> <em>Tagsets</em></h4>
+<p>Conforme introduzido na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-constituencia" target="_blank" title="Volume 1">Sintaxe de constituência</a></span>, os chamados <em>tagsets</em> são conjuntos de etiquetas usadas para a anotação de categorias. Para garantir a comparabilidade linguística, os <em>treebanks</em> que aderem às Dependências Universais usam conjuntos de etiquetas, com as mesmas definições dadas para todas elas.</p>
+<p>Os <em>tagsets</em> usados na UD contemplam a anotação: i) <strong>morfológica</strong>; e ii) <strong>sintática</strong>.</p>
+<p>A anotação <strong>morfológica</strong> abrange três informações linguísticas: i) lema da palavra; ii) classe de palavra (em inglês, <em>part-of-speech</em> ou PoS) ; e iii) traços ou características morfológicas (em inglês, <em>features)</em>.</p>
+<p>Utilizamos o termo <strong>lema</strong> para referir-nos à forma dicionarizada da palavra. Em nossa sentença, “A menina postou uma foto com o celular”, o verbo “postou” tem como lema “postar”, enquanto o substantivo “menina” tem o lema “menino”.</p>
+<p>A <strong>classe de palavra</strong>, como já vimos, é a categoria gramatical na qual essa palavra é classificada. Por exemplo, “postou” pertence à classe dos verbos, “menina” e “celular” pertencem à classe dos substantivos, “uma” e “o” à classe dos determinantes (ou artigos) e “com” à classe das preposições.</p>
+<p>O <em>tagset</em> de PoS das UDs compreende 17 etiquetas, que são: <strong>ADJ</strong> (adjetivo), <strong>ADP</strong> (adposição, incluindo preposição), <strong>ADV</strong> (advérbio), <strong>AUX</strong> (verbo auxiliar), <strong>CCONJ</strong> (conjunção coordenativa), <strong>DET</strong> (determinante), <strong>INTJ</strong> (interjeição), <strong>NOUN</strong> (substantivo), <strong>NUM</strong> (numeral), <strong>PART</strong> (partícula), <strong>PRON</strong> (pronome), <strong>PROPN</strong> (nome próprio), <strong>PUNCT</strong> (sinal de pontuação), <strong>SCONJ</strong> (conjunção subordinativa), <strong>SYM</strong> (símbolo), <strong>VERB</strong> (verbo) e <strong>X</strong> (outros). Para uma explicação detalhada do <em>tagset</em> sugere-se consultar a <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras-sec4.3.3" class="quarto-xref"><span>Seção 4.3.3</span></a>.</p>
+<p>Já para as características morfológicas ou <em>features</em>, as UDs contemplam 24 <em>features</em>, que são divididas em lexicais e flexionais, e mais de 200 valores para essas <em>features</em>. Por exemplo, para a classe substantivo, temos em português as <em>features</em> gênero e número. Para gênero, podemos selecionar entre os valores: feminino, masculino e neutro. Para a classe verbo, temos as <em>features</em> pessoa, número, tempo verbal, modo, cada uma delas com valores específicos. Assim, o verbo “postou” está conjugado na 3a pessoa do singular do tempo pretérito perfeito do modo indicativo, e cada uma dessas informações corresponde a um valor dentro de uma <em>feature</em> morfológica.</p>
+<p>O segundo tipo de anotação que a UD prevê é a <strong>sintática</strong>, por meio da qual são determinadas as relações de dependência entre as palavras de uma sentença. Hoje em dia existem 37 relações de dependência básicas. O <a href="#def-cap-ordem-funcao-quadro4" class="quarto-xref">Quadro&nbsp;<span>6.4</span></a> mostra as relações de dependência organizadas de acordo com os fundamentos das UDs.</p>
+<div id="def-cap-ordem-funcao-quadro4" class="theorem definition">
+<p><span class="theorem-title"><strong>Quadro 6.4</strong></span> Relações de dependência da UD<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Nominals</strong></th>
+<th><strong>Clauses</strong></th>
+<th><strong>Modifier words</strong></th>
+<th><strong>Function words</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Core arguments</strong></td>
+<td><p>nsubj</p>
+<p>obj</p>
+<p>iobj</p></td>
+<td><p>csubj</p>
+<p>ccom</p>
+<p>xcomp</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Non-core dependents</strong></td>
+<td><p>obl</p>
+<p>vocative</p>
+<p>expl</p>
+<p>dislocated</p></td>
+<td>advcl</td>
+<td><p>admod</p>
+<p>discourse</p></td>
+<td><p>aux</p>
+<p>cop</p>
+<p>mark</p></td>
+</tr>
+<tr class="odd">
+<td><strong>Nominal dependents</strong></td>
+<td><p>nmod</p>
+<p>appos</p>
+<p>nummod</p></td>
+<td>acl</td>
+<td>amod</td>
+<td><p>det</p>
+<p>clf</p>
+<p>case</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Coordination</strong></td>
+<td><strong>MWE</strong></td>
+<td><strong>Loose</strong></td>
+<td><strong>Special</strong></td>
+<td><strong>Other</strong></td>
+</tr>
+<tr class="even">
+<td><p>conj</p>
+<p>cc</p></td>
+<td><p>fixed</p>
+<p>flat</p>
+<p>compound</p></td>
+<td><p>list</p>
+<p>parataxis</p></td>
+<td><p>orphan</p>
+<p>goeswith</p>
+<p>rearandum</p></td>
+<td><p>punt</p>
+<p>root</p>
+<p>dep</p></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+<p></p>
+<p>O <a href="#def-cap-ordem-funcao-quadro4" class="quarto-xref">Quadro&nbsp;<span>6.4</span></a> possui duas partes: na parte superior, estão as principais relações de dependência, distribuídas por tipo (se são relações nominais, verbais, com modificadores ou com palavras funcionais) e ainda classificadas por tipo de argumento. Já a parte inferior do quadro apresenta relações adicionais.</p>
+<p>Na parte superior do <a href="#def-cap-ordem-funcao-quadro4" class="quarto-xref">Quadro&nbsp;<span>6.4</span></a>, as relações estão agrupadas segundo duas dimensões:</p>
+<ol type="1">
+<li>no sentido horizontal, por linha, de acordo com as relações estabelecidas entre uma palavra e seu regente (<em>head</em>), e</li>
+<li>no sentido vertical, por coluna, de acordo com as categorias dos dependentes.</li>
+</ol>
+<p>Vemos, assim, no <a href="#def-cap-ordem-funcao-quadro4" class="quarto-xref">Quadro&nbsp;<span>6.4</span></a>, que as relações que uma palavra estabelece com a palavra regente podem ser aquelas equivalentes a funções básicas da predicação em orações (<em>core arguments</em>), tais como sujeito da predição (<code>nsubj</code>, <code>csubj</code>) ou objetos (<code>obj</code>, <code>iobj</code>) ou complementos (<code>ccomp</code>, <code>xcomp</code>).</p>
+<p>Também podem ser relações que correspondem a funções adicionais àquelas básicas (<em>non-core dependents of clausal predicates</em>), tais como adjuntos (obl), orações adverbiais (advcl), vocativos (vocative) etc. Essas relações se aplicam tanto no nível da oração como do sintagma, como é o caso de sintagmas verbais constituídos por um verbo e verbos auxiliares.</p>
+<p>Há ainda relações de dependência dentro do sintagma nominal, como é o caso de modificadores adjetivais (amod), modificadores adnominais (nmod), determinantes (<code>det</code>), caso (<code>case</code>) etc.</p>
+<p>Na parte inferior do <a href="#def-cap-ordem-funcao-quadro4" class="quarto-xref">Quadro&nbsp;<span>6.4</span></a>, temos relações que indicam coordenação de palavras, sintagmas e orações, expressões multipalavra (MWE) (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-mwe/cap-mwe.html#sec-cap-mwe" target="_blank" title="Volume 1">Expressões multipalavras</a></span>), relações especiais para distintos fenômenos do discurso, tais como listas, disfluências, elipse, erros ortográficos e sinais de pontuação.</p>
+<p>A anotação completa de uma sentença de acordo com as <em>guidelines</em> das UDs pode ser observada na <a href="#fig-cap-ordem-funcao-fig20" class="quarto-xref">Figura&nbsp;<span>6.18</span></a>.</p>
+<div id="fig-cap-ordem-funcao-fig20" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.18: Visualização de todas as informações anotadas para uma sentença no projeto UD
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image9.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="qual-é-melhor-constituência-ou-dependência" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="qual-é-melhor-constituência-ou-dependência"><span class="header-section-number">6.7</span> Qual é melhor: constituência ou dependência?</h2>
+<p>Uma vez apresentados os dois tipos de análise sintática mais utilizados em PLN, cabe perguntarmos quais as vantagens e desvantagens de se adotar cada um deles. A <a href="#fig-cap-ordem-funcao-fig21" class="quarto-xref">Figura&nbsp;<span>6.19</span></a> apresenta uma síntese dos principais pontos de cada tipo de análise sob a perspectiva de seu potencial em projetos de PLN.</p>
+<div id="fig-cap-ordem-funcao-fig21" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-ordem-funcao-fig21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.19: Vantagens e desvantagens da sintaxe de constituência e de dependência
+</figcaption>
+<div aria-describedby="fig-cap-ordem-funcao-fig21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image18.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-cap-ordem-funcao-fronteiras" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="sec-cap-ordem-funcao-fronteiras"><span class="header-section-number">6.8</span> Fronteiras da sintaxe</h2>
+<p>Conforme apontado na <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao-introducao" target="_blank" title="Volume 1">Introdução</a></span> deste capítulo, a sintaxe é um dos estratos centrais no sistema linguístico (<a href="#fig-cap-ordem-funcao-fig1" class="quarto-xref">Figura&nbsp;<span>6.1</span></a>). Por estar no centro do sistema, seu estudo possui interseção com vários outros níveis, como a morfologia, a semântica, a pragmática e o discurso. Isso porque a separação em níveis ou estratos é uma forma didática de apresentar o objeto de estudo de cada área; porém, na língua em uso, esses níveis são interdependentes uns dos outros. Portanto, definir os limites entre um nível e outro é uma tarefa complexa. A seguir, exploraremos alguns conceitos e problemas linguísticos que estão na fronteira entre a sintaxe e um outro nível de análise linguística.</p>
+<section id="sintaxe-e-morfologia" class="level3" data-number="6.8.1">
+<h3 data-number="6.8.1" class="anchored" data-anchor-id="sintaxe-e-morfologia"><span class="header-section-number">6.8.1</span> Sintaxe e Morfologia</h3>
+<p>Os traços morfológicos são gramaticalizados de diferentes formas em distintas línguas. Assim, qualquer noção que possa ser expressa morfologicamente em uma língua (por meio de traços morfológicos) pode ser expressa lexicalmente em outras línguas (por meio de perífrases ou paráfrases) <span class="citation" data-cites="Bender:2013">(<a href="../../shared/referencias/referencias.html#ref-Bender:2013" role="doc-biblioref">Bender, 2013</a>)</span>.</p>
+<p>Em português, convencionou-se que os afixos (prefixos, sufixos e infixos), as desinências (nominais e verbais) e outros componentes de palavras são unidades estudadas pela morfologia, enquanto a relação entre as palavras é estudada pela sintaxe.</p>
+<p>Mesmo tendo-se estabelecido essa convenção, há aspectos linguísticos que estão na fronteira entre a morfologia e a sintaxe. Por exemplo:</p>
+<p>A língua portuguesa constrói gênero gramatical (feminino ou masculino) nos substantivos por meio de uma desinência, por exemplo: “médic<strong>o</strong>” e “médic<strong>a</strong>”. Há, porém, substantivos chamados “epicenos”, que designam, com uma mesma forma, os dois gêneros (masculino e feminino), sendo feita a distinção de um gênero ou outro por meio da adição das palavras “macho” e “fêmea”, como, por exemplo: “cobra <strong>macho</strong>” e “cobra <strong>fêmea</strong>”. O gênero dos substantivos em português é, portanto, estudado tanto pela morfologia (quando se utiliza uma desinência) quanto pela sintaxe (quando é necessário usar um sintagma contendo duas palavras).</p>
+<p>Há também casos em que a mesma palavra (a mesma grafia) pode ser classificada como adjetivo ou particípio passado de um verbo (e.g.&nbsp;“solto”, “feito”, “motivada”). Isso depende da estrutura na qual a palavra opera. Assim, a distinção entre essas duas classes de palavras é de ordem sintática; contudo, tem impacto na morfologia, uma vez que, dependendo da classe de palavra atribuída, a palavra pode receber <em>features</em> de adjetivos ou <em>features</em> de verbos. Se em um texto clínico, encontramos a frase “Paciente lúcido e orientado”, interpretamos “lúcido” e “orientado” como adjetivos que qualificam o substantivo “paciente” e constroem significados do estado de saúde do mesmo. Nesse caso, “orientado” é classificado como adjetivo e recebe as <em>features</em> de gênero e número. Já em “Paciente orientado a procurar fisioterapia”, “orientado” é classificado como particípio passado do verbo “orientar”, em uma oração passiva sem explicitação do auxiliar “ser” e sem realização de uma função que indica o Papel Temático de Agente da ação, o qual no contexto pode ser interpretado como o profissional da saúde que realizou o atendimento. Neste caso, “orientado” recebe <em>features</em> da classe verbo e também da classe adjetivo, uma vez que em português os particípios passados concordam em gênero e número com os substantivos que realizam o sujeito da oração: “O paciente foi orientado”, “A paciente foi orientada”.</p>
+<p>O tempo futuro do presente, em português, pode ser construído por meio de uma desinência (por ex. “á” para a terceira pessoa do singular: “soltará”, “fará”, “motivará”) e anotado com a <em>feature</em> morfológica de futuro. Também pode ser construído por uma perífrase verbal (e.g.&nbsp;“vai soltar”, “vai fazer”, “vai motivar”). Neste segundo caso, nenhum dos verbos recebe a <em>feature</em> morfológica de futuro, já que o significado de futuro se dá pela combinação dos dois verbos, e não por uma desinência. As formas construídas por meio de desinência são chamadas de futuro sintético e constroem a noção de futuro com recursos da morfologia. Já as formas construídas por meio de perífrase são denominadas futuro analítico e constroem a noção de futuro com recursos da sintaxe.</p>
+<p>Formas negativas de adjetivos podem ser criadas em português por meio de morfemas (e.g.&nbsp;“capaz” x “<strong>in</strong>capaz” ou “normal” x “<strong>a</strong>normal” ou “moral” x “imoral”) ou lexicalmente (i.e “governamental” x “<strong>não</strong> governamental”). O processo de formação de palavras por meio da adição de prefixos de negação <strong>a-</strong>, <strong>i-</strong>, <strong>im-</strong>, <strong>in-</strong> é estudado dentro da morfologia, ao passo que a construção da negação a partir da inserção de uma outra palavra é estudada no escopo da sintaxe.</p>
+<p>As formas verbais que indicam imperativo em português possuem a mesma morfologia de subjuntivo. A definição entre um modo verbal e outro depende do contexto sintático em que estão inseridas. Por exemplo na sentença “Faça isso imediatamente”, o verbo “faça” é classificado como modo imperativo. Já na sentença “Quero que você faça isso imediatamente”, o verbo “faça” é classificado como subjuntivo. Para definir a <em>feature</em> morfológica de modo verbal a ser atribuída a formas como “faça” é preciso antes fazer a análise sintática da sentença.</p>
+</section>
+<section id="sintaxe-e-semântica" class="level3" data-number="6.8.2">
+<h3 data-number="6.8.2" class="anchored" data-anchor-id="sintaxe-e-semântica"><span class="header-section-number">6.8.2</span> Sintaxe e Semântica</h3>
+<p>A análise sintática pode ser complementada pela análise no nível da semântica. Essa complementação pode ser ilustrada com o seguinte exemplo.</p>
+<p>Dada uma oração como “João deu um pulo”, uma análise sintática de constituência nos permite identificar dois constituintes maiores: “João”e “deu um pulo”, este último passível de ser segmentado em constituintes menores contidos nele: “deu” e “um pulo”. Numa análise de sintaxe de dependência, observamos as relações entre as palavras e identificamos “deu” como sendo a palavra raiz (<code>root</code>), “João” seu dependente em relação de sujeito (<code>nsubj</code>) e “pulo” em relação de objeto (<code>obj</code>). Assim, interpretamos que alguém (“João”) realiza uma ação (“dar”) que tem um objeto (“um pulo”). No entanto, todos nós interpretamos “dar um pulo” como expressão de uma ação equivalente a “pular”. Como vimos neste capítulo, os constituintes que exercem a função de objeto geralmente correspondem a um papel temático na semântica. Em uma oração como “João deu um dinheiro”, “dinheiro” é objeto do verbo “dar” e cumpre o papel temático de objeto estativo. Já em “João deu um pulo”, o objeto “pulo” não possui status de papel temático; portanto, consideramos “deu um pulo” como uma única unidade do ponto de vista semântico. Assim, a análise sintática de dependência apresenta a mesma configuração para orações como “João deu um pulo” e “João deu um dinheiro”. Em PLN, casos como este demandam uma análise semântica complementar à análise sintática, pois a identificação de papéis temáticos é relevante em tarefas como a extração de informação.</p>
+</section>
+<section id="sintaxe-e-pragmática" class="level3" data-number="6.8.3">
+<h3 data-number="6.8.3" class="anchored" data-anchor-id="sintaxe-e-pragmática"><span class="header-section-number">6.8.3</span> Sintaxe e Pragmática</h3>
+<p>A análise sintática pode, também, ser complementada pela análise sob a perspectiva da pragmática. Os exemplos a seguir ilustram essa complementação.</p>
+<p>Em português, temos configurações de sentenças com uma palavra indicando negação, as quais constroem, no entanto, significados positivos. Numa sentença exclamativa como “Quantas vezes ela não ligou chorando!”, temos o advérbio “não”, que constrói um significado negativo. Contudo, interpretamos a exclamação como construindo um significado afirmativo: “ela ligou chorando muitas vezes”. Em casos como este, de sentenças com elementos negativos que constroem um significado afirmativo, vemos que a perspectiva pragmática, isto é, a análise da linguagem em uso e dos pressupostos e inferências que fazemos como falantes, é relevante para complementar a análise sintática. Do contrário, interpretaremos a exclamação como a negação do evento: “ela não ligou chorando”.</p>
+<p>A perspectiva da pragmática também nos ajuda a interpretar sentenças nas quais não há elemento de negação, mas o significado construído é negativo. Por exemplo, em “Pessoa alguma será condenada”, não temos nenhuma palavra que construa o significado de negação. No entanto, a oração é interpretada como “Nenhuma pessoa será condenada”. Cabe destacar que, se trocarmos a ordem das palavras neste exemplo, teremos uma interpretação distinta, como é evidente ao contrastarmos “Pessoa alguma será condenada” e “Alguma pessoa será condenada”.</p>
+</section>
+<section id="sintaxe-e-discurso" class="level3" data-number="6.8.4">
+<h3 data-number="6.8.4" class="anchored" data-anchor-id="sintaxe-e-discurso"><span class="header-section-number">6.8.4</span> Sintaxe e Discurso</h3>
+<p>O nível do Discurso e os Modelos Discursivos (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/discurso/cap-modelos-discursivos/cap-modelos-discursivos.html#sec-cap-modelos-discursivos" target="_blank" title="Volume 1">Modelos discursivos</a></span>) serão apresentados mais à frente neste livro, mas convém explicitar neste momento uma confusão que se faz comumente entre os níveis sintático e discursivo.</p>
+<p>A Gramática Tradicional (GT), nas seções referentes à sintaxe, estuda os conceitos de frase, oração e período, assim como a classificação das orações dentro de um período, por exemplo em oração principal, oração coordenada adversativa ou oração subordinada adverbial consecutiva, dentre várias outras.</p>
+<p>Essas mesmas relações são estudadas em PLN no nível do Discurso como relações de contraste, de explicação, de equivalência, dentre várias outras. Isso porque as teorias discursivas, tais como RST (<em>Rethorical Structure Theory</em>) e CST (<em>Cross-document Structure Theory</em>) não limitam sua unidade de análise linguística apenas dentro do texto, da sentença, do período ou da frase. São teorias que estudam o discurso independente do tamanho ou dos limites marcados por sinais de pontuação.</p>
+<p>Apesar do rol de relações das teorias discursivas não representar uma equivalência exata com os tipos de orações da Gramática Tradicional, podemos identificar paralelos, por exemplo, entre uma relação de <em>Summary</em> (da RST) e uma oração coordenada conclusiva (da GT) ou entre uma relação discursiva de <em>Indirect Speech</em> (da CST) com uma oração subordinada substantiva objetiva direta).</p>
+</section>
+</section>
+<section id="considerações-finais" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="considerações-finais"><span class="header-section-number">6.9</span> Considerações finais</h2>
+<p>Neste capítulo, introduzimos os conceitos básicos de sintaxe, que é a área da linguística responsável por definir e descrever a ordem e a função das palavras e sintagmas na frase. Assim, foram discutidos conceitos linguísticos de <strong>classe de palavra</strong>, <strong>constituinte</strong>, <strong>sintagma</strong>, <strong>frase</strong>, <strong>oração</strong>, <strong>período</strong> (ou <strong>sentença</strong>), <strong>escala de ordens</strong>, <strong>função sintática</strong>, <strong>papel temático</strong>, assim como conceitos sintáticos voltados para o PLN, tais como <em>part-of-speech</em> (PoS), <em>parser</em>, <em>parsing</em>, <em>treebanks</em>, árvore de dependência, núcleo (<em>head</em>, <em>governor</em>, <em>parent</em>), dependente (<em>child</em>, <em>dependent</em>), entre outros.</p>
+<p>Como o escopo deste livro é o processamento de língua natural, explicitamos as duas principais abordagens sintáticas usadas em PLN, que são: a <strong>sintaxe de constituintes</strong> e a <strong>sintaxe de dependência</strong>. Mas é importante ressaltar que existem várias correntes linguísticas teóricas que estudam e descrevem a sintaxe a partir de diferentes pontos de vista. Algumas dessas correntes são: paradigma formal ou estrutural, paradigma funcional ou funcionalista, o sistêmico-funcional, o gerativo ou gerativista, dentre outros.</p>
+<p>Tanto a sintaxe de constituintes quanto a de dependência são abordagens amplamente usadas em PLN e, para isso, precisam de uma representação formal. Foram apresentados os tipos mais comuns de representação dessas duas abordagens, a saber: por meio de <strong>colchetes</strong>, de <strong>árvores</strong>, de <strong>setas</strong>, de <strong>parênteses</strong> e de <strong>indentação</strong>.</p>
+<p>Ao final do capítulo, apresentamos alguns exemplos de questões e problemas linguísticos que podem ser estudados pelo viés da sintaxe ou de algum outro nível linguístico, já que essas fronteiras não são tão bem definidas na língua em uso. Como o foco do livro está na língua portuguesa, nos limitamos a mencionar brevemente alguns poucos exemplos. Para um estudo mais aprofundado sobre as fronteiras entre a sintaxe e os demais níveis linguísticos, ver <span class="citation" data-cites="Bender:2013">Bender (<a href="../../shared/referencias/referencias.html#ref-Bender:2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>O próximo capítulo (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html#sec-cap-recursos-sintaxe" target="_blank" title="Volume 1">Ferramentas e recursos para o processamento sintático</a></span>) também é dedicado ao estudo da sintaxe dentro do PLN, porém com um olhar mais computacional voltado para os recursos e ferramentas disponíveis para fazer análise sintática automaticamente, os tipos de <em>parsing</em> e as abordagens sintáticas mais comuns em PLN.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-Bender:2013" class="csl-entry" role="listitem">
+BENDER, E. M. <strong><a href="https://doi.org/10.1007/978-3-031-02150-3">Linguistic Fundamentals for Natural Language Processing: 100 Essentials from Morphology and Syntax</a></strong>. Springer Nature Switzerland AG 2013: Springer Cham, 2013. p. XVII–166
+</div>
+<div id="ref-Kenedy_et_Othero:2018" class="csl-entry" role="listitem">
+KENEDY, E.; OTHERO, G. DE Á. <strong>Para conhecer sintaxe</strong>. São Paulo: Contexto, 2018.
+</div>
+<div id="ref-mcdonald-etal-2013-universal" class="csl-entry" role="listitem">
+MCDONALD, R. et al. <strong><span>U</span>niversal <span>D</span>ependency Annotation for Multilingual Parsing</strong>. Proceedings of the 51st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers). <strong>Anais</strong>...Sofia, Bulgaria: Association for Computational Linguistics, ago. 2013. Disponível em: &lt;<a href="https://aclanthology.org/P13-2017">https://aclanthology.org/P13-2017</a>&gt;
+</div>
+<div id="ref-nivre-etal-2007-conll" class="csl-entry" role="listitem">
+NIVRE, J. et al. <strong>The <span>C</span>o<span>NLL</span> 2007 Shared Task on Dependency Parsing</strong>. Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning (<span>EMNLP</span>-<span>C</span>o<span>NLL</span>). <strong>Anais</strong>...Prague, Czech Republic: Association for Computational Linguistics, jun. 2007. Disponível em: &lt;<a href="https://aclanthology.org/D07-1096">https://aclanthology.org/D07-1096</a>&gt;
+</div>
+<div id="ref-osborne:hal-02450313" class="csl-entry" role="listitem">
+OSBORNE, T.; GERDES, K. <a href="https://doi.org/10.5334/gjgl.537"><span>The status of function words in dependency grammar: A critique of Universal Dependencies (UD)</span></a>. <strong><span>Glossa: a journal of general linguistics (2016-2021)</span></strong>, jan. 2019.
+</div>
+<div id="ref-rademaker-etal-2017-universal" class="csl-entry" role="listitem">
+RADEMAKER, A. et al. <strong><span>U</span>niversal <span>D</span>ependencies for <span>P</span>ortuguese</strong>. Proceedings of the Fourth International Conference on Dependency Linguistics (Depling 2017). <strong>Anais</strong>...Pisa,Italy: Link<span>ö</span>ping University Electronic Press, set. 2017. Disponível em: &lt;<a href="https://aclanthology.org/W17-6523">https://aclanthology.org/W17-6523</a>&gt;
+</div>
+<div id="ref-Tesniere:1959" class="csl-entry" role="listitem">
+TESNIÈRE, L. <strong>El<span>é</span>ments de Syntaxe Structurale</strong>. Paris: Klincksieck, 1959.
+</div>
+<div id="ref-zeman-2008-reusable" class="csl-entry" role="listitem">
+ZEMAN, D. <strong>Reusable Tagset Conversion Using Tagset Drivers</strong>. Proceedings of the Sixth International Conference on Language Resources and Evaluation (<span>LREC</span>’08). <strong>Anais</strong>...Marrakech, Morocco: European Language Resources Association (ELRA), 2008. Disponível em: &lt;<a href="http://www.lrec-conf.org/proceedings/lrec2008/pdf/66_paper.pdf">http://www.lrec-conf.org/proceedings/lrec2008/pdf/66_paper.pdf</a>&gt;
+</div>
+<div id="ref-zeman-resnik-2008-cross" class="csl-entry" role="listitem">
+ZEMAN, D.; RESNIK, P. <strong>Cross-Language Parser Adaptation between Related Languages</strong>. Proceedings of the <span>IJCNLP</span>-08 Workshop on <span>NLP</span> for Less Privileged Languages. <strong>Anais</strong>...2008. Disponível em: &lt;<a href="https://aclanthology.org/I08-3008">https://aclanthology.org/I08-3008</a>&gt;
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Cabe aqui um esclarecimento sobre a nomenclatura. Em língua inglesa, utilizamos “<em>phrase</em>” para nomear o nível da escala de ordens acima da palavra e abaixo da oração, enquanto “<em>syntagma</em>” nomeia a organização das funções numa unidade. Assim, toda “<em>phrase</em>” possui uma organização de funções ou “<em>syntagma</em>”. Na língua portuguesa, a palavra “sintagma” é utilizada para se referir ao que em inglês é denominado de “<em>phrase</em>” e de “<em>syntagma</em>”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Em estudos de sintaxe em português, “sentença” nomeia a maior unidade de análise sintática, a qual também pode ser nomeada como “frase” ou “período” <span class="citation" data-cites="Kenedy_et_Othero:2018">(<a href="../../shared/referencias/referencias.html#ref-Kenedy_et_Othero:2018" role="doc-biblioref">Kenedy; Othero, 2018</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>As árvores de constituência utilizadas neste capítulo foram elaboradas com o software jssyntaxfree, disponível em <a href="https://github.com/int2str/jssyntaxtree" class="uri">https://github.com/int2str/jssyntaxtree</a>, com base em anotação das autoras. O conjunto de etiquetas utilizado é o adotado pelo projeto PortulanClarin, disponível em <a href="https://portulanclarin.net/" class="uri">https://portulanclarin.net/</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Imagens geradas com o aplicação <a href="https://gencraft.com/" class="uri">https://gencraft.com/</a> e modificadas pelas autoras.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Entendemos que todos esses termos são sinônimos, mas adotaremos neste capítulo o termo “núcleo”.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Vale ressaltar que estes termos também são usados em inglês: “<em>parent</em>”, “<em>child</em>”, “<em>grandparent</em>”, “<em>grandchild</em>” e “<em>sibling</em>”.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>O <em>parser</em> Stanford também dispõe de um conversor que transforma uma árvore de constituência em uma árvore de dependência, o qual funciona para várias línguas, incluindo o português. Mais informações sobre SD e Stanford parser podem ser consultadas em <a href="https://nlp.stanford.edu/software/lex-parser.shtml" class="uri">https://nlp.stanford.edu/software/lex-parser.shtml</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Tradução nossa do original: “<em>The new Universal Dependencies is the result of merging all these initiatives into a single coherent framework, based on universal Stanford dependencies, an extended version of the Google universal tagset, a revised subset of the Intersect feature inventory, and a revised version of the CoNLL-X format (called CoNLL-U)</em>”.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>As premissas podem ser consultadas em <a href="https://universaldependencies.org/introduction.html" class="uri">https://universaldependencies.org/introduction.html</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Referência: <a href="https://universaldependencies.org/u/dep/all.html" class="uri">https://universaldependencies.org/u/dep/all.html</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../palavras/cap-mwe/cap-mwe.html" class="pagination-link" aria-label="Expressões multipalavras">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="pagination-link" aria-label="Ferramentas e recursos para o processamento sintático">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

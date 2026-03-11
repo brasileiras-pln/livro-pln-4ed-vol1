@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eloize Rossi Marques Seno">
+<meta name="author" content="Valéria de Paiva">
+<meta name="author" content="Vládia Pinheiro">
+
+<title>9&nbsp; Semântica com técnicas simbólicas – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" rel="next">
+<link href="../../significado/cap-significado/cap-significado.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../significado/cap-significado/cap-significado.html"><strong>Significado</strong></a></li><li class="breadcrumb-item"><a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#sec-cap-semantica-simbolica-skb" id="toc-sec-cap-semantica-simbolica-skb" class="nav-link active" data-scroll-target="#sec-cap-semantica-simbolica-skb"><span class="header-section-number">9.1</span> Bases de Conhecimento Semântico</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-semantica-simbolica-wordnet" id="toc-sec-cap-semantica-simbolica-wordnet" class="nav-link" data-scroll-target="#sec-cap-semantica-simbolica-wordnet"><span class="header-section-number">9.1.1</span> <em>Wordnets</em></a></li>
+  <li><a href="#sec-cap-semantica-simbolica-framenet" id="toc-sec-cap-semantica-simbolica-framenet" class="nav-link" data-scroll-target="#sec-cap-semantica-simbolica-framenet"><span class="header-section-number">9.1.2</span> FrameNet</a></li>
+  <li><a href="#sec-cap-semantica-simbolica-conceptnet" id="toc-sec-cap-semantica-simbolica-conceptnet" class="nav-link" data-scroll-target="#sec-cap-semantica-simbolica-conceptnet"><span class="header-section-number">9.1.3</span> ConceptNet</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-semantica-simbolica-final" id="toc-sec-cap-semantica-simbolica-final" class="nav-link" data-scroll-target="#sec-cap-semantica-simbolica-final"><span class="header-section-number">9.2</span> Considerações finais</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../significado/cap-significado/cap-significado.html"><strong>Significado</strong></a></li><li class="breadcrumb-item"><a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-semantica-simbolica" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Eloize Rossi Marques Seno </p>
+             <p>Valéria de Paiva </p>
+             <p>Vládia Pinheiro </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-semantica-simbolica.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" aria-controls="callout-cite" data-bs-toggle="collapse" data-bs-target=".callout-cite-contents" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-semantica-simbolica:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Seno, Eloize Rossi Marques and Paiva, Valéria de and Pinheiro, Vládia},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Semântica com técnicas simbólicas},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {9},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/significado/cap-semantica-simbolica/cap-semantica-simbolica.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Métodos simbólicos em Processamento de Linguagem Natural (PLN) envolvem a utilização de regras e representações formais explícitas para processar e entender textos em linguagem natural. Esses métodos especializam-se na manipulação de símbolos e dados estruturados, como gramáticas, ontologias e bases de conhecimento. Especificamente para o entendimento de textos em linguagem natural usando técnicas simbólicas, existem analisadores semânticos (ou <em>parsers</em> semânticos) e bases de conhecimento semântico, que visam fornecer uma representação semântica dos textos. A partir desta representação, motores de inferência são capazes de realizar raciocínio para que aplicações possam, por exemplo, extrair informações, sumarizar textos, e responder perguntas com base nos textos.</p>
+<p>A <a href="#fig-cap-semantica-simbolica-arquiteturaNLU" class="quarto-xref">Figura&nbsp;<span>9.1</span></a> apresenta uma arquitetura tradicional para sistemas de entendimento de textos em linguagem natural (<em>Natural Language Understanding</em> – NLU). A partir do texto de entrada, uma camada de processamento sintático realiza uma série de análises no texto, tais como detecção de língua, separação de sentenças, tokenização, análise morfológica e sintática (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>). Na fronteira entre o processamento sintático e a análise semântica, outros processamentos linguísticos são necessários, como reconhecimento de entidades nomeadas, identificação de expressões multipalavras etc. Em seguida, o texto analisado (sintaticamente) é enviado ao analisador semântico (<em>parser</em>) que gera uma representação lógica do texto. A representação lógica e a(s) base(s) de conhecimento, no que lhes concerne, são entradas para o motor de inferência. Nesse processo, termos do texto de entrada são associados aos elementos da base de conhecimento e o motor de inferência gera respostas a perguntas (<em>queries</em>) para uma aplicação final.</p>
+<p>É pertinente fazer uma observação neste ponto para uma definição de base de conhecimento. Uma “base de conhecimento” refere-se a um repositório centralizado, processável por máquina, que contém informações, dados, regras e procedimentos que são usados para capturar, representar e armazenar conhecimento geral ou de um domínio específico. Tais bases de conhecimento são fontes de conhecimento de mundo e suportam diversas tarefas e aplicações em PLN. Uma base de conhecimento pode ser estruturada de diversas maneiras, incluindo bancos de dados relacionais, linguagem para ontologias (e.g.&nbsp;a OWL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>), formalismos para troca de dados entre sistemas (e.g.&nbsp;o formato JSON<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>), redes semânticas ou sistemas baseados em regras, dependendo da sua finalidade e da natureza do conhecimento armazenado.</p>
+<!-- ![Arquitetura de Sistemas de Entendimento de Linguagem Natural (NLU). Fonte: Adaptada de [@nlu2012], p.9](media/arquiteturaNLU.png){#fig-cap-semantica-simbolica-arquiteturaNLU width="100%"} -->
+<div id="fig-cap-semantica-simbolica-arquiteturaNLU" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-arquiteturaNLU-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.1: Arquitetura de Sistemas de Entendimento de Linguagem Natural (NLU).
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-arquiteturaNLU-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p> <img src="media/arquiteturaNLU.jpeg" class="img-fluid figure-img"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p> Fonte: Adaptada de <span class="citation" data-cites="nlu2012">(<a href="../../shared/referencias/referencias.html#ref-nlu2012" role="doc-biblioref">Ovchinnikova, 2012, p. 9</a>)</span></p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p>Tradicionalmente, sistemas lógicos são usados para representação formal dos textos e seus motores de inferência servem para gerar conclusões a partir dos textos. Podemos citar os sistemas lógicos mais usados em PLN: variações de Lógica Descritiva (<em>Description Logic – DL</em>) <span class="citation" data-cites="baader2003">(<a href="../../shared/referencias/referencias.html#ref-baader2003" role="doc-biblioref">Baader et al., 2003</a>)</span>, da Lógica de Primeira Ordem <span class="citation" data-cites="blackburn_Bos2005 vanEijck_Unger2010">(<a href="../../shared/referencias/referencias.html#ref-blackburn_Bos2005" role="doc-biblioref">Blackburn; Bos, 2005</a>; <a href="../../shared/referencias/referencias.html#ref-vanEijck_Unger2010" role="doc-biblioref">Eijck; Unger, 2010</a>)</span>, vários tipos de Programação em Lógica (PROLOG) <span class="citation" data-cites="dahl1994">(<a href="../../shared/referencias/referencias.html#ref-dahl1994" role="doc-biblioref">Dahl, 1994</a>)</span> e Lógicas Intensionais <span class="citation" data-cites="shapiro2000">(<a href="../../shared/referencias/referencias.html#ref-shapiro2000" role="doc-biblioref">Shapiro, 2000</a>)</span>.</p>
+<p>Uma característica importante dos sistemas lógicos usados para a semântica de linguagem natural é que eles dependem fortemente da forma lógica do texto ou argumento. No entanto, muitas conclusões e respostas fornecidas ao se ler um texto são justificadas pela contribuição semântica dos conceitos relacionados, não definida a priori, mas somente enquanto usados em um contexto particular. Por exemplo, considere a inferência que conclui que “Alguém foi assassinado” a partir da premissa que “Alguém foi executado”. A contribuição semântica do conceito “executar” (no sentido de “assassinar”) é que torna esta inferência plausível, e não a forma da sentença. Da mesma forma, a inferência “um relâmpago é visto agora” para “um trovão será ouvido em breve” é autorizada pelo conteúdo dos termos “trovão” e “relâmpago”. Para se realizar inferências desta natureza, alguns filósofos como Sellars <span class="citation" data-cites="sellars1953">(<a href="../../shared/referencias/referencias.html#ref-sellars1953" role="doc-biblioref">Sellars, 1953</a>)</span> e Brandom <span class="citation" data-cites="brandom2001">(<a href="../../shared/referencias/referencias.html#ref-brandom2001" role="doc-biblioref">Brandom, 2001</a>)</span> propõem abordagens para expressão do significado que suportam análises semânticas não somente sobre a forma das sentenças, mas são capazes de, com base no domínio dos conteúdos dos termos articulados nas sentenças e textos, descobrir como estes [os conteúdos dos termos] contribuem conjuntamente para o significado das sentenças e para realização de inferências.</p>
+<p>Este capítulo tem como objetivo examinar, além dos <em>frameworks</em> semânticos, tais como AMR (<em>Abstract Meaning Representation</em>) <span class="citation" data-cites="Banarescuetal2013">(<a href="../../shared/referencias/referencias.html#ref-Banarescuetal2013" role="doc-biblioref">Banarescu et al., 2013</a>)</span> e DELPH-IN <span class="citation" data-cites="copestake2005minimal">(<a href="../../shared/referencias/referencias.html#ref-copestake2005minimal" role="doc-biblioref">Copestake et al., 2005</a>)</span>, os tipos de bases de conhecimento mais utilizados em PLN. Nesta versão inicial do capítulo, são apresentadas as bases (também chamadas de recursos léxico-semânticos) WordNet de Princeton <span class="citation" data-cites="Fellbaum1998">(<a href="../../shared/referencias/referencias.html#ref-Fellbaum1998" role="doc-biblioref">Fellbaum, 1998</a>)</span> e FrameNet <span class="citation" data-cites="framenet1998">(<a href="../../shared/referencias/referencias.html#ref-framenet1998" role="doc-biblioref">Baker et al., 1998</a>)</span>, e suas versões em português: OpenWordNet-PT <span class="citation" data-cites="Paiva2012">(<a href="../../shared/referencias/referencias.html#ref-Paiva2012" role="doc-biblioref">De Paiva et al., 2012</a>)</span> e FrameNet Brasil (FN-BR) <span class="citation" data-cites="torrent2013">(<a href="../../shared/referencias/referencias.html#ref-torrent2013" role="doc-biblioref">Torrent; Ellsworth, 2013</a>)</span>; bem como bases de conhecimento voltadas ao senso comum, tais como a ConceptNet <span class="citation" data-cites="conceptnet2016">(<a href="../../shared/referencias/referencias.html#ref-conceptnet2016" role="doc-biblioref">Speer et al., 2016</a>)</span> e iniciativas para o português (OMCS-BR <span class="citation" data-cites="anacleto2006">(<a href="../../shared/referencias/referencias.html#ref-anacleto2006" role="doc-biblioref">Anacleto et al., 2006</a>)</span> e a InferenceNet-BR <span class="citation" data-cites="inferencenet.br2010">(<a href="../../shared/referencias/referencias.html#ref-inferencenet.br2010" role="doc-biblioref">Pinheiro et al., 2010</a>)</span>). Existem outros tipos de bases de conhecimento na área do PLN, tais como dicionários e ontologias diversas, por exemplo, WikiData <span class="citation" data-cites="vrandevcic2014">(<a href="../../shared/referencias/referencias.html#ref-vrandevcic2014" role="doc-biblioref">Vrandečić; Krötzsch, 2014</a>)</span>, YAGO <span class="citation" data-cites="suchanek2007">(<a href="../../shared/referencias/referencias.html#ref-suchanek2007" role="doc-biblioref">Suchanek et al., 2007</a>)</span> ou BabelNet <span class="citation" data-cites="navigli2012">(<a href="../../shared/referencias/referencias.html#ref-navigli2012" role="doc-biblioref">Navigli; Ponzetto, 2012</a>)</span>. No entanto, nossa descrição aqui visa apenas a uma primeira exposição dos distintos paradigmas de expressão de conhecimento semântico. Tendo em vista cada base de conhecimento descrita, analisamos um exemplo de texto motivador. Por fim, apresentamos as considerações finais deste capítulo.</p>
+<section id="sec-cap-semantica-simbolica-skb" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-skb"><span class="header-section-number">9.1</span> Bases de Conhecimento Semântico</h2>
+<p>Na área da Inteligência Artificial (IA), o interesse por bases de conhecimento computáveis ou processáveis por máquina surgiu na década de 60 com as primeiras redes semânticas e representações baseadas em <em>frames</em>, propostas por Minsky <span class="citation" data-cites="minsky1975">(<a href="../../shared/referencias/referencias.html#ref-minsky1975" role="doc-biblioref">Minsky, 1975</a>)</span> e Fillmore <span class="citation" data-cites="fillmore1976">(<a href="../../shared/referencias/referencias.html#ref-fillmore1976" role="doc-biblioref">Fillmore et al., 1976</a>)</span>, respectivamente.</p>
+<p>A comunidade de PLN foi rapidamente atraída por tais representações de conhecimento de mundo, pois pareciam prover a solução para problemas de semântica de linguagem natural. As mais antigas abordagens em PLN que utilizaram redes semânticas e <em>frames</em> remontam aos trabalhos de <span class="citation" data-cites="bates1980">Bates et al. (<a href="../../shared/referencias/referencias.html#ref-bates1980" role="doc-biblioref">1982</a>)</span> e <span class="citation" data-cites="bobrow1977">Bobrow et al. (<a href="../../shared/referencias/referencias.html#ref-bobrow1977" role="doc-biblioref">1977</a>)</span>, conforme citado em <span class="citation" data-cites="nlu2012">(<a href="../../shared/referencias/referencias.html#ref-nlu2012" role="doc-biblioref">Ovchinnikova, 2012</a>)</span>.</p>
+<p>Neste capítulo, examinaremos dois tipos de bases de conhecimento: (1) recursos léxico-semânticos e (2) bases de conhecimento de senso comum.</p>
+<ol type="1">
+<li><strong>Recursos Léxico-Semânticos</strong><br>
+Um conjunto de palavras existentes em uma determinada língua é chamado de léxico da língua e cada elemento do léxico é chamado de item lexical (<span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-caracteres-palavras/cap-caracteres-palavras.html#sec-cap-caracteres-palavras" target="_blank" title="Volume 1">Sequência de caracteres e palavras</a></span>). Estes itens, quando organizados e agrupados de forma a facilitar o uso em processos computacionais, formam uma <strong>base de conhecimento lexical</strong> ou um <strong>recurso léxico-semântico</strong>. Uma <em>wordnet</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> é um exemplo canônico desse tipo de base, onde a organização dos itens lexicais se dá através de relações semânticas, predominantemente, de hierarquia (hiperonímia/hiponímia), de inclusão (holonímia/meronímia), de equivalência (sinonímia) ou de oposição (antonímia). Essas bases incluem normalmente informação sobre os possíveis sentidos das palavras (por exemplo, um sentido de “manga” é a fruta tropical, mas “manga” também pode ter o sentido de parte de uma camisa), as relações entre sentidos (carro e pneu como merônimo-holônimo; quente e frio como antônimos), e definições e frases que exemplificam a sua utilização. Os recursos da família das <em>wordnets</em> são bases muito usadas em PLN e com uma história de sucesso dada a cobertura, variedade de relações e organização do conteúdo, além da facilidade de incorporação em aplicações e ferramentas que precisam entender textos em linguagem natural, através de <em>toolkits</em> como o NLTK<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> e spaCy<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Dentre as <em>wordnets</em>, temos a original e a mais proeminente – a WordNet de Princeton ou PWN<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> <span class="citation" data-cites="Fellbaum1998">(<a href="../../shared/referencias/referencias.html#ref-Fellbaum1998" role="doc-biblioref">Fellbaum, 1998</a>)</span>.</li>
+<li><strong>Bases de Conhecimento de Senso Comum</strong><br>
+Para a comunidade de Inteligência Artificial, a expressão “conhecimento de senso comum” se refere aos fatos e conhecimentos informais possuídos pela maioria das pessoas, frutos da experiência da vida diária e baseados na generalização de eventos ou interpretações particulares, sem comprovação formal. Consiste em conhecimentos espaciais, físicos, sociais, temporais e psicológicos <span class="citation" data-cites="conceptnet2004a">(<a href="../../shared/referencias/referencias.html#ref-conceptnet2004a" role="doc-biblioref">Liu; Singh, 2004</a>)</span>. As bases de conhecimento de senso comum expressam relações semânticas entre fragmentos de textos, tais como: relações funcionais, causais, afetivas, temporais, motivacionais, estruturais etc. Por exemplo, “bicicleta” <u>é usada para</u> “andar mais rápido que a pé”, ou “cozinhar” <u>é motivada por</u> “fome”. Nessa classe, se enquadram a larga base de senso comum ConceptNet<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> <span class="citation" data-cites="conceptnet2016">(<a href="../../shared/referencias/referencias.html#ref-conceptnet2016" role="doc-biblioref">Speer et al., 2016</a>)</span>, originalmente gerada de conteúdo coletado de forma colaborativa na internet, e suas variações e congêneres.</li>
+</ol>
+<p>Antes de iniciar a descrição das bases de conhecimento, introduziremos um exemplo de texto, <a href="#exm-cap-semantica-simbolica-assalto" class="quarto-xref">Exemplo&nbsp;<span>9.1</span></a><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, em português brasileiro, para ser analisado conforme os insumos de cada base de conhecimento. Após o exemplo, indicamos algumas conclusões e respostas resultantes de inferências que pessoas, inseridas na cultura brasileira e proficientes no português, fariam ao ler o texto.</p>
+<div id="exm-cap-semantica-simbolica-assalto" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 9.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Um assalto do tipo saidinha bancária, ocorrido na tarde desta terça-feira, terminou com uma mulher de 42 anos baleada pelos assaltantes. O roubo ocorreu na rua Professor Costa Mendes.</p>
+</blockquote>
+</div>
+<p>Conclusões:</p>
+<ul>
+<li>O assalto teve uso de arma de fogo.</li>
+<li>A vítima estava em uma agência bancária.</li>
+<li>A motivação do crime foi conseguir dinheiro.</li>
+</ul>
+<p>Nas próximas subseções, são descritas algumas das bases de conhecimento mais representativas para o PLN – Wordnet, FrameNet e a ConceptNet, e suas bases congêneres para o português. No final de cada subseção, discorremos sobre como essas bases contribuem para análise semântica do <a href="#exm-cap-semantica-simbolica-assalto" class="quarto-xref">Exemplo&nbsp;<span>9.1</span></a>. A escolha dessas três bases seguiu critérios de abrangência de suas entradas e representatividade para tarefas de PLN. A WordNet de Princeton é, consensualmente, o recurso léxico-semântico mais utilizado em PLN para dar suporte a tarefas como desambiguação de sentido de palavras, perguntas e respostas, e análise semântica. FrameNet é uma das bases mais relevantes para a tarefa de anotação de papéis semânticos (<em>Semantic Role Labeling</em> – SRL), pois atribui papéis semânticos não somente a verbos, mas também a termos das demais classes gramaticais. ConceptNet é a base de conhecimento de senso comum com mais entradas tanto para o inglês quanto para o português.</p>
+<section id="sec-cap-semantica-simbolica-wordnet" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-wordnet"><span class="header-section-number">9.1.1</span> <em>Wordnets</em></h3>
+<p>WordNet, desenvolvida por George A. Miller, Christiane Fellbaum e colaboradores, é considerada uma base de conhecimento léxico-semântica que organiza os itens lexicais (palavras ou expressões) em <em>synsets</em> (que vem de <em>synonym sets</em>, ou conjuntos de palavras sinônimas). A primeira <em>wordnet</em> foi desenvolvida para o inglês por George Miller, na Universidade de Princeton, um projeto que se iniciou em 1985, e é ordinariamente chamada de WordNet de Princeton (ou Princeton WordNet, na sigla PWN)<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> e é descrita por <span class="citation" data-cites="Fellbaum1998">Fellbaum (<a href="../../shared/referencias/referencias.html#ref-Fellbaum1998" role="doc-biblioref">1998</a>)</span>.</p>
+<p><em>Wordnets</em> são redes de palavras amplamente utilizadas em PLN para dar suporte a tarefas como desambiguação de sentido de palavras, perguntas e respostas, e análise semântica em geral. A unidade básica da WordNet são os <em>synsets</em> que representam conjuntos de palavras sinônimas. Cada <em>synset</em> expressa um conceito em particular. Os <em>synsets</em> têm uma glosa, semelhante a uma definição num dicionário e podem conter ainda frases que ilustram o emprego de alguma das suas palavras. A WordNet está dividida em quatro redes semânticas, uma para cada classe aberta de palavras: substantivo, verbo, adjetivo e advérbio.</p>
+<p>Como exemplo, a <a href="#fig-cap-semantica-simbolica-wordnetMURDER" class="quarto-xref">Figura&nbsp;<span>9.2</span></a> apresenta os <em>synsets</em> da palavra <em>“murder”</em> (verbo “assassinar”, em português) da PWN. Ao todo são três <em>synsets</em>, um na classe <code>Noun</code> (substantivo) e dois na classe <code>Verb</code> (verbo). O primeiro <em>synset</em> da palavra “<em>murder</em>” (na classe <code>Verb</code>) tem como tropônimos diretos os verbos “<em>burke</em>”, <em>“execute”</em> e hiperônimo direto o <em>synset</em> <em>“kill”</em>.</p>
+<div id="fig-cap-semantica-simbolica-wordnetMURDER" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-wordnetMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.2: Synsets da palavra <em>“murder”</em> na WordNet de Princeton.
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-wordnetMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/wordnetMURDER.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+<p>A PWN é a base léxico-semântica mais utilizada em PLN, com interfaces locais (APIs) em alguns dos maiores sistemas de programação (.NET/C#, dBase, Java, MySQL, OCaml, OSX, Perl, PHP, Prolog, Python, REST, SQL, Windows, XML)<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>, mais de 20 mil citações no Google Scholar e dezenas de projetos que a utilizam. Apesar de ser tão utilizada, a WordNet de Princeton parou de evoluir em 2012, por falta de recursos financeiros. A última edição oficial de PWN foi a versão 3.1, lançada em 2011. Em 2019 um consórcio de pesquisadores, incluindo Christiane Fellbaum (a coordenadora da PWN), resolveu transformar a PWN em um recurso moderno, hospedado em GitHub, de tal forma que possa ser sempre atualizado <span class="citation" data-cites="mccrae-etal-2019">(<a href="../../shared/referencias/referencias.html#ref-mccrae-etal-2019" role="doc-biblioref">McCrae et al., 2019</a>)</span>, mas a maior parte das aplicações continua usando PWN 3.0 ou 3.1.</p>
+<p>Como todas as bases com conhecimento semântico, WordNet não é um projeto acabado e tampouco completo. Algumas lacunas decorrem da divisão e independência entre as redes semânticas, o que dificulta a expressão de relações estruturais (entidade-atributo), de relações semânticas que acontecem entre classes de palavras (verbos e substantivos, por exemplo) em uma particular situação ou contexto; ou informações sintagmáticas: relações que ocorrem entre os termos de um proferimento (entre verbo e substantivo, entre substantivo e adjetivo etc.). No que se refere aos tipos de relações expressas na PWN, essa dispõe de relações causais entre <em>synsets</em>, por exemplo, <em>“snore”</em> <code>implies</code> <em>“sleep”</em>, mas não numa taxa de cobertura suficiente em relação ao conjunto dos <em>synsets</em>. Outra limitação é que recursos como a PWN são mais adequados para substantivos concretos do que para conceitos abstratos como “medo”, “felicidade” etc. Enquanto substantivos concretos como “gato”, “felino”, “mamífero”, “animal” etc. são mais facilmente organizados em taxonomias, tal processo é menos consensual quando aplicado às emoções ou a verbos. Um quarto criticismo diz respeito às expressões multipalavras (MWEs – <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/palavras/cap-mwe/cap-mwe.html#sec-cap-mwe" target="_blank" title="Volume 1">Expressões multipalavras</a></span>). Essas existem em PWN, mas não na quantidade suficiente para a modelagem adequada da língua. De acordo com <span class="citation" data-cites="Sag2002">Sag et al. (<a href="../../shared/referencias/referencias.html#ref-Sag2002" role="doc-biblioref">2002, p. 2</a>)</span>, o número de MWEs em PWN precisaria ser maior do que é. Um quinto criticismo diz respeito ao nível de granularidade das distinções de significado na PWN. Essas distinções são muito refinadas, o que faz com que as medidas de concordância entre anotadores sejam baixas.</p>
+<p>A partir da WordNet de Princeton, várias <em>wordnets</em> foram propostas para diversas línguas, entre elas o português, conforme será descrito na seção a seguir.</p>
+<section id="wordnets-para-o-português" class="level4" data-number="9.1.1.1">
+<h4 data-number="9.1.1.1" class="anchored" data-anchor-id="wordnets-para-o-português"><span class="header-section-number">9.1.1.1</span> <em>Wordnets</em> para o português</h4>
+<p>Vários recursos léxico-semânticos foram criados para o português nos últimos anos. Alguns deles são listados na página da Linguateca<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. O NILC<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> tem uma coleção de recursos listados no portal PortLex<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>, entre os quais se encontram, entre outros, VerbNet.Br <span class="citation" data-cites="scarton2012">(<a href="../../shared/referencias/referencias.html#ref-scarton2012" role="doc-biblioref">Scarton; Aluisio, 2012</a>)</span> e PropBank.Br <span class="citation" data-cites="duran2012">(<a href="../../shared/referencias/referencias.html#ref-duran2012" role="doc-biblioref">Duran; Aluísio, 2012</a>)</span>.</p>
+<p>Há várias versões de <em>wordnets</em> para o português, como Wordnet.BR <span class="citation" data-cites="DiasdaSilva2005">(<a href="../../shared/referencias/referencias.html#ref-DiasdaSilva2005" role="doc-biblioref">Dias-da-Silva, 2005</a>)</span>, Onto.PT <span class="citation" data-cites="goncalo-oliveira2014">(<a href="../../shared/referencias/referencias.html#ref-goncalo-oliveira2014" role="doc-biblioref">Gonçalo&nbsp;Oliveira, 2014</a>)</span>, PULO <span class="citation" data-cites="Simoes2014">(<a href="../../shared/referencias/referencias.html#ref-Simoes2014" role="doc-biblioref">Simões; Guinovart, 2014</a>)</span> e OpenWordNet-PT<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> <span class="citation" data-cites="Paiva2012">(<a href="../../shared/referencias/referencias.html#ref-Paiva2012" role="doc-biblioref">De Paiva et al., 2012</a>)</span>. Essas <em>wordnets</em> são discutidas detalhadamente em <span class="citation" data-cites="goncalo-oliveira2014 depaiva2016">(<a href="../../shared/referencias/referencias.html#ref-depaiva2016" role="doc-biblioref">De Paiva et al., 2016</a>; <a href="../../shared/referencias/referencias.html#ref-goncalo-oliveira2014" role="doc-biblioref">Gonçalo&nbsp;Oliveira, 2014</a>)</span>, portanto, aqui simplesmente reiteramos a mensagem principal dessas comparações.</p>
+<p>Apesar de existirem várias alternativas de <em>wordnets</em> para o português, todas são menores e menos desenvolvidas do que a PWN. PWN é um recurso relativamente grande com 16MB, incluindo 155.327 palavras organizadas em 175.979 <em>synsets</em> num total de 207.016 pares de palavra-significado. A OpenWordNet-PT (OWN-PT) <span class="citation" data-cites="Paiva2012">(<a href="../../shared/referencias/referencias.html#ref-Paiva2012" role="doc-biblioref">De Paiva et al., 2012</a>)</span>, alinhada à PWN, conta com 47.702 <em>synsets</em> (somente 27% da PWN), dos quais 32.855 correspondem a substantivos, 5.060 a verbos, 8.753 a adjetivos e 1.034 a advérbios. O número de projetos usando OWN-PT é muito limitado, possivelmente porque, construída de forma semi-automática, usando aprendizado de máquina no conjunto de wikipedias multilinguais <span class="citation" data-cites="universalWN">(<a href="../../shared/referencias/referencias.html#ref-universalWN" role="doc-biblioref">Melo; Weikum, 2009</a>)</span> e manualmente melhorando os dados obtidos.</p>
+<p>Como exemplo, a <a href="#fig-cap-semantica-simbolica-own-pt-assassinar" class="quarto-xref">Figura&nbsp;<span>9.3</span></a> apresenta os <em>synsets</em> da palavra “assassinar” na OWN-PT. Ao todo são quatro <em>synsets</em>, um na classe <em>Noun</em> (substantivo) e três na classe Verbo. O terceiro <em>synset</em> (02482425-v) refere-se a “matar intencionalmente e com premeditação” (glosa) e possui como hiperônimo direto o <em>synset</em> “matar” (01323958-v).</p>
+<div id="fig-cap-semantica-simbolica-own-pt-assassinar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-own-pt-assassinar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.3: <em>Synsets</em> da palavra “assassinar” na OpenWordNet-PT (OWN-PT).
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-own-pt-assassinar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/own-pt-assassinar.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Outras <em>wordnets</em> são ainda menores (PULO <span class="citation" data-cites="Simoes2014">(<a href="../../shared/referencias/referencias.html#ref-Simoes2014" role="doc-biblioref">Simões; Guinovart, 2014</a>)</span>), ou menos acuradas, pois, construídas numa abordagem mais dinâmica (ONTO.PT <span class="citation" data-cites="goncalo-oliveira2014">(<a href="../../shared/referencias/referencias.html#ref-goncalo-oliveira2014" role="doc-biblioref">Gonçalo&nbsp;Oliveira, 2014</a>)</span>), podem mudar completamente de uma versão para a seguinte.</p>
+<p>Algumas decisões de projeto de uma <em>wordnet</em>, assim como de outras bases de conhecimento, parecem claras e já são consenso na comunidade do PLN. <em>Wordnets</em> devem ser recursos abertos, grátis e fáceis de utilizar. Devem ter versões adequadas a usuários humanos e a agentes computacionais, isto é, devem ter interfaces de busca para usuários e interfaces ou bibliotecas para usos computacionais. Tais recursos linguísticos precisam ser mantidos e melhorados, pois nenhum é perfeito e as linguagens naturais são sistemas vivos, dinâmicos e em constante e contínua evolução.</p>
+<p>Porém, outras decisões permanecem em aberto: uma alternativa só para o português brasileiro e outra para o português de Portugal? Ou uma alternativa para ambas variantes do português? Alternativas multilinguais tais como Open Multilingual WordNet (OMW)<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> <span class="citation" data-cites="bond2013">(<a href="../../shared/referencias/referencias.html#ref-bond2013" role="doc-biblioref">Bond; Foster, 2013</a>)</span> ou somente em português? Somente alternativas alinhadas a PWN ou o alinhamento<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> não é necessário? Somente as relações semânticas de PWN ou outras também? As entidades nomeadas devem ser incluídas no recurso ou não? Qual deve ser o registro do recurso? Deve incluir gírias e palavras de baixo-calão ou não?</p>
+</section>
+<section id="análise-do-exemplo-motivador-usando-a-wordnet" class="level4" data-number="9.1.1.2">
+<h4 data-number="9.1.1.2" class="anchored" data-anchor-id="análise-do-exemplo-motivador-usando-a-wordnet"><span class="header-section-number">9.1.1.2</span> Análise do Exemplo Motivador usando a WordNet</h4>
+<p>Usaremos a OWN-PT para analisar o exemplo motivador <a href="#exm-cap-semantica-simbolica-assalto" class="quarto-xref">Exemplo&nbsp;<span>9.1</span></a> apresentado no início da <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/significado/cap-semantica-simbolica/cap-semantica-simbolica.html#sec-cap-semantica-simbolica-skb" target="_blank" title="Volume 1">Bases de Conhecimento Semântico</a></span>. No <a href="#exm-cap-semantica-simbolica-assalto-2" class="quarto-xref">Exemplo&nbsp;<span>9.2</span></a>, foram sublinhadas algumas palavras que foram associadas a <em>synsets</em> na OWN-PT. Para realizar esta associação, é necessário definir o sentido ou significado da palavra usada no texto. Esta tarefa em PLN denominamos de Desambiguação do Sentido de Palavras (<em>Word Sense Desambiguation</em> – WSD). Após o exemplo, são listadas algumas afirmações (especificamente de <strong>hiperomínia</strong>) entre o <em>synset</em> da palavra usada no texto e outro <em>synset</em>.</p>
+<div id="exm-cap-semantica-simbolica-assalto-2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 9.2</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Um <u>assalto</u> do tipo saidinha bancária, ocorrido na tarde desta terça-feira, <u>terminou</u> com uma mulher de 42 anos <u>baleada</u> pelos assaltantes. O roubo ocorreu na rua Professor Costa Mendes.</p>
+</blockquote>
+</div>
+<p>Usando a OWN-PT, definimos os seguintes <em>synsets</em> para as palavras sublinhadas em <a href="#exm-cap-semantica-simbolica-assalto-2" class="quarto-xref">Exemplo&nbsp;<span>9.2</span></a>: “assalto” (00783063-n), “terminar” (02610845-v). Não foi encontrado nenhum <em>synset</em> para o termo “balear”. A seguir, algumas afirmações de hiperonímia entre esses <em>synsets</em> e outros:</p>
+<ul>
+<li>“roubo” (00781685-n) é hiperônimo de “assalto”;</li>
+<li>“cessar” (02609764-v) é hiperônimo de “terminar”;</li>
+</ul>
+<p>Algumas dificuldades com a análise do exemplo, à luz da OWN-PT, foram:</p>
+<ul>
+<li>A desambiguação não é simples nem para um ser humano proficiente na linguagem natural (no caso, o português) e experiente com anotação de sentidos em <em>wordnets</em>. A diversidade e granularidade de <em>synsets</em> encontrados para uma palavra dificulta a definição do significado. Por exemplo, para a palavra “assalto” tem-se 07 (sete) <em>synsets</em> e todos parecem adequados para definir o sentido da palavra no <a href="#exm-cap-semantica-simbolica-assalto-2" class="quarto-xref">Exemplo&nbsp;<span>9.2</span></a>;</li>
+<li>Para algumas palavras, não foram encontrados <em>synsets</em> na OWN-PT (e.g.&nbsp;“baleada”).</li>
+</ul>
+<p>A partir da associação de uma palavra a um <em>synset</em>, um <em>parser</em> semântico pode, por exemplo, expandir o texto com tais informações semânticas, servindo como entrada para sistemas de entendimento de linguagem natural.</p>
+<p>Como dito anteriormente, as bases não são sempre corretas e, definitivamente, não são completas. A língua muda, evolue o tempo todo e os significados das palavras seguem essa evolução. Nesse sentido, outros recursos léxico-semânticos são propostos e visam preencher lacunas na semântica das linguagens naturais. Na próxima subseção, detalharemos o recurso léxico-semântico FrameNet. Essa base se tornou relevante para a tarefa de Anotação de Papéis Semânticos (<em>Semantic Role Labeling</em> – SRL) pela abrangência e por incluir os papéis semânticos associados a substantivos e adjetivos.</p>
+</section>
+</section>
+<section id="sec-cap-semantica-simbolica-framenet" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-framenet"><span class="header-section-number">9.1.2</span> FrameNet</h3>
+<p>FrameNet <span class="citation" data-cites="framenet1998">(<a href="../../shared/referencias/referencias.html#ref-framenet1998" role="doc-biblioref">Baker et al., 1998</a>)</span>, da Universidade de Berkeley<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>, é um recurso com conhecimento léxico e semântico baseado na semântica de <em>frames</em> <span class="citation" data-cites="fillmore1976">(<a href="../../shared/referencias/referencias.html#ref-fillmore1976" role="doc-biblioref">Fillmore et al., 1976</a>)</span> e na teoria de <em>frames</em> de <span class="citation" data-cites="minsky1975">(<a href="../../shared/referencias/referencias.html#ref-minsky1975" role="doc-biblioref">Minsky, 1975</a>)</span>. Um <em>frame</em> é uma estrutura hierárquica conceitual que define uma situação, objeto ou evento por meio de seus participantes e relacionamentos. FrameNet faz parte da classe de recursos léxico-semânticos que suportam a tarefa de Anotação de Papéis Semânticos (<em>Semantic Role Labeling</em> - SRL), pois provê uma base de relações semânticas entre predicados e argumentos. Por exemplo, no evento de cometimento de crime, definido pelo <em>frame</em> <code>Commiting_crime</code>, são definidas as seguintes relações entre os verbos “cometer” ou “perpetrar” e os argumentos “criminoso”, “crime”, “explicação”, “frequência”, “instrumento”, “maneira”, dentre outros. Essas relações são denominadas de papéis semânticos, pois expressam funções que os diferentes constituintes de uma sentença desempenham em relação ao verbo ou predicado da sentença. FrameNet difere-se de outros recursos para SRL, como PropBank <span class="citation" data-cites="Palmeretal2005">(<a href="../../shared/referencias/referencias.html#ref-Palmeretal2005" role="doc-biblioref">Palmer et al., 2005</a>)</span> e VerbNet <span class="citation" data-cites="verbnet2000">(<a href="../../shared/referencias/referencias.html#ref-verbnet2000" role="doc-biblioref">Kipper et al., 2000</a>)</span>, na medida em que associa papéis semânticos não somente a verbos, mas também a substantivos, a adjetivos, a advérbios, e até a proposições.</p>
+<p>A <a href="#fig-cap-semantica-simbolica-framenetCRIME" class="quarto-xref">Figura&nbsp;<span>9.4</span></a> apresenta um recorte da definição e componentes do <em>frame</em> <code>Commiting_crime</code><a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a>.</p>
+<div id="fig-cap-semantica-simbolica-framenetCRIME" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-framenetCRIME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.4: Descrição do <em>frame</em> <code>Commiting_crime</code> na FrameNet de Berkeley.
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-framenetCRIME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/framenetCRIME.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Como se pode observar na <a href="#fig-cap-semantica-simbolica-framenetCRIME" class="quarto-xref">Figura&nbsp;<span>9.4</span></a>, o <em>frame</em> é formado por vários componentes, descritos a seguir:</p>
+<ul>
+<li><strong>Elementos de <em>frames</em> (<em>Frame Elements</em> – FE)</strong>, que definem os papéis semânticos envolvidos no <em>frame</em>. A sentença “<em>He committed the murder coldly and deliberately</em>” (em português, “Ele cometeu o assassinato fria e deliberadamente”) evoca o <em>frame</em> <code>Commiting_crime</code> através do verbo <em>“commit”</em>, cujos argumentos <em>“He”</em>, <em>“the murder”</em> e <em>“coldly and deliberately”</em> expressam os seguintes papéis semânticos: <em>“perpetrator”</em>, <em>“crime”</em> e <em>“manner”</em>, conforme abaixo:
+<ul>
+<li><em>[PERPETRATOR <strong>He</strong>] committed [CRIME <strong>the murder</strong>] [MANNER <strong>coldly and deliberately</strong>.]</em>, onde:
+<ul>
+<li><em>PERPETRATOR</em> – o indivíduo que cometeu um crime;</li>
+<li><em>CRIME</em> – um ato, geralmente intencional, que é formalmente proibido pela lei;</li>
+<li><em>MANNER</em> – uma descrição da forma e dos efeitos secundários do crime, assim como descrições gerais comparando eventos, podendo também indicar características salientes do criminoso que afetam a ação (presunçosamente, friamente, deliberadamente, ansiosamente, cuidadosamente).</li>
+</ul></li>
+</ul></li>
+<li><strong>Unidades Lexicais (<em>Lexical Unit</em> – LU)</strong>, que são as palavras relacionadas no <em>frame</em>. Cada palavra polissêmica<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> com significados distintos pertence a um <em>frame</em> diferente. Por exemplo, a palavra <em>“commit”</em> possui quatro entradas (sentidos) no léxico, conforme os quatro <em>frames</em> dos quais participa: <code>Imposing_Obligation</code>, <code>Institutionalization</code>, <code>Commitment</code>, <code>Committing_crime</code>. O léxico da FrameNet contém, para cada unidade léxica, além do termo e de uma definição em linguagem natural, as realizações sintáticas possíveis dos elementos de <em>frames</em> relacionados à unidade léxica. Por exemplo, na sentença “<em>He committed the murder coldly and deliberately</em>” (em português, “Ele cometeu o assassinato fria e deliberadamente”), o elemento de <em>frame</em> ou papel semântico “crime” (<em>the murder</em>) possui a realização sintática de sintagma nominal (NP – <em>Noun Phrase</em>);</li>
+<li><strong>Entradas Lexicais (<em>Lexical Entry</em> – LE)</strong>, que são unidades lexicais evocadoras de <em>frame</em>, ou seja, que chamam ou ativam <em>frames</em>. No <em>frame</em> <code>Commiting_crime</code>, as entradas lexicais são os verbos <code>commit.v</code> e <code>perpetrate.v</code> e os substantivos <code>commission.n</code> e <code>crime.n</code>. As entradas lexicais mais comuns são verbos, porém alguns <em>frames</em> são ativados por substantivos e adjetivos. Por exemplo, a sentença <em>“... the reduction of debt levels to $665 million from $2.6 billion.”</em> (em português, “... a redução dos níveis de dívida para 665 milhões de dólares, de 2,6 mil milhões de dólares.”) tem-se um exemplo de uso do <em>frame</em> <code>Cause_change_of_scalar_position</code>, evocado pelo substantivo <em>“reduction”</em>;</li>
+<li><strong><em>Corpus</em> da FrameNet</strong>, um conjunto de sentenças anotadas que exemplificam os componentes da FrameNet. O <em>corpus</em> da FrameNet é uma parte crucial, pois representa um recurso valioso para o desenvolvimento e teste de sistemas de PLN que requerem uma compreensão da semântica dos textos, especialmente, dos papéis envolvidos no evento. O conjunto total dos textos anotados contém, atualmente, 202.978 textos, divididos em:
+<ul>
+<li>Conjunto de Anotações Completas (<em>Full Text Annotation Sets</em>), que contém 28.446 anotações semânticas detalhadas para textos inteiros, e não apenas para frases isoladas. Essas anotações incluem informações sobre os elementos do <em>frame</em> (papéis semânticos da FrameNet), as unidades e entradas lexicais (léxico da FrameNet), e suas realizações sintáticas;</li>
+<li>Conjunto de Anotações Lexicográficas (<em>Lexicographic Annotation Sets</em>), que contém 174.532 anotações para as palavras em uma língua, incluindo informações sobre os sentidos das palavras, os <em>frames</em> que esses sentidos evocam e os papéis semânticos (elementos de <em>frame</em>) associados a cada sentido. Em <span class="citation" data-cites="framenetbook2006">(<a href="../../shared/referencias/referencias.html#ref-framenetbook2006" role="doc-biblioref">Ruppenhofer et al., 2006</a>, pp.&nbsp;67-88)</span>, tem-se o detalhamento das camadas de anotação do <em>corpus</em> da FrameNet;</li>
+</ul></li>
+<li><strong>Tipos semânticos</strong>, que são associados às unidades lexicais, aos elementos do <em>frame</em> ou ao <em>frame</em> como um todo. Em <span class="citation" data-cites="framenetbook2006">(<a href="../../shared/referencias/referencias.html#ref-framenetbook2006" role="doc-biblioref">Ruppenhofer et al., 2006</a>, pp.&nbsp;111-120)</span>, tem-se a definição destes marcadores semânticos. Por exemplo, o elemento de <em>frame</em> <code>Perpetrator</code> do <em>frame</em> <code>Committing_Crime</code> é marcado como sendo do tipo <code>sentient</code> (que percebe pelos sentidos, que recebe impressões).</li>
+</ul>
+<p>Além da definição individual de cada <em>frame</em>, a FrameNet possui relações semânticas entre <em>frames</em>, denominadas relações <em>frame-to-frame</em>. Alguns exemplos são: <code>Inherits_from</code> (herda de), <code>Is_Inherited_by</code> (é herdado por), <code>Is_Used_by</code><em>` (é usado por). Em <span class="citation" data-cites="framenetbook2006">(<a href="../../shared/referencias/referencias.html#ref-framenetbook2006" role="doc-biblioref">Ruppenhofer et al., 2006</a>, pp.&nbsp;104-111)</span>, tem-se a descrição das relações </em>frame-to-frame* suportadas pela FrameNet.</p>
+<p>Atualmente, a FrameNet contém 1224 <em>frames</em>, 10.478 elementos de <em>frames</em> (papéis semânticos), e 13.687 unidades lexicais<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a>.</p>
+<p>FrameNet fornece uma nova perspectiva para um recurso léxico-semântico. O significado de palavras ou unidades lexicais é dado no contexto das situações em que podem participar (<em>frames</em>), por meio dos papéis que podem assumir. FrameNet não poderia substituir completamente a WordNet porque falta à primeira muitas das relações semânticas úteis como meronímia e hiperonímia. Embora haja uma interseção entre essas bases, elas se distinguem em boa parte. Enquanto a WordNet foca em relações entre <em>synsets</em> organizando uma hierarquia e taxonomia do mundo, a FrameNet foca nas relações que ocorrem em eventos.</p>
+<p>Alguns projetos visam relacionar as entradas lexicais dessas duas bases. É o caso do projeto SemLink<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a>, cujo objetivo é vincular diferentes recursos léxico-semânticos por meio de um conjunto de mapeamentos. Estes mapeamentos permitirão combinar as diferentes informações fornecidas por esses diferentes recursos lexicais para tarefas como inferência em linguagem natural (<em>Natural Language Inference</em> – NLI). Os recursos mapeados pelo SemLink são WordNet, FrameNet, VerbNet e PropBank.</p>
+<section id="framenets-para-o-português" class="level4" data-number="9.1.2.1">
+<h4 data-number="9.1.2.1" class="anchored" data-anchor-id="framenets-para-o-português"><span class="header-section-number">9.1.2.1</span> Framenets para o português</h4>
+<p>FrameNet Brasil (FN-Br)<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a> <span class="citation" data-cites="salomao2009">(<a href="../../shared/referencias/referencias.html#ref-salomao2009" role="doc-biblioref">Salomão, 2009</a>)</span>, iniciativa de pesquisa lexicográfica, em desenvolvimento na Universidade Federal de Juiz de Fora (UFJF) desde 2008, tem o objetivo de construir e evoluir, para o português, a contraparte linguística da rede semântica original FrameNet. Atualmente, a base da FN-Br é a base mais robusta e representativa do paradigma da Semântica de <em>Frames</em> para o português. Foi construída através da tradução automática dos <em>frames</em> existentes na FrameNet original, e posterior adaptação para o português brasileiro. Este processo de adaptação envolveu traduzir e ajustar a descrição e os elementos dos <em>frames</em> para garantir que eles sejam relevantes e aplicáveis ao contexto brasileiro. Além da adaptação dos <em>frames</em> originais da FrameNet, no âmbito de alguns projetos, como o COPA 2014 <span class="citation" data-cites="torrent-etal-2014-copa">(<a href="../../shared/referencias/referencias.html#ref-torrent-etal-2014-copa" role="doc-biblioref">Torrent et al., 2014</a>)</span> e FLAME<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a>, relativos aos domínios de esporte e turismo, respectivamente, foram criados novos <em>frames</em> para representar conceitos e situações específicos da cultura e do português brasileiro. O <em>corpus</em> FN-Br é constituído pela combinação de mais de 16 <em>corpora</em>, todos caracterizados por permitir acesso público e que representam usos do português europeu e do português brasileiro. Em 2009, de acordo com <span class="citation" data-cites="salomao2009">(<a href="../../shared/referencias/referencias.html#ref-salomao2009" role="doc-biblioref">Salomão, 2009</a>)</span>, os <em>corpora</em> totalizavam pouco mais de 280 milhões de palavras.</p>
+<p>A <a href="#fig-cap-semantica-simbolica-framenetCRIME-BR" class="quarto-xref">Figura&nbsp;<span>9.5</span></a> apresenta um recorte da definição e componentes do <em>frame</em> <code>Cometer_crime</code> da FN-Br<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>, adaptado do <em>frame</em> <code>Commiting_crime</code> da FrameNet de Berkeley (vide <a href="#fig-cap-semantica-simbolica-framenetCRIME" class="quarto-xref">Figura&nbsp;<span>9.4</span></a>).</p>
+<div id="fig-cap-semantica-simbolica-framenetCRIME-BR" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-framenetCRIME-BR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.5: Descrição do <em>frame</em> <code>Cometer_crime</code> na FrameNet Brasil (FN-Br).
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-framenetCRIME-BR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/framenetCRIME-BR.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Outras iniciativas culminaram na geração de bases de <em>frames</em> em português, todas de menor tamanho que a FN-Br e para domínios ainda mais específicos.</p>
+<p>A base FrameFOR <span class="citation" data-cites="framefor2017">(<a href="../../shared/referencias/referencias.html#ref-framefor2017" role="doc-biblioref">Barreira et al., 2017</a>)</span> é uma base com 113 <em>frames</em> em português brasileiro, adaptados da FrameNet original, contendo os papéis semânticos, unidades e entradas lexicais relacionados aos tipos de crimes mais investigados na Perícia Forense do Estado do Ceará, no Brasil (PEFOCE) – formação de quadrilha, tráfico de drogas, sequestro, corrupção, receptação, contrabando, pedofilia, estupro, agressão, tortura, falsificação, ameaça, porte ilegal de arma, estelionato, e extorsão.</p>
+<p>O estudo de <span class="citation" data-cites="bertoldi2011">(<a href="../../shared/referencias/referencias.html#ref-bertoldi2011" role="doc-biblioref">Bertoldi, 2011</a>)</span> analisou os limites da criação automática de léxicos computacionais segundo o paradigma FrameNet, comparando as unidades lexicais evocadoras, os papéis semânticos e a estrutura do <em>frame</em> <code>Criminal_process</code>, em inglês e português. Esse estudo contrastivo mostrou que os <em>frames</em> do domínio jurídico são socialmente orientados e que a criação automática de léxicos em áreas cultural e socialmente orientadas tende a apresentar divergências. Em <span class="citation" data-cites="bick2022">(<a href="../../shared/referencias/referencias.html#ref-bick2022" role="doc-biblioref">Bick, 2009</a>)</span> tem-se a proposta de PFN-PT, um sistema para a anotação semântica automática do português, consistindo numa nova framenet contendo cerca de 13.000 padrões sintáticos, cobrindo 7.300 lemas verbais com 10.700 sentidos.</p>
+<p>Todos estes projetos, ainda que de menor porte, possuem relatos de sucesso em aplicações de PLN como extração de informação, anotação de papéis semânticos, reconhecimento de entidades nomeadas, evidenciando a importância de abordar as peculiaridades linguísticas com perspectivas contextualizadas e culturalmente relevantes.</p>
+</section>
+<section id="análise-do-exemplo-motivador-usando-a-framenet" class="level4" data-number="9.1.2.2">
+<h4 data-number="9.1.2.2" class="anchored" data-anchor-id="análise-do-exemplo-motivador-usando-a-framenet"><span class="header-section-number">9.1.2.2</span> Análise do Exemplo Motivador usando a FrameNet</h4>
+<p>Nesta seção, usaremos a FrameNet de Berkeley para analisar o exemplo motivador definido no início da <span>Seção <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/significado/cap-semantica-simbolica/cap-semantica-simbolica.html#sec-cap-semantica-simbolica-skb" target="_blank" title="Volume 1">Bases de Conhecimento Semântico</a></span>. No <a href="#exm-cap-semantica-simbolica-assalto-3" class="quarto-xref">Exemplo&nbsp;<span>9.3</span></a> são destacados o <em>frame</em> associado, as unidades lexicais (elemento evocador) que evocaram o <em>frame</em> e os papéis semânticos identificados no texto.</p>
+<div id="exm-cap-semantica-simbolica-assalto-3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 9.3</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Um <u>assalto</u> do tipo saidinha bancária, ocorrido na tarde desta terça-feira, terminou com uma mulher de 42 anos baleada pelos assaltantes. O <u>roubo</u> ocorreu na rua Professor Costa Mendes.</p>
+</blockquote>
+<ul>
+<li><em>FRAME</em>: <em>Robbery</em> (definição do <em>frame</em>: situação em que um perpetrador prejudica uma vítima tirando algo (bens) dela … O assalto pode ser feito de uma maneira específica (por exemplo, à força) e através de um meio específico (por exemplo, ameaçando a vítima).)</li>
+<li>UNIDADE LÉXICA: <em>robbery</em> (“assalto” e “roubo”, em português)</li>
+<li>PAPEL SEMÂNTICO <em>place</em>: “rua Professor Costa Mendes”</li>
+<li>PAPEL SEMÂNTICO <em>time</em>: “na tarde desta terça-feira”</li>
+<li>PAPEL SEMÂNTICO <em>perpetrator</em>: “pelos assaltantes”</li>
+</ul>
+</div>
+<p>Uma dificuldade com a análise desse exemplo, à luz da FrameNet, foi na identificação do papel semântico “vítima” (“uma mulher de 42 anos”), pois o complemento da sentença que a contém “<u>…com uma mulher de 42 anos baleada</u> …” possui a estrutura sintática Prep.Det.N (preposição + determinante + substantivo) e não é compatível com nenhuma realização sintática do elemento de <em>frame</em> <code>victim</code>.</p>
+</section>
+</section>
+<section id="sec-cap-semantica-simbolica-conceptnet" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-conceptnet"><span class="header-section-number">9.1.3</span> ConceptNet</h3>
+<p>ConceptNet<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a> <span class="citation" data-cites="conceptnet2016">(<a href="../../shared/referencias/referencias.html#ref-conceptnet2016" role="doc-biblioref">Speer et al., 2016</a>)</span> é uma base de conhecimento de senso comum que expressa relações rotuladas e ponderadas entre palavras ou fragmentos de textos em linguagem natural, através de um Grafo de Conhecimento (<em>Knowledge Graph</em>) contendo <em>edges</em> ou afirmações. Alguns exemplos de afirmações expressas na ConceptNet são:</p>
+<ul>
+<li>Uma rede é usada para pescar peixe (<em>A net is used for catching fish.</em>);</li>
+<li>“Folhas” é uma forma da palavra “folha” (<em>“Leaves” is a form of the word “leaf”</em>);</li>
+<li>A palavra <em>“cold”</em> em inglês é <em>“studyeny”</em> em tcheco (<em>The word “cold” in English is “studeny” in Czech</em>);</li>
+<li>O alimento é usado para comer (<em>Food is used for eating</em>);</li>
+<li>Bicicleta é usada para chegar a algum lugar rápido (<em>Bicycle is used for getting somewhere fast</em>);</li>
+<li>Cozinhar é motivada por você está com fome (<em>Cook is motivaded by being hungry</em>).</li>
+</ul>
+<p>Sua versão original <span class="citation" data-cites="conceptnet2004a havasi2007">(<a href="../../shared/referencias/referencias.html#ref-havasi2007" role="doc-biblioref">Havasi et al., 2007</a>; <a href="../../shared/referencias/referencias.html#ref-conceptnet2004a" role="doc-biblioref">Liu; Singh, 2004</a>)</span> foi criada pela equipe do MediaLab do <em>Massachusetts Institute of Technology (MIT)</em> em 1999, a partir de conhecimentos extraídos do projeto de construção coletiva (<em>crowdsourcing</em>) Open Mind Common Sense (OMCS) <span class="citation" data-cites="omcs2002">(<a href="../../shared/referencias/referencias.html#ref-omcs2002" role="doc-biblioref">Singh et al., 2002</a>)</span>. O OMCS surgiu com o objetivo de coletar, pela Internet e de colaboradores voluntários, sentenças que expressavam fatos da vida comum. Por exemplo, a sentença “<em>The Effect of [falling off a bike] is [you get hurt]</em>” foi coletada de voluntários, quando solicitados a preencher os espaços do <em>template</em> “<em>The Effect of [.….] is [.….]</em>”. A alternativa adotada pela equipe da ConceptNet foi construir a rede semântica (nós conceituais interligados pelas relações semânticas), a partir de um processo automático sobre o <em>corpus</em> OMCS, o qual extraiu as relações semânticas e seus argumentos.</p>
+<p>A motivação do projeto que mantém a ConceptNet é expressar os fatos que as pessoas sabem comumente sobre o mundo ― conhecimento de senso comum ― através de afirmações que relacionam conceitos. Este tipo de conhecimento é importante porque, quando as pessoas se comunicam, seus proferimentos acontecem sobre suposições implícitas e básicas, as quais suportam e explicam boa parte dos raciocínios necessários para um bom nível de entendimento e, consequentemente, uma boa comunicação. Por exemplo, quando alguém fala “Eu comprei doces”, está implícito que usou dinheiro, ou quando fala “Fui a um casamento”, provavelmente tinha uma noiva, um noivo, uma festa com bolo e champagne, e o interlocutor está autorizado a perguntar “A noiva estava bonita?” etc.</p>
+<p>Atualmente, a ConceptNet<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a> evoluiu como um projeto colaborativo com diversas fontes:</p>
+<ul>
+<li><em>Open Mind Common Sense</em> (OMCS) <span class="citation" data-cites="omcs2002">(<a href="../../shared/referencias/referencias.html#ref-omcs2002" role="doc-biblioref">Singh et al., 2002</a>)</span> e projetos irmãos em outras línguas <span class="citation" data-cites="anacleto2006">(<a href="../../shared/referencias/referencias.html#ref-anacleto2006" role="doc-biblioref">Anacleto et al., 2006</a>)</span>;</li>
+<li>Informações extraídas da análise do Wikcionário<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a>, em vários idiomas, com um analisador personalizado (“Wikiparsec”);</li>
+<li><em>“Games with a Purpose”</em>, que são jogos projetados para coletar conhecimento comum <span class="citation" data-cites="verbosity2006 kuo-et-al2009">(<a href="../../shared/referencias/referencias.html#ref-verbosity2006" role="doc-biblioref">Ahn et al., 2006</a>; <a href="../../shared/referencias/referencias.html#ref-kuo-et-al2009" role="doc-biblioref">Kuo et al., 2009</a>)</span>;</li>
+<li><em>Open Multilingual WordNet</em> <span class="citation" data-cites="bond2013">(<a href="../../shared/referencias/referencias.html#ref-bond2013" role="doc-biblioref">Bond; Foster, 2013</a>)</span>, uma representação de dados vinculados a WordNet de Princeton e seus projetos paralelos em vários idiomas;</li>
+<li>JMDict <span class="citation" data-cites="breen-2004-jmdict">(<a href="../../shared/referencias/referencias.html#ref-breen-2004-jmdict" role="doc-biblioref">Breen, 2004</a>)</span>, um dicionário japonês multilíngue;</li>
+<li>OpenCyc, uma hierarquia de hiperônimos fornecida pelo Cyc <span class="citation" data-cites="cyc1989">(<a href="../../shared/referencias/referencias.html#ref-cyc1989" role="doc-biblioref">Lenat; Guha, 1989</a>)</span>, um sistema que representa o conhecimento do senso comum na lógica de predicados;</li>
+<li>Um subconjunto de DBPedia <span class="citation" data-cites="dbpedia2007">(<a href="../../shared/referencias/referencias.html#ref-dbpedia2007" role="doc-biblioref">Auer et al., 2007</a>)</span>, uma rede de fatos extraídos de <em>infoboxes</em> da Wikipédia.</li>
+</ul>
+<p>A unidade de conhecimento da ConceptNet é uma afirmação ou <em>edge</em><a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a> que é uma relação particular entre termos ou frases em uma linguagem natural, de uma fonte específica. Sucintamente, cada <em>edge</em> é uma tripla com um primeiro argumento (nó inicial), um rótulo da relação e um segundo argumento (nó final). Por exemplo, a afirmação <em>“Bicycle is used to get somewhere fast”</em> pode ser expressa como (<em>Bicycle</em>, <em>is used to</em>, <em>get somewhere fast</em>). Cada <em>edge</em> é representada em uma estrutura de dados com os seguintes atributos:</p>
+<ul>
+<li><em>URI</em> – identificador único para a afirmação que está sendo expressa;</li>
+<li><em>REL</em> – o URI da relação expressa no <em>edge</em>. Atualmente, existem 34 relações em <em>edges</em> da ConceptNet 5 - <em>RelatedTo</em>, <em>IsA</em>, <em>is Used For</em>; <em>Motivated by</em>, <em>Desires</em> etc.<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a>;</li>
+<li><em>START</em> – o URI do primeiro argumento da afirmação;</li>
+<li><em>END</em> – o URI do segundo argumento da afirmação;</li>
+<li><em>WEIGHT</em> – a força da afirmação. Um peso típico é 1, mas pode ser maior a depender do número de vezes que a afirmação foi recuperada ou generalizada a partir das fontes;</li>
+<li><em>SOURCES</em> – as fontes que, quando combinadas, dizem que esta afirmação deveria ser verdadeira;</li>
+<li><em>LICENSE</em> – o URI <em>Creative Commons</em> para a licença que rege esses dados;</li>
+<li><em>DATASET</em> – o URI que representa o conjunto de dados de uma fonte específica que criou a afirmação;</li>
+<li><em>SURFACE TEXT</em><a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a> – o texto original em linguagem natural que expressou esta afirmação. Os conceitos do início e fim serão marcadas entre colchetes duplos. Um exemplo é <em>“[[Bicycle]] <u>is used for</u> [[get somewhere fast]]”</em>.</li>
+</ul>
+<p>A ConceptNet contém mais de 21 milhões de <em>edges</em> e quase 10 milhões de nós com palavras ou fragmentos de textos. A base cobre em torno de 78 linguagens naturais<a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref"><sup>31</sup></a> com pelo menos 10.000 entradas no vocabulário. As 10 (dez) principais linguagens são: inglês, francês, italiano, alemão, espanhol, russo, português, japonês, holandês e chinês. A base de afirmações na linguagem inglesa possui um vocabulário com 1,8 milhão de nós, e no português contém um vocabulário com 473 mil nós.</p>
+<p>O <em>framework</em> computacional da ConceptNet contém uma hierarquia de URIs que identificam os principais componentes dessa base de conhecimento: afirmações (ou <em>edges</em>), termos (palavras ou frases em uma linguagem particular), relações (por exemplo, <em>IsA</em>), <em>datasets</em>, fontes de dados. Também possui uma API REST<a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref"><sup>32</sup></a> pela qual você pode obter os componentes no formato JSON. Cada <em>edge</em>, termo, relação, <em>dataset</em> e fonte da ConceptNet possui uma URI que os identificam e sua definição completa em JSON pode ser acessada via API. A <a href="#fig-cap-semantica-simbolica-conceptnetMURDER" class="quarto-xref">Figura&nbsp;<span>9.6</span></a> apresenta um recorte da definição do termo <em>“murder”</em>, contendo a lista de <em>edges</em> a partir desse termo.</p>
+<div id="fig-cap-semantica-simbolica-conceptnetMURDER" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-conceptnetMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.6: Descrição do termo <em>“murder”</em> na ConceptNet 5.8.
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-conceptnetMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/conceptnetMURDER.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>Ao acessar, via API, a definição deste termo, tem-se acesso à sua definição em JSON, conforme ilustrado na <a href="#fig-cap-semantica-simbolica-jsonMURDER" class="quarto-xref">Figura&nbsp;<span>9.7</span></a>, com a URI deste conceito (<em>“/c/en/murder”</em>) e a lista de <em>edges</em>.</p>
+<div id="fig-cap-semantica-simbolica-jsonMURDER" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-jsonMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.7: Definição em JSON do termo <em>“murder”</em> na ConceptNet 5.8.
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-jsonMURDER-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/jsonMURDER.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+<p>ConceptNet se tornou um <em>hub</em> de conteúdo semântico, pois provê <em>link</em> para outras bases de dados, com um <em>toolkit</em> e uma API que suportam inferências práticas de senso comum sobre textos, tais como descoberta de contexto (que habilita a extração da vizinhança contextual de um conceito, e.g., “tirar a roupa”, “ir dormir”, e “deitar-se” são vizinhos do conceito “ir para a cama”), cadeia de inferências (que habilita encontrar caminhos na rede semântica a partir de um conceito, e.g., “comprar comida” - “ter comida” - “comer comida” - “sentir-se cheio” - “sentir-se com sono”) e analogia conceitual (que envolve encontrar conceitos que são estruturalmente similares, e.g., “funeral” e “casamento”, “sofá” e “cama”). Todos esses exemplos foram extraídos de <span class="citation" data-cites="nlu2012">(<a href="../../shared/referencias/referencias.html#ref-nlu2012" role="doc-biblioref">Ovchinnikova, 2012</a>)</span>.</p>
+<section id="sec-cap-semantica-simbolica-cskb-pt" class="level4" data-number="9.1.3.1">
+<h4 data-number="9.1.3.1" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-cskb-pt"><span class="header-section-number">9.1.3.1</span> Bases de conhecimento de senso comum para o português</h4>
+<p>Como visto, a Conceptnet 5.8 possui uma cobertura de 473 mil termos ou frases no português, representando assim a mais extensa base de conhecimento de senso comum para essa língua.</p>
+<p>O projeto <em>Open Mind Common Sense</em> – Brasil (OMCS-Br) foi um projeto do Laboratório de Interação Avançada (LIA) da Universidade Federal de São Carlos – UFSCar, em colaboração com o MediaLab do MIT, para a coleta de conhecimento de senso comum em português <span class="citation" data-cites="anacleto2006">(<a href="../../shared/referencias/referencias.html#ref-anacleto2006" role="doc-biblioref">Anacleto et al., 2006</a>)</span>. Este projeto em 2010 contava com 160.000 afirmações de senso comum de seus colaboradores. O projeto foi descontinuado, mas diversas aplicações e estudos foram desenvolvidos a partir desta base. Dentre eles, podemos citar, uma ferramenta que utiliza a base de conhecimento de senso comum para auxiliar a interação humana (de alunos e professores) com ferramentas educacionais <span class="citation" data-cites="anacleto2007">(<a href="../../shared/referencias/referencias.html#ref-anacleto2007" role="doc-biblioref">Anacleto et al., 2007</a>)</span>.</p>
+<p>A base InferenceNet-BR <span class="citation" data-cites="inferencenet.br2010">(<a href="../../shared/referencias/referencias.html#ref-inferencenet.br2010" role="doc-biblioref">Pinheiro et al., 2010</a>)</span> adapta a ConceptNet <span class="citation" data-cites="conceptnet2004a">(<a href="../../shared/referencias/referencias.html#ref-conceptnet2004a" role="doc-biblioref">Liu; Singh, 2004</a>)</span> adicionando uma camada que define o papel da afirmação em uma inferência – se como premissa (ou pré-condição) ou como conclusão (ou pós-condição). Além da tradução dos termos e suas afirmações (relações com outros conceitos), o projeto da InferenceNet-BR evoluiu a base com novo conhecimento semântico específico para o domínio de segurança pública em português.</p>
+<p>A InferenceNet-BR compõe-se de duas bases de conhecimento:</p>
+<ol type="1">
+<li><strong>Base Conceitual</strong> – essa base contém o conjunto de termos (palavras ou frases em linguagem natural) relacionados em uma rede semântica, representada por meio de quádruplas (ARG1, REL, ARG2, PESO, TIPO_INF) que definem as afirmações ou <em>edges</em>, onde:
+<ul>
+<li>ARG1 – identificador do termo inicial da relação;</li>
+<li>ARG2 – identificador do termo final da relação;</li>
+<li>REL – identificador da relação semântica de um total de 17 relações, por exemplo, “CapazDe”;“PartDe”; “ÉUm”; “EfeitoDe” etc.;</li>
+<li>PESO – força da afirmação. Um peso típico é 1, mas pode ser maior a depender do número de vezes que a afirmação foi recuperada ou generalizada a partir das fontes (Conceptnet original e <em>corpus</em> de textos de domínio);</li>
+<li>TIPO_INF – tipo da relação inferencial - premissa (pré-condição - PRE) ou conclusão (pós-condição - POS).</li>
+</ul></li>
+<li><strong>Base de Sentenças-Padrão</strong> - essa base contém a estrutura sintática das sentenças-padrão e suas relações com termos da Base Conceitual. Seja a sentença-padrão <span class="math inline">\(sp_1 = X\)</span> “ser_assassinado_por” <span class="math inline">\(Y\)</span>. Temos que X está relacionado com o termo “vítima” e Y está relacionado com o termo “criminoso”, através da relação “ÉUm”, e com o tipo inferencial <strong>pós-condição</strong>. Ou seja, na sentença “Maria foi assassinada por seu amante” podemos concluir que Maria é a vítima e seu amante é o criminoso. A rede semântica dessa base de sentenças-padrão é representada, portanto, por meio de quádruplas (SP, REL, ARG, PESO, TIPO_INF) que definem as afirmações ou <em>edges</em>, onde:
+<ul>
+<li>SP – identificador da sentença-padrão geralmente da forma “(X, sintagma verbal, Y)”;</li>
+<li>ARG – identificador do termo final da relação;</li>
+<li>REL – identificador da relação semântica de um total de 17 relações, por exemplo, “CapazDe”;“PartDe”; “ÉUm”; “EfeitoDe” etc.;</li>
+<li>PESO – força da afirmação. Um peso típico é 1, mas pode ser maior a depender do número de vezes que a afirmação foi recuperada ou generalizada a partir das fontes (Conceptnet original e <em>corpus</em> de textos de domínio);</li>
+<li>TIPO INF – tipo da relação inferencial - premissa (pré-condição - PRE) ou conclusão (pós-condição - POS).</li>
+</ul></li>
+</ol>
+<p>A <a href="#fig-cap-semantica-simbolica-inferencenetCRIME" class="quarto-xref">Figura&nbsp;<span>9.8</span></a> ilustra uma parte da rede de relacionamento inferencial da palavra “crime” na base InferenceNet-BR, com as seguintes relações:</p>
+<ul>
+<li>(capazDe, “crime”,“ter vítima”, “Pre”);</li>
+<li>(capazDeReceberAcao, “crime”,“evitar por polícia”, “Pre”);</li>
+<li>(primeiroSubEventoDe, “crime”,“escolher a vítima”, “Pre”);</li>
+<li>(usadoPara, “crime”,“vingança”, “Pre”);</li>
+<li>(capazDeReceberAcao, “crime”,“cometer com arma”, “Pre”);</li>
+<li>(capazDe, “crime”,“envolver violência”, “Pre”);</li>
+<li>(éUm, “crime”,“violação da lei”, “Pre”);</li>
+<li>(motivacaoDe, “crime”,“vingança”, “Pre”);</li>
+<li>(efeitoDe, “crime”,“culpa”, “Pos”);</li>
+<li>(efeitoDesejavelDe, “crime”,“julgamento”, “Pos”).</li>
+</ul>
+<div id="fig-cap-semantica-simbolica-inferencenetCRIME" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-semantica-simbolica-inferencenetCRIME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9.8: Rede de relações inferenciais do termo “crime” (pré-condições (PRE) são as arestas na cor vermelha, e pós-condições (POS) são as arestas na cor azul).
+</figcaption>
+<div aria-describedby="fig-cap-semantica-simbolica-inferencenetCRIME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/inferencenetCRIME.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-cap-semantica-simbolica-exemplosConceptNet" class="level4" data-number="9.1.3.2">
+<h4 data-number="9.1.3.2" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-exemplosConceptNet"><span class="header-section-number">9.1.3.2</span> Análise do Exemplo Motivador usando a ConceptNet</h4>
+<p>Nesta seção, usaremos a base da ConceptNet para o português e para o inglês para analisar o <a href="#exm-cap-semantica-simbolica-assalto" class="quarto-xref">Exemplo&nbsp;<span>9.1</span></a>. No <a href="#exm-cap-semantica-simbolica-assalto-4" class="quarto-xref">Exemplo&nbsp;<span>9.4</span></a> são destacadas algumas afirmações de senso comum associadas aos termos mencionados no texto (termos sublinhados).</p>
+<div id="exm-cap-semantica-simbolica-assalto-4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 9.4</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Um <u>assalto</u> do tipo saidinha bancária, ocorrido na tarde desta terça-feira, terminou com uma mulher de 42 anos <u>baleada</u> pelos assaltantes. O roubo ocorreu na rua Professor Costa Mendes.</p>
+</blockquote>
+</div>
+<p>Afirmações (<em>edges</em>) do termo <em>assalto</em>:</p>
+<ul>
+<li>“terror” <u>está localizada em</u> “assalto” (da base para o português);</li>
+<li>“pessoas com medo” <u>está localizada</u> “assalto” (da base para o português);</li>
+<li><em>“heist” <u>is a type of</u> “robbery”</em> (roubo é um tipo de assalto);</li>
+<li><em>“revolver” <u>is a thing used for</u> “robbery”</em> (revólver é uma coisa usada para assaltar)</li>
+</ul>
+<p>Afirmações (<em>edges</em>) do termo <em>balear</em> (<em>“shoot”</em>, em inglês):</p>
+<ul>
+<li>“fight the enemy” <u>is subevent of</u> “shoot” (lutar contra o inimigo é subevento de balear);</li>
+<li>“a gun” <u>is a thing used for</u> “shoot” (uma arma é uma coisa usada para balear);</li>
+<li><em>“shoot” <u>is a way of</u> “kill”</em> (balear é uma forma de matar);</li>
+<li><em>“shoot” <u>is a type of</u> “sprout”</em> (é um tipo de broto, como broto de feijão)</li>
+</ul>
+<p>Algumas dificuldades com a análise do exemplo, à luz da ConceptNet, foram:</p>
+<ul>
+<li>A desambiguação do sentido da palavra “balear” no exemplo <a href="#exm-cap-semantica-simbolica-assalto-4" class="quarto-xref">Exemplo&nbsp;<span>9.4</span></a> não é trivial. Na base da ConceptNet não há separação das redes semânticas por classe gramatical e de palavras polissêmicas. Por exemplo, as afirmações de “balear” no sentido de atirar e em outros sentidos estão associadas a um mesmo termo, assim como afirmações de “shoot” como verbo e como substantivo;</li>
+<li>As afirmações em português são incipientes na base da ConceptNet, pelo menos para os termos analisados nesse exemplo.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="sec-cap-semantica-simbolica-final" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="sec-cap-semantica-simbolica-final"><span class="header-section-number">9.2</span> Considerações finais</h2>
+<p>Ao longo deste capítulo exploramos três bases de conhecimento comuns na área de PLN: WordNet, FrameNet e ConceptNet. WordNet, com sua rica estrutura hierárquica, destaca-se por mapear relações semânticas entre conjuntos de sinônimos (<em>synsets</em>), fornecendo uma compreensão sobre sinônimos, antônimos, hiperônimos e muito mais. Esse recurso se tornou uma das ferramentas mais utilizadas em aplicações de PLN, desde a análise de sentimentos até a desambiguação de sentidos.</p>
+<p>FrameNet, por sua vez, adota uma abordagem baseada em <em>frames</em> para capturar significados em dados contextos ou situações, fazendo a ponte entre elementos lexicais e seus respectivos papéis semânticos. Através dessa base, podemos entender mais profundamente como as palavras interagem dentro de estruturas semânticas e pragmáticas mais amplas. Esta abordagem, focada nos papéis semânticos, permite uma análise mais rica do texto, tornando-a particularmente útil para tarefas de anotação de papéis semânticos e análise de discurso. Em contrapartida, ela não possui um critério claro de completamento, ou seja, não sabemos quando vamos ter (ou se já temos) todos os <em>frames</em> necessários.</p>
+<p>Por fim, a base ConceptNet destaca-se pelo seu caráter colaborativo e multidimensional. Integra conhecimentos de senso comum e conhecimento léxico-semântico de várias fontes e idiomas, oferecendo uma visão ampla das relações entre conceitos e contextos. Seu formato de rede semântica ajuda a capturar a complexidade e interconexão do conhecimento humano de uma maneira holística. ConceptNet tem sido usada em aplicações de extração de informação e reconhecimento de implicação textual. Em contrapartida, problemas de consistência da base parecem importantes. E tal como no caso de FrameNet, não temos um critério explícito de quando teremos uma cobertura suficiente.</p>
+<p>Em resumo, cada uma destas bases de conhecimento representa um recurso para o PLN com perspectivas únicas, mas qual delas se aplica melhor e em quais casos? Recursos léxicos-semânticos parecem não serem suficientes para expressar conhecimento de mundo. De outro lado, bases de conhecimento de senso comum são mais flexíveis e expressivas, porém menos formais. Acreditamos que uma abordagem híbrida, em que tais bases de conhecimento sejam usadas de forma combinada, é mais promissora para o PLN. Nas próximas versões deste capítulo introduziremos os <em>parsers</em> semânticos que, em conjunto com as bases de conhecimento, constituem poderoso <em>framework</em> para sistemas de entendimento de linguagem natural.</p>
+<!--[^cap-semantica-simbolica-25]: O tesauro Medical Subject Headings (MeSH) é um vocabulário controlado e organizado hierarquicamente produzido pela *National Library of Medicine*. É utilizado para indexação, catalogação e busca de informações biomédicas e relacionadas à saúde. Disponível em <https://www.nlm.nih.gov/mesh/meshhome.html>-->
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-verbosity2006" class="csl-entry" role="listitem">
+AHN, L. VON; KEDIA, M.; BLUM, M. <strong>Verbosity: A Game for Collecting Common-Sense Facts</strong>. Proceedings of the SIGCHI Conference on Human Factors in Computing Systems. <strong>Anais</strong>...: CHI ’06.New York, NY, USA: Association for Computing Machinery, 2006. Disponível em: &lt;<a href="https://doi.org/10.1145/1124772.1124784">https://doi.org/10.1145/1124772.1124784</a>&gt;
+</div>
+<div id="ref-anacleto2006" class="csl-entry" role="listitem">
+ANACLETO, J. et al. <strong>Can Common Sense uncover cultural differences in computer applications?</strong> (M. Bramer, Ed.)Artificial Intelligence in Theory and Practice. <strong>Anais</strong>...Boston, MA: Springer US, 2006.
+</div>
+<div id="ref-anacleto2007" class="csl-entry" role="listitem">
+ANACLETO, J. C. et al. <strong>A Common Sense-Based On-Line Assistant for Training Employees</strong>. (C. Baranauskas et al., Eds.)Human-Computer Interaction – INTERACT 2007. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2007.
+</div>
+<div id="ref-dbpedia2007" class="csl-entry" role="listitem">
+AUER, S. et al. <strong>DBpedia: A Nucleus for a Web of Open Data</strong>. (K. Aberer et al., Eds.)The Semantic Web. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2007.
+</div>
+<div id="ref-baader2003" class="csl-entry" role="listitem">
+BAADER, F. et al. <strong>The Description Logic Handbook: Theory, Implementation and Applications</strong>. Cambridge, Reino Unido: Cambridge University Press, 2003.
+</div>
+<div id="ref-framenet1998" class="csl-entry" role="listitem">
+BAKER, C. F.; FILLMORE, C. J.; LOWE, J. B. <strong>The <span>B</span>erkeley <span>F</span>rame<span>N</span>et Project</strong>. 36th Annual Meeting of the Association for Computational Linguistics and 17th International Conference on Computational Linguistics, Volume 1. <strong>Anais</strong>...Montreal, Quebec, Canada: Association for Computational Linguistics, ago. 1998. Disponível em: &lt;<a href="https://aclanthology.org/P98-1013">https://aclanthology.org/P98-1013</a>&gt;
+</div>
+<div id="ref-Banarescuetal2013" class="csl-entry" role="listitem">
+BANARESCU, L. et al. <strong><span>A</span>bstract <span>M</span>eaning <span>R</span>epresentation for Sembanking</strong>. Proceedings of the 7th Linguistic Annotation Workshop and Interoperability with Discourse. <strong>Anais</strong>...Sofia, Bulgaria: Association for Computational Linguistics, 2013. Disponível em: &lt;<a href="http://aclweb.org/anthology/W13-2322">http://aclweb.org/anthology/W13-2322</a>&gt;
+</div>
+<div id="ref-framefor2017" class="csl-entry" role="listitem">
+BARREIRA, R.; PINHEIRO, V.; FURTADO, V. <strong><span>F</span>rame<span>FOR</span> <span>–</span> Uma Base de Conhecimento de Frames Sem<span>â</span>nticos para Per<span>ı́</span>cias de Inform<span>á</span>tica (<span>F</span>rame<span>FOR</span> - a Knowledge Base of Semantic Frames for Digital Forensics)[In <span>P</span>ortuguese]</strong>. Proceedings of the 11th <span>B</span>razilian Symposium in Information and Human Language Technology. <strong>Anais</strong>...Uberl<span>â</span>ndia, Brazil: Sociedade Brasileira de Computa<span>ç</span><span>ã</span>o, out. 2017. Disponível em: &lt;<a href="https://aclanthology.org/W17-6620">https://aclanthology.org/W17-6620</a>&gt;
+</div>
+<div id="ref-bates1980" class="csl-entry" role="listitem">
+BATES, M. et al. <a href="https://doi.org/10.1145/1056663.1056672">Research in Knowledge Representation for Natural Language Understanding: Bolt, Beranek, and Newman</a>. <strong>SIGART Bull.</strong>, n. 79, p. 30–31, jan. 1982.
+</div>
+<div id="ref-bertoldi2011" class="csl-entry" role="listitem">
+BERTOLDI, A. <strong>Os Limites da Cria<span>ç</span><span>ã</span>o Autom<span>á</span>tica de L<span>é</span>xicos Computacionais Baseados em Frames: Um Estudo Contrastivo do Frame Criminal<span>_</span>process (The Limits of the Automatic Creation of Frame-based Computational Lexicons: a Contrastive Study of the Criminal<span>_</span>process Frame) [in <span>P</span>ortuguese]</strong>. Proceedings of the 8th <span>B</span>razilian Symposium in Information and Human Language Technology. <strong>Anais</strong>...2011. Disponível em: &lt;<a href="https://aclanthology.org/W11-4510">https://aclanthology.org/W11-4510</a>&gt;
+</div>
+<div id="ref-bick2022" class="csl-entry" role="listitem">
+BICK, E. S. <a href="https://doi.org/10.14393/DL52-v16n4a2022-7">PFN-PT: A Framenet Annotator for Portuguese: Anotação semântica automática: um novo Framenet para o português.</a> <strong>Domínios de Linguagem</strong>, v. 16(4)7, p. 1401–1435, 2009.
+</div>
+<div id="ref-blackburn_Bos2005" class="csl-entry" role="listitem">
+BLACKBURN, P.; BOS, J. <strong>Representation and Inference for Natural Language: A First Course in Computational Semantics</strong>. [s.l.] Center for the Study of Language; Information, 2005.
+</div>
+<div id="ref-bobrow1977" class="csl-entry" role="listitem">
+BOBROW, D. G. et al. <a href="https://doi.org/10.1016/0004-3702(77)90018-2">GUS, a frame-driven dialog system</a>. <strong>Artificial Intelligence</strong>, v. 8, n. 2, p. 155–173, 1977.
+</div>
+<div id="ref-bond2013" class="csl-entry" role="listitem">
+BOND, F.; FOSTER, R. <strong>Linking and extending an open multilingual wordnet</strong>. Proceedings of the 51st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). <strong>Anais</strong>...Sofia, Bulgaria: Association for Computational Linguistics, ago. 2013. Disponível em: &lt;<a href="https://aclanthology.org/P13-1133">https://aclanthology.org/P13-1133</a>&gt;
+</div>
+<div id="ref-brandom2001" class="csl-entry" role="listitem">
+BRANDOM, R. B. <strong>Articulating Reasons: An Introduction to Inferentialism</strong>. Cambridge, Massachusetts, EUA: Harvard University Press, 2001.
+</div>
+<div id="ref-breen-2004-jmdict" class="csl-entry" role="listitem">
+BREEN, J. <strong><span>JM</span>dict: a <span>J</span>apanese-Multilingual Dictionary</strong>. Proceedings of the Workshop on Multilingual Linguistic Resources. <strong>Anais</strong>...Geneva, Switzerland: COLING, 2004. Disponível em: &lt;<a href="https://aclanthology.org/W04-2209">https://aclanthology.org/W04-2209</a>&gt;
+</div>
+<div id="ref-copestake2005minimal" class="csl-entry" role="listitem">
+COPESTAKE, A. et al. Minimal recursion semantics: An introduction. <strong>Research on language and computation</strong>, v. 3, p. 281–332, 2005.
+</div>
+<div id="ref-dahl1994" class="csl-entry" role="listitem">
+DAHL, V. <a href="https://doi.org/10.1016/0743-1066(94)90036-1">Natural language processing and logic programming</a>. <strong>Journal of Logic Programming</strong>, v. 19-20, n. 1, p. 681–714, 1994.
+</div>
+<div id="ref-depaiva2016" class="csl-entry" role="listitem">
+DE PAIVA, V. et al. <strong>An overview of <span>P</span>ortuguese wordnets</strong>. Proceedings of the 8th Global WordNet Conference (GWC). <strong>Anais</strong>...2016.
+</div>
+<div id="ref-Paiva2012" class="csl-entry" role="listitem">
+DE PAIVA, V.; RADEMAKER, A.; MELO, G. DE. <strong>OpenWordNet-PT: An Open <span>B</span>razilian <span>W</span>ordnet for Reasoning</strong>. Proceedings of COLING 2012: Demonstration Papers. <strong>Anais</strong>...2012.
+</div>
+<div id="ref-DiasdaSilva2005" class="csl-entry" role="listitem">
+DIAS-DA-SILVA, B. C. <strong>Wordnet.Br: An Exercise of Human Language Technology Research</strong>. Proceedings of the Third International WordNet Conference. <strong>Anais</strong>...2005. Disponível em: &lt;<a href="http://semanticweb.kaist.ac.kr/conference/gwc/pdf2006/6.pdf">http://semanticweb.kaist.ac.kr/conference/gwc/pdf2006/6.pdf</a>&gt;
+</div>
+<div id="ref-duran2012" class="csl-entry" role="listitem">
+DURAN, M. S.; ALUÍSIO, S. M. <strong>Propbank-<span>B</span>r: a Brazilian Treebank Annotated with Semantic Role Labels</strong>. Proceedings of the 8th International Conference on Language Resources and Evaluation - LREC. <strong>Anais</strong>...2012.
+</div>
+<div id="ref-vanEijck_Unger2010" class="csl-entry" role="listitem">
+EIJCK, J. VAN; UNGER, C. <strong>Computational Semantics with Functional Programming</strong>. [s.l.] Cambridge University Press, 2010.
+</div>
+<div id="ref-Fellbaum1998" class="csl-entry" role="listitem">
+FELLBAUM, C. <strong><a href="https://doi.org/10.7551/mitpress/7287.001.0001"><span>WordNet: An Electronic Lexical Database</span></a></strong>. [s.l.] The MIT Press, 1998.
+</div>
+<div id="ref-fillmore1976" class="csl-entry" role="listitem">
+FILLMORE, C. J. et al. <strong>Frame semantics and the nature of language</strong>. Annals of the New York Academy of Sciences: Conference on the origin and development of language and speech. <strong>Anais</strong>...New York, 1976.
+</div>
+<div id="ref-goncalo-oliveira2014" class="csl-entry" role="listitem">
+GONÇALO&nbsp;OLIVEIRA, H. <strong>Beyond the automatic construction of a lexical ontology for <span>P</span>ortuguese: resources developed in the scope of <span>Onto.PT</span></strong>. Proceedings of Workshop on Tools and Resources for Automatically Processing Portuguese and Spanish. <strong>Anais</strong>...: TorPorEsp.São Carlos, SP, Brasil: BDBComp, 2014. Disponível em: &lt;<a href="http://www.lbd.dcc.ufmg.br/colecoes/torporesp/2014/004.pdf">http://www.lbd.dcc.ufmg.br/colecoes/torporesp/2014/004.pdf</a>&gt;
+</div>
+<div id="ref-havasi2007" class="csl-entry" role="listitem">
+HAVASI, C.; SPEER, R.; ALONSO, J. <strong>ConceptNet 3: a Flexible, Multilingual Semantic Network for Common Sense Knowledge</strong>. Recent Advances in Natural Language Processing. <strong>Anais</strong>...Borovets, Bulgaria: To appear, 2007.
+</div>
+<div id="ref-verbnet2000" class="csl-entry" role="listitem">
+KIPPER, K.; DANG, H. T.; PALMER, M. <strong>Class-Based Construction of a Verb Lexicon</strong>. Proceedings of the Seventeenth National Conference on Artificial Intelligence and Twelfth Conference on Innovative Applications of Artificial Intelligence. <strong>Anais</strong>...AAAI Press, 2000.
+</div>
+<div id="ref-kuo-et-al2009" class="csl-entry" role="listitem">
+KUO, Y. et al. <strong>Community-Based Game Design: Experiments on Social Games for Commonsense Data Collection</strong>. Proceedings of the ACM SIGKDD Workshop on Human Computation. <strong>Anais</strong>...: HCOMP ’09.New York, NY, USA: Association for Computing Machinery, 2009. Disponível em: &lt;<a href="https://doi.org/10.1145/1600150.1600154">https://doi.org/10.1145/1600150.1600154</a>&gt;
+</div>
+<div id="ref-cyc1989" class="csl-entry" role="listitem">
+LENAT, D. B.; GUHA, R. V. <strong>Building large knowledge-based systems: representation and inference in the Cyc project</strong>. [s.l.] Addison-Wesley, 1989.
+</div>
+<div id="ref-conceptnet2004a" class="csl-entry" role="listitem">
+LIU, H.; SINGH, P. <strong>Commonsense Reasoning in and Over Natural Language</strong>. (M. Gh. Negoita, R. J. Howlett, L. C. Jain, Eds.)Knowledge-Based Intelligent Information and Engineering Systems. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2004.
+</div>
+<div id="ref-mccrae-etal-2019" class="csl-entry" role="listitem">
+MCCRAE, J. P. et al. <strong><span>E</span>nglish <span>W</span>ord<span>N</span>et 2019 <span>–</span> An Open-Source <span>W</span>ord<span>N</span>et for <span>E</span>nglish</strong>. Proceedings of the 10th Global Wordnet Conference. <strong>Anais</strong>...Wroclaw, Poland: Global Wordnet Association, jul. 2019. Disponível em: &lt;<a href="https://aclanthology.org/2019.gwc-1.31">https://aclanthology.org/2019.gwc-1.31</a>&gt;
+</div>
+<div id="ref-universalWN" class="csl-entry" role="listitem">
+MELO, G. DE; WEIKUM, G. <strong>Towards a universal wordnet by learning from combined evidence</strong>. Proceedings of the 18th ACM conference on Information and knowledge management. <strong>Anais</strong>...2009.
+</div>
+<div id="ref-minsky1975" class="csl-entry" role="listitem">
+MINSKY, M. A framework for representing knowledge. <strong>The psychology of computer vision</strong>, 1975.
+</div>
+<div id="ref-navigli2012" class="csl-entry" role="listitem">
+NAVIGLI, R.; PONZETTO, S. P. BabelNet: The automatic construction, evaluation and application of a wide-coverage multilingual semantic network. <strong>Artificial intelligence</strong>, v. 193, p. 217–250, 2012.
+</div>
+<div id="ref-nlu2012" class="csl-entry" role="listitem">
+OVCHINNIKOVA, E. <strong>Integration of World Knowledge for Natural Language Understanding</strong>. [s.l.] Atlantis Press, 2012.
+</div>
+<div id="ref-Palmeretal2005" class="csl-entry" role="listitem">
+PALMER, M.; GILDEA, D.; KINGSBURY, P. <strong>The Proposition Bank: An Annotated Corpus of Semantic Roles</strong>. Computational Linguistics, 31: 1. <strong>Anais</strong>...The MIT PressJournals, 2005.
+</div>
+<div id="ref-inferencenet.br2010" class="csl-entry" role="listitem">
+PINHEIRO, V. et al. <strong>InferenceNet.Br: Expression of Inferentialist Semantic Content of the Portuguese Language</strong>. (T. A. S. Pardo et al., Eds.)Computational Processing of the Portuguese Language. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2010.
+</div>
+<div id="ref-framenetbook2006" class="csl-entry" role="listitem">
+RUPPENHOFER, J. et al. <strong><a href="https://framenet2.icsi.berkeley.edu/docs/r1.5/book.pdf">FrameNet II: Extended theory and practice</a></strong>. [s.l: s.n.].
+</div>
+<div id="ref-Sag2002" class="csl-entry" role="listitem">
+SAG, I. A. et al. <strong>Multiword Expressions: A Pain in the Neck for NLP</strong>. Conference on Intelligent Text Processing and Computational Linguistics. <strong>Anais</strong>...2002. Disponível em: &lt;<a href="https://api.semanticscholar.org/CorpusID:1826481">https://api.semanticscholar.org/CorpusID:1826481</a>&gt;
+</div>
+<div id="ref-salomao2009" class="csl-entry" role="listitem">
+SALOMÃO, M. M. M. FrameNet Brasil: A work in progress. <strong>Calidoscópio</strong>, v. 7, p. 171–182, 2009.
+</div>
+<div id="ref-scarton2012" class="csl-entry" role="listitem">
+SCARTON, C. E.; ALUISIO, S. M. <strong>Towards a cross-linguistic VerbNet-style lexicon for <span>B</span>razilian portuguese</strong>. Workshop on Creating Cross-language Resources for Disconnected Languages and Styles - CREDISLAS. <strong>Anais</strong>...ELRA, 2012.
+</div>
+<div id="ref-sellars1953" class="csl-entry" role="listitem">
+SELLARS, W. <a href="http://www.jstor.org/stable/2251271">Inference and Meaning</a>. <strong>Mind</strong>, v. 62, n. 247, p. 313–338, 1953.
+</div>
+<div id="ref-shapiro2000" class="csl-entry" role="listitem">
+SHAPIRO, S. C. <a href="https://dl.acm.org/doi/10.5555/342652.342679">SNePS: A Logic for Natural Language Understanding and Commonsense Reasoning</a>. Em: <strong>Natural Language Processing and Knowledge Representation: Language for Knowledge and Knowledge for Language</strong>. Cambridge, MA, USA: MIT Press, 2000. p. 175–195.
+</div>
+<div id="ref-Simoes2014" class="csl-entry" role="listitem">
+SIMÕES, A.; GUINOVART, X. G. <strong>Bootstrapping a Portuguese WordNet from Galician, Spanish and English Wordnets</strong>. IberSPEECH Conference. <strong>Anais</strong>...2014. Disponível em: &lt;<a href="https://api.semanticscholar.org/CorpusID:10377782">https://api.semanticscholar.org/CorpusID:10377782</a>&gt;
+</div>
+<div id="ref-omcs2002" class="csl-entry" role="listitem">
+SINGH, P. et al. <strong>Open Mind Common Sense: Knowledge Acquisition from the General Public</strong>. (R. Meersman, Z. Tari, Eds.)On the Move to Meaningful Internet Systems 2002: CoopIS, DOA, and ODBASE. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2002.
+</div>
+<div id="ref-conceptnet2016" class="csl-entry" role="listitem">
+SPEER, R.; CHIN, J.; HAVASI, C. <a href="http://arxiv.org/abs/1612.03975">ConceptNet 5.5: An Open Multilingual Graph of General Knowledge</a>. <strong>CoRR</strong>, v. abs/1612.03975, 2016.
+</div>
+<div id="ref-suchanek2007" class="csl-entry" role="listitem">
+SUCHANEK, F. M.; KASNECI, G.; WEIKUM, G. <strong>Yago: a core of semantic knowledge</strong>. Proceedings of the 16th international conference on World Wide Web. <strong>Anais</strong>...2007.
+</div>
+<div id="ref-torrent-etal-2014-copa" class="csl-entry" role="listitem">
+TORRENT, T. T. et al. <strong>Copa 2014 <span>F</span>rame<span>N</span>et Brasil: a frame-based trilingual electronic dictionary for the Football World Cup</strong>. Proceedings of <span>COLING</span> 2014, the 25th International Conference on Computational Linguistics: System Demonstrations. <strong>Anais</strong>...Dublin, Ireland: Dublin City University; Association for Computational Linguistics, ago. 2014. Disponível em: &lt;<a href="https://aclanthology.org/C14-2003">https://aclanthology.org/C14-2003</a>&gt;
+</div>
+<div id="ref-torrent2013" class="csl-entry" role="listitem">
+TORRENT, T. T.; ELLSWORTH, M. Behind the Labels: Criteria for Defining Analytical Categories in FrameNet Brasil. <strong>Veredas-Revista de Estudos Linguisticos</strong>, v. 17, n. 1, p. 44–66, 2013.
+</div>
+<div id="ref-vrandevcic2014" class="csl-entry" role="listitem">
+VRANDEČIĆ, D.; KRÖTZSCH, M. Wikidata: a free collaborative knowledgebase. <strong>Communications of the ACM</strong>, v. 57, n. 10, p. 78–85, 2014.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://www.w3.org/OWL/" class="uri">https://www.w3.org/OWL/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.json.org/json-pt.html" class="uri">https://www.json.org/json-pt.html</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="http://globalwordnet.org/" class="uri">http://globalwordnet.org/</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://www.nltk.org/" class="uri">https://www.nltk.org/</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://spacy.io/universe" class="uri">https://spacy.io/universe</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="http://wordnet.princeton.edu/" class="uri">http://wordnet.princeton.edu/</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://conceptnet.io/" class="uri">https://conceptnet.io/</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Esse texto foi adaptado de notícia publicada em jornal digital, disponível em <a href="https://diariodonordeste.verdesmares.com.br/seguranca/mulher-e-baleada-em-saidinha-bancaria-no-montese-1.933137?page=10" class="uri">https://diariodonordeste.verdesmares.com.br/seguranca/mulher-e-baleada-em-saidinha-bancaria-no-montese-1.933137?page=10</a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="http://wordnet.princeton.edu/" class="uri">http://wordnet.princeton.edu/</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://wordnet.princeton.edu/related-projects" class="uri">https://wordnet.princeton.edu/related-projects</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://www.linguateca.pt/" class="uri">https://www.linguateca.pt/</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://sites.google.com/view/nilc-usp/" class="uri">https://sites.google.com/view/nilc-usp/</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p><a href="http://143.107.183.175:21380/portlex/index.php/en/" class="uri">http://143.107.183.175:21380/portlex/index.php/en/</a><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><a href="https://www.openwordnet-pt.org/" class="uri">https://www.openwordnet-pt.org/</a><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://omwn.org/" class="uri">https://omwn.org/</a><a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>O alinhamento entre <em>wordnets</em> refere-se ao processo de mapeamento ou ligação de <em>synsets</em> entre diferentes <em>wordnets</em> de línguas distintas. Por exemplo, o alinhamento entre PWN e OWN-PT seria o processo de identificar que o <em>synset</em> em inglês para <em>“car”</em> é equivalente ao <em>synset</em> em português para “carro”.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p><a href="https://framenet.icsi.berkeley.edu/" class="uri">https://framenet.icsi.berkeley.edu/</a><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>A descrição completa do <em>frame</em> está disponível em <a href="https://framenet.icsi.berkeley.edu/frameIndex" class="uri">https://framenet.icsi.berkeley.edu/frameIndex</a>.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Uma palavra polissêmica é uma palavra que possui vários significados ou sentidos relacionados entre si, dependendo do contexto em que é usada. Por exemplo, a palavra “banco” pode se referir a uma instituição financeira, um local para sentar, ou a uma elevação de areia no mar.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Mais detalhes sobre os números atuais da FrameNet podem ser acessados em <a href="https://framenet.icsi.berkeley.edu/current_status" class="uri">https://framenet.icsi.berkeley.edu/current_status</a>.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p><a href="https://verbs.colorado.edu/semlink/" class="uri">https://verbs.colorado.edu/semlink/</a>. A versão atual do SemLink é a versão 2.0 e pode ser acessada pelo GitHub <a href="https://github.com/cu-clear/semlink" class="uri">https://github.com/cu-clear/semlink</a>.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p><a href="https://www2.ufjf.br/framenetbr/" class="uri">https://www2.ufjf.br/framenetbr/</a><a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p><a href="https://www2.ufjf.br/framenetbr/projetos/" class="uri">https://www2.ufjf.br/framenetbr/projetos/</a><a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p>Ver descrição completa em <a href="https://webtool.framenetbr.ufjf.br/index.php/webtool/report/frame/main" class="uri">https://webtool.framenetbr.ufjf.br/index.php/webtool/report/frame/main</a><a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p><a href="https://conceptnet.io/" class="uri">https://conceptnet.io/</a><a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p>Sua última versão é a ConceptNet 5.8 e a documentação completa está disponível em <a href="https://github.com/commonsense/conceptnet5/wiki" class="uri">https://github.com/commonsense/conceptnet5/wiki</a><a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p>Disponível em <a href="https://pt.wiktionary.org/wiki/Wikcion%C3%A1rio:P%C3%A1gina_principal" class="uri">https://pt.wiktionary.org/wiki/Wikcion%C3%A1rio:P%C3%A1gina_principal</a><a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn28"><p><a href="https://github.com/commonsense/conceptnet5/wiki/Edges" class="uri">https://github.com/commonsense/conceptnet5/wiki/Edges</a><a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn29"><p>A lista completa das relações expressas na ConceptNet está disponível em <a href="https://github.com/commonsense/conceptnet5/wiki/Relations" class="uri">https://github.com/commonsense/conceptnet5/wiki/Relations</a><a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn30"><p>Pode ser nulo porque nem todas as afirmações foram derivadas de entrada em linguagem natural<a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn31"><p>As bases de afirmações da ConceptNet para todas as linguagens naturais suportadas pode ser consultada em <a href="https://github.com/commonsense/conceptnet5/wiki/Languages" class="uri">https://github.com/commonsense/conceptnet5/wiki/Languages</a><a href="#fnref31" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn32"><p>Acessível em api.conceptnet.io. A documentação completa da API da Conceptnet pode ser acessada em <a href="https://github.com/commonsense/conceptnet5/wiki/API" class="uri">https://github.com/commonsense/conceptnet5/wiki/API</a><a href="#fnref32" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../significado/cap-significado/cap-significado.html" class="pagination-link" aria-label="E o significado?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="pagination-link" aria-label="Semântica distribucional">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

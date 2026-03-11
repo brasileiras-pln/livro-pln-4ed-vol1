@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Elisa Terumi Rubel Schneider">
+<meta name="author" content="Adriana S Pagano">
+<meta name="author" content="Ana Clara S Pagano">
+<meta name="author" content="Lucelene Lopes">
+
+<title>7&nbsp; Ferramentas e recursos para o processamento sintático – Processamento de Linguagem Natural</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../significado/cap-significado/cap-significado.html" rel="next">
+<link href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8676d8d0f01772f2903466dda9733bcf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sem resultados",
+    "search-matching-documents-text": "Resultados encontrados",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-111J572WMR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-111J572WMR');
+</script>
+
+
+<link rel="stylesheet" href="../../shared/bpln.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><strong>Estrutura</strong></a></li><li class="breadcrumb-item"><a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../shared/logos/bpln.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Processamento de Linguagem Natural</a> 
+        <div class="sidebar-tools-main">
+    <a href="../../Livro_PLN_BPLN_4ed_vol1.pdf" title="Baixar PDF" class="quarto-navigation-tool px-1" aria-label="Baixar PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Compartilhar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Compartilhar"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre o Volume 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Introdução</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../introducao/cap-introducao/cap-introducao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">O que é PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Fala</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Texto ou fala?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-recursos-fala/cap-recursos-fala.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Recursos para o processamento de fala</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Palavras</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-caracteres-palavras/cap-caracteres-palavras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequência de caracteres e palavras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../palavras/cap-mwe/cap-mwe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Expressões multipalavras</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Estrutura</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Significado</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-significado/cap-significado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-simbolica/cap-semantica-simbolica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Semântica com técnicas simbólicas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../significado/cap-semantica-distribucional/cap-semantica-distribucional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Semântica distribucional</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Discurso</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-modelos-discursivos/cap-modelos-discursivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modelos discursivos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../discurso/cap-resolucao-correferencia/cap-resolucao-correferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Resolução de correferência</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Geração e Interação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-geracao-ln/cap-geracao-ln.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Geração de linguagem natural</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-qa/cap-qa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Perguntas e Respostas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geracao-e-interacao/cap-dialogo-interatividade/cap-dialogo-interatividade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Diálogo e Interatividade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Dados</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-dataset-corpus/cap-dataset-corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Conjunto de dados, <em>dataset</em> e <em>corpus</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../dados/cap-transdutivo/cap-transdutivo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Aprendizado Transdutivo em PLN</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Avaliação</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Avaliação de tecnologias de linguagem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao-conjunta/cap-avaliacao-conjunta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Avaliação conjunta em português</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Desafios e Perspectivas</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-etica/cap-etica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Questões éticas em IA e PLN</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../desafios-e-perspectivas/cap-futuro/cap-futuro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">E agora, PLN?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../shared/referencias/referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Apêndices</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../fala/cap-fala/cap-fala-apendice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Alguns pressupostos para o processamento de fala</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-diretrizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Diretrizes de avaliação</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../avaliacao/cap-avaliacao/cap-avaliacao-apendice-eagles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">EAGLES</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../autores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Sobre as/os autoras/es</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Conteúdo</h2>
+   
+  <ul>
+  <li><a href="#sec-cap-recursos-sintaxe-introducao" id="toc-sec-cap-recursos-sintaxe-introducao" class="nav-link active" data-scroll-target="#sec-cap-recursos-sintaxe-introducao"><span class="header-section-number">7.1</span> Introdução</a></li>
+  <li><a href="#sec-cap-recursos-sintaxe-tipos-parsing" id="toc-sec-cap-recursos-sintaxe-tipos-parsing" class="nav-link" data-scroll-target="#sec-cap-recursos-sintaxe-tipos-parsing"><span class="header-section-number">7.2</span> Tipos de <em>parsing</em></a></li>
+  <li><a href="#sec-cap-recursos-sintaxe-recursos-pt" id="toc-sec-cap-recursos-sintaxe-recursos-pt" class="nav-link" data-scroll-target="#sec-cap-recursos-sintaxe-recursos-pt"><span class="header-section-number">7.3</span> Recursos e ferramentas para o português</a>
+  <ul class="collapse">
+  <li><a href="#sec-cap-recursos-sintaxe-corpora" id="toc-sec-cap-recursos-sintaxe-corpora" class="nav-link" data-scroll-target="#sec-cap-recursos-sintaxe-corpora"><span class="header-section-number">7.3.1</span> <em>Corpora</em></a></li>
+  <li><a href="#parsers" id="toc-parsers" class="nav-link" data-scroll-target="#parsers"><span class="header-section-number">7.3.2</span> <em>Parsers</em></a></li>
+  </ul></li>
+  <li><a href="#visualização-anotação-e-edição-de-treebanks" id="toc-visualização-anotação-e-edição-de-treebanks" class="nav-link" data-scroll-target="#visualização-anotação-e-edição-de-treebanks"><span class="header-section-number">7.4</span> Visualização, anotação e edição de <em>treebanks</em></a>
+  <ul class="collapse">
+  <li><a href="#árvores-de-constituência" id="toc-árvores-de-constituência" class="nav-link" data-scroll-target="#árvores-de-constituência"><span class="header-section-number">7.4.1</span> Árvores de constituência</a></li>
+  <li><a href="#árvores-de-dependência" id="toc-árvores-de-dependência" class="nav-link" data-scroll-target="#árvores-de-dependência"><span class="header-section-number">7.4.2</span> Árvores de dependência</a></li>
+  <li><a href="#anotação-de-corpus-em-múltiplos-níveis" id="toc-anotação-de-corpus-em-múltiplos-níveis" class="nav-link" data-scroll-target="#anotação-de-corpus-em-múltiplos-níveis"><span class="header-section-number">7.4.3</span> Anotação de <em>corpus</em> em múltiplos níveis</a></li>
+  </ul></li>
+  <li><a href="#sec-cap-recursos-sintaxe-consideracoes-finais" id="toc-sec-cap-recursos-sintaxe-consideracoes-finais" class="nav-link" data-scroll-target="#sec-cap-recursos-sintaxe-consideracoes-finais"><span class="header-section-number">7.5</span> Considerações finais</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html"><strong>Estrutura</strong></a></li><li class="breadcrumb-item"><a href="../../estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap-recursos-sintaxe" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ferramentas e recursos para o processamento sintático</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading"></div>
+    <div class="quarto-title-meta-contents">
+             <p>Elisa Terumi Rubel Schneider </p>
+             <p>Adriana S Pagano </p>
+             <p>Ana Clara S Pagano </p>
+             <p>Lucelene Lopes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">26/09/2023</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Atualizado em:</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">20/11/2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+
+</div>
+<div>
+<div class="callout-body-container callout-body">
+<p>Este capítulo também está disponível em <a href="cap-recursos-sintaxe.pdf">PDF</a>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-target=".callout-cite-contents" aria-label="Toggle callout" aria-expanded="false" aria-controls="callout-cite" data-bs-toggle="collapse">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Como citar
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end">
+<i class="callout-toggle"></i>
+</div>
+</div>
+<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-recursos-sintaxe:2026,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Schneider, Elisa Terumi Rubel and Pagano, Adriana S and Pagano, Ana Clara S and Lopes, Lucelene},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    title     = {Ferramentas e recursos para o processamento sintático},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    booktitle = {Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    publisher = {BPLN},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    year      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    editor    = {Caseli, H. M. and Nunes, M. G. V.},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    type      = {Book Chapter},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    chapter   = {7},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    edition   = {4},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    volume    = {1},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    isbn      = {XXXXXXXXXXXXXXXX},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    url       = {https://brasileiraspln.com/livro-pln/4a-edicao/volume1/estrutura/cap-recursos-sintaxe/cap-recursos-sintaxe.html},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="sec-cap-recursos-sintaxe-introducao" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-cap-recursos-sintaxe-introducao"><span class="header-section-number">7.1</span> Introdução</h2>
+<p>A sintaxe é o nível de análise linguística no qual examinamos os padrões de estruturação de sentenças. Isto é, analisamos como as palavras se organizam em unidades que constroem significado dentro da sentença. Para isso, consideramos a classe de cada palavra, sua ordem na sentença e sua relação com as outras palavras. Conforme visto no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao" target="_blank" title="Volume 1">A ordem e a função das palavras em uma sentença</a></span>, em PLN, a análise computacional realizada no nível sintático é denominada <em>parsing</em>, a ferramenta que realiza essa tarefa é denominada <em>parser</em> e o recurso criado por meio da análise sintática é chamado <em>treebank</em>.</p>
+<p>Neste Capítulo, vamos conhecer tipos de <em>parsing</em> sob a perspectiva computacional, juntamente com ferramentas e recursos disponíveis para o processamento do português brasileiro.</p>
+</section>
+<section id="sec-cap-recursos-sintaxe-tipos-parsing" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-cap-recursos-sintaxe-tipos-parsing"><span class="header-section-number">7.2</span> Tipos de <em>parsing</em></h2>
+<p>A tarefa de <em>parsing</em> consiste em, dada uma entrada com uma sentença sem nenhuma anotação (<em>raw</em>), um modelo faz uma predição da estrutura sintática dessa sentença. Como vimos no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao" target="_blank" title="Volume 1">A ordem e a função das palavras em uma sentença</a></span>, o objetivo do processamento sintático é identificar as unidades (como palavras, sintagmas e orações) na sentença e estabelecer as relações gramaticais entre elas a fim de extrair algum tipo de informação. Essas relações podem ser analisadas em termos de:</p>
+<ol type="1">
+<li><strong>constituência</strong>, ou seja, quais unidades são hierarquicamente inferiores às outras e estão nelas contidas; ou</li>
+<li><strong>dependência</strong>, isto é, quais palavras dependem de quais outras e qual é o tipo de relação entre elas, incluindo o papel de cada palavra na sentença (como sujeito, objeto, verbo, adjetivo etc.).</li>
+</ol>
+<p>Assim, de acordo com o tipo de análise sintática adotada, há <em>parsers</em> de constituência e <em>parsers</em> de dependência.</p>
+<p>Mas há uma perspectiva adicional sob a qual podemos caracterizar tipos de <em>parsing</em> e <em>parsers</em>: trata-se do escopo ou profundidade com que a análise sintática é executada. Nesse sentido, podemos analisar as sentenças de forma exaustiva até obtermos uma análise completa de sua estrutura ou fazer uma análise mais rasa para obtermos uma análise com informações mínimas, mas relevantes para as tarefas em PLN.</p>
+<p>O primeiro tipo é denominado <em>deep</em> (em português, <em>profundo)</em> ou <em>parsing</em> completo <em>e</em> o segundo tipo é denominado <em>shallow</em> (em português, <em>superficial)</em> ou <em>parsing</em> parcial. Contudo, cabe uma observação sobre esta terminologia. No uso geral, os termos <em>parsing</em> e <em>parser</em> acabaram sendo adotados para se referir ao <em>parsing</em> completo. Já o <em>parsing</em> parcial é conhecido como <em>chunking</em> (em português, <em>cortar</em>) e a ferramenta como <em>chunker,</em> embora <em>chunking</em> seja uma dentre várias abordagens para a implementação do <em>parsing</em> parcial <span class="citation" data-cites="jurafsky2023">(<a href="../../shared/referencias/referencias.html#ref-jurafsky2023" role="doc-biblioref">Jurafsky; Martin, 2023</a>)</span>.</p>
+<p>Tanto o <em>parsing</em> de constituência como o <em>parsing</em> de dependência podem ser executados de forma completa ou parcial. Tomando como exemplo o <em>parsing</em> de constituência, uma análise completa ou <em>deep</em> extrai todos os agrupamentos e as relações sintáticas em uma sentença. Por exemplo, dada a sentença:</p>
+<div id="exm-cap-recursos-sintaxe-1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 7.1</strong></span> &nbsp;</p>
+<blockquote class="blockquote">
+<p>Emma Watson postou uma foto com Daniel Radcliffe.</p>
+</blockquote>
+</div>
+<p>Temos na <a href="#fig-cap-recursos-sintaxe-fig1" class="quarto-xref">Figura&nbsp;<span>7.1</span></a> uma representação em diagrama de árvore que mostra a profundidade da análise.</p>
+<div id="fig-cap-recursos-sintaxe-fig1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.1: Exemplo de saída de <em>parser</em>
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image5.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>Já uma análise parcial extrai constituintes delimitados, sem estabelecer a hierarquia entre eles ou de que forma uns estão contidos em outros.</p>
+<p>A <a href="#fig-cap-recursos-sintaxe-fig2" class="quarto-xref">Figura&nbsp;<span>7.2</span></a> ilustra a análise rasa, não hierárquica do <em>parsing</em> parcial para o <a href="#exm-cap-recursos-sintaxe-1" class="quarto-xref">Exemplo&nbsp;<span>7.1</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.2: Exemplo de saída de <em>parser</em> parcial
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image9.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>O objetivo do <em>parsing</em> parcial é gerar uma representação rasa da estrutura da sentença que possibilite um processamento mais rápido de grandes volumes de texto. É geralmente implementado por meio de tokenização de uma sentença em palavras, identificação da classe de palavra (PoS) e segmentação em pedaços ou <em>chunks</em>. O conceito de <em>chunk</em> foi proposto por <span class="citation" data-cites="Abney1992">Abney (<a href="../../shared/referencias/referencias.html#ref-Abney1992" role="doc-biblioref">1992</a>)</span> como uma unidade formada por uma única palavra ou por um conjunto de palavras. Em um <em>chunk</em>, há uma palavra de conteúdo circundada por palavras funcionais. A palavra de conteúdo mais explorada em <em>chunking</em> é o substantivo, dada a alta correlação de substantivos com entidades.</p>
+<p>Assim, a tarefa de <em>chunking</em> da sentença do <a href="#exm-cap-recursos-sintaxe-1" class="quarto-xref">Exemplo&nbsp;<span>7.1</span></a>, executada em Python utilizando o modelo de língua portuguesa <code>pt_core_news_sm</code>, da biblioteca spaCy, gera o resultado disposto na <a href="#fig-cap-recursos-sintaxe-fig3" class="quarto-xref">Figura&nbsp;<span>7.3</span></a>:</p>
+<div id="fig-cap-recursos-sintaxe-fig3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.3: Captura de tela de <em>notebook</em> em Python com código e resultado de <em>chunking</em> de uma sentença em português
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image10.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Como vemos na <a href="#fig-cap-recursos-sintaxe-fig3" class="quarto-xref">Figura&nbsp;<span>7.3</span></a>, o <em>chunking</em> reconhece três unidades ou <em>chunks</em>, cada uma nucleada por um substantivo. Os três <em>chunks</em> são candidatos a entidades, sendo duas delas nomes próprios de pessoas. De fato, como veremos no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume3/aplicacoes-e-dominios/cap-ie/cap-ie.html#sec-cap-ie" target="_blank" title="Volume 3">Extração de Informação</a></span>, vários modelos de Extração de Informação utilizam análises rasas como a fornecida pelo <em>chunking.</em></p>
+</section>
+<section id="sec-cap-recursos-sintaxe-recursos-pt" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-cap-recursos-sintaxe-recursos-pt"><span class="header-section-number">7.3</span> Recursos e ferramentas para o português</h2>
+<p>Nesta seção, vamos conhecer alguns recursos e ferramentas de PLN para análise sintática do português.</p>
+<section id="sec-cap-recursos-sintaxe-corpora" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-cap-recursos-sintaxe-corpora"><span class="header-section-number">7.3.1</span> <em>Corpora</em></h3>
+<p>O primeiro recurso para o processamento linguístico é um <em>corpus</em> anotado ou <em>treebank</em>, isto é, textos enriquecidos com marcações de classe de palavras (<em>Part-of-Speech</em>) e relações sintáticas. Um exemplo de <em>corpus</em> em português anotado é o Bosque<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, amplamente utilizado para treinar modelos de análise sintática (Veja <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/dados/cap-dataset-corpus/cap-dataset-corpus.html#sec-cap-dataset-corpus" target="_blank" title="Volume 1">Conjunto de dados, <em>dataset</em> e <em>corpus</em></a></span>).</p>
+<p>O <em>corpus</em> Bosque é parte de um <em>corpus</em> maior, chamado Floresta Sintá(c)tica<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, que abrange, além do Bosque, outros <em>subcorpora</em>, nomeadamente: Selva, Amazônia e Floresta Virgem. O grande <em>corpus</em> foi anotado automaticamente pelo <em>parser</em> PALAVRAS <span class="citation" data-cites="bick2000">(<a href="../../shared/referencias/referencias.html#ref-bick2000" role="doc-biblioref">Bick, 2000</a>)</span>. O Bosque está integrado por sentenças extraídas dos <em>corpora</em> CETENFolha (português brasileiro) e CETEMPúblico (português europeu), ambos constituídos por textos jornalísticos escritos. Uma versão do Bosque<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> foi convertida para o formato UD (Universal Dependencies), apresentado no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao" target="_blank" title="Volume 1">A ordem e a função das palavras em uma sentença</a></span>, e é hoje um dos <em>treebanks</em> mais utilizados pela comunidade de PLN no Brasil em modelos de <em>parsing</em> de dependência atuais.</p>
+<p>Além da Floresta Sintá(c)tica, encontra-se disponível, como recurso para a língua portuguesa, o Corpus Internacional do Português – CINTIL<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, desenvolvido pela Universidade de Lisboa, que possui 1 milhão de <em>tokens</em> de texto jornalístico, com anotação de classe de palavra, lema e expressões multipalavra. Uma versão desse <em>corpus,</em> o CINTIL-UDep<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, é disponibilizada com anotações no padrão UD.</p>
+<p>Mais recentemente, o <em>corpus</em> PetroGold<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> foi disponibilizado e, hoje, é um <em>corpus</em> passível de ser utilizado em modelos de <em>parsing</em> de dependência. PetroGold é um <em>corpus</em> de textos acadêmicos no domínio do petróleo, anotado no formato UD e revisado manualmente.</p>
+<p>Há diversas iniciativas em andamento, no momento da escrita deste capítulo, para a criação de <em>corpora</em> anotados em português brasileiro. No escopo do projeto NLP2, desenvolvido pelo Centro de Inteligência Artificial<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> (C4A1) da Universidade de São Paulo, com o objetivo de desenvolver recursos, ferramentas e aplicações para levar o português ao estado da arte em PLN, o projeto POeTiSA<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> desenvolve o <em>treebank</em> Porttinari<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, um <em>corpus</em> multi-gênero de textos em português brasiliero anotados de acordo com o padrão UD. Inclui textos jornalísticos do <em>corpus</em> da Folha de São Paulo/Kaggle, o <em>corpus</em> MAC-MORPHO<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> de textos jornalísticos, o <em>corpus</em> DANTE<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> (<em>Dependency-ANalised corpora of TwEets</em>), integrado por tweets da Bolsa de Valores, B2W-reviews01<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, composto por resenhas e avaliações de consumidores da empresa de comércio eletrônico Americanas e um <em>corpus</em> de Resenhas online de livros. A versão Porttinari-base já se encontra disponível<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>.</p>
+<p>Uma iniciativa também em andamento é o <em>corpus</em> Veredas<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>, desenvolvido na Faculdade de Letras da UFMG, que visa à construção de <em>treebanks</em> de textos anotados de acordo com o padrão das UD. Inclui amostras de uma variedade de textos em inglês, espanhol e português brasileiro: colunas jornalísticas, fábulas, narrativas, receitas culinárias, questionários médicos e bulas de medicamento. Em parceria com a PUCPR, a Faculdade de Letras da UFMG desenvolveu o <em>treebank</em> DepClinBr, um <em>corpus</em> de narrativas clínicas anotadas de acordo com o padrão das UD <span class="citation" data-cites="depclinbr">(<a href="../../shared/referencias/referencias.html#ref-depclinbr" role="doc-biblioref">Oliveira et al., 2022</a>)</span>.</p>
+</section>
+<section id="parsers" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="parsers"><span class="header-section-number">7.3.2</span> <em>Parsers</em></h3>
+<p><em>Parsers</em> são ferramentas que podem auxiliar uma aplicação (por exemplo, tradução automática, sumarização de textos, extração de informação, <em>question-answering</em>) ou fazer parte de uma ferramenta maior ou conjunto de ferramentas (<em>toolkit</em>).</p>
+<p>Algumas ferramentas computacionais estão disponíveis para realizar a análise sintática em português. A análise pode ser feita por meio de:</p>
+<section id="programas-e-aplicativos" class="level4" data-number="7.3.2.1">
+<h4 data-number="7.3.2.1" class="anchored" data-anchor-id="programas-e-aplicativos"><span class="header-section-number">7.3.2.1</span> Programas e aplicativos</h4>
+<p>Existem diversos <em>parsers</em> desenvolvidos por distintos grupos de pesquisa, fornecidos através de um programa de computador ou aplicativo a ser instalado. No Brasil, podemos citar Curupira<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a>, Donatus<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> e PassPort<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>. Curupira é um analisador robusto de uso geral para o português brasileiro, fornecendo um conjunto das análises sintáticas possíveis para uma frase de entrada. A ferramenta analisa sentenças de cima para baixo, da esquerda para a direita, por meio de uma gramática funcional livre de contexto, restrita e relaxada, para o português brasileiro escrito padrão e um léxico extenso e de ampla cobertura. A <a href="#fig-cap-recursos-sintaxe-fig4" class="quarto-xref">Figura&nbsp;<span>7.4</span></a> apresenta a interface gráfica onde é possível ver a obtenção de toda informação da análise realizada pelas regras do <em>parser</em><a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig4" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.4: Captura de tela da interface gráfica da ferramenta Curupira
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: center;">
+<p><img src="media/image7.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>Fonte: <span class="citation" data-cites="curupira-parser">(<a href="../../shared/referencias/referencias.html#ref-curupira-parser" role="doc-biblioref">Martins et al., 2003</a>)</span></p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p>Donatus é um projeto que consiste em ferramentas e gramáticas baseadas em Python e na biblioteca NLTK<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> para análise profunda e anotação sintática de <em>corpora</em> do português brasileiro. Inclui uma interface gráfica, conforme pode ser visto na <a href="#fig-cap-recursos-sintaxe-fig5" class="quarto-xref">Figura&nbsp;<span>7.5</span></a>. Está disponível em repositório público, sob licença <em>GNU General Public License version 3.0 (GPLv3)</em>.</p>
+<div id="fig-cap-recursos-sintaxe-fig5" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.5: Captura de tela da interface gráfica da ferramenta Donatus
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<p><img src="media/image17.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>Fonte: <span class="citation" data-cites="alencar_2012">(<a href="../../shared/referencias/referencias.html#ref-alencar_2012" role="doc-biblioref">Alencar, 2012</a>)</span></p>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p>PassPort é uma ferramenta para análise de dependências de português treinado com o Stanford Parser, utilizando o <em>corpus</em> Portuguese Universal Dependency (PT-UD). Infelizmente, a página do projeto não se encontra disponível na data de escrita deste capítulo.</p>
+</section>
+<section id="frameworks-e-bibliotecas" class="level4" data-number="7.3.2.2">
+<h4 data-number="7.3.2.2" class="anchored" data-anchor-id="frameworks-e-bibliotecas"><span class="header-section-number">7.3.2.2</span> <em>Frameworks</em> e Bibliotecas</h4>
+<p>Devido à popularidade de Python, muitas bibliotecas de PLN foram desenvolvidas na linguagem. Entre as bibliotecas que incluem <em>parsing</em> para língua portuguesa, podemos citar spaCy<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a>, Stanza<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a> e NLTK.</p>
+<p>spaCy é uma biblioteca PLN que oferece análise linguística eficiente e rápida para várias línguas, incluindo o português. Inclui recursos para tokenização, marcação de parte do discurso (PoS <em>tagging</em>), reconhecimento de entidades nomeadas, análise sintática e outros. Através de modelos pré-treinados, o spaCy é capaz de fornecer análises detalhadas, permitindo a extração de informações semânticas de um texto em língua portuguesa.</p>
+<p>Stanza<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a> é outra biblioteca PLN que suporta vários idiomas, incluindo o português, desenvolvida pela Universidade Stanford. Fornece uma gama de recursos semelhantes ao spaCy, com suporte a análises mais profundas, como a análise de dependência neural.</p>
+<p>NLTK (<em>Natural Language Toolkit</em>) também é uma biblioteca em Python que oferece suporte para tarefas de PLN em língua portuguesa, como a análise sintática. NLTK permite o <em>parse</em> usando expressões regulares (com <em>Regexp Parser</em>), análise de dependência com analisador de dependência probabilístico e análise de dependência com analisador de Stanford.</p>
+<p>É importante mencionar que, além de Python, outras linguagens de programação também oferecem bibliotecas e <em>frameworks</em> para análise sintática.</p>
+</section>
+<section id="ferramentas-online" class="level4" data-number="7.3.2.3">
+<h4 data-number="7.3.2.3" class="anchored" data-anchor-id="ferramentas-online"><span class="header-section-number">7.3.2.3</span> Ferramentas online</h4>
+<p>A seguir apresentaremos algumas das ferramentas web disponíveis para <em>parsing</em> de texto em português, permitindo executar a análise sintática e obter como saída arquivos com distintos formatos, incluindo a visualização das árvores sintáticas. Todas as ferramentas apresentadas são de acesso livre e gratuito.</p>
+<p><strong>O Portparser</strong></p>
+<p>O Portparser <span class="citation" data-cites="lopes-pardo-2024-towards">(<a href="../../shared/referencias/referencias.html#ref-lopes-pardo-2024-towards" role="doc-biblioref">Lopes; Pardo, 2024</a>)</span> é um modelo de parsing para o português brasileiro que se alinha à iniciativa de Universal Dependencies (UD), tendo sido desenvolvido no contexto do projeto POeTiSA (POrtuguese processing - Towards Syntactic Analysis and parsing) <a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a>. O modelo foi treinado com o subcorpus jornalístico Porttinari-base <span class="citation" data-cites="duran-EtAl-2023">(<a href="../../shared/referencias/referencias.html#ref-duran-EtAl-2023" role="doc-biblioref">Duran et al., 2023</a>)</span> do treebank Porttinari <span class="citation" data-cites="Porttinari">(<a href="../../shared/referencias/referencias.html#ref-Porttinari" role="doc-biblioref">Pardo et al., 2021</a>)</span>. O Portparser faz anotação de Part-of-Speech (PoS), identificação de lemas, extração de características morfológicas e anotação de relações de dependência.</p>
+<p>O desempenho para o português é de 99% de precisão para anotação de PoS, lema e atributos morfológicos, enquanto a precisão para a anotação de dependências supera 95% de LAS (Labeled Attachment Score), que é a métrica mais tradicional da tarefa de parsing <span class="citation" data-cites="nivre-fang-2017-universal">(<a href="../../shared/referencias/referencias.html#ref-nivre-fang-2017-universal" role="doc-biblioref">Nivre; Fang, 2017</a>)</span>, sendo o estado da arte conhecido no momento para a língua portuguesa.</p>
+<p>A ferramenta que permite o uso do Portparser está disponível online<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>. A <a href="#fig-cap-recursos-sintaxe-fig18" class="quarto-xref">Figura&nbsp;<span>7.6</span></a> apresenta a captura da tela de entrada do Portparser. O Portparser foi projetado para receber textos em português e executar segmentação sentencial, tokenização e as anotações do modelo citadas (PoS, lema, características morfológicas e relações de dependência).</p>
+<div id="fig-cap-recursos-sintaxe-fig18" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.6: Captura da tela de entrada da ferramenta online Portparser
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image18.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p>O Portparser aceita entrada de sentenças isoladas (Single sentence) ou upload de arquivo com diversas sentenças (Multiple sentences). No caso de entrada de um arquivo com diversas sentenças, o Portparser oferece a possibilidade de executar a segmentação sentencial do texto ou considerar que o texto já foi segmentado e possui uma sentença por linha.</p>
+<p>O resultado da utilização do Portparser pode ser visto na <a href="#fig-cap-recursos-sintaxe-fig19" class="quarto-xref">Figura&nbsp;<span>7.7</span></a>, onde a sentença “Gostei da variedade e da qualidade” foi anotada. A anotação produzida pode ser visualizada através da árvore de dependência (Tree), como na <a href="#fig-cap-recursos-sintaxe-fig19" class="quarto-xref">Figura&nbsp;<span>7.7</span></a>, mas também por uma tabela com o conteúdo do arquivo CoNLL-U (Table) na <a href="#fig-cap-recursos-sintaxe-fig20" class="quarto-xref">Figura&nbsp;<span>7.8</span></a> ou como um texto puro com o arquivo CoNLL-U (Raw) na <a href="#fig-cap-recursos-sintaxe-fig21" class="quarto-xref">Figura&nbsp;<span>7.9</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig19" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.7: Execução do Portparser para a sentença “Gostei da variedade e da qualidade.” visualizando a árvore de dependência gerada.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image19.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<div id="fig-cap-recursos-sintaxe-fig20" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.8: Execução do Portparser para a sentença “Gostei da variedade e da qualidade.” visualizando os campos do formato CoNLL-U gerado em forma de tabela.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image20.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<div id="fig-cap-recursos-sintaxe-fig21" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.9: Execução do Portparser para a sentença “Gostei da variedade e da qualidade.” visualizando os campos do formato CoNLL-U gerado em forma de texto puro.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image21.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+<p></p>
+<p><strong>O Parser LX</strong></p>
+<p>O Parser LX, ferramenta integrante do PORTULAN CLARIN<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>, é parte integrante de um portal de acesso a infraestrutura de tecnologia linguística no escopo do projeto internacional CLARIN ERIC<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>.</p>
+<p>O Parser LX é disponibilizado tanto para <em>parsing</em> de constituência<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> como de dependência, este último em duas versões: LX-DepParser<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a> e LX-UDParser<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a></p>
+<p>A interface é simples e amigável, tendo como entrada uma sentença que o usuário pode digitar em campo próprio ou um arquivo que deverá ser importado.</p>
+<p>A <a href="#fig-cap-recursos-sintaxe-fig6" class="quarto-xref">Figura&nbsp;<span>7.10</span></a> mostra uma captura de tela da interface do Parser LX de constituência.</p>
+<div id="fig-cap-recursos-sintaxe-fig6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.10: Captura de tela mostrando a interface do <em>parser</em> de constituência LX.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image15.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Como vemos na <a href="#fig-cap-recursos-sintaxe-fig6" class="quarto-xref">Figura&nbsp;<span>7.10</span></a>, o <em>parser</em> tem como saída uma visualização na forma de árvore, denominada “amigável” (em inglês, <em>friendly)</em>, ou uma representação parentética ou entre parênteses/colchetes ou ainda uma representação na forma tabular.</p>
+<p>Para a sentença “Emma Watson postou uma foto com Daniel Radcliffe”, o <em>parser</em> gera a árvore de constituência apresentada na <a href="#fig-cap-recursos-sintaxe-fig7" class="quarto-xref">Figura&nbsp;<span>7.11</span></a></p>
+<div id="fig-cap-recursos-sintaxe-fig7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.11: Diagrama de árvore de constituência gerado pelo <em>parser</em> LX.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image4.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+</figure>
+</div>
+<p>No que diz respeito à sintaxe de dependência, LX possui duas versões, sendo uma delas adaptada ao formato Universal Dependencies, apresentado no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao" target="_blank" title="Volume 1">A ordem e a função das palavras em uma sentença</a></span>.</p>
+<p>A <a href="#fig-cap-recursos-sintaxe-fig8" class="quarto-xref">Figura&nbsp;<span>7.12</span></a> mostra uma captura de tela da interface do Parser LX de dependência no formato UD.</p>
+<div id="fig-cap-recursos-sintaxe-fig8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.12: Captura de tela mostrando a interface do <em>parser</em> de dependência LX.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image13.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Como a tela mostra, a saída do <em>parser</em> pode ser na forma de visualização com setas, denominada “amigável” ou no formato CoNLL-U, que é um formato próprio para <em>parsing</em> de dependência, como vimos no <span>Capítulo <a href="https://brasileiraspln.com/bGl2cm8/4a-edicao/volume1/estrutura/cap-ordem-funcao/cap-ordem-funcao.html#sec-cap-ordem-funcao" target="_blank" title="Volume 1">A ordem e a função das palavras em uma sentença</a></span>.</p>
+<p>Para a sentença “Emma Watson postou uma foto com Daniel Radcliffe”, o <em>parser</em> gera a árvore de constituência apresentada na <a href="#fig-cap-recursos-sintaxe-fig9" class="quarto-xref">Figura&nbsp;<span>7.13</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.13: Diagrama com setas gerado pelo Parser LX.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image1.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p></p>
+<p><strong>O Parser VISL</strong><a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a></p>
+<p>O projeto VISL (do inglês, <em>Visual Interactive Syntax Learning</em>) é desenvolvido pelo <em>Institute of Language and Communication</em> (ISK) da <em>University of Southern Denmark</em>. O projeto disponibiliza recursos (<em>corpora)</em> e ferramentas, tais como <em>parsers</em> de constituência e dependência. A análise se baseia no <em>parser</em> PALAVRAS <span class="citation" data-cites="bick2000">(<a href="../../shared/referencias/referencias.html#ref-bick2000" role="doc-biblioref">Bick, 2000</a>)</span> e no <em>corpus</em> Floresta Sintá(c)tica.</p>
+<p>Para a sentença “Emma Watson postou uma foto com Daniel Radcliffe”, o <em>parser</em> gera a árvore de constituência apresentada na <a href="#fig-cap-recursos-sintaxe-fig10" class="quarto-xref">Figura&nbsp;<span>7.14</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.14: Diagrama de árvore de constituência gerado pelo <em>parser</em> VISL.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image14.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p><strong>O UDPipe</strong></p>
+<p>UDPipe é um conjunto de ferramentas (<em>toolkit</em>) e um serviço web que possibilita processar texto por meio de uma <em>pipeline</em> que inclui tokenização em palavras, etiquetagem de classe de palavra (PoS), lematização, e <em>parsing</em> de dependência. É desenvolvido pelo <em>Institute of Formal and Applied Linguistics</em> da <em>Faculty of Mathematics and Physics da Charles University</em> (República Tcheca). O padrão adotado é das Universal Dependencies e conta com modelos treinados para a maioria dos <em>treebanks</em> já anotados no formato UD. Além da interface web, altamente eficiente e amigável, é possível processar texto por meio de um script em Python.</p>
+<p>A <a href="#fig-cap-recursos-sintaxe-fig11" class="quarto-xref">Figura&nbsp;<span>7.15</span></a> mostra uma captura de tela da interface web do UDPipe, com a seleção do modelo Bosque para a língua portuguesa.</p>
+<div id="fig-cap-recursos-sintaxe-fig11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.15: Captura de tela mostrando a interface do UDPipe.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image6.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>A entrada pode ser texto digitado em um campo próprio ou um arquivo de texto e há três formatos de saída: diagrama arbóreo, formato CoNLL-U e formato tabular.</p>
+<p>Para a sentença “Emma Watson postou uma foto com Daniel Radcliffe”, o <em>parser</em> gera a árvore de dependência apresentada na <a href="#fig-cap-recursos-sintaxe-fig12" class="quarto-xref">Figura&nbsp;<span>7.16</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.16: Diagrama de árvore de dependência gerado pelo UDPipe.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image11.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+</figure>
+</div>
+<p></p>
+</section>
+</section>
+</section>
+<section id="visualização-anotação-e-edição-de-treebanks" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="visualização-anotação-e-edição-de-treebanks"><span class="header-section-number">7.4</span> Visualização, anotação e edição de <em>treebanks</em></h2>
+<p>Há diversas ferramentas que permitem tanto a visualização de árvores de constituência e dependência, como a anotação de sentenças e a edição de sentenças já anotadas manualmente ou automaticamente.</p>
+<section id="árvores-de-constituência" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="árvores-de-constituência"><span class="header-section-number">7.4.1</span> Árvores de constituência</h3>
+<p>Há ferramentas web que oferecem uma visualização gráfica de diagrama de árvores a partir da notação entre colchetes ou parênteses dada como entrada pelo usuário.</p>
+<p>Uma dessas ferramentas é <em>Syntax Tree Generator</em> (Syntree)<a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref"><sup>31</sup></a>, a qual dada uma entrada com notação em colchetes, gera um diagrama de árvore como mostrado na <a href="#fig-cap-recursos-sintaxe-fig13" class="quarto-xref">Figura&nbsp;<span>7.17</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig13" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.17: Visualização de diagrama de árvore de constituência pela ferramenta Syntree.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image3.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+</figure>
+</div>
+<p>Ferramentas semelhantes à Syntax Tree Generator são:</p>
+<ul>
+<li>Jssyntaxtree (<em>Dynamic JavaScript version of phpSyntaxTree</em>)<a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref"><sup>32</sup></a></li>
+<li>RSyntaxTree (escrita na linguagem de programação Ruby)<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a></li>
+</ul>
+</section>
+<section id="árvores-de-dependência" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="árvores-de-dependência"><span class="header-section-number">7.4.2</span> Árvores de dependência</h3>
+<section id="visualização-de-sentenças-anotadas" class="level4" data-number="7.4.2.1">
+<h4 data-number="7.4.2.1" class="anchored" data-anchor-id="visualização-de-sentenças-anotadas"><span class="header-section-number">7.4.2.1</span> Visualização de sentenças anotadas</h4>
+<p>Há ferramentas web que oferecem uma visualização gráfica de diagrama de árvores a partir do arquivo em formato CoNLL-U dado como entrada pelo usuário. Por exemplo, a ferramenta Grew Web possibilita carregar um arquivo CoNLL-U e visualizar o diagrama de relações de dependência, como mostrado na <a href="#fig-cap-recursos-sintaxe-fig14" class="quarto-xref">Figura&nbsp;<span>7.18</span></a>.</p>
+<div id="fig-cap-recursos-sintaxe-fig14" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.18: Visualização de diagrama de árvore de dependência pela ferramenta Grew Web.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image8.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Uma ferramenta semelhante à Grew Web é CoNLL-U Viewer.<a href="#fn34" class="footnote-ref" id="fnref34" role="doc-noteref"><sup>34</sup></a></p>
+</section>
+<section id="buscas-em-treebanks" class="level4" data-number="7.4.2.2">
+<h4 data-number="7.4.2.2" class="anchored" data-anchor-id="buscas-em-treebanks"><span class="header-section-number">7.4.2.2</span> Buscas em <em>treebanks</em></h4>
+<p>Há ferramentas web de busca em <em>treebanks</em> anotados com relações de dependência. Esse é o caso da ferramenta Grew Match, que possibilita o acesso a 245 <em>treebanks</em> e distintos tipos de busca (por exemplo: por palavra, lema, etiqueta de PoS, etiqueta de relação de dependência, ngramas de palavras, lemas e PoS etc.). A <a href="#fig-cap-recursos-sintaxe-fig15" class="quarto-xref">Figura&nbsp;<span>7.19</span></a> mostra uma captura de tela com os resultados de uma busca pela palavra “foto” no <em>treebank</em> de dissertações e teses em português brasileiro no domínio do petróleo Petrogold.</p>
+<div id="fig-cap-recursos-sintaxe-fig15" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.19: Captura de tela da ferramenta Grew Match.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image2.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>Uma ferramenta semelhante à Grew Match é TüNDRA (<em>Tübingen aNnotated Data Retrieval Application</em>).<a href="#fn35" class="footnote-ref" id="fnref35" role="doc-noteref"><sup>35</sup></a></p>
+</section>
+<section id="anotação-e-edição-manual-de-relações-de-dependência" class="level4" data-number="7.4.2.3">
+<h4 data-number="7.4.2.3" class="anchored" data-anchor-id="anotação-e-edição-manual-de-relações-de-dependência"><span class="header-section-number">7.4.2.3</span> Anotação e edição manual de relações de dependência</h4>
+<p>Para editar arquivos CoNLL-U previamente anotados de forma manual ou automática, uma das ferramentas mais utilizadas é ArboratorGrew<a href="#fn36" class="footnote-ref" id="fnref36" role="doc-noteref"><sup>36</sup></a>, que possui uma versão customizada no Brasil pela equipe do ICMC da USP: Arborator-Grew-NILC<a href="#fn37" class="footnote-ref" id="fnref37" role="doc-noteref"><sup>37</sup></a>. Essa ferramenta permite gerenciar projetos individuais e coletivos de anotação, bem como serve de plataforma instrucional para cursos e treinamentos em anotação de sintaxe de dependência. A <a href="#fig-cap-recursos-sintaxe-fig16" class="quarto-xref">Figura&nbsp;<span>7.20</span></a> mostra a interface da ferramenta no momento de edição de uma das etiquetas de PoS.</p>
+<div id="fig-cap-recursos-sintaxe-fig16" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.20: Captura de tela no momento de edição de etiqueta de PoS na ferramenta Arborator-Grew-NILC.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image12.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p>A ferramenta Arborator Grew recebe como entrada arquivos CoNLL-U e possibilita a exportação dos arquivos CoNLL-U editados, bem como das imagens dos diagramas de dependência.</p>
+<p>Há muitas outras ferramentas de visualização, consulta, anotação e edição de sintaxe de dependência. Nos últimos anos, o projeto Universal Dependencies vem a atualizando a lista de ferramentas disponíveis, a qual pode ser consultada no site do projeto<a href="#fn38" class="footnote-ref" id="fnref38" role="doc-noteref"><sup>38</sup></a>.</p>
+</section>
+</section>
+<section id="anotação-de-corpus-em-múltiplos-níveis" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="anotação-de-corpus-em-múltiplos-níveis"><span class="header-section-number">7.4.3</span> Anotação de <em>corpus</em> em múltiplos níveis</h3>
+<p>Há ferramentas que permitem a anotação de sintaxe juntamente com a anotação em outros níveis, como é o caso de entidades nomeadas, relações entre entidades, correferência e outras. Uma das ferramentas mais robustas disponíveis atualmente e com interface amigável e INCEpTION<a href="#fn39" class="footnote-ref" id="fnref39" role="doc-noteref"><sup>39</sup></a>, desenvolvida pelo <em>Ubiquitous Knowledge Processing (UKP) Lab</em> do <em>Department of Computer Science</em> da <em>Technische Universität Darmstadt</em> <span class="citation" data-cites="tubiblio106270">(<a href="../../shared/referencias/referencias.html#ref-tubiblio106270" role="doc-biblioref">Klie et al., 2018</a>)</span>.</p>
+<p>INCEpTION é apresentada como um ambiente computacional e plataforma de anotação semântica. É uma aplicação web que permite que vários anotadores trabalhem num mesmo projeto, sendo que a instalação é feita na máquina local do anotador, que utiliza a ferramenta por meio de um arquivo executável java e um <em>localhost</em>. Possui esquemas prontos de anotação de PoS e relações de dependência e permite anotar várias sentenças e as relações de correferência e outras relações entre elas, como ilustrado na <a href="#fig-cap-recursos-sintaxe-fig17" class="quarto-xref">Figura&nbsp;<span>7.21</span></a>.</p>
+<p>A <a href="#fig-cap-recursos-sintaxe-fig17" class="quarto-xref">Figura&nbsp;<span>7.21</span></a> mostra uma captura de tela com anotação em múltiplos níveis na ferramenta.</p>
+<div id="fig-cap-recursos-sintaxe-fig17" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-recursos-sintaxe-fig17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.21: Captura de tela com anotação em múltiplos níveis na ferramenta INCEpTION.
+</figcaption>
+<div aria-describedby="fig-cap-recursos-sintaxe-fig17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="media/image16.png" class="img-fluid figure-img">
+</div>
+</figure>
+</div>
+<p></p>
+</section>
+</section>
+<section id="sec-cap-recursos-sintaxe-consideracoes-finais" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-cap-recursos-sintaxe-consideracoes-finais"><span class="header-section-number">7.5</span> Considerações finais</h2>
+<p>No cenário de PLN, a análise sintática desempenha um papel importante na compreensão e interpretação de textos. Como vimos, várias bibliotecas e ferramentas foram propostas para trabalhar com a língua portuguesa, oferecendo soluções para a análise sintática de sentenças. A interseção entre linguística computacional e programação torna a análise sintática acessível mesmo para aqueles que não são especialistas em PLN, abrindo portas para uma compreensão mais profunda dos textos em língua portuguesa e sua estrutura intrínseca.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-Abney1992" class="csl-entry" role="listitem">
+ABNEY, S. P. <a href="https://doi.org/10.1007/978-94-011-3474-3_10">Parsing By Chunks</a>. Em: BERWICK, R. C.; ABNEY, S. P.; TENNY, C. (Eds.). <strong>Principle-Based Parsing: Computation and Psycholinguistics</strong>. Dordrecht: Springer Netherlands, 1992. p. 257–278.
+</div>
+<div id="ref-alencar_2012" class="csl-entry" role="listitem">
+ALENCAR, L. F. DE. <a href="https://doi.org/10.1590/S1981-57942012000200008">Donatus: uma interface amigável para o estudo da sintaxe formal utilizando a biblioteca em Python do NLTK</a>. <strong>Alfa: Revista de Linguística (São José do Rio Preto)</strong>, v. 56, n. 2, p. 523–555, jul. 2012.
+</div>
+<div id="ref-bick2000" class="csl-entry" role="listitem">
+BICK, E. <strong><a href="https://edu.visl.dk/~eckhard/pdf/PLP20-amilo.ps.pdf">The Parsing System "Palavras": Automatic Grammatical Analysis of Portuguese in a Constraint Grammar Framework</a></strong>. tese de doutorado—[s.l.] Aarhus University Press, Denmark; University of Arhus, 2000.
+</div>
+<div id="ref-duran-EtAl-2023" class="csl-entry" role="listitem">
+DURAN, M. S. et al. <strong>The Dawn of the Porttinari Multigenre Treebank: Introducing its Journalistic Portion</strong>. Anais do XIV Simpósio Brasileiro de Tecnologia da Informação e da Linguagem Humana. <strong>Anais</strong>...Porto Alegre, RS, Brasil: SBC, 2023. Disponível em: &lt;<a href="https://sol.sbc.org.br/index.php/stil/article/view/25443">https://sol.sbc.org.br/index.php/stil/article/view/25443</a>&gt;
+</div>
+<div id="ref-jurafsky2023" class="csl-entry" role="listitem">
+JURAFSKY, D.; MARTIN, J. H. <strong>Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition</strong>. 3rd. ed. USA: Prentice Hall PTR, 2023.
+</div>
+<div id="ref-tubiblio106270" class="csl-entry" role="listitem">
+KLIE, J.-C. et al. <strong>The INCEpTION Platform: Machine-Assisted and Knowledge-Oriented Interactive Annotation</strong>. Proceedings of the 27th International Conference on Computational Linguistics: System Demonstrations. <strong>Anais</strong>...Santa Fe, USA: Association for Computational Linguistics, 2018. Disponível em: &lt;<a href="http://tubiblio.ulb.tu-darmstadt.de/106270/">http://tubiblio.ulb.tu-darmstadt.de/106270/</a>&gt;
+</div>
+<div id="ref-lopes-pardo-2024-towards" class="csl-entry" role="listitem">
+LOPES, L.; PARDO, T. <strong>Towards Portparser - a highly accurate parsing system for <span>B</span>razilian <span>P</span>ortuguese following the <span>U</span>niversal <span>D</span>ependencies framework</strong>. (P. Gamallo et al., Eds.)Proceedings of the 16th International Conference on Computational Processing of Portuguese - Vol. 1. <strong>Anais</strong>...Santiago de Compostela, Galicia/Spain: Association for Computational Lingustics, mar. 2024. Disponível em: &lt;<a href="https://aclanthology.org/2024.propor-1.41">https://aclanthology.org/2024.propor-1.41</a>&gt;
+</div>
+<div id="ref-curupira-parser" class="csl-entry" role="listitem">
+MARTINS, R.; NUNES, M. DAS G. V.; HASEGAWA, R. <strong>Curupira: A Functional Parser for Brazilian Portuguese</strong>. (N. J. Mamede et al., Eds.)Computational Processing of the Portuguese Language. <strong>Anais</strong>...Berlin, Heidelberg: Springer Berlin Heidelberg, 2003.
+</div>
+<div id="ref-nivre-fang-2017-universal" class="csl-entry" role="listitem">
+NIVRE, J.; FANG, C.-T. <strong><span>U</span>niversal <span>D</span>ependency Evaluation</strong>. (M.-C. de Marneffe, J. Nivre, S. Schuster, Eds.)Proceedings of the <span>N</span>o<span>D</span>a<span>L</span>i<span>D</span>a 2017 Workshop on Universal Dependencies (<span>UDW</span> 2017). <strong>Anais</strong>...Gothenburg, Sweden: Association for Computational Linguistics, 2017. Disponível em: &lt;<a href="https://aclanthology.org/W17-0411">https://aclanthology.org/W17-0411</a>&gt;
+</div>
+<div id="ref-depclinbr" class="csl-entry" role="listitem">
+OLIVEIRA, L. F. A. DE et al. <strong>Challenges In Annotating A Treebank Of Clinical Narratives In Brazilian Portuguese</strong>. Computational Processing of the Portuguese Language: 15th International Conference, PROPOR 2022, Fortaleza, Brazil, March 21–23, 2022, Proceedings. <strong>Anais</strong>...Berlin, Heidelberg: Springer-Verlag, 2022. Disponível em: &lt;<a href="https://doi.org/10.1007/978-3-030-98305-5_9">https://doi.org/10.1007/978-3-030-98305-5_9</a>&gt;
+</div>
+<div id="ref-Porttinari" class="csl-entry" role="listitem">
+PARDO, T. et al. <strong>Porttinari - a Large Multi-genre Treebank for Brazilian Portuguese</strong>. Anais do XIII Simpósio Brasileiro de Tecnologia da Informação e da Linguagem Humana. <strong>Anais</strong>...Porto Alegre, RS, Brasil: SBC, 2021. Disponível em: &lt;<a href="https://sol.sbc.org.br/index.php/stil/article/view/17778">https://sol.sbc.org.br/index.php/stil/article/view/17778</a>&gt;
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://www.linguateca.pt/Floresta/corpus.html" class="uri">https://www.linguateca.pt/Floresta/corpus.html</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.linguateca.pt/Floresta/principal.html" class="uri">https://www.linguateca.pt/Floresta/principal.html</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://universaldependencies.org/treebanks/pt_bosque/index.html" class="uri">https://universaldependencies.org/treebanks/pt_bosque/index.html</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="http://cintil.ul.pt/" class="uri">http://cintil.ul.pt/</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://universaldependencies.org/treebanks/pt_cintil/index.html" class="uri">https://universaldependencies.org/treebanks/pt_cintil/index.html</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://universaldependencies.org/treebanks/pt_petrogold/index.html" class="uri">https://universaldependencies.org/treebanks/pt_petrogold/index.html</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://c4ai.inova.usp.br/" class="uri">https://c4ai.inova.usp.br/</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://sites.google.com/icmc.usp.br/poetisa/the-project" class="uri">https://sites.google.com/icmc.usp.br/poetisa/the-project</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://sites.google.com/icmc.usp.br/poetisa/resources-and-tools" class="uri">https://sites.google.com/icmc.usp.br/poetisa/resources-and-tools</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Mac-Morpho: <a href="http://www.nilc.icmc.usp.br/macmorpho/" class="uri">http://www.nilc.icmc.usp.br/macmorpho/</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Brazilian Stock Market Tweets with Emotions|Kaggle: <a href="https://www.kaggle.com/datasets/fernandojvdasilva/stock-tweets-ptbr-emotions" class="uri">https://www.kaggle.com/datasets/fernandojvdasilva/stock-tweets-ptbr-emotions</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://opencor.gitlab.io/corpora/real19b2wreviews01/" class="uri">https://opencor.gitlab.io/corpora/real19b2wreviews01/</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Corpus Porttinari: <a href="https://sites.google.com/icmc.usp.br/poetisa/porttinari" class="uri">https://sites.google.com/icmc.usp.br/poetisa/porttinari</a> <!--POeTiSA -- Resources and tools (google.com): <https://sites.google.com/icmc.usp.br/poetisa/resources-and-tools>--><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><a href="http://www.letras.ufmg.br/veredas/" class="uri">http://www.letras.ufmg.br/veredas/</a><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p><a href="http://www.nilc.icmc.usp.br/nilc/tools/curupira.html" class="uri">http://www.nilc.icmc.usp.br/nilc/tools/curupira.html</a><a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p><a href="https://sourceforge.net/projects/donatus/" class="uri">https://sourceforge.net/projects/donatus/</a><a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>PassPort (A Dependency Parsing Model for Portuguese | SpringerLink): <a href="https://link.springer.com/chapter/10.1007/978-3-319-99722-3_48" class="uri">https://link.springer.com/chapter/10.1007/978-3-319-99722-3_48</a><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>No entanto, vale ressaltar que o projeto foi desenvolvido em 2002 - 2004, de acordo com o site, e pode não estar mais disponível para ser obtido.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>NLTK :: <em>Natural Language Toolkit</em> <a href="https://www.nltk.org" class="uri">https://www.nltk.org</a><a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p><a href="https://spacy.io/" class="uri">https://spacy.io/</a><a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p><a href="https://stanfordnlp.github.io/stanza/index.html" class="uri">https://stanfordnlp.github.io/stanza/index.html</a><a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p>Cabe esclarecer que embora o Stanford forneça um modelo treinado para língua portuguesa, que pode ser utilizado pelas bibliotecas Python, na interface online deste projeto não há suporte para o idioma português.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p><a href="https://sites.google.com/icmc.usp.br/poetisa" class="uri">https://sites.google.com/icmc.usp.br/poetisa</a><a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p><a href="http://portparser.icmc.usp.br:8082/" class="uri">http://portparser.icmc.usp.br:8082/</a><a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p><a href="https://portulanclarin.net/" class="uri">https://portulanclarin.net/</a><a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p><a href="https://www.clarin.eu/" class="uri">https://www.clarin.eu/</a><a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p><a href="https://portulanclarin.net/workbench/lx-parser/" class="uri">https://portulanclarin.net/workbench/lx-parser/</a><a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn28"><p><a href="https://portulanclarin.net/workbench/lx-depparser/" class="uri">https://portulanclarin.net/workbench/lx-depparser/</a><a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn29"><p><a href="https://portulanclarin.net/workbench/lx-udparser/" class="uri">https://portulanclarin.net/workbench/lx-udparser/</a><a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn30"><p><a href="https://visl.sdu.dk/visl/about/" class="uri">https://visl.sdu.dk/visl/about/</a><a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn31"><p><a href="https://mshang.ca/syntree/" class="uri">https://mshang.ca/syntree/</a><a href="#fnref31" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn32"><p><a href="https://ironcreek.net/syntaxtree/" class="uri">https://ironcreek.net/syntaxtree/</a><a href="#fnref32" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn33"><p><a href="https://yohasebe.com/rsyntaxtree/" class="uri">https://yohasebe.com/rsyntaxtree/</a><a href="#fnref33" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn34"><p><a href="https://universaldependencies.org/conllu_viewer.html" class="uri">https://universaldependencies.org/conllu_viewer.html</a><a href="#fnref34" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn35"><p><a href="https://weblicht.sfs.uni-tuebingen.de/Tundra/" class="uri">https://weblicht.sfs.uni-tuebingen.de/Tundra/</a><a href="#fnref35" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn36"><p><a href="https://arboratorgrew.elizia.net/#/" class="uri">https://arboratorgrew.elizia.net/#/</a><a href="#fnref36" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn37"><p><a href="https://arborator.icmc.usp.br/#/" class="uri">https://arborator.icmc.usp.br/#/</a><a href="#fnref37" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn38"><p><a href="https://universaldependencies.org/tools.html" class="uri">https://universaldependencies.org/tools.html</a><a href="#fnref38" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn39"><p><a href="https://inception-project.github.io/" class="uri">https://inception-project.github.io/</a><a href="#fnref39" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../estrutura/cap-ordem-funcao/cap-ordem-funcao.html" class="pagination-link" aria-label="A ordem e a função das palavras em uma sentença">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">A ordem e a função das palavras em uma sentença</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../significado/cap-significado/cap-significado.html" class="pagination-link" aria-label="E o significado?">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">E o significado?</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://brasileiraspln.com/">
+<p>Brasileiras em PLN, 2026. Todos os direitos reservados</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
