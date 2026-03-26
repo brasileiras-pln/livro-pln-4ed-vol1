@@ -579,7 +579,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" aria-label="Toggle callout" data-bs-target=".callout-cite-contents" aria-controls="callout-cite" aria-expanded="false">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-cite-contents" aria-expanded="false" aria-label="Toggle callout" aria-controls="callout-cite">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -590,7 +590,7 @@ Como citar
 <i class="callout-toggle"></i>
 </div>
 </div>
-<div class="callout-cite-contents callout-collapse collapse" id="callout-cite">
+<div id="callout-cite" class="callout-cite-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@InCollection{BPLN_livro_cap-transdutivo:2026,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    author    = {Silva, Nataly Leopoldina Patti da and Roman, Norton Trevisan},</span>
@@ -658,7 +658,7 @@ Figura&nbsp;17.3: Processo de Dedução. A partir de um conjunto de observaçõe
 </div>
 </figure>
 </div>
-<p>Em conjunto, indução e dedução formam a base do treinamento de modelos supervisionados. Ao treinarmos, olhamos os dados e induzimos uma relação <span class="math inline">\(\hat{Y} = f(X_1, \ldots, X_n)\)</span> entre eles. Para verificar a plausibilidade de nossa indução, aplicamos <span class="math inline">\(\hat{Y}\)</span> aos valores de <span class="math inline">\(\{X_1, \ldots, X_n\}\)</span> em pontos não vistos – o conjunto de teste (<a href="#fig-cap-transdutivo-inducao-deducao" class="quarto-xref">Figura&nbsp;<span>17.4</span></a>). Se a função induzida for uma estimativa boa, então seu resultado deve ficar próximo, dentro de uma segurança estatística, do valor de <span class="math inline">\(Y\)</span> nesses novos dados. Essa é a parte da dedução.</p>
+<p>Em conjunto, indução e dedução formam a base do treinamento de modelos supervisionados. Ao treinarmos, olhamos os dados e induzimos uma relação <span class="math inline">\(\hat{Y} = f(X_1, \ldots, X_n)\)</span> entre eles. Para verificar a plausibilidade de nossa indução, aplicamos f() <!--$\hat{Y}$--> aos valores de <span class="math inline">\(\{X_1, \ldots, X_n\}\)</span> em pontos não vistos – o conjunto de teste (<a href="#fig-cap-transdutivo-inducao-deducao" class="quarto-xref">Figura&nbsp;<span>17.4</span></a>). Se a função induzida for uma estimativa boa, então seu resultado deve ficar próximo, dentro de uma segurança estatística, do valor de <span class="math inline">\(Y\)</span> nesses novos dados. Essa é a parte da dedução.</p>
 <div id="fig-cap-transdutivo-inducao-deducao" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cap-transdutivo-inducao-deducao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -723,6 +723,7 @@ Figura&nbsp;17.6: No aprendizado indutivo, uma relação entre as variáveis pre
 </div>
 </figure>
 </div>
+<p></p>
 <p>Formalmente<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, o aprendizado transdutivo parte de um conjunto de <span class="math inline">\(m\)</span> instâncias:</p>
 <p><span class="math display">\[S = \{s_{1}, s_{2}, \ldots, s_{m}\}\]</span></p>
 <p>e de uma coleção de <span class="math inline">\(m\)</span> vetores de características <span class="math inline">\(X\)</span>, em que cada <span class="math inline">\(x_i \in X, 1 \leq i \leq m\)</span> é associado à sua instância correspondente <span class="math inline">\(s_i \in S\)</span>:</p>
@@ -772,7 +773,7 @@ Figura&nbsp;17.7: Processo de propagação de rótulos em um grafo. Partindo de 
 <figcaption class="figure-caption">
 <p>Algoritmo 17.1: Técnica de Propagação de Rótulos <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span></p>
 </figcaption>
-<p><img src="../../algxpar/pseudocode.e6dfbfaa1d2ba38a7a5af9576d1272f529a219e0.svg" class="img-fluid" alt="Algoritmo 17.1: Técnica de Propagação de Rótulos [@Chapelle2006]" width="648"></p>
+<p><img src="../../algxpar/pseudocode.8e1869647db3f7f47519d07f077fe5aae897999d.svg" class="img-fluid" alt="Algoritmo 17.1: Técnica de Propagação de Rótulos [@Chapelle2006]" width="648"></p>
 </div>
 </div>
 </div>
@@ -788,13 +789,13 @@ Figura&nbsp;17.7: Processo de propagação de rótulos em um grafo. Partindo de 
 <figcaption class="figure-caption">
 <p>Algoritmo 17.2: Técnica de Espalhamento de Rótulos <span class="citation" data-cites="Chapelle2006">(<a href="../../shared/referencias/referencias.html#ref-Chapelle2006" role="doc-biblioref">Chapelle et al., 2006</a>)</span></p>
 </figcaption>
-<p><img src="../../algxpar/pseudocode.4c29f2637ac7b89d217dfae2af7cc3fb6f67376b.svg" class="img-fluid" alt="Algoritmo 17.2: Técnica de Espalhamento de Rótulos [@Chapelle2006]" width="648"></p>
+<p><img src="../../algxpar/pseudocode.e32986469ea1b202e72987f9711a960a2b035983.svg" class="img-fluid" alt="Algoritmo 17.2: Técnica de Espalhamento de Rótulos [@Chapelle2006]" width="648"></p>
 </div>
 </div>
 </div>
 </div>
 <p>Essas técnicas transdutivas baseadas em grafos são especialmente relevantes em tarefas como classificação de documentos, análise de sentimentos, categorização de tópicos ou outras em que há grande volume de dados não anotados e recursos limitados para anotação manual <span class="citation" data-cites="jafarlou2024reducinglabelingcostssentiment">(<a href="../../shared/referencias/referencias.html#ref-jafarlou2024reducinglabelingcostssentiment" role="doc-biblioref">Jafarlou; Kubek, 2025</a>)</span>. Um exemplo ilustrativo da utilidade do aprendizado transdutivo em PLN pode ser observado na tarefa de análise de sentimentos em resenhas de usuários <span class="citation" data-cites="review-sent-trans">(<a href="../../shared/referencias/referencias.html#ref-review-sent-trans" role="doc-biblioref">Marcacini et al., 2018</a>)</span>. Suponha que temos um pequeno conjunto de resenhas rotuladas e um grande volume de resenhas não rotuladas. Nesse cenário, é possível construir um grafo ou uma rede onde cada nó (rotulado ou não) representa uma resenha.</p>
-<p>Utilizando então algoritmos como <em>Label Propagation</em> ou <em>Label Spreading</em>, os rótulos das resenhas anotadas são propagados pelo grafo para os nós não rotulados. O resultado é a atribuição de pseudo-rótulos às resenhas originalmente sem anotação. Dessa forma, esses métodos demonstram como o aprendizado transdutivo pode ser uma solução eficaz e escalável para problemas do mundo real, onde a rotulação de dados em larga escala é um desafio constante.</p>
+<p>Utilizando então algoritmos como Propagação ou Espalhamento de Rótulos, os rótulos das resenhas anotadas são propagados pelo grafo para os nós não rotulados. O resultado é a atribuição de pseudo-rótulos às resenhas originalmente sem anotação. Dessa forma, esses métodos demonstram como o aprendizado transdutivo pode ser uma solução eficaz e escalável para problemas do mundo real, onde a rotulação de dados em larga escala é um desafio constante.</p>
 </section>
 <section id="sec-cap-transdutivo-adaptacao" class="level3" data-number="17.3.2">
 <h3 data-number="17.3.2" class="anchored" data-anchor-id="sec-cap-transdutivo-adaptacao"><span class="header-section-number">17.3.2</span> Adaptação de modelos supervisionados</h3>
@@ -829,14 +830,14 @@ Figura&nbsp;17.8: Transboot <span class="citation" data-cites="belhasin2023trans
 <figcaption class="figure-caption">
 <p>Algoritmo 17.3: Aplicação do Método Transdutivo por meio da alteração da função de custo (adaptado de <span class="citation" data-cites="belhasin2023transboostimprovingbestimagenet">(<a href="../../shared/referencias/referencias.html#ref-belhasin2023transboostimprovingbestimagenet" role="doc-biblioref">Belhasin et al., 2022</a>)</span>)</p>
 </figcaption>
-<p><img src="../../algxpar/pseudocode.1c96d526ef89a03ae2a04f1439fe737b885aa6fa.svg" class="img-fluid" alt="Algoritmo 17.3: Aplicação do Método Transdutivo por meio da alteração da função de custo (adaptado de [@belhasin2023transboostimprovingbestimagenet])" width="648"></p>
+<p><img src="../../algxpar/pseudocode.d55cdaccc2bf05297a7e1001dae3e0d58ca00df7.svg" class="img-fluid" alt="Algoritmo 17.3: Aplicação do Método Transdutivo por meio da alteração da função de custo (adaptado de [@belhasin2023transboostimprovingbestimagenet])" width="648"></p>
 </div>
 </div>
 </div>
 </div>
 <p>Para tal aplicação, o objetivo do aprendizado é minimizar a função de custo <span class="math inline">\(L\)</span> durante o ajuste fino do modelo <span class="math inline">\(f_{\theta}\)</span>, a partir um conjunto de dados rotulados <span class="math inline">\(X_{treino} = \{(x_{1}, y_{1}), ..., (x_{r}, y_{r})\}\)</span> e de um conjunto finito de dados não rotulados <span class="math inline">\(X_{teste} = \{x_{r+1}, .., x_{r+n}\}\)</span>. Este objetivo é dado por:</p>
 <p><span class="math display">\[L(X_{treino}, Y_{treino}, X_{teste} | f_{\theta}, S, \delta, k ) = \frac{1}{R}\sum_{n=1}^{R} \underbrace{l(f_{\theta}(x_{i}), y_{i})}_\text{perda indutiva} + \lambda \cdot \underbrace{l_{Transdutivo}(X_{teste}|f_{\theta}, S, \delta, k)}_\text{perda\_transdutiva}\]</span></p>
-<p>onde o primeiro termo representa uma função de perda indutiva padrão, enquanto no segundo é introduzido o termo transdutivo junto com <span class="math inline">\(\lambda\)</span> representando um hiper-parâmetro de regularização.</p>
+<p>onde o primeiro termo representa uma função de perda indutiva padrão, enquanto no segundo é introduzido o termo transdutivo junto com <span class="math inline">\(\lambda\)</span>, representando um hiper-parâmetro de regularização.</p>
 <p>Para ajudar no entendimento dessa adaptação transdutiva, vamos analisar um exemplo simples, em que um conjunto de dados contendo dois pontos, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, possui rótulos <span class="math inline">\(y_1\)</span> e <span class="math inline">\(y_2\)</span>, respectivamente, pertencentes a duas classes <span class="math inline">\(C = \{0, 1\}\)</span>. A esse conjunto rotulado é adicionado um conjunto não rotulado, contendo também dois exemplos. Um modelo pré-treinado é então ajustado nesses dados, e sua predição durante o ajuste fino, para cada um deles é:</p>
 <ul>
 <li><p><span class="math inline">\(x_1\)</span>, com <span class="math inline">\(y_1 = 1\)</span> e predição do modelo <span class="math inline">\(f_{\theta}(x_1) = [0{,}2; 0{,}8]\)</span></p></li>
@@ -881,7 +882,7 @@ Figura&nbsp;17.8: Transboot <span class="citation" data-cites="belhasin2023trans
 <p><span class="math display">\[l_{\text{Transdutivo}} = k(x_3) \cdot k(x_4) \cdot \delta(x_3, x_4) \cdot S(x_3, x_4) = 0{,}6 \cdot 0{,}7 \cdot 1 \cdot 0{,}9827 = 0{,}4127\]</span></p>
 <p>Esse valor representa uma penalidade adicional para o modelo, considerando o desacordo entre exemplos não rotulados que são similares (do ponto de vista das predições) mas foram pseudo-rotulados de forma distinta pelo modelo auxiliar. Por fim, considerando o hiperparâmetro <span class="math inline">\(\lambda = 1\)</span>, a função de custo total será:</p>
 <p><span class="math display">\[L = L_{\text{indutiva}} + \lambda \cdot l_{\text{Transdutivo}} = 0{,}29 + 0{,}4127 = 0{,}7027\]</span></p>
-<p>Como podemos observar na <a href="#tbl-cap-transdutivo-comparacao_custo" class="quarto-xref">Tabela&nbsp;<span>17.1</span></a>, o custo total aumenta com a adição do termo transdutivo. Essa penalidade extra força o modelo a ajustar melhor suas predições para evitar que exemplos não rotulados, sejam rotulados de forma incoerente, especialmente quando o modelo auxiliar está confiante nas predições.</p>
+<p>Como podemos observar na <a href="#tbl-cap-transdutivo-comparacao_custo" class="quarto-xref">Tabela&nbsp;<span>17.1</span></a>, o custo total aumenta com a adição do termo transdutivo. Essa penalidade extra força o modelo a ajustar melhor suas predições para evitar que exemplos não rotulados sejam rotulados de forma incoerente, especialmente quando o modelo auxiliar está confiante nas predições.</p>
 <p></p>
 <div id="tbl-cap-transdutivo-comparacao_custo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -920,7 +921,7 @@ Tabela&nbsp;17.1: Comparação entre a função de custo padrão e a função co
 <section id="avaliação-dos-dados-anotados" class="level3" data-number="17.3.3">
 <h3 data-number="17.3.3" class="anchored" data-anchor-id="avaliação-dos-dados-anotados"><span class="header-section-number">17.3.3</span> Avaliação dos dados anotados</h3>
 <p>A confiança nos rótulos artificiais gerados pelo método transdutivo precisa ser avaliada para evitar a propagação de erros e garantir a consistência dos dados anotados. Nesse sentido, uma forma inicial de avaliação é baseada na <strong>Confiança nas Predições</strong>, ou seja, o valor da confiança do modelo nas predições realizadas para os exemplos não rotulados. Isso é normalmente extraído da distribuição de confiança da camada de saída do modelo, podendo ser feito considerando como predições corretas aquelas a partir de um limiar ou também considerando uma margem mínima entre as duas classes com maiores confianças <span class="citation" data-cites="fixmatch-trans-eval-confidence">(<a href="../../shared/referencias/referencias.html#ref-fixmatch-trans-eval-confidence" role="doc-biblioref">Sohn et al., 2020</a>)</span>.</p>
-<p>A qualidade dos pseudo-rótulos também pode ser verificada por meio de sua consistência com instâncias similares, chamada de <strong>Consistência Semântica Local</strong>. Isso pode ser feito verificando se os vizinhos mais próximos de um exemplo (no espaço vetorial do modelo) possuem o mesmo pseudo-rótulos ou agrupar os <em>embeddings</em> e medir se os rótulos atribuídos coincidem com os agrupamentos naturais dos dados <span class="citation" data-cites="botzer2023tkknnbalanceddistancebasedpseudo">(<a href="../../shared/referencias/referencias.html#ref-botzer2023tkknnbalanceddistancebasedpseudo" role="doc-biblioref">Botzer et al., 2023</a>)</span>.</p>
+<p>A qualidade dos pseudo-rótulos também pode ser verificada por meio de sua consistência com instâncias similares, chamada de <strong>Consistência Semântica Local</strong>. Isso pode ser feito verificando se os vizinhos mais próximos de um exemplo (no espaço vetorial do modelo) possuem os mesmos pseudo-rótulos ou agrupar os <em>embeddings</em> e medir se os rótulos atribuídos coincidem com os agrupamentos naturais dos dados <span class="citation" data-cites="botzer2023tkknnbalanceddistancebasedpseudo">(<a href="../../shared/referencias/referencias.html#ref-botzer2023tkknnbalanceddistancebasedpseudo" role="doc-biblioref">Botzer et al., 2023</a>)</span>.</p>
 <p>Alternativamente, é possível realizar uma <strong>avaliação manual amostral</strong>. Embora mais custosa, a avaliação humana de uma amostra dos pseudo-rótulos gerados é uma forma direta e confiável de verificar sua qualidade. Esta pode ser feita em duas etapas principais:</p>
 <ul>
 <li><p><strong>Seleção de uma amostra de exemplos representativos:</strong> selecionar exemplos de diferentes níveis de confiança, classes e regiões do espaço vetorial para revisão manual.</p></li>
