@@ -502,6 +502,7 @@ div.csl-indent {
   <li><a href="#um-breve-histórico-do-pln" id="toc-um-breve-histórico-do-pln" class="nav-link" data-scroll-target="#um-breve-histórico-do-pln"><span class="header-section-number">1.3</span> Um breve histórico do PLN</a></li>
   <li><a href="#sec-cap-introducao-sec3" id="toc-sec-cap-introducao-sec3" class="nav-link" data-scroll-target="#sec-cap-introducao-sec3"><span class="header-section-number">1.4</span> Os Paradigmas de PLN</a></li>
   <li><a href="#sec-cap-introducao-sec4" id="toc-sec-cap-introducao-sec4" class="nav-link" data-scroll-target="#sec-cap-introducao-sec4"><span class="header-section-number">1.5</span> Vale a pena relembrar</a></li>
+  <li><a href="#sec-cap-introducao-exercicios" id="toc-sec-cap-introducao-exercicios" class="nav-link" data-scroll-target="#sec-cap-introducao-exercicios"><span class="header-section-number">1.6</span> Exercícios de fixação</a></li>
   </ul>
 </nav>
     </div>
@@ -558,7 +559,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" aria-controls="callout-cite" aria-label="Toggle callout" data-bs-target=".callout-cite-contents" aria-expanded="false" data-bs-toggle="collapse">
+<div class="callout-header d-flex align-content-center" aria-expanded="false" data-bs-toggle="collapse" aria-label="Toggle callout" data-bs-target=".callout-cite-contents" aria-controls="callout-cite">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -734,6 +735,94 @@ Figura&nbsp;1.3: Timeline do PLN
 <li><strong>A maioria das estratégias processa caracteres e não unidades linguísticas</strong>. Muitas estratégias geram modelos com base em coocorrência e contexto de ocorrência de palavras e frases, ou seja, são abordagens baseadas em padrões de caracteres. Um modelo neural, por exemplo, não sabe que “casa” pode significar o lugar onde “alguém” mora. Desse modo, podemos dizer que as estratégias usadas na maioria das aplicações do PLN não aprendem a língua, mas apenas aprendem a reproduzir e, às vezes, extrapolar (generalizar) o que aprenderam em um <em>corpus</em> de treinamento.</li>
 <li>Muita atenção tem sido dada aos algoritmos de aprendizado de máquina e às arquiteturas neurais, mas <strong>nem tanta atenção assim tem sido dada aos formalismos de representação semântica</strong>. Como vimos, nos diversos anos de pesquisa e desenvolvimento em PLN, as estratégias e abordagens vão e vêm, mas a linguagem natural é muito mais complexa de se aprender e compreender do que uma simples contagem de frequências e coocorrências. Assim, apesar de muito esforço sendo empregado na investigação e evolução de métodos neurais, o conhecimento linguístico e de uso da língua ainda não foi completamente representado/capturado por nenhum dos métodos atuais. Por isso, o processamento completo e adequado da língua só será possível com formalismos de representação híbridos, que incorporam também estruturas semânticas explícitas, e, portanto, mais robustos do que os que são usados hoje por métodos estatísticos e neurais.</li>
 </ul>
+</section>
+<section id="sec-cap-introducao-exercicios" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="sec-cap-introducao-exercicios"><span class="header-section-number">1.6</span> Exercícios de fixação<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></h2>
+<!-- ## 1.1 Introdução -->
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+1. Quais são as duas principais subáreas do Processamento de Linguagem Natural (PLN) e qual a diferença fundamental entre elas?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta:</strong> As duas principais subáreas do PLN são a Interpretação de Linguagem Natural (NLU) e a Geração de Linguagem Natural (NLG). A NLU está relacionada ao processamento, análise e compreensão do significado de textos ou falas, ou seja, busca entender o que uma expressão linguística significa. Já a NLG tem como objetivo gerar linguagem natural, como quando um sistema elabora uma resposta textual para a pergunta de um usuário. Enquanto a NLU foca em interpretar, a NLG foca em produzir linguagem.</p>
+</div>
+</div>
+</div>
+<!-- ## 1.2 A língua -->
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+2. No contexto do Processamento de Linguagem Natural (PLN), qual é a diferença entre ‘texto’ e ‘fala’, e como a linguagem é estruturada em subáreas de estudo?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta:</strong> Em PLN, ‘texto’ refere-se predominantemente à língua escrita, ou seja, sequências de caracteres que constroem significados, enquanto ‘fala’ designa a linguagem oral. O estudo da linguagem é estruturado em subáreas como fonética e fonologia (sons), morfologia (formação de palavras), sintaxe (organização das palavras em frases), semântica (significado), pragmática (uso comunicativo) e discurso (análise do texto como um todo). Essas áreas se complementam e são frequentemente integradas em abordagens computacionais.</p>
+</div>
+</div>
+</div>
+<!-- ## 1.3 Um breve histórico do PLN -->
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+3. Quais são as principais diferenças conceituais entre o racionalismo e o empirismo no contexto do desenvolvimento do Processamento de Linguagem Natural (PLN)?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta:</strong> O racionalismo defende que parte significativa do conhecimento linguístico é inata, herdada geneticamente, como propõe Noam Chomsky com a ideia de gramática universal. Já o empirismo sustenta que o aprendizado linguístico deriva da experiência, sem conhecimento pré-determinado, enfatizando a capacidade de generalização a partir de dados observados. No PLN, o racionalismo está associado ao paradigma simbólico, enquanto o empirismo se relaciona ao paradigma estatístico e neural, este último dominante atualmente.</p>
+</div>
+</div>
+</div>
+<!-- ## 1.4 Os Paradigmas de PLN -->
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+4. Quais são as principais diferenças entre os paradigmas simbólico, estatístico e neural em Processamento de Linguagem Natural (PLN)?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta:</strong> O paradigma simbólico representa o conhecimento linguístico por meio de regras e símbolos explícitos, compreensíveis ao ser humano, como regras de concordância gramatical. O paradigma estatístico utiliza grandes volumes de dados (<em>corpus</em>) para aprender padrões probabilísticos, criando modelos baseados na frequência de ocorrências, sem regras fixas. Já o paradigma neural emprega redes neurais profundas, que aprendem representações numéricas complexas dos dados, tornando o conhecimento menos explícito e mais opaco, pois não é possível rastrear facilmente como as decisões são tomadas.</p>
+</div>
+</div>
+</div>
+<!-- ## 1.5 Vale a pena relembrar -->
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+5. Quais são os principais desafios e limitações enfrentados pelas abordagens atuais de Processamento de Linguagem Natural (PLN) na compreensão da linguagem humana?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta:</strong> As abordagens atuais de PLN, sejam simbólicas, estatísticas ou neurais, possuem limitações inerentes. Muitas estratégias processam apenas padrões de caracteres e contextos de coocorrência, sem realmente compreender o significado linguístico das palavras ou frases. Além disso, a complexidade da linguagem natural não é totalmente capturada por métodos que dependem apenas de contagem de frequências ou aprendizado de padrões em grandes <em>corpora</em>. Por isso, para alcançar um processamento mais completo, são necessários formalismos híbridos que incorporem representações semânticas explícitas, algo que ainda não foi plenamente realizado pelas abordagens predominantes na atualidade.</p>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list" style="display: none">
@@ -742,6 +831,9 @@ FIRTH, J. R. The technique of semantics. <strong>Transactions of the philologica
 </div>
 <div id="ref-freitas2022lingcomp" class="csl-entry" role="listitem">
 FREITAS, C. <strong><a href="https://www.parabolaeditorial.com.br/linguistica-computacional-les-13">Linguística Computacional</a></strong>. [s.l.] Parábola Editorial, 2022.
+</div>
+<div id="ref-Julia_PROPOR2026" class="csl-entry" role="listitem">
+JUNQUEIRA, J. DA R.; FREITAS, L. DE; CORRÊA, U. <strong>LARI Dataset: A Native Dataset for Context-Aware Question Answering in Portuguese</strong>. Proceeding of the 17th International Conference on Computational Processing of Portuguese (PROPOR 2026). <strong>Anais</strong>...2026.
 </div>
 <div id="ref-jurafsky2008" class="csl-entry" role="listitem">
 JURAFSKY, D.; MARTIN, J. H. <strong>Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition</strong>. 2. ed. [s.l.] Prentice Hall, 2008. p. 988
@@ -758,6 +850,7 @@ JURAFSKY, D.; MARTIN, J. H. <strong>Speech and Language Processing: An Introduct
 <li id="fn5"><p><a href="https://sol.sbc.org.br/index.php/stil/issue/archive" class="uri">https://sol.sbc.org.br/index.php/stil/issue/archive</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p><a href="https://www.sbc.org.br/processamento-de-linguagem-natural/" class="uri">https://www.sbc.org.br/processamento-de-linguagem-natural/</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p><a href="https://brasileiraspln.com/" class="uri">https://brasileiraspln.com/</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>As perguntas e respostas foram geradas pelo modelo de linguagem Sabiá (versão 4), por meio de <em>prompts</em> especificados pela colaboradora Júlia da Rocha Junqueira, e revisadas pelas autoras. Para saber mais sobre a estratégia adotada na geração das perguntas e respostas, consulte <span class="citation" data-cites="Julia_PROPOR2026">(<a href="../../shared/referencias/referencias.html#ref-Julia_PROPOR2026" role="doc-biblioref">Junqueira et al., 2026</a>)</span>. Agradecemos à <a href="https://www.maritaca.ai/">Maritaca.AI</a> por disponibilizar o acesso ao Sabiá que permitiu gerar a primeira versão das perguntas e respostas apresentadas neste capítulo.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
